@@ -1,0 +1,27 @@
+{
+  "descricao": "dicionário de dados dos agregados por setores (versão 20/05/2026, a mais recente)",
+  "fonte": "IBGE — Censo Demográfico 2022 (ftp.ibge.gov.br)",
+  "instituicao": "IBGE — Instituto Brasileiro de Geografia e Estatística",
+  "ano_censo": "2022",
+  "categoria": "documentacao",
+  "url": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/dicionario_de_dados_agregados_por_setores_censitarios_20260520.xlsx",
+  "last_modified_origem": "Tue, 12 May 2026 21:29:48 GMT",
+  "tamanho_bytes": 118369,
+  "sha256": "0b8aedece57f6125d785b6aa2234cfd587e92dfb6ce5ca6ace8c67f140831344",
+  "licenca": "Dados públicos do IBGE. Declaração literal na raiz dos dois hosts que serviram os arquivos — https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "data_download_original": "2026-09-20T16:11:55+00:00",
+  "data_copia": "2026-09-20T20:19:02.031181+00:00",
+  "transformacao_aplicada": "nenhuma — arquivo guardado exatamente como veio do servidor do IBGE; a cópia preserva bytes e datas (shutil.copy2)",
+  "origem_da_copia": {
+    "nota": "Este arquivo NÃO foi baixado por este repositório: veio por CÓPIA do projeto REVIA_BG (~/projetos/rede_viaria_bage), que o baixou da fonte oficial do IBGE em 2026-09-20. O sha256 da cópia foi conferido contra o da origem e contra o registrado no manifesto de origem.",
+    "projeto": "REVIA_BG (~/projetos/rede_viaria_bage)",
+    "caminho_no_projeto_de_origem": "dados/externos/censo/2022/documentacao/dicionario_de_dados_agregados_por_setores_censitarios_20260520.xlsx",
+    "caminho_absoluto_na_maquina_de_origem": "/home/agschafer/projetos/rede_viaria_bage/dados/externos/censo/2022/documentacao/dicionario_de_dados_agregados_por_setores_censitarios_20260520.xlsx",
+    "manifesto_de_origem": "dados/externos/censo/2022/manifesto_censo_2022.json",
+    "fonte_md_de_origem": "dados/externos/censo/2022/FONTE.md",
+    "sha256_no_manifesto_de_origem": "0b8aedece57f6125d785b6aa2234cfd587e92dfb6ce5ca6ace8c67f140831344",
+    "bytes_no_manifesto_de_origem": 118369,
+    "reaproveitado_no_download_original": false
+  },
+  "script_responsavel": "scripts/download/censo_revia_bg.py"
+}

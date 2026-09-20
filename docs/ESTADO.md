@@ -5,6 +5,116 @@ pendente. Entrada nova no topo.
 
 ---
 
+## 2026-09-20 — Censo 2000/2010/2022 e CNEFE 2022 importados do REVIA_BG (tag `censo_v1`)
+
+Importação **por cópia**, a partir de `~/projetos/rede_viaria_bage/dados/externos/censo/`
+(projeto REVIA_BG), que baixou os arquivos das fontes oficiais do IBGE em 20/09/2026.
+**Nada foi baixado por este repositório** e **nada foi escrito no REVIA_BG**: a origem foi
+aberta só para leitura.
+
+Script: `scripts/download/censo_revia_bg.py` (com `--dry-run`, idempotente, `--forcar` para
+recopiar, `--somente-metadados` para regerar os `.json`).
+
+### Cópia e conferência
+
+| item | valor |
+| --- | ---: |
+| arquivos copiados | **58** |
+| bytes copiados | **1.033.715.032** (985,8 MiB) |
+| arquivos de dado (com entrada em manifesto) | 51 |
+| arquivos de procedência que vieram junto (`FONTE.md`, `manifesto_censo*.json`) | 7 |
+| metadados `.json` irmãos gerados | 51 |
+
+Tamanho medido **antes** de copiar, como pedido: as tabelas de 2022 (recorte BR, por setor e
+por bairro) somam **577.556.141 bytes** — setores 509.176.073, bairros 28.068.832, mais dois
+`.xlsx`. Abaixo do limite de 2 GB, então a cópia seguiu sem parada.
+
+Quatro conferências, nenhuma dispensando as outras:
+
+1. **origem × manifesto de origem** — 51/51 arquivos de dado com o sha256 registrado nos
+   `manifesto_censo_<ano>.json` do REVIA_BG. Detecta origem já corrompida antes de copiar;
+2. **cópia × origem** — **58/58** com sha256 idêntico, e 1.033.715.032 bytes dos dois lados;
+3. **origem intocada** — 58/58 com o mesmo sha256 do início. Conferido também **fora do
+   script**, por `sha256sum` do shell contra uma linha de base tirada antes de qualquer
+   escrita: o digest do conjunto das 58 linhas é `3af2752609d82d54…` no início e no fim;
+4. **catálogo × disco** — os 9 `sha256` das linhas novas do catálogo conferidos contra o
+   arquivo correspondente em `data/raw/censo/`, 9/9.
+
+**Controle negativo** (uma comparação que dá zero só vale se o comparador detecta diferença):
+1 bit trocado no último byte de uma cópia descartável de `2000/malha/4301602.zip`, mesmo
+tamanho em bytes — sha256 passou de `39480d0035683aff…` para `d14f56b0be61aaa4…`,
+**detectado**. E um sha256 inexistente (`ffff…`) não casou com nenhum arquivo do manifesto,
+como tinha de ser.
+
+Datas preservadas (`shutil.copy2`, equivalente a `cp --preserve=timestamps`): conferido por
+amostra, `stat` da origem igual ao da cópia.
+
+Idempotência: a segunda execução registrou `copiados: 0 · já presentes e idênticos: 58`.
+
+### Catálogo de fontes
+
+**9 linhas novas**, uma por divulgação (não por arquivo), de `ibge_censo2000_agregado_setores`
+a `ibge_cnefe2022_coordenadas`. As 2 linhas pré-existentes ficaram **byte a byte iguais**.
+`python scripts/utils/validar_catalogos.py` → **rc=0** (1 aviso antigo, sobre
+`ibge_areas_territoriais` não ter script responsável). `testar_validador.py` → **4/4**.
+
+### Licença — o que foi confirmado e o que não foi
+
+Confirmada **na raiz dos dois hosts que serviram os arquivos**, `https://ftp.ibge.gov.br/` e
+`https://geoftp.ibge.gov.br/` (HTTP 200, 20/09/2026), com a frase literal:
+
+> "Todos os arquivos aqui disponíveis são públicos."
+
+**Não foi lida** a página formal de termos de uso do IBGE
+(`www.ibge.gov.br/acesso-informacao/acoes-e-programas/termos-de-uso.html`): respondeu
+**HTTP 403** — desafio Cloudflare —, com e sem cabeçalhos de navegador. Nada foi transcrito
+dela. O `autorizacao_para_republicar = sim` das nove linhas se apoia na declaração do FTP e
+na prática já adotada para as outras fontes IBGE do acervo; **se a página formal trouxer
+condição adicional, isso ainda não foi conferido.** Registrado também em
+`docs/ressalvas_censo_bage.md`.
+
+### Ressalvas registradas
+
+`docs/ressalvas_censo_bage.md` (novo) e o campo `observacoes` de cada linha do catálogo:
+soma dos setores fechando em 2022 (117.938, diferença 0) e não fechando em 2010 (−476, com
+4 setores da malha sem linha na tabela e **causa declarada em aberto**); a diferença de 2000
+(−874) sendo **de recorte, não erro**; o geocódigo **não** sendo identificador estável entre
+2010 e 2022 (só 141 dos 199 setores em 1:1); **Bagé não ter bairros** na divulgação de 2022,
+com controle negativo em Porto Alegre (99); e o CNEFE de Bagé (62.782 endereços, todos com
+coordenada, espécies 1 e 2 coincidindo exatamente com `v0003`/`v0004` do agregado por setores).
+
+### Decisões desta sessão, para revisão
+
+1. **Destino `data/raw/censo/`, não `data/externos/`.** A regra (iv) manda copiar camada *de
+   outro projeto* para `data/externos/`. Estes arquivos são **dado bruto do IBGE, como veio da
+   fonte**, apenas transportado pelo REVIA_BG — não são camada derivada dele —, então foram
+   para `data/raw/`, conforme pedido na especificação da sessão. A procedência da cópia está
+   registrada assim mesmo, em `origem_da_copia` de cada `.json` irmão, no
+   `manifesto_copia_censo.json` e nas 9 linhas do catálogo. **Se a leitura correta da regra
+   (iv) for `data/externos/`, a mudança é um `git mv` mais uma reexecução do script.**
+2. **Os 3 `FONTE.md` copiados não são versionados.** A regra do `.gitignore`
+   (`data/raw/**` com exceção só para `*.json` e `.gitkeep`) os ignora. Não mexi no
+   `.gitignore`, que é contrato declarado do repositório. A perda é pequena — o conteúdo
+   deles está em `docs/ressalvas_censo_bage.md` e os dados de procedência estão nos
+   manifestos versionados —, mas **é uma decisão do responsável** acrescentar
+   `!data/raw/**/FONTE.md` ou deixar como está.
+3. **Nada do Censo foi publicado no geoportal.** `data/geoportal/` não mudou, e nenhuma linha
+   foi acrescentada a `catalogo_camadas.csv`: não há camada derivada ainda, e a regra (vi)
+   exige conferência no mapa antes de congelar qualquer uma.
+
+### Pendências novas
+
+7. **Tabelas do Censo 2000 ainda não lidas** — `.XLS` legado (BIFF8), sem leitor no ambiente
+   do REVIA_BG. Aqui o `requirements.txt` também não tem `xlrd`. Os arquivos estão intactos.
+8. **CRS da malha de 2000 por decidir** — a urbana vem declarada em EPSG:32621 (UTM 21
+   **norte**, hemisfério errado) e a rural sem CRS. Decidir e registrar antes de qualquer
+   medição métrica; 7 das 127 geometrias urbanas são inválidas.
+9. **Causa dos 4 setores de 2010 sem linha na tabela** — em aberto. Até lá, a soma dos
+   setores de 2010 não serve como total municipal.
+10. **Termos de uso formais do IBGE não conferidos** — página atrás de Cloudflare.
+
+---
+
 ## 2026-09-20 — Criação do repositório (tag `estrutura_v1`)
 
 Criação do acervo do zero, em diretório vazio. Nenhum outro diretório foi

@@ -1,0 +1,27 @@
+{
+  "descricao": "referências metodológicas da malha de 2000",
+  "fonte": "IBGE — Censo Demográfico 2000 (geoftp.ibge.gov.br)",
+  "instituicao": "IBGE — Instituto Brasileiro de Geografia e Estatística",
+  "ano_censo": "2000",
+  "categoria": "documentacao",
+  "url": "https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_de_setores_censitarios__divisoes_intramunicipais/censo_2000/setor_rural/documentacao/referencias_metodologicas.zip",
+  "last_modified_origem": "Thu, 02 Jun 2016 19:37:06 GMT",
+  "tamanho_bytes": 34191,
+  "sha256": "6c9a5b8db5a034c20810c6422a6fd29c2807fb31256b88e75fae0f8da7a41479",
+  "licenca": "Dados públicos do IBGE. Declaração literal na raiz dos dois hosts que serviram os arquivos — https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "data_download_original": "2026-09-20T16:12:32+00:00",
+  "data_copia": "2026-09-20T20:19:01.865133+00:00",
+  "transformacao_aplicada": "nenhuma — arquivo guardado exatamente como veio do servidor do IBGE; a cópia preserva bytes e datas (shutil.copy2)",
+  "origem_da_copia": {
+    "nota": "Este arquivo NÃO foi baixado por este repositório: veio por CÓPIA do projeto REVIA_BG (~/projetos/rede_viaria_bage), que o baixou da fonte oficial do IBGE em 2026-09-20. O sha256 da cópia foi conferido contra o da origem e contra o registrado no manifesto de origem.",
+    "projeto": "REVIA_BG (~/projetos/rede_viaria_bage)",
+    "caminho_no_projeto_de_origem": "dados/externos/censo/2000/documentacao/referencias_metodologicas.zip",
+    "caminho_absoluto_na_maquina_de_origem": "/home/agschafer/projetos/rede_viaria_bage/dados/externos/censo/2000/documentacao/referencias_metodologicas.zip",
+    "manifesto_de_origem": "dados/externos/censo/2000/manifesto_censo_2000.json",
+    "fonte_md_de_origem": "dados/externos/censo/2000/FONTE.md",
+    "sha256_no_manifesto_de_origem": "6c9a5b8db5a034c20810c6422a6fd29c2807fb31256b88e75fae0f8da7a41479",
+    "bytes_no_manifesto_de_origem": 34191,
+    "reaproveitado_no_download_original": false
+  },
+  "script_responsavel": "scripts/download/censo_revia_bg.py"
+}

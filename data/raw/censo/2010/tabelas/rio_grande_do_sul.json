@@ -1,0 +1,27 @@
+{
+  "descricao": "TOTAL OFICIAL por município, 2010 (Resultados do Universo, ODS) — confere a soma dos setores",
+  "fonte": "IBGE — Censo Demográfico 2010 (ftp.ibge.gov.br)",
+  "instituicao": "IBGE — Instituto Brasileiro de Geografia e Estatística",
+  "ano_censo": "2010",
+  "categoria": "tabelas",
+  "url": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2010/Resultados_do_Universo/ods/Municipios/rio_grande_do_sul.zip",
+  "last_modified_origem": "Wed, 17 Aug 2016 14:02:12 GMT",
+  "tamanho_bytes": 7252014,
+  "sha256": "3079fe5e337da680b1895eae0c42dcc383eae59cae31e733e5bce8adf1cb9b27",
+  "licenca": "Dados públicos do IBGE. Declaração literal na raiz dos dois hosts que serviram os arquivos — https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "data_download_original": "2026-09-20T16:12:25+00:00",
+  "data_copia": "2026-09-20T20:19:01.987492+00:00",
+  "transformacao_aplicada": "nenhuma — arquivo guardado exatamente como veio do servidor do IBGE; a cópia preserva bytes e datas (shutil.copy2)",
+  "origem_da_copia": {
+    "nota": "Este arquivo NÃO foi baixado por este repositório: veio por CÓPIA do projeto REVIA_BG (~/projetos/rede_viaria_bage), que o baixou da fonte oficial do IBGE em 2026-09-20. O sha256 da cópia foi conferido contra o da origem e contra o registrado no manifesto de origem.",
+    "projeto": "REVIA_BG (~/projetos/rede_viaria_bage)",
+    "caminho_no_projeto_de_origem": "dados/externos/censo/2010/tabelas/rio_grande_do_sul.zip",
+    "caminho_absoluto_na_maquina_de_origem": "/home/agschafer/projetos/rede_viaria_bage/dados/externos/censo/2010/tabelas/rio_grande_do_sul.zip",
+    "manifesto_de_origem": "dados/externos/censo/2010/manifesto_censo_2010.json",
+    "fonte_md_de_origem": "dados/externos/censo/2010/FONTE.md",
+    "sha256_no_manifesto_de_origem": "3079fe5e337da680b1895eae0c42dcc383eae59cae31e733e5bce8adf1cb9b27",
+    "bytes_no_manifesto_de_origem": 7252014,
+    "reaproveitado_no_download_original": false
+  },
+  "script_responsavel": "scripts/download/censo_revia_bg.py"
+}

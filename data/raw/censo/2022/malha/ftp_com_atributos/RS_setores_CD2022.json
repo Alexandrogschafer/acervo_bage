@@ -1,0 +1,27 @@
+{
+  "descricao": "malha de setores 2022 COM os atributos do Censo, recorte RS",
+  "fonte": "IBGE — Censo Demográfico 2022 (ftp.ibge.gov.br)",
+  "instituicao": "IBGE — Instituto Brasileiro de Geografia e Estatística",
+  "ano_censo": "2022",
+  "categoria": "malha",
+  "url": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/malha_com_atributos/setores/gpkg/UF/RS/RS_setores_CD2022.gpkg",
+  "last_modified_origem": "Wed, 13 Nov 2024 18:23:47 GMT",
+  "tamanho_bytes": 57962496,
+  "sha256": "8d6c46bbc8d0690d85dfc10041e0e89ea23615b1c20ffc3cb4ab677d9536a943",
+  "licenca": "Dados públicos do IBGE. Declaração literal na raiz dos dois hosts que serviram os arquivos — https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "data_download_original": "2026-09-20T16:11:58+00:00",
+  "data_copia": "2026-09-20T20:19:02.061645+00:00",
+  "transformacao_aplicada": "nenhuma — arquivo guardado exatamente como veio do servidor do IBGE; a cópia preserva bytes e datas (shutil.copy2)",
+  "origem_da_copia": {
+    "nota": "Este arquivo NÃO foi baixado por este repositório: veio por CÓPIA do projeto REVIA_BG (~/projetos/rede_viaria_bage), que o baixou da fonte oficial do IBGE em 2026-09-20. O sha256 da cópia foi conferido contra o da origem e contra o registrado no manifesto de origem.",
+    "projeto": "REVIA_BG (~/projetos/rede_viaria_bage)",
+    "caminho_no_projeto_de_origem": "dados/externos/censo/2022/malha/ftp_com_atributos/RS_setores_CD2022.gpkg",
+    "caminho_absoluto_na_maquina_de_origem": "/home/agschafer/projetos/rede_viaria_bage/dados/externos/censo/2022/malha/ftp_com_atributos/RS_setores_CD2022.gpkg",
+    "manifesto_de_origem": "dados/externos/censo/2022/manifesto_censo_2022.json",
+    "fonte_md_de_origem": "dados/externos/censo/2022/FONTE.md",
+    "sha256_no_manifesto_de_origem": "8d6c46bbc8d0690d85dfc10041e0e89ea23615b1c20ffc3cb4ab677d9536a943",
+    "bytes_no_manifesto_de_origem": 57962496,
+    "reaproveitado_no_download_original": false
+  },
+  "script_responsavel": "scripts/download/censo_revia_bg.py"
+}

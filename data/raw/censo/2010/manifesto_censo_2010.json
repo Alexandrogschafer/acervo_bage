@@ -1,0 +1,63 @@
+{
+  "ano": "2010",
+  "fonte": "IBGE — ftp.ibge.gov.br e geoftp.ibge.gov.br",
+  "gerado_em": "2026-09-20T16:12:32+00:00",
+  "arquivos": [
+    {
+      "ano": "2010",
+      "categoria": "tabelas",
+      "url": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2010/Resultados_do_Universo/Agregados_por_Setores_Censitarios/RS_20260615.zip",
+      "nota": "agregados por setores 2010, recorte RS, versão 15/06/2026 (inclui entorno dos domicílios)",
+      "sub": "",
+      "last_modified": "Mon, 15 Jun 2026 11:37:18 GMT",
+      "bytes_servidor": 137504353,
+      "reaproveitado": false,
+      "bytes": 137504353,
+      "sha256": "952d751b5441416b164cd9129818c7d7c56853a4bfe827b928671679ca6fd93b",
+      "baixado_em": "2026-09-20T16:12:20+00:00",
+      "caminho": "dados/externos/censo/2010/tabelas/RS_20260615.zip"
+    },
+    {
+      "ano": "2010",
+      "categoria": "documentacao",
+      "url": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2010/Resultados_do_Universo/Agregados_por_Setores_Censitarios/Documentacao_Agregado_dos_Setores_2010_20231030.zip",
+      "nota": "documentação e dicionário dos agregados por setores 2010",
+      "sub": "",
+      "last_modified": "Mon, 30 Oct 2023 20:16:16 GMT",
+      "bytes_servidor": 34133643,
+      "reaproveitado": false,
+      "bytes": 34133643,
+      "sha256": "eccb3896d19c4e29c733fd8b63869a01fb6ac47281cb409c6f7daf81cc49bb5b",
+      "baixado_em": "2026-09-20T16:12:23+00:00",
+      "caminho": "dados/externos/censo/2010/documentacao/Documentacao_Agregado_dos_Setores_2010_20231030.zip"
+    },
+    {
+      "ano": "2010",
+      "categoria": "tabelas",
+      "url": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2010/Resultados_do_Universo/ods/Municipios/rio_grande_do_sul.zip",
+      "nota": "TOTAL OFICIAL por município, 2010 (Resultados do Universo, ODS) — confere a soma dos setores",
+      "sub": "",
+      "last_modified": "Wed, 17 Aug 2016 14:02:12 GMT",
+      "bytes_servidor": 7252014,
+      "reaproveitado": false,
+      "bytes": 7252014,
+      "sha256": "3079fe5e337da680b1895eae0c42dcc383eae59cae31e733e5bce8adf1cb9b27",
+      "baixado_em": "2026-09-20T16:12:25+00:00",
+      "caminho": "dados/externos/censo/2010/tabelas/rio_grande_do_sul.zip"
+    },
+    {
+      "ano": "2010",
+      "categoria": "malha",
+      "url": "https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_de_setores_censitarios__divisoes_intramunicipais/censo_2010/setores_censitarios_shp/rs/rs_setores_censitarios.zip",
+      "nota": "malha de setores censitários 2010 (urbanos e rurais), recorte RS",
+      "sub": "",
+      "last_modified": "Tue, 14 Jun 2016 19:42:44 GMT",
+      "bytes_servidor": 12729964,
+      "reaproveitado": false,
+      "bytes": 12729964,
+      "sha256": "c7f65e26bf0813a01795084391ca6211da499a6498b8e523d98390568414b3b0",
+      "baixado_em": "2026-09-20T16:12:26+00:00",
+      "caminho": "dados/externos/censo/2010/malha/rs_setores_censitarios.zip"
+    }
+  ]
+}

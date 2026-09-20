@@ -1,0 +1,27 @@
+{
+  "descricao": "CNEFE 2022, endereço a endereço, recorte MUNICÍPIO de Bagé",
+  "fonte": "IBGE — Censo Demográfico 2022 (ftp.ibge.gov.br)",
+  "instituicao": "IBGE — Instituto Brasileiro de Geografia e Estatística",
+  "ano_censo": "2022",
+  "categoria": "cnefe",
+  "url": "https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2022/Arquivos_CNEFE/CSV/Municipio/43_RS/4301602_BAGE.zip",
+  "last_modified_origem": "Mon, 20 May 2024 22:54:38 GMT",
+  "tamanho_bytes": 1343601,
+  "sha256": "3cb40d650571397ae6b6ba13c44aa9d09302408c1c3283994f468572635f278d",
+  "licenca": "Dados públicos do IBGE. Declaração literal na raiz dos dois hosts que serviram os arquivos — https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "data_download_original": "2026-09-20T16:29:53+00:00",
+  "data_copia": "2026-09-20T20:19:01.989479+00:00",
+  "transformacao_aplicada": "nenhuma — arquivo guardado exatamente como veio do servidor do IBGE; a cópia preserva bytes e datas (shutil.copy2)",
+  "origem_da_copia": {
+    "nota": "Este arquivo NÃO foi baixado por este repositório: veio por CÓPIA do projeto REVIA_BG (~/projetos/rede_viaria_bage), que o baixou da fonte oficial do IBGE em 2026-09-20. O sha256 da cópia foi conferido contra o da origem e contra o registrado no manifesto de origem.",
+    "projeto": "REVIA_BG (~/projetos/rede_viaria_bage)",
+    "caminho_no_projeto_de_origem": "dados/externos/censo/2022/cnefe/4301602_BAGE.zip",
+    "caminho_absoluto_na_maquina_de_origem": "/home/agschafer/projetos/rede_viaria_bage/dados/externos/censo/2022/cnefe/4301602_BAGE.zip",
+    "manifesto_de_origem": "dados/externos/censo/2022/manifesto_censo_2022.json",
+    "fonte_md_de_origem": "dados/externos/censo/2022/FONTE.md",
+    "sha256_no_manifesto_de_origem": "3cb40d650571397ae6b6ba13c44aa9d09302408c1c3283994f468572635f278d",
+    "bytes_no_manifesto_de_origem": 1343601,
+    "reaproveitado_no_download_original": null
+  },
+  "script_responsavel": "scripts/download/censo_revia_bg.py"
+}
