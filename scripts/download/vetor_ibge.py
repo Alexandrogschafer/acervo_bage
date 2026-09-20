@@ -2,8 +2,11 @@
 Baixa a malha municipal do IBGE e gera o arquivo de referência único da área
 de estudo do acervo:
 
-    config/area_estudo.geojson                              (EPSG:31981)
-    data/processed/limite-municipal_ibge_{ano}_municipal.gpkg   (produção)
+    config/area_estudo.geojson                                   (recorte de referência)
+    data/acervo/limites/limite-municipal_ibge_{ano}_municipal.gpkg  (acervo)
+
+Município, CRS e caminhos vêm todos de `config/config.yaml` via
+`scripts/utils/paths.py` — nada fixo neste arquivo.
 
 REGRA DE ORIGEM DO DADO
 -----------------------
@@ -19,9 +22,9 @@ usada aqui de propósito: o produto do geoftp traz os atributos oficiais
 Idempotente: o ZIP já baixado não é baixado de novo (a menos de --forcar), e
 a conferência é por sha256, não por data de arquivo local.
 
-Parametrizado por código IBGE (default 4301602 = Bagé/RS) — a UF é deduzida
-dos 2 primeiros dígitos do código, então o script roda para qualquer
-município do país sem edição.
+Parametrizado por código IBGE (default: o do config) — a UF é deduzida dos 2
+primeiros dígitos do código, então o script roda para qualquer município do
+país sem edição.
 
 Uso:
     python scripts/download/vetor_ibge.py
@@ -45,13 +48,15 @@ import requests
 RAIZ_PROJETO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(RAIZ_PROJETO))
 
+from scripts.utils import paths  # noqa: E402
 from scripts.utils.hashes import sha256_arquivo  # noqa: E402
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("vetor_ibge")
 
-CRS_PADRAO = "EPSG:31981"  # SIRGAS 2000 / UTM 21S
-CODIGO_IBGE_DEFAULT = "4301602"  # Bagé, RS
+# tudo vem do config — ver config/config.yaml
+CRS_PADRAO = paths.crs_producao()
+CODIGO_IBGE_DEFAULT = paths.codigo_ibge()
 
 # Único host autorizado para este script (ver "REGRA DE ORIGEM DO DADO").
 HOST_GEOFTP = "https://geoftp.ibge.gov.br/"
@@ -60,9 +65,9 @@ HOST_GEOFTP = "https://geoftp.ibge.gov.br/"
 RAIZ_NAVEGACAO = "organizacao_do_territorio/"
 CAMINHO_ESPERADO = ["malhas_territoriais/", "malhas_municipais/"]
 
-DIR_RAW_VETOR = RAIZ_PROJETO / "data" / "raw" / "vetor"
-DIR_PROCESSED = RAIZ_PROJETO / "data" / "processed"
-CAMINHO_AREA_ESTUDO = RAIZ_PROJETO / "config" / "area_estudo.geojson"
+DIR_RAW_VETOR = paths.caminho("raw_vetor")
+DIR_ACERVO_LIMITES = paths.caminho("acervo_limites")
+CAMINHO_AREA_ESTUDO = paths.area_estudo()
 
 # Códigos de UF do IBGE (2 primeiros dígitos do código municipal) -> sigla,
 # que é como os diretórios do geoftp são nomeados. Tabela fechada e estável
@@ -256,7 +261,8 @@ def main() -> None:
         description="Baixa a malha municipal do IBGE (geoftp) e gera a área de estudo."
     )
     parser.add_argument("--codigo-ibge", default=CODIGO_IBGE_DEFAULT,
-                        help="Código IBGE do município (default: 4301602, Bagé/RS)")
+                        help=f"Código IBGE do município (default: {CODIGO_IBGE_DEFAULT}, "
+                             f"{paths.nome_municipio()}/{paths.uf()} — vem do config)")
     parser.add_argument("--ano", default=None,
                         help="Edição da malha (default: a mais recente listada no geoftp)")
     parser.add_argument("--forcar", action="store_true",
@@ -314,17 +320,17 @@ def main() -> None:
     escrever_metadado(CAMINHO_AREA_ESTUDO, metadados_comuns)
     logger.info("área de estudo: %s", CAMINHO_AREA_ESTUDO.relative_to(RAIZ_PROJETO))
 
-    # 2) arquivo de produção (GeoPackage), conforme CLAUDE.md: produção em GPKG,
-    #    publicação (GeoJSON do portal) é gerada à parte por scripts/geoportal/
-    DIR_PROCESSED.mkdir(parents=True, exist_ok=True)
-    caminho_gpkg = DIR_PROCESSED / f"limite-municipal_ibge_{ano}_municipal.gpkg"
+    # 2) cópia do ACERVO (GeoPackage, CRS de produção). A publicação
+    #    (GeoJSON do portal) é gerada à parte por scripts/geoportal/.
+    DIR_ACERVO_LIMITES.mkdir(parents=True, exist_ok=True)
+    caminho_gpkg = DIR_ACERVO_LIMITES / f"limite-municipal_ibge_{ano}_municipal.gpkg"
     municipio.to_file(caminho_gpkg, driver="GPKG", layer="limite_municipal")
     escrever_metadado(caminho_gpkg, {
         **metadados_comuns,
-        "descricao": "Limite municipal — arquivo de PRODUÇÃO (GeoPackage).",
+        "descricao": "Limite municipal — cópia principal do ACERVO (GeoPackage).",
         "sha256": sha256_arquivo(caminho_gpkg),
     })
-    logger.info("produção: %s", caminho_gpkg.relative_to(RAIZ_PROJETO))
+    logger.info("acervo: %s", paths.relativo(caminho_gpkg))
 
     print()
     print(f"município ....... {nome_municipio} ({codigo})")

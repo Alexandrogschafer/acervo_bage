@@ -1,0 +1,33 @@
+# ---------------------------------------------------------------------------
+# manifesto.yaml — CONTRATO do estudo com o acervo
+#
+# Declara exatamente quais camadas do acervo este estudo consome e em que
+# estado elas estavam. É o que permite, meses depois, saber sobre qual dado um
+# resultado foi produzido.
+#
+# Esquema:
+#   estudo:           <REPO>-<id do diretório>
+#   pergunta:         a pergunta que o estudo responde (uma frase)
+#   camadas:          lista de entradas do acervo, cada uma:
+#                       - id: <id_camada em data/catalogo_camadas.csv>
+#                         versao: <versão fixada>
+#                         sha256: <sha256 do arquivo no momento em que foi fixado>
+#   referencias_bib:  chaves de bibliografia/bage.bib
+#   status:           reconhecimento | em-andamento | concluido
+#
+# Conferir com:
+#   python scripts/utils/indice.py      (gera docs/indice_camadas_estudos.md)
+#
+# Se o acervo mudar, a conferência acusa "divergente" — e NÃO corrige sozinha.
+# Atualizar o sha256 aqui é decisão do responsável, nunca automática: ela
+# declara que o resultado foi revisto sobre o dado novo.
+#
+# O estudo LÊ o acervo e nunca escreve nele. Saídas ficam em saidas/,
+# intermediários em derivados/ — os dois fora do git (ver .gitignore).
+# ---------------------------------------------------------------------------
+
+estudo: ACERVO_BAGE-A03_censo
+pergunta: "A DEFINIR — depende do reconhecimento dos dados"
+camadas: []        # - {id:, versao:, sha256:}
+referencias_bib: []
+status: "reconhecimento"

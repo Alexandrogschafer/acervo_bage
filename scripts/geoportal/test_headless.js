@@ -1,13 +1,12 @@
-// Teste headless (Playwright) do geoportal do Acervo Bagé.
-// Mesmo esquema do repositório ClimaPampa (uruguaiana-clima-saude): sobe um
-// servidor HTTP local — fetch() de GeoJSON não funciona em file:// — abre
-// index.html em Chromium headless e valida:
-//   - mapa Leaflet inicializado;
-//   - os 7 grupos temáticos presentes no painel;
-//   - a camada do limite municipal carregada a partir do catálogo e ativa
-//     no mapa, com o enquadramento caindo sobre Bagé;
-//   - os grupos ainda sem camada marcados como vazios (e não quebrados);
-//   - rodapé de fontes/licenças preenchido a partir do catálogo;
+// Teste headless (Playwright) do esqueleto do geoportal do ACERVO_BAGE.
+//
+// Sobe um servidor HTTP local (fetch() de GeoJSON não funciona em file://),
+// abre index.html em Chromium headless e valida:
+//   - mapa Leaflet inicializado e enquadrado sobre Bagé;
+//   - painel presente, com o aviso de que ainda não há camadas;
+//   - NENHUMA camada carregada — o esqueleto não publica nada, e um teste que
+//     não checa isso deixaria passar uma camada entrando sem catálogo;
+//   - evento `acervobage:mapa-pronto` disparado;
 //   - ausência de erros de JS/console.
 //
 // Uso: npm run test:geoportal
@@ -29,9 +28,7 @@ const MIME = {
   ".geojson": "application/json",
 };
 
-// bounding box aproximado do município de Bagé/RS — só para confirmar que o
-// fitBounds caiu no lugar certo (tolerância larga de propósito: é teste de
-// sanidade do enquadramento, não de precisão geométrica)
+// bounding box aproximado de Bagé/RS — sanidade do enquadramento, não precisão
 const BBOX_BAGE = { oeste: -55.2, leste: -53.3, sul: -31.9, norte: -30.7 };
 
 function serve() {
@@ -45,8 +42,9 @@ function serve() {
           res.end(`not found: ${filePath}`);
           return;
         }
-        const ext = path.extname(filePath);
-        res.writeHead(200, { "Content-Type": MIME[ext] || "application/octet-stream" });
+        res.writeHead(200, {
+          "Content-Type": MIME[path.extname(filePath)] || "application/octet-stream",
+        });
         res.end(data);
       });
     });
@@ -64,126 +62,72 @@ async function main() {
 
   const consoleErrors = [];
   const pageErrors = [];
-
   page.on("console", (msg) => {
     if (msg.type() === "error") consoleErrors.push(msg.text());
   });
   page.on("pageerror", (err) => pageErrors.push(String(err)));
 
+  // registra o evento antes do carregamento, senão ele dispara antes do listener
+  await page.addInitScript(() => {
+    window.__mapaPronto = false;
+    window.addEventListener("acervobage:mapa-pronto", () => {
+      window.__mapaPronto = true;
+    });
+  });
+
   console.log(`Abrindo ${baseUrl}`);
   await page.goto(baseUrl, { waitUntil: "networkidle" });
-  await page.waitForTimeout(1500);
+  await page.waitForTimeout(1200);
+
+  const centro = await page.evaluate(() => {
+    const c = window.App.map.getCenter();
+    return { lat: c.lat, lng: c.lng };
+  });
 
   const checks = {
-    tituloOk: (await page.title()) === "Acervo Bagé — Geoportal Bagé/RS",
+    tituloOk: (await page.title()) === "ACERVO_BAGE — Geoportal",
 
     mapaLeafletPresente: await page.evaluate(() => {
       const el = document.getElementById("mapa");
       return !!(el && el.classList.contains("leaflet-container"));
     }),
 
-    gruposTematicosPresentes: await page.evaluate(() => {
-      const esperados = ["territorio", "urbano", "mobilidade", "saude",
-                         "educacao", "ambiente", "nao-espacial"];
-      return esperados.every((chave) => !!document.querySelector(`.grupo[data-grupo="${chave}"]`));
-    }),
+    eventoMapaProntoDisparado: await page.evaluate(() => window.__mapaPronto === true),
 
-    alternanciaMapaSatelitePresente: await page.evaluate(
-      () => !!document.getElementById("radio-base-mapa") && !!document.getElementById("radio-base-satelite")
+    painelPresente: await page.evaluate(
+      () => !!document.getElementById("painel") && !!document.getElementById("camadas")
     ),
 
-    limiteMunicipalNoCatalogo: await page.evaluate(
-      () => !!(window.App && window.App.layers && window.App.layers.limite_municipal)
-    ),
-
-    limiteMunicipalAtivoNoMapa: await page.evaluate(
-      () => window.App.map.hasLayer(window.App.layers.limite_municipal)
-    ),
-
-    limiteMunicipalComGeometria: await page.evaluate(() => {
-      let feicoes = 0;
-      window.App.layers.limite_municipal.eachLayer(() => {
-        feicoes += 1;
-      });
-      return feicoes === 1;
+    avisoSemCamadasVisivel: await page.evaluate(() => {
+      const el = document.querySelector(".aviso");
+      return !!el && el.textContent.includes("ainda sem camadas");
     }),
 
-    checkboxTerritorioMontado: await page.evaluate(
-      () => document.querySelectorAll("#camadas-territorio input[type=checkbox]").length === 1
+    // o esqueleto NÃO publica camada: App.layers tem que estar vazio
+    nenhumaCamadaCarregada: await page.evaluate(
+      () => window.App && Object.keys(window.App.layers).length === 0
     ),
 
-    gruposVaziosMarcados: await page.evaluate(() => {
-      const vazios = ["urbano", "mobilidade", "saude", "educacao", "ambiente", "nao-espacial"];
-      return vazios.every((tema) => {
-        const el = document.getElementById(`camadas-${tema}`);
-        return !!el && !!el.querySelector(".grupo-vazio");
-      });
-    }),
-
-    rodapeFontesPreenchido: await page.evaluate(() => {
-      const el = document.getElementById("rodape-fontes");
-      if (!el) return false;
-      const blocos = el.querySelectorAll(".fonte-bloco");
-      const temLicenca = el.textContent.includes("Licença:");
-      return blocos.length === 1 && temLicenca;
-    }),
+    enquadramentoSobreBage:
+      centro.lng > BBOX_BAGE.oeste && centro.lng < BBOX_BAGE.leste &&
+      centro.lat > BBOX_BAGE.sul && centro.lat < BBOX_BAGE.norte,
   };
 
-  // o fitBounds usa a geometria real da camada: se caiu sobre Bagé, o GeoJSON
-  // certo foi carregado e reprojetado corretamente para 4326
-  const centro = await page.evaluate(() => {
-    const c = window.App.map.getCenter();
-    return { lat: c.lat, lng: c.lng };
-  });
-  checks.enquadramentoSobreBage =
-    centro.lng > BBOX_BAGE.oeste && centro.lng < BBOX_BAGE.leste &&
-    centro.lat > BBOX_BAGE.sul && centro.lat < BBOX_BAGE.norte;
-
-  // alternância mapa/satélite muda mesmo a camada base
-  await page.click("#radio-base-satelite");
-  await page.waitForTimeout(400);
-  checks.satelitesAtivaAoClicar = await page.evaluate(
-    () => window.App.map.hasLayer(window.App.baseLayers["Satélite"]) &&
-          !window.App.map.hasLayer(window.App.baseLayers.Mapa)
-  );
-  await page.click("#radio-base-mapa");
-  await page.waitForTimeout(400);
-  checks.mapaVoltaAoClicar = await page.evaluate(
-    () => window.App.map.hasLayer(window.App.baseLayers.Mapa)
-  );
-
-  // desligar/ligar a camada pelo checkbox
-  await page.click("#camadas-territorio input[type=checkbox]");
-  await page.waitForTimeout(300);
-  checks.checkboxDesligaCamada = await page.evaluate(
-    () => !window.App.map.hasLayer(window.App.layers.limite_municipal)
-  );
-  await page.click("#camadas-territorio input[type=checkbox]");
-  await page.waitForTimeout(300);
-  checks.checkboxReligaCamada = await page.evaluate(
-    () => window.App.map.hasLayer(window.App.layers.limite_municipal)
-  );
-
   await page.screenshot({ path: SCREENSHOT_PATH, fullPage: false });
-
   await browser.close();
   server.close();
 
   console.log("\n=== Checagens funcionais ===");
   console.log(JSON.stringify(checks, null, 2));
-  console.log(`\ncentro do mapa após fitBounds: ${centro.lat.toFixed(4)}, ${centro.lng.toFixed(4)}`);
-
+  console.log(`\ncentro do mapa: ${centro.lat.toFixed(4)}, ${centro.lng.toFixed(4)}`);
   console.log("\n=== Erros de console ===");
   console.log(consoleErrors.length ? consoleErrors.join("\n") : "(nenhum)");
-
   console.log("\n=== Exceções JS de página ===");
   console.log(pageErrors.length ? pageErrors.join("\n") : "(nenhuma)");
-
   console.log(`\nScreenshot: ${SCREENSHOT_PATH}`);
 
-  const reprovadas = Object.entries(checks).filter(([, ok]) => !ok).map(([nome]) => nome);
-  const ok = reprovadas.length === 0 && consoleErrors.length === 0 && pageErrors.length === 0;
-  if (!ok) {
+  const reprovadas = Object.entries(checks).filter(([, ok]) => !ok).map(([n]) => n);
+  if (reprovadas.length || consoleErrors.length || pageErrors.length) {
     if (reprovadas.length) console.error(`\nChecagens reprovadas: ${reprovadas.join(", ")}`);
     console.error("FALHOU");
     process.exitCode = 1;

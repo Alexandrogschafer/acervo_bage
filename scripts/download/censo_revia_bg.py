@@ -16,10 +16,14 @@ projeto. Este script é a implementação dessa regra para o Censo: nunca abre
 nada da origem para escrita, e confere o sha256 da origem antes e depois da
 cópia — se a origem mudou durante a execução, aborta.
 
-O destino é `data/raw/censo/`, e não `data/externos/`, porque estes arquivos
-são **dado bruto do IBGE, como veio da fonte**, apenas transportado pelo
-REVIA_BG: não são camada derivada de outro projeto. A procedência da cópia
-fica registrada em cada `.json` irmão (`origem_da_copia`) e no catálogo.
+O destino é `data/acervo/censo/`, e não `data/externos/`, porque estes
+arquivos são **dado bruto do IBGE, como veio da fonte**, apenas transportado
+pelo REVIA_BG: não são camada derivada de outro projeto, e `censo` é um dos
+temas do acervo. A procedência da cópia fica registrada em cada `.json` irmão
+(`origem_da_copia`) e no catálogo.
+
+(Antes da reestruturação de 2026-09-20 o destino era `data/raw/censo/`; os
+arquivos foram movidos, não rebaixados.)
 
 Conferências (nenhuma delas dispensa as outras):
 
@@ -59,7 +63,7 @@ ORIGEM_PADRAO = Path.home() / "projetos" / "rede_viaria_bage" / "dados" / "exter
 ORIGEM_PROJETO = "REVIA_BG (~/projetos/rede_viaria_bage)"
 ORIGEM_RELATIVA = "dados/externos/censo"
 
-DESTINO = RAIZ_PROJETO / "data" / "raw" / "censo"
+DESTINO = RAIZ_PROJETO / "data" / "acervo" / "censo"
 
 ANOS = ("2000", "2010", "2022")
 SCRIPT_RESPONSAVEL = "scripts/download/censo_revia_bg.py"

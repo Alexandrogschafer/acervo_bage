@@ -26,11 +26,12 @@ from pathlib import Path
 RAIZ_PROJETO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(RAIZ_PROJETO))
 
-from scripts.geoportal.common import DIR_GEOPORTAL, logger  # noqa: E402
+from scripts.geoportal.common import dir_geoportal, logger  # noqa: E402
+from scripts.utils import paths  # noqa: E402
 
-CAMINHO_FONTES = RAIZ_PROJETO / "data" / "catalogo_fontes.csv"
-CAMINHO_CAMADAS = RAIZ_PROJETO / "data" / "catalogo_camadas.csv"
-CAMINHO_SAIDA = DIR_GEOPORTAL / "catalogo.json"
+CAMINHO_FONTES = paths.caminho("catalogo_fontes")
+CAMINHO_CAMADAS = paths.caminho("catalogo_camadas")
+CAMINHO_SAIDA = dir_geoportal() / "catalogo.json"
 
 
 def _itens(bruto: str | None) -> list[str]:
@@ -45,25 +46,35 @@ def _ler(caminho: Path) -> list[dict]:
 
 
 def main() -> None:
-    fontes = {f["id"]: f for f in _ler(CAMINHO_FONTES)}
+    fontes = {f["id_fonte"]: f for f in _ler(CAMINHO_FONTES)}
     camadas_saida = []
 
     for camada in _ler(CAMINHO_CAMADAS):
-        publicacao = (camada.get("arquivo_publicacao") or "").strip()
-        if not publicacao or not (RAIZ_PROJETO / publicacao).exists():
-            logger.warning("camada '%s' sem arquivo de publicação em disco — fora do portal",
-                           camada.get("id"))
+        # só entra no portal camada que possa ser publicada E que já tenha um
+        # GeoJSON de publicação em data/geoportal/
+        if str(camada.get("pode_publicar", "")).strip().lower() not in {"true", "sim", "1"}:
+            logger.warning("camada '%s' com pode_publicar=false — fora do portal",
+                           camada.get("id_camada"))
+            continue
+
+        # convenção: o GeoJSON publicado leva o nome do id da camada
+        # (data/acervo/... pode ter nome longo do padrão {tema}_{fonte}_..., mas
+        # no portal o que identifica é o id do catálogo) — ver docs/convencoes.md
+        nome_publicacao = f"{camada['id_camada']}.geojson"
+        if not (CAMINHO_SAIDA.parent / nome_publicacao).exists():
+            logger.warning("camada '%s' sem GeoJSON de publicação (%s) — fora do portal",
+                           camada.get("id_camada"), nome_publicacao)
             continue
 
         camadas_saida.append({
-            "id": camada["id"],
-            "nome": camada["nome"],
+            "id": camada["id_camada"],
             "tema": camada["tema"],
-            "arquivo": Path(publicacao).name,
+            "arquivo": nome_publicacao,
             "versao": camada.get("versao", ""),
-            "data": camada.get("data", ""),
-            "situacao": camada.get("situacao", ""),
-            "referencias_bibliograficas": _itens(camada.get("referencias_bibliograficas")),
+            "data": camada.get("data_producao", ""),
+            "status_conferencia": camada.get("status_conferencia", ""),
+            "licenca": camada.get("licenca", ""),
+            "referencias_bib": _itens(camada.get("referencias_bib")),
             "fontes": [
                 {
                     "id": id_fonte,
@@ -72,7 +83,7 @@ def main() -> None:
                     "url": fontes[id_fonte]["url"],
                     "licenca": fontes[id_fonte]["licenca"],
                 }
-                for id_fonte in _itens(camada.get("fontes"))
+                for id_fonte in _itens(camada.get("fonte_id"))
                 if id_fonte in fontes
             ],
         })
@@ -83,7 +94,7 @@ def main() -> None:
             {
                 "gerado_em": datetime.now(timezone.utc).isoformat(),
                 "gerado_por": "scripts/geoportal/exportar_catalogo.py",
-                "origem": ["data/catalogo_fontes.csv", "data/catalogo_camadas.csv"],
+                "origem": [paths.relativo(CAMINHO_FONTES), paths.relativo(CAMINHO_CAMADAS)],
                 "camadas": camadas_saida,
             },
             ensure_ascii=False,
@@ -91,8 +102,7 @@ def main() -> None:
         ),
         encoding="utf-8",
     )
-    logger.info("gerado: %s (%d camadas)", CAMINHO_SAIDA.relative_to(RAIZ_PROJETO),
-                len(camadas_saida))
+    logger.info("gerado: %s (%d camadas)", paths.relativo(CAMINHO_SAIDA), len(camadas_saida))
 
 
 if __name__ == "__main__":

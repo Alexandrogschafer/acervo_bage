@@ -1,6 +1,6 @@
 # Ressalvas do Censo e do CNEFE para Bagé/RS
 
-Quem usar os arquivos de `data/raw/censo/` neste acervo precisa ler isto antes.
+Quem usar os arquivos de `data/acervo/censo/` neste acervo precisa ler isto antes.
 São conclusões **medidas** sobre estes arquivos exatos — os mesmos sha256 que estão
 no `.json` irmão de cada um e em `data/catalogo_fontes.csv` — no projeto REVIA_BG
 (`~/projetos/rede_viaria_bage`), de onde os arquivos vieram por cópia em 20/09/2026.
@@ -61,11 +61,11 @@ Só **141 dos 199 setores de 2022 (70,9 %)** têm correspondência **1:1** com 2
 
 > **O geocódigo de setor NÃO é identificador estável entre censos.** Qualquer série
 > temporal por setor tem de passar pelo de/para do IBGE —
-> `data/raw/censo/2022/documentacao/Historico_formacao_Setores_Censitarios_2010_2022.xlsx`
+> `data/acervo/censo/2022/documentacao/Historico_formacao_Setores_Censitarios_2010_2022.xlsx`
 > — ou usar um recorte estável (bairros, município).
 
 O próprio IBGE publica a ressalva em
-`data/raw/censo/2022/documentacao/Leia_me_Comparabilidade_2010_2022.pdf`.
+`data/acervo/censo/2022/documentacao/Leia_me_Comparabilidade_2010_2022.pdf`.
 
 Juntar 2010 com 2022 por igualdade de geocódigo **não gera erro**: gera número plausível
 e falso, porque parte dos códigos casa por coincidência de recorte parcial.
@@ -124,7 +124,7 @@ servidores que serviram estes arquivos**, conferida em 20/09/2026 (HTTP 200):
 A licença citada acima é a do servidor de download, **não** a dessa página, e nada foi
 transcrito dela. Se a página formal declarar condição adicional — atribuição em formato
 específico, restrição de uso comercial —, ela **ainda não foi conferida**, e
-`autorizacao_para_republicar = sim` nas nove linhas se apoia na declaração do FTP e na
+`autorizacao_fonte = true` nas nove linhas se apoia na declaração do FTP e na
 prática já adotada para as demais fontes IBGE do acervo.
 
 ## Procedência
@@ -137,7 +137,7 @@ a origem saiu inalterada.
 
 Cada arquivo tem seu `.json` irmão com URL exata, `Last-Modified` do servidor, data do
 download original, data da cópia, sha256 e o caminho de origem.
-`data/raw/censo/manifesto_copia_censo.json` cobre a árvore inteira, inclusive os
+`data/acervo/censo/manifesto_copia_censo.json` cobre a árvore inteira, inclusive os
 `FONTE.md` e os `manifesto_censo_<ano>.json` do REVIA_BG, que vieram junto.
 
 Script: `scripts/download/censo_revia_bg.py`.

@@ -5,6 +5,109 @@ pendente. Entrada nova no topo.
 
 ---
 
+## 2026-09-20 — Reestruturação: acervo compartilhado + estudos derivados
+
+Substitui a estrutura anterior. **Nada foi apagado: tudo que existia foi
+movido ou migrado de esquema**, e o que mudou de lugar está listado abaixo.
+
+### O que foi movido
+
+| de | para | volume |
+| --- | --- | --- |
+| `data/raw/censo/` | `data/acervo/censo/` | 110 arquivos, 987 MB |
+| `data/processed/` | `data/acervo/limites/` | GeoPackage + `.json` |
+| `js/layers.js`, `js/map-init.js` | `estudos/A02_portal/scripts/` | portal anterior |
+| `css/style.css` | `css/estilo.css` | renomeado |
+
+O Censo foi para `data/acervo/censo/` porque `censo` é um dos temas nomeados
+do acervo: deixá-lo em `data/raw/` ao lado de um `data/acervo/censo/` vazio
+recriaria a duplicação que a reestruturação existe para eliminar. As 9
+referências de caminho (script de cópia, catálogo, `ressalvas_censo_bage.md`,
+este diário) foram atualizadas junto.
+
+`data/processed/` deixou de existir: a "produção" virou o próprio acervo.
+
+### Catálogos migrados de esquema
+
+As colunas mudaram por inteiro. As 11 fontes e 1 camada foram **convertidas,
+não recriadas**:
+
+- `catalogo_fontes.csv`: `id`→`id_fonte`, `autorizacao_para_republicar` (sim/não)
+  → `autorizacao_fonte` (bool), mais `formato`, `tamanho_bytes` e
+  `pode_publicar`. `tamanho_bytes` foi recuperado dos `.json` irmãos por
+  casamento de sha256 (10 das 11 fontes; a 11ª é fonte de conferência sem
+  cópia local).
+- `catalogo_camadas.csv`: `id`→`id_camada`, e as colunas
+  `arquivo_producao`/`arquivo_publicacao` colapsaram em **um só** `arquivo`,
+  apontando para a cópia do acervo.
+
+As colunas do esquema antigo que o novo não tem (`tema` da fonte,
+`resolucao_ou_escala`, `periodo`, `script_responsavel`, `nome` da camada, o
+caminho de publicação) foram **preservadas dentro de `observacoes`**, entre
+colchetes — nenhum conteúdo foi descartado.
+
+### Novo: `config/config.yaml` e `scripts/utils/`
+
+Município, CRS e os 32 caminhos passaram a sair de `config/config.yaml`. Os
+scripts existentes (`vetor_ibge.py`, `common.py`, `recorte_municipio.py`,
+`exportar_*.py`, `validar_catalogos.py`) foram reescritos para lê-los de lá —
+não há mais `"EPSG:31981"` nem `"4301602"` literal fora do YAML.
+
+Módulos novos: `paths.py`, `nomes.py`, `metadados.py`, `manifesto.py`,
+`publicacao.py`, `indice.py`, `verificar_publicacao.py`. `hashes.py` ganhou
+tamanho em bytes e conferência.
+
+### Barreira de publicação
+
+`.githooks/pre-commit` + `git config core.hooksPath .githooks`. Testado com
+arquivo de prova sob `data/acervo/`: **commit recusado, rc=1, HEAD inalterado**.
+As três regras foram exercitadas isoladamente — (a) camada com
+`pode_publicar=false`, (b) dado não-`.json` em área de acervo, (c) saída de
+estudo cujo manifesto resolve para `false`. O `.json` irmão na mesma pasta
+passa, como deve.
+
+**Desvio deliberado do especificado:** a regra (b) isenta `.gitkeep` e
+`manifesto.yaml`. Sem a isenção, a regra (b) e o `.gitignore` se
+contradiriam — o `.gitignore` exige versionar esses dois, o hook os barraria,
+e nenhum commit passaria. Estão isentos por não carregarem dado.
+
+### Estudos
+
+`A01_base-cartografica`, `A02_portal`, `A03_censo`, cada um com
+`manifesto.yaml` (esquema comentado, `camadas: []`), `scripts/`, `derivados/`,
+`saidas/` e `README.md`. Todos em `status: reconhecimento`.
+
+Consequência da regra do mais restritivo: com `camadas: []`, os três resolvem
+para `pode_publicar=false`. É intencional — quem não declarou entradas não
+provou que pode publicar.
+
+### Geoportal
+
+Voltou a ser **esqueleto sem camadas**, conforme pedido: `index.html` +
+`css/estilo.css` + `js/mapa.js`, Leaflet centrado em Bagé. O portal anterior
+(que carregava o limite municipal e montava rodapé de fontes a partir do
+catálogo) foi preservado em `estudos/A02_portal/scripts/` como ponto de
+partida para reconstruí-lo na nova arquitetura.
+
+Teste headless adaptado: 7/7 checagens, incluindo a de que **nenhuma** camada
+é carregada — um teste que não checasse isso deixaria passar camada entrando
+sem catálogo.
+
+### Pendências
+
+1. **Sem `LICENSE` e sem decisão de licenciamento.** Registrado como PENDENTE
+   no README. Não publicar no Pages até resolver.
+2. `bage.bib` continua sendo o exemplo de uma entrada, a ser substituído pela
+   exportação do Zotero.
+3. O sha256 do GeoPackage no catálogo muda a cada reexecução do
+   `vetor_ibge.py` (o formato grava `last_change` em `gpkg_contents`); foi
+   atualizado nesta sessão. Se precisar de hash estável, avaliar
+   `OGR_CURRENT_DATE`.
+4. `data/geoportal/limite_municipal.geojson` continua publicado e catalogado,
+   mas o esqueleto do portal não o carrega — isso é trabalho de A02.
+
+---
+
 ## 2026-09-20 — Censo 2000/2010/2022 e CNEFE 2022 importados do REVIA_BG (tag `censo_v1`)
 
 Importação **por cópia**, a partir de `~/projetos/rede_viaria_bage/dados/externos/censo/`
@@ -38,7 +141,7 @@ Quatro conferências, nenhuma dispensando as outras:
    script**, por `sha256sum` do shell contra uma linha de base tirada antes de qualquer
    escrita: o digest do conjunto das 58 linhas é `3af2752609d82d54…` no início e no fim;
 4. **catálogo × disco** — os 9 `sha256` das linhas novas do catálogo conferidos contra o
-   arquivo correspondente em `data/raw/censo/`, 9/9.
+   arquivo correspondente em `data/acervo/censo/`, 9/9.
 
 **Controle negativo** (uma comparação que dá zero só vale se o comparador detecta diferença):
 1 bit trocado no último byte de uma cópia descartável de `2000/malha/4301602.zip`, mesmo
@@ -85,7 +188,7 @@ coordenada, espécies 1 e 2 coincidindo exatamente com `v0003`/`v0004` do agrega
 
 ### Decisões desta sessão, para revisão
 
-1. **Destino `data/raw/censo/`, não `data/externos/`.** A regra (iv) manda copiar camada *de
+1. **Destino `data/acervo/censo/`, não `data/externos/`.** A regra (iv) manda copiar camada *de
    outro projeto* para `data/externos/`. Estes arquivos são **dado bruto do IBGE, como veio da
    fonte**, apenas transportado pelo REVIA_BG — não são camada derivada dele —, então foram
    para `data/raw/`, conforme pedido na especificação da sessão. A procedência da cópia está

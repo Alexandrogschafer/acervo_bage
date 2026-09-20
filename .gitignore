@@ -1,61 +1,106 @@
-# ---------------------------------------------------------------------------
-# acervo_bage — o que NÃO vai para o repositório público
+# ===========================================================================
+# .gitignore — ACERVO_BAGE (repositório público)
 #
-# Regra geral: dado pesado não é versionado; é rastreado por catálogo
-# (data/catalogo_fontes.csv, data/catalogo_camadas.csv) + sha256 + o metadado
-# .json irmão de cada arquivo, que SÃO versionados.
+# Princípio: o dado pesado NÃO é versionado; o que é versionado é o RASTRO
+# dele — o `.json` irmão (fonte, licença, sha256, tamanho, se pode publicar) e
+# a linha no catálogo. Quem clona o repositório não recebe os arquivos, mas
+# recebe tudo o que precisa para obtê-los e conferir que são os mesmos.
 #
-# Atenção ao reordenar: em Git, não se pode re-incluir um arquivo se o
-# diretório pai foi excluído. Por isso as exclusões usam `dir/**` (conteúdo)
-# e não `dir/` (o próprio diretório), e logo abaixo vem `!dir/**/` para o Git
-# continuar descendo na árvore e enxergar as exceções.
-# Conferir sempre com: git check-ignore -v <caminho>
-# ---------------------------------------------------------------------------
+# ATENÇÃO ao editar: o Git não re-inclui um arquivo cujo DIRETÓRIO pai foi
+# excluído. Por isso cada bloco exclui `dir/**` (o conteúdo), nunca `dir/`
+# (o diretório), e logo em seguida re-inclui `!dir/**/` para o Git continuar
+# descendo na árvore e enxergar as exceções.
+# Conferir com: git check-ignore -v <caminho>
+#               git ls-files --others --exclude-standard
+# ===========================================================================
 
-# ambiente
+# ---------------------------------------------------------------------------
+# 1. AMBIENTE E LIXO DE FERRAMENTA
+# Nada aqui descreve o acervo: é estado local de máquina. Versionar quebraria
+# o repositório em outra máquina ou vazaria segredo (.env).
+# ---------------------------------------------------------------------------
 .venv/
 __pycache__/
 *.pyc
+.ipynb_checkpoints/
+.env
+.DS_Store
 node_modules/
 
 # ---------------------------------------------------------------------------
-# dados brutos / processados / externos: ignorados, EXCETO os metadados .json
-# irmãos (leves, descrevem fonte, transformação e sha256 — são o rastro que
-# torna o dado reproduzível sem versionar o dado)
+# 2. PDFs — em qualquer lugar do repositório
+# O acervo é público e quase todo PDF de referência é protegido por direito
+# autoral. Os PDFs ficam no Zotero; o rastro público é bibliografia/bage.bib
+# (metadados + DOI/URL), suficiente para localizar a obra na origem.
+# ---------------------------------------------------------------------------
+*.pdf
+
+# ---------------------------------------------------------------------------
+# 3. DADO BRUTO — data/raw/
+# Arquivos como vieram da fonte (centenas de MB). Reobtidos pelos scripts de
+# scripts/download/ e conferidos pelo sha256 do .json irmão.
 # ---------------------------------------------------------------------------
 data/raw/**
 !data/raw/**/
 !data/raw/**/*.json
 !data/raw/**/.gitkeep
 
-data/processed/**
-!data/processed/**/
-!data/processed/**/*.json
-!data/processed/**/.gitkeep
+# ---------------------------------------------------------------------------
+# 4. ACERVO — data/acervo/
+# A CÓPIA PRINCIPAL, compartilhada por todos os estudos. Fora do git pelo
+# tamanho (só o Censo passa de 900 MB), rastreada por catálogo + sha256.
+# ---------------------------------------------------------------------------
+data/acervo/**
+!data/acervo/**/
+!data/acervo/**/*.json
+!data/acervo/**/.gitkeep
 
+# ---------------------------------------------------------------------------
+# 5. EXTERNOS — data/externos/
+# Cópias de camadas vindas de outros projetos, com versão e sha256 fixados.
+# Fora do git também porque a licença de origem nem sempre autoriza
+# redistribuição — republicar aqui seria decisão que não cabe ao acervo tomar.
+# ---------------------------------------------------------------------------
 data/externos/**
 !data/externos/**/
 !data/externos/**/*.json
 !data/externos/**/.gitkeep
 
 # ---------------------------------------------------------------------------
-# bibliografia: PDFs ficam no Zotero, nunca no git (direito autoral).
-# O .bib exportado pelo Zotero é versionado.
+# 6. ESTUDOS — derivados/ e saidas/
+# Intermediários e resultados são reproduzíveis a partir do acervo + do código
+# do estudo. Além do tamanho, há a razão de licença: uma saída herda a
+# restrição mais restritiva das camadas de entrada (scripts/utils/publicacao.py),
+# e publicar sem essa checagem é o risco que este repositório existe para
+# evitar. O manifesto.yaml (contrato do estudo) e os .json irmãos entram.
 # ---------------------------------------------------------------------------
-bibliografia/pdfs/**
-!bibliografia/pdfs/.gitkeep
-!bibliografia/bage.bib
+estudos/*/derivados/**
+!estudos/*/derivados/**/
+!estudos/*/derivados/**/*.json
+!estudos/*/derivados/**/.gitkeep
+
+estudos/*/saidas/**
+!estudos/*/saidas/**/
+!estudos/*/saidas/**/*.json
+!estudos/*/saidas/**/.gitkeep
+
+!estudos/*/manifesto.yaml
 
 # ---------------------------------------------------------------------------
-# VERSIONADOS por decisão explícita (nenhuma regra acima os pega, mas ficam
-# registrados aqui como contrato do repositório — conferidos por
-# `git check-ignore -v`, que deve retornar rc=1 para cada um):
-#   data/catalogo_fontes.csv
-#   data/catalogo_camadas.csv
-#   config/area_estudo.geojson  (+ area_estudo.json)
-#   data/geoportal/**           (o geoportal estático precisa deles em runtime)
-#   bibliografia/bage.bib
+# 7. VERSIONADOS por decisão explícita
+# Nenhuma regra acima os pega; ficam listados como contrato do repositório.
+# Conferir com `git ls-files --others --exclude-standard`:
+#
+#   config/**                    config.yaml e area_estudo.geojson (+ .json)
+#   data/catalogo_fontes.csv     catálogo de fontes
+#   data/catalogo_camadas.csv    catálogo de camadas
+#   data/geoportal/**            o portal estático precisa deles em RUNTIME
+#   scripts/**                   todo o código
+#   estudos/*/{manifesto.yaml,README.md,scripts/**}
+#   docs/**                      documentação e índices gerados
+#   bibliografia/**              menos os PDFs (bloco 2)
+#   css/ js/ index.html          geoportal
 # ---------------------------------------------------------------------------
 
-# saídas de teste do geoportal
+# saída de teste do geoportal (imagem regenerável)
 scripts/geoportal/geoportal-headless.png

@@ -70,7 +70,7 @@ def main() -> None:
 
         # (A) camada aponta para um id de fonte que não existe
         camadas_a = [dict(c) for c in camadas]
-        camadas_a[0]["fontes"] = "fonte_que_nao_existe"
+        camadas_a[0]["fonte_id"] = "fonte_que_nao_existe"
         arquivo_a = escrever(tmp / "camadas_fonte_inexistente.csv", campos_camadas, camadas_a)
         rc, saida = rodar(CAMINHO_FONTES, arquivo_a)
         resultados.append(("NEGATIVO A: id de fonte inexistente", "falhar (rc=1)",
@@ -78,7 +78,7 @@ def main() -> None:
 
         # (B) camada cita uma chave bibliográfica que não está no .bib
         camadas_b = [dict(c) for c in camadas]
-        camadas_b[0]["referencias_bibliograficas"] = "chave2099inexistente"
+        camadas_b[0]["referencias_bib"] = "chave2099inexistente"
         arquivo_b = escrever(tmp / "camadas_bib_inexistente.csv", campos_camadas, camadas_b)
         rc, saida = rodar(CAMINHO_FONTES, arquivo_b)
         resultados.append(("NEGATIVO B: chave bibliográfica inexistente", "falhar (rc=1)",
@@ -86,9 +86,9 @@ def main() -> None:
 
         # (C) camada publicada cuja fonte está sem licença
         fontes_c = [dict(f) for f in fontes]
-        id_fonte_da_camada = (camadas[0]["fontes"] or "").split(";")[0].strip()
+        id_fonte_da_camada = (camadas[0]["fonte_id"] or "").split(";")[0].strip()
         for fonte in fontes_c:
-            if fonte["id"] == id_fonte_da_camada:
+            if fonte["id_fonte"] == id_fonte_da_camada:
                 fonte["licenca"] = ""
         arquivo_c = escrever(tmp / "fontes_sem_licenca.csv", campos_fontes, fontes_c)
         rc, saida = rodar(arquivo_c, CAMINHO_CAMADAS)

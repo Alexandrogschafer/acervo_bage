@@ -1,0 +1,77 @@
+# ---------------------------------------------------------------------------
+# config.yaml — parâmetros do acervo ACERVO_BAGE
+#
+# Fonte única de verdade. Nenhum script deve repetir código IBGE, CRS ou
+# caminho: tudo sai daqui, via scripts/utils/paths.py. Se um valor precisa
+# mudar, muda aqui e em lugar nenhum mais.
+#
+# Os caminhos são relativos à raiz do repositório (o diretório que contém
+# este config/). paths.py resolve a raiz sozinho.
+# ---------------------------------------------------------------------------
+
+municipio:
+  nome: "Bagé"
+  uf: "RS"
+  codigo_ibge: "4301602"
+
+crs:
+  # CRS métrico de trabalho: toda medição (área, distância, buffer) acontece
+  # aqui. SIRGAS 2000 / UTM 21S.
+  producao: "EPSG:31981"
+  # CRS de publicação: único que o Leaflet consome. A reprojeção para cá é
+  # sempre o último passo, depois de qualquer operação métrica.
+  publicacao: "EPSG:4326"
+
+# Recorte de referência do acervo. Gerado por scripts/download/vetor_ibge.py.
+area_estudo: "config/area_estudo.geojson"
+
+paths:
+  # --- entrada ---
+  raw: "data/raw"
+  raw_vetor: "data/raw/vetor"
+  raw_raster: "data/raw/raster"
+  raw_tabular: "data/raw/tabular"
+
+  # --- acervo: a CÓPIA PRINCIPAL, compartilhada por todos os estudos ---
+  # Estudo nenhum escreve aqui. Camada derivada em estudo só entra no acervo
+  # por promoção explícita, depois de conferência visual do responsável.
+  acervo: "data/acervo"
+  acervo_limites: "data/acervo/limites"
+  acervo_censo: "data/acervo/censo"
+  acervo_hidrografia: "data/acervo/hidrografia"
+  acervo_viario: "data/acervo/viario"
+  acervo_cadastro: "data/acervo/cadastro"
+  acervo_educacao: "data/acervo/educacao"
+  acervo_saude: "data/acervo/saude"
+  acervo_ambiental: "data/acervo/ambiental"
+
+  # Cópias de camadas vindas de OUTROS projetos, com versão e sha256 fixados.
+  externos: "data/externos"
+
+  # Publicação do geoportal (versionada: o portal estático precisa em runtime).
+  geoportal: "data/geoportal"
+
+  # --- catálogos ---
+  catalogo_fontes: "data/catalogo_fontes.csv"
+  catalogo_camadas: "data/catalogo_camadas.csv"
+
+  # --- código ---
+  scripts: "scripts"
+  scripts_download: "scripts/download"
+  scripts_processamento: "scripts/processamento"
+  scripts_acervo: "scripts/acervo"
+  scripts_geoportal: "scripts/geoportal"
+  scripts_bibliografia: "scripts/bibliografia"
+  scripts_utils: "scripts/utils"
+
+  # --- estudos: consomem o acervo, nunca escrevem nele ---
+  estudos: "estudos"
+
+  # --- demais ---
+  bibliografia: "bibliografia"
+  bibliografia_bib: "bibliografia/bage.bib"
+  docs: "docs"
+  notebooks: "notebooks"
+  css: "css"
+  js: "js"
+  config: "config"

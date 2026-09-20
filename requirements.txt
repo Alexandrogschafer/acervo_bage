@@ -1,17 +1,16 @@
-# Dependências diretas do pipeline (versões mínimas).
-# Para reproduzir o ambiente exato desta sessão, use requirements.lock.txt.
+# Dependências do ACERVO_BAGE.
 #
 #   python -m venv .venv && source .venv/bin/activate
-#   pip install -r requirements.txt          # desenvolvimento
-#   pip install -r requirements.lock.txt     # reprodução exata
+#   pip install -r requirements.txt
+#   pip install -r requirements.lock.txt   # para reproduzir o ambiente exato
 #
-# rasterio NÃO está listado de propósito: nenhum script do acervo usa raster
-# ainda. Ao adicionar o primeiro script raster, incluir aqui e regerar o lock.
+# pyogrio não está listado por ser dependência direta do geopandas >= 1.0
+# (é o motor de I/O vetorial); vem junto e aparece no lock.
 
 geopandas>=1.0
-pyogrio>=0.9
-shapely>=2.0
-pandas>=2.0
+rasterio>=1.3
 pyproj>=3.6
 requests>=2.31
+pandas>=2.0
 PyYAML>=6.0
+shapely>=2.0

@@ -1,153 +1,83 @@
-# CLAUDE.md — regras deste repositório
+# CLAUDE.md — contexto do ACERVO_BAGE
 
-Lido pelo Claude Code no início de cada sessão. As sete regras abaixo não são
-preferências de estilo: cada uma existe porque quebrá-la produz um dano
-concreto (republicação indevida, dado irreprodutível, mapa errado publicado).
+Lido pelo Claude Code no início de cada sessão.
 
-## O que é este repositório
+**As regras operacionais completas estão em [`docs/convencoes.md`](docs/convencoes.md).**
+Este arquivo é o resumo do que muda a forma de trabalhar aqui.
 
-**acervo_bage** — acervo do município de **Bagé/RS** (código IBGE `4301602`):
-dados espaciais, dados não espaciais e bibliografia, com um geoportal estático
-(`index.html` + `css/` + `js/`) publicando as camadas liberadas.
+## O que é
 
-Segue o padrão do repositório `uruguaiana-clima-saude` (ClimaPampa), de
-Alexandro Schäfer: pipeline Python + geoportal Leaflet estático, parametrização
-por código IBGE, metadados `.json` irmãos, catálogo de fontes vivo.
+Acervo do município de **Bagé/RS** (IBGE `4301602`): dados espaciais, dados
+não espaciais e bibliografia, com geoportal estático. Repositório **público**.
 
-## Padrões técnicos
+Arquitetura: **acervo compartilhado + estudos derivados**.
 
-- **Linguagem:** Python. Bibliotecas: `geopandas`, `pyogrio`, `shapely`,
-  `pandas`, `pyproj`, `requests`, `pyyaml`. (`rasterio` só entra quando o
-  primeiro script raster existir — e então entra no `requirements.txt`.)
-- **CRS padrão de trabalho:** SIRGAS 2000 / UTM 21S — `EPSG:31981`. Dado bruto
-  pode vir em qualquer CRS; todo processamento reprojeta para o padrão antes de
-  qualquer operação espacial (join, clip, buffer, área).
-- **Área de estudo:** sempre lida de `config/area_estudo.geojson`, gerado por
-  `scripts/download/vetor_ibge.py`. Nenhum script recria o polígono do
-  município — importar de `scripts/utils/recorte_municipio.py`.
-- **Parametrização por código IBGE:** o default é `4301602`, mas nada fica
-  fixo no código a ponto de impedir rodar em outro município. A UF é deduzida
-  dos dois primeiros dígitos do código.
-- **Scripts de download:** idempotentes (não rebaixam o que já está em disco,
-  a menos de `--forcar`) e registram fonte, URL, `Last-Modified`, tamanho e
-  sha256.
-- **Origem do dado:** navegar listagens/APIs documentadas. Nunca montar URL de
-  download por adivinhação — se a árvore da fonte mudar, o script tem que
-  falhar dizendo o que mudou, não baixar outra coisa em silêncio.
-- **Nomenclatura de arquivos:** `{tema}_{fonte}_{ano-ou-periodo}_{resolucao}.{ext}`
-  — ex.: `limite-municipal_ibge_2025_municipal.gpkg`.
-- **Metadados:** todo arquivo de dado tem um `.json` irmão com fonte, URL,
-  transformação aplicada, sha256 e data. Os `.json` são versionados mesmo
-  quando o dado não é.
+- `data/acervo/<tema>/` é a **cópia principal**, catalogada e com hash.
+- `estudos/<id>/` **consome** o acervo e **nunca escreve nele**, declarando em
+  `manifesto.yaml` quais camadas usa, em que versão e sha256.
 
-## As sete regras
+## Parâmetros: só em `config/config.yaml`
 
-### (i) Repositório público: licença e autorização antes de publicar
-Nada vai para `data/geoportal/` sem que a fonte tenha **licença declarada** e
-**autorização de republicação** registradas em `data/catalogo_fontes.csv`.
-`autorizacao_para_republicar` aceita `sim` / `não` / `a confirmar` — e só `sim`
-autoriza publicar. "A confirmar" significa *não publique ainda*.
-`scripts/utils/validar_catalogos.py` reprova o commit que violar isso.
+Município, CRS e caminhos saem de `config/config.yaml`, lido por
+`scripts/utils/paths.py`. **Se aparecer um `"EPSG:31981"`, um `"4301602"` ou um
+caminho literal fora do YAML, é bug.**
 
-### (ii) PDFs nunca são versionados
-Os PDFs ficam no Zotero, na biblioteca do pesquisador. `bibliografia/pdfs/`
-está inteiro no `.gitignore`. O repositório é público e a maior parte do
-material é protegida por direito autoral — o rastro público é o `.bib`
-(metadados + DOI/URL), que basta para localizar a obra na origem.
+- CRS de produção `EPSG:31981` (métrico — toda medição acontece nele)
+- CRS de publicação `EPSG:4326` (só o Leaflet consome; reprojetar por último)
 
-### (iii) Produção é separada de publicação
-- **Produção:** GeoPackage em `data/processed/`, no CRS de trabalho
-  (`EPSG:31981`), com todos os atributos. Não versionado; rastreado por sha256
-  no catálogo e no `.json` irmão.
-- **Publicação:** GeoJSON em `data/geoportal/`, em `EPSG:4326` (único CRS que o
-  Leaflet consome), com os atributos que o portal realmente usa. **Versionado**
-  — o geoportal estático precisa dos arquivos em runtime.
+## Módulos de `scripts/utils/` (usar, não reimplementar)
 
-O GeoJSON de publicação é sempre derivado do GeoPackage de produção por um
-script de `scripts/geoportal/`. Nunca editar o GeoJSON publicado à mão: a
-próxima exportação o sobrescreve.
+| módulo | papel |
+| --- | --- |
+| `paths.py` | config, raiz, caminhos; erro legível se faltar chave |
+| `hashes.py` | sha256 em blocos + tamanho |
+| `nomes.py` | `{tema}_{fonte}_{ano-ou-periodo}_{resolucao}.{ext}` |
+| `metadados.py` | o `.json` irmão de todo produto |
+| `manifesto.py` | resolve o contrato do estudo contra o acervo |
+| `publicacao.py` | propagação de `pode_publicar` (mais restritivo vence) |
+| `indice.py` | gera `docs/indice_camadas_estudos.md` |
+| `validar_catalogos.py` | coerência dos catálogos |
+| `verificar_publicacao.py` | barreira de pre-commit |
 
-### (iv) Camada de outro projeto entra por cópia, nunca por leitura direta
-Camada vinda de outro repositório (ex.: `rede_viaria_bage`,
-`uruguaiana-clima-saude`) é **copiada** para `data/externos/`, com a versão e o
-sha256 do original fixados no `.json` irmão e no catálogo de fontes.
+## As regras que mais pegam
 
-Nunca ler o arquivo direto do outro projeto (`../outro_projeto/...`): isso faz
-o acervo depender do estado atual de um diretório que ninguém controla e que
-não existe para quem clona este repositório. A cópia é o que torna o acervo
-reproduzível; o sha256 é o que permite detectar que a origem mudou.
+1. **Estudo nunca escreve no acervo.** Camada derivada entra por **promoção**:
+   conferência visual no mapa → cópia para `data/acervo/<tema>/` → linha no
+   catálogo com `status_conferencia=conferido`.
+2. **`pode_publicar` propaga pelo mais restritivo.** Uma camada `false` torna
+   a saída inteira `false`. Manifesto sem camadas declaradas resolve para
+   `false` — o vácuo é "não sei", e "não sei" não autoriza publicar.
+3. **Dado não é versionado; o rastro é.** `.json` irmão + linha no catálogo +
+   sha256. A barreira de pre-commit recusa arquivo de dado estagiado.
+4. **Camada de outro projeto entra por CÓPIA**, com versão e sha256 fixados —
+   nunca por leitura direta de `../outro_projeto/`.
+5. **Divergência de manifesto é aviso, não correção.** Nada atualiza o sha256
+   fixado sozinho: isso apagaria a evidência de que o resultado veio de outro
+   dado.
+6. **Nunca montar URL de download por adivinhação.** Navegar as listagens/APIs
+   documentadas, para que mudança na fonte **falhe** em vez de baixar outra
+   coisa em silêncio.
+7. **Arquivos gerados não se editam à mão:** `bibliografia/bage.bib` (Zotero),
+   `bibliografia/indice.md`, `docs/indice_camadas_estudos.md`,
+   `data/geoportal/*.geojson`, `data/geoportal/catalogo.json`.
 
-### (v) Toda fonte no catálogo de fontes, toda camada no catálogo de camadas
-- Fonte nova → uma linha em `data/catalogo_fontes.csv`.
-- Camada publicável nova → uma linha em `data/catalogo_camadas.csv`.
-- Rodar `python scripts/utils/validar_catalogos.py` **antes de cada commit**.
-
-Os catálogos não são documentação acessória: são o índice do acervo e a única
-coisa que permite saber, de fora, o que existe e sob qual licença.
-
-### (vi) Produto derivado só é congelado depois da conferência no mapa
-Um produto geográfico derivado (recorte, buffer, cruzamento, agregação) só
-recebe versão e sha256 no `data/catalogo_camadas.csv` **depois** de o
-responsável abrir o geoportal e conferir visualmente o resultado.
-
-Erro de CRS, de topologia ou de junção costuma passar por todos os testes
-automáticos e aparecer na primeira olhada no mapa. Por isso o validador
-confere o sha256 do arquivo publicado contra o registrado: se o arquivo mudou
-depois de congelado, o congelamento caducou e a conferência tem que ser
-refeita — o validador falha até o catálogo ser atualizado.
-
-### (vii) O `bage.bib` é gerado pelo Zotero, nunca editado à mão
-`bibliografia/bage.bib` é a exportação automática da coleção "Bagé" do Zotero
-via Better BibTeX (`Keep updated` ligado). Editar o arquivo à mão é perder a
-edição no próximo salvamento do Zotero — a correção se faz no item do Zotero.
-O mesmo vale para `bibliografia/indice.md`, gerado por
-`scripts/bibliografia/gerar_indice.py`. Ver `bibliografia/README.md`.
-
-## Estrutura de pastas
-
-```
-config/                    area_estudo.geojson — referência única de recorte
-data/raw/{vetor,raster,tabular}   dado bruto, como veio da fonte
-data/processed/            produção (GeoPackage), CRS de trabalho
-data/externos/             cópias de camadas de outros projetos (regra iv)
-data/geoportal/            publicação (GeoJSON 4326) + catalogo.json — VERSIONADO
-data/catalogo_fontes.csv   catálogo de fontes
-data/catalogo_camadas.csv  catálogo de camadas publicáveis
-scripts/download/          um script por fonte
-scripts/processamento/     limpeza, recorte, cruzamento
-scripts/geoportal/         produção -> publicação + teste headless
-scripts/bibliografia/      leitura do .bib e geração do índice
-scripts/utils/             funções reutilizáveis e validadores
-bibliografia/              bage.bib (do Zotero), indice.md (gerado), pdfs/ (ignorado)
-css/ js/ index.html        geoportal estático
-docs/                      ESTADO.md — diário do projeto
-notebooks/                 exploração, não produção
-```
-
-## Comandos úteis
+## Depois de clonar
 
 ```bash
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-
-python scripts/download/vetor_ibge.py --codigo-ibge 4301602
-python scripts/geoportal/exportar_limite_municipal.py
-python scripts/geoportal/exportar_catalogo.py
-python scripts/utils/validar_catalogos.py      # antes de todo commit
-python scripts/utils/testar_validador.py       # controles do validador
-python scripts/bibliografia/gerar_indice.py
-
-python -m http.server 8000                     # geoportal em http://localhost:8000
-npm install && npx playwright install chromium
-npm run test:geoportal                         # teste headless do portal
+git config core.hooksPath .githooks   # hooks não são clonados; sem isso, sem barreira
 ```
 
-## O que NÃO fazer
+## Antes de commitar
 
-- Não montar URL de download por adivinhação (ver "Origem do dado").
-- Não hardcodear o polígono ou o código do município em scripts de
-  processamento — importar de `scripts/utils/recorte_municipio.py`.
-- Não commitar dado bruto pesado; ele é rastreado por catálogo + sha256.
-- Não misturar CRS sem reprojetar explicitamente antes da operação espacial.
-- Não editar à mão nada que seja gerado: `bage.bib`, `indice.md`,
-  `data/geoportal/*.geojson`, `data/geoportal/catalogo.json`.
+```bash
+python scripts/utils/validar_catalogos.py
+python scripts/utils/indice.py
+```
+
+## Pendências conhecidas
+
+- **Sem `LICENSE`** e sem decisão de licenciamento — ver a seção "Licença e
+  publicação" do README. Não publicar no GitHub Pages até resolver.
+- `bibliografia/bage.bib` ainda é um exemplo de uma entrada; será substituído
+  pela exportação do Zotero.
+- Os três estudos estão em `reconhecimento`, com `camadas: []`.

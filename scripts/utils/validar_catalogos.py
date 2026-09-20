@@ -1,24 +1,25 @@
 """
 Valida os catálogos do acervo antes do commit.
 
-Este repositório é público e o dado pesado não é versionado: o que sustenta a
-confiança no acervo são os dois catálogos + a bibliografia. Se eles apontarem
-para arquivo que não existe, fonte que não existe, referência que não existe
-ou camada publicada sem licença, o acervo está mentindo. Este script é a
-barreira contra isso.
+O repositório é público e o dado pesado não é versionado: o que sustenta a
+confiança no acervo são os dois catálogos e a bibliografia. Se apontarem para
+arquivo que não existe, fonte que não existe, referência que não existe ou
+camada publicável sem licença, o acervo está mentindo sobre si mesmo.
 
 Confere:
-  1. todo arquivo citado existe (arquivo de produção, arquivo de publicação e
-     script responsável);
-  2. todo id de fonte citado por uma camada existe em catalogo_fontes.csv;
-  3. toda chave bibliográfica citada por uma camada existe em bage.bib;
-  4. nenhuma camada PUBLICADA tem fonte sem licença ou sem autorização de
-     republicação ("sim"); "a confirmar" não autoriza publicar;
-  5. o sha256 registrado da camada bate com o arquivo de publicação em disco
-     (regra (vi) do CLAUDE.md: produto derivado só é congelado depois da
-     conferência no mapa — se o arquivo mudou, o congelamento caducou).
+  1. todo arquivo citado por uma camada existe em disco;
+  2. todo `fonte_id` citado por uma camada existe em catalogo_fontes.csv;
+  3. toda chave de `referencias_bib` existe em bibliografia/bage.bib;
+  4. nenhuma camada com `pode_publicar=true` tem licença vazia ou fonte sem
+     `autorizacao_fonte=true` — restrição da fonte não se dilui na camada;
+  5. o sha256 registrado da camada bate com o arquivo em disco (se o arquivo
+     mudou depois de conferido, a conferência caducou);
+  6. `tema` é um dos temas de data/acervo/ e `status_conferencia` é válido.
 
-Saída: rc=0 se tudo passa; rc=1 se há qualquer erro (avisos não reprovam).
+Complementa — não substitui — `verificar_publicacao.py`: aquele barra o
+commit, este confere a coerência interna dos catálogos.
+
+rc=0 se tudo passa; rc=1 se há erro (avisos não reprovam).
 
 Uso:
     python scripts/utils/validar_catalogos.py
@@ -32,28 +33,34 @@ import csv
 import sys
 from pathlib import Path
 
-RAIZ_PROJETO = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(RAIZ_PROJETO))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from scripts.bibliografia.bibtex import chaves as chaves_bib  # noqa: E402
+from scripts.utils import paths  # noqa: E402
 from scripts.utils.hashes import sha256_arquivo  # noqa: E402
 
-CAMINHO_FONTES = RAIZ_PROJETO / "data" / "catalogo_fontes.csv"
-CAMINHO_CAMADAS = RAIZ_PROJETO / "data" / "catalogo_camadas.csv"
-CAMINHO_BIB = RAIZ_PROJETO / "bibliografia" / "bage.bib"
+COLUNAS_FONTES: frozenset[str] = frozenset({
+    "id_fonte", "nome", "instituicao", "url", "data_acesso", "formato",
+    "tamanho_bytes", "sha256", "licenca", "autorizacao_fonte", "pode_publicar",
+    "observacoes",
+})
+COLUNAS_CAMADAS: frozenset[str] = frozenset({
+    "id_camada", "tema", "arquivo", "fonte_id", "versao", "crs", "data_producao",
+    "sha256", "status_conferencia", "referencias_bib", "licenca", "pode_publicar",
+    "observacoes",
+})
 
-COLUNAS_FONTES = {"id", "tema", "nome", "instituicao", "url", "licenca",
-                  "autorizacao_para_republicar", "resolucao_ou_escala", "periodo",
-                  "script_responsavel", "data_acesso", "sha256", "observacoes"}
-COLUNAS_CAMADAS = {"id", "nome", "tema", "arquivo_producao", "arquivo_publicacao",
-                   "fontes", "referencias_bibliograficas", "versao", "sha256",
-                   "data", "situacao"}
+TEMAS_VALIDOS: frozenset[str] = frozenset({
+    "limites", "censo", "hidrografia", "viario", "cadastro", "educacao",
+    "saude", "ambiental",
+})
+STATUS_VALIDOS: frozenset[str] = frozenset({"pendente", "conferido"})
+VERDADEIRO: frozenset[str] = frozenset({"true", "sim", "1", "yes"})
 
-# situações em que a camada está de fato publicada no geoportal — é nelas que
-# a exigência de licença + autorização morde
-SITUACOES_PUBLICADAS = {"publicada"}
 
-AUTORIZACAO_OK = {"sim"}
+def _verdadeiro(texto: str | None) -> bool:
+    """Interpreta a coluna booleana do CSV."""
+    return str(texto or "").strip().lower() in VERDADEIRO
 
 
 def _itens(bruto: str | None) -> list[str]:
@@ -63,22 +70,31 @@ def _itens(bruto: str | None) -> list[str]:
     return [p.strip() for p in bruto.replace(",", ";").split(";") if p.strip()]
 
 
-def _ler_csv(caminho: Path, colunas_esperadas: set[str], erros: list[str]) -> list[dict]:
+def _ler_csv(caminho: Path, esperadas: frozenset[str], erros: list[str]) -> list[dict]:
+    """Lê um CSV de catálogo e confere as colunas."""
     if not caminho.exists():
-        erros.append(f"catálogo não encontrado: {caminho}")
+        erros.append(f"catálogo não encontrado: {paths.relativo(caminho)}")
         return []
     with open(caminho, encoding="utf-8") as arquivo:
         leitor = csv.DictReader(arquivo)
         linhas = list(leitor)
-        faltando = colunas_esperadas - set(leitor.fieldnames or [])
+        faltando = esperadas - set(leitor.fieldnames or [])
         if faltando:
             erros.append(f"{caminho.name}: colunas ausentes: {sorted(faltando)}")
     return linhas
 
 
-def validar(caminho_fontes: Path, caminho_camadas: Path, caminho_bib: Path,
-            raiz: Path) -> tuple[list[str], list[str]]:
-    """Roda todas as conferências. Devolve (erros, avisos)."""
+def validar(
+    caminho_fontes: Path,
+    caminho_camadas: Path,
+    caminho_bib: Path,
+    raiz: Path,
+) -> tuple[list[str], list[str]]:
+    """Roda todas as conferências.
+
+    Returns:
+        `(erros, avisos)` — erros reprovam, avisos não.
+    """
     erros: list[str] = []
     avisos: list[str] = []
 
@@ -89,74 +105,88 @@ def validar(caminho_fontes: Path, caminho_camadas: Path, caminho_bib: Path,
         chaves = chaves_bib(caminho_bib)
     else:
         chaves = set()
-        erros.append(f"bibliografia não encontrada: {caminho_bib}")
+        erros.append(f"bibliografia não encontrada: {paths.relativo(caminho_bib)}")
 
-    # ---- catálogo de fontes -------------------------------------------------
+    # ---- fontes ----
     por_id: dict[str, dict] = {}
     for i, fonte in enumerate(fontes, start=2):  # linha 1 é o cabeçalho
-        identificador = (fonte.get("id") or "").strip()
+        identificador = (fonte.get("id_fonte") or "").strip()
         if not identificador:
-            erros.append(f"catalogo_fontes.csv linha {i}: fonte sem id")
+            erros.append(f"catalogo_fontes.csv linha {i}: fonte sem id_fonte")
             continue
         if identificador in por_id:
-            erros.append(f"catalogo_fontes.csv linha {i}: id duplicado '{identificador}'")
+            erros.append(f"catalogo_fontes.csv linha {i}: id_fonte duplicado '{identificador}'")
         por_id[identificador] = fonte
 
-        script = (fonte.get("script_responsavel") or "").strip()
-        if script and not (raiz / script).exists():
+        if _verdadeiro(fonte.get("pode_publicar")) and not _verdadeiro(
+            fonte.get("autorizacao_fonte")
+        ):
             erros.append(
-                f"fonte '{identificador}': script responsável não existe: {script}"
+                f"fonte '{identificador}': pode_publicar=true mas "
+                "autorizacao_fonte não é true — a autorização é o que sustenta a permissão"
             )
-        if not script:
-            avisos.append(
-                f"fonte '{identificador}': sem script responsável "
-                "(ok para consulta pontual; obrigatório se virar insumo de camada)"
-            )
+        if not (fonte.get("licenca") or "").strip():
+            avisos.append(f"fonte '{identificador}': sem licença declarada")
 
-    # ---- catálogo de camadas ------------------------------------------------
+    # ---- camadas ----
     vistos: set[str] = set()
     for i, camada in enumerate(camadas, start=2):
-        identificador = (camada.get("id") or "").strip()
+        identificador = (camada.get("id_camada") or "").strip()
         if not identificador:
-            erros.append(f"catalogo_camadas.csv linha {i}: camada sem id")
+            erros.append(f"catalogo_camadas.csv linha {i}: camada sem id_camada")
             continue
         if identificador in vistos:
-            erros.append(f"catalogo_camadas.csv linha {i}: id duplicado '{identificador}'")
+            erros.append(f"catalogo_camadas.csv linha {i}: id_camada duplicado '{identificador}'")
         vistos.add(identificador)
 
-        situacao = (camada.get("situacao") or "").strip().lower()
-        publicada = situacao in SITUACOES_PUBLICADAS
+        publicavel = _verdadeiro(camada.get("pode_publicar"))
 
-        # (1) arquivos citados existem
-        for coluna in ("arquivo_producao", "arquivo_publicacao"):
-            caminho_citado = (camada.get(coluna) or "").strip()
-            if not caminho_citado:
-                erros.append(f"camada '{identificador}': {coluna} vazio")
-                continue
-            if not (raiz / caminho_citado).exists():
-                erros.append(
-                    f"camada '{identificador}': {coluna} não existe em disco: {caminho_citado}"
-                )
+        # (6) vocabulário controlado
+        tema = (camada.get("tema") or "").strip()
+        if tema not in TEMAS_VALIDOS:
+            erros.append(
+                f"camada '{identificador}': tema '{tema}' não é um tema do acervo "
+                f"{sorted(TEMAS_VALIDOS)}"
+            )
+        status = (camada.get("status_conferencia") or "").strip()
+        if status not in STATUS_VALIDOS:
+            erros.append(
+                f"camada '{identificador}': status_conferencia '{status}' inválido "
+                f"{sorted(STATUS_VALIDOS)}"
+            )
+        if publicavel and status != "conferido":
+            erros.append(
+                f"camada '{identificador}': pode_publicar=true com "
+                f"status_conferencia='{status}' — só se publica o que foi conferido no mapa"
+            )
 
-        # (5) sha256 do arquivo de publicação
-        publicacao = (camada.get("arquivo_publicacao") or "").strip()
+        # (1) arquivo existe
+        arquivo_rel = (camada.get("arquivo") or "").strip()
+        caminho_arquivo = raiz / arquivo_rel if arquivo_rel else None
+        if not arquivo_rel:
+            erros.append(f"camada '{identificador}': coluna 'arquivo' vazia")
+        elif not caminho_arquivo.exists():
+            erros.append(
+                f"camada '{identificador}': arquivo não existe em disco: {arquivo_rel}"
+            )
+
+        # (5) sha256
         sha_registrado = (camada.get("sha256") or "").strip().lower()
-        caminho_publicacao = raiz / publicacao if publicacao else None
-        if caminho_publicacao and caminho_publicacao.exists():
+        if caminho_arquivo and caminho_arquivo.is_file():
             if not sha_registrado:
                 erros.append(f"camada '{identificador}': sha256 não registrado")
             else:
-                sha_real = sha256_arquivo(caminho_publicacao)
+                sha_real = sha256_arquivo(caminho_arquivo)
                 if sha_real != sha_registrado:
                     erros.append(
                         f"camada '{identificador}': sha256 divergente — catálogo diz "
                         f"{sha_registrado[:12]}…, arquivo tem {sha_real[:12]}…. "
-                        "O arquivo mudou depois de congelado: reconferir no mapa e "
-                        "atualizar o catálogo (regra (vi) do CLAUDE.md)."
+                        "O arquivo mudou depois de conferido: reconferir no mapa e "
+                        "atualizar o catálogo."
                     )
 
-        # (2) ids de fonte existem
-        ids_fonte = _itens(camada.get("fontes"))
+        # (2) fonte existe + (4) licença/autorização
+        ids_fonte = _itens(camada.get("fonte_id"))
         if not ids_fonte:
             erros.append(f"camada '{identificador}': nenhuma fonte declarada")
         for id_fonte in ids_fonte:
@@ -166,31 +196,26 @@ def validar(caminho_fontes: Path, caminho_camadas: Path, caminho_bib: Path,
                     "catalogo_fontes.csv"
                 )
                 continue
-
-            # (4) licença e autorização, só para camada publicada
             fonte = por_id[id_fonte]
-            licenca = (fonte.get("licenca") or "").strip()
-            autorizacao = (fonte.get("autorizacao_para_republicar") or "").strip().lower()
-            if publicada:
-                if not licenca:
+            if publicavel:
+                if not (fonte.get("licenca") or "").strip():
                     erros.append(
-                        f"camada '{identificador}' está PUBLICADA mas a fonte "
+                        f"camada '{identificador}' tem pode_publicar=true mas a fonte "
                         f"'{id_fonte}' não tem licença declarada"
                     )
-                if autorizacao not in AUTORIZACAO_OK:
+                if not _verdadeiro(fonte.get("autorizacao_fonte")):
                     erros.append(
-                        f"camada '{identificador}' está PUBLICADA mas a fonte "
-                        f"'{id_fonte}' tem autorizacao_para_republicar="
-                        f"'{autorizacao or '(vazio)'}' — só 'sim' autoriza publicar"
+                        f"camada '{identificador}' tem pode_publicar=true mas a fonte "
+                        f"'{id_fonte}' está com autorizacao_fonte=false"
                     )
-            elif not licenca or autorizacao not in AUTORIZACAO_OK:
-                avisos.append(
-                    f"camada '{identificador}' (situação '{situacao}'): fonte "
-                    f"'{id_fonte}' ainda sem licença/autorização — resolver antes de publicar"
-                )
 
-        # (3) chaves bibliográficas existem
-        for chave in _itens(camada.get("referencias_bibliograficas")):
+        if publicavel and not (camada.get("licenca") or "").strip():
+            erros.append(
+                f"camada '{identificador}' tem pode_publicar=true e licença vazia"
+            )
+
+        # (3) chaves bibliográficas
+        for chave in _itens(camada.get("referencias_bib")):
             if chave not in chaves:
                 erros.append(
                     f"camada '{identificador}': chave bibliográfica '{chave}' não "
@@ -201,11 +226,12 @@ def validar(caminho_fontes: Path, caminho_camadas: Path, caminho_bib: Path,
 
 
 def main() -> None:
+    """Executa a validação e define o código de saída."""
     parser = argparse.ArgumentParser(description="Valida os catálogos do acervo.")
-    parser.add_argument("--fontes", type=Path, default=CAMINHO_FONTES)
-    parser.add_argument("--camadas", type=Path, default=CAMINHO_CAMADAS)
-    parser.add_argument("--bib", type=Path, default=CAMINHO_BIB)
-    parser.add_argument("--raiz", type=Path, default=RAIZ_PROJETO,
+    parser.add_argument("--fontes", type=Path, default=paths.caminho("catalogo_fontes"))
+    parser.add_argument("--camadas", type=Path, default=paths.caminho("catalogo_camadas"))
+    parser.add_argument("--bib", type=Path, default=paths.caminho("bibliografia_bib"))
+    parser.add_argument("--raiz", type=Path, default=paths.RAIZ,
                         help="Raiz para resolver os caminhos relativos dos catálogos")
     args = parser.parse_args()
 

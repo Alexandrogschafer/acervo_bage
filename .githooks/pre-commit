@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Hook de pre-commit do ACERVO_BAGE — barreira de publicação.
+#
+# Instalado por:  git config core.hooksPath .githooks
+# (hooks não são clonados pelo Git; depois de um clone é preciso rodar esse
+#  comando de novo — ver docs/convencoes.md)
+#
+# Usa o Python do .venv do projeto quando existe, porque o verificador importa
+# PyYAML; se não houver venv, cai no python3 do sistema.
+set -euo pipefail
+
+RAIZ="$(git rev-parse --show-toplevel)"
+VERIFICADOR="$RAIZ/scripts/utils/verificar_publicacao.py"
+
+if [ ! -f "$VERIFICADOR" ]; then
+  echo "pre-commit: $VERIFICADOR não encontrado — hook ignorado." >&2
+  exit 0
+fi
+
+if [ -x "$RAIZ/.venv/bin/python" ]; then
+  PY="$RAIZ/.venv/bin/python"
+else
+  PY="$(command -v python3 || command -v python)"
+fi
+
+exec "$PY" "$VERIFICADOR"

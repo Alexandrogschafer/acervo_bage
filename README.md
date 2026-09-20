@@ -1,187 +1,125 @@
-# acervo_bage
+# ACERVO_BAGE
 
-Acervo do município de **Bagé/RS** (código IBGE `4301602`): **dados
-espaciais**, **dados não espaciais** e **bibliografia**, com um **geoportal
-estático** publicando as camadas liberadas.
+Acervo do município de **Bagé/RS** (código IBGE `4301602`): dados espaciais,
+dados não espaciais e bibliografia, com geoportal estático.
 
-O repositório reúne três blocos: os **scripts** que baixam, padronizam e
-catalogam os dados; o **geoportal** (`index.html` + `css/` + `js/`), um mapa
-Leaflet que publica as camadas; e a **bibliografia** (`bibliografia/`),
-mantida no Zotero e exportada para cá.
+## Objetivo
 
-Segue o padrão do repositório [`uruguaiana-clima-saude`](../uruguaiana-clima-saude)
-(ClimaPampa) — pipeline Python + geoportal Leaflet estático, parametrização por
-código IBGE, metadados `.json` irmãos e catálogo de fontes vivo.
+Manter **uma cópia principal** dos dados de Bagé, catalogada, com licença
+conhecida e hash conferido — e permitir que vários estudos a consumam sem
+duplicá-la e sem alterá-la.
 
-## Camadas disponíveis
+A separação é a ideia central do repositório:
 
-O painel lateral organiza as camadas em grupos colapsáveis. Os grupos são
-montados em tempo de execução a partir de `data/geoportal/catalogo.json`
-(projeção dos catálogos CSV), então **publicar camada nova não exige editar o
-HTML**.
+- **acervo** (`data/acervo/`) — a base compartilhada. Cada arquivo tem fonte,
+  licença, sha256 e `.json` irmão. É de onde todo mundo lê.
+- **estudos** (`estudos/<id>/`) — trabalhos que consomem o acervo. Cada um
+  declara em `manifesto.yaml` exatamente quais camadas usa e em que versão e
+  sha256. **Um estudo nunca escreve no acervo**; camada derivada só entra lá
+  por promoção, depois de conferência visual do responsável.
 
-- **Mapa base:** alternância entre mapa (OpenStreetMap) e imagem de satélite
-  (Esri World Imagery).
-- **Território:** limite municipal de Bagé (IBGE, malhas municipais 2025).
-- **Urbano**, **Mobilidade**, **Saúde**, **Educação**, **Ambiente**,
-  **Dados não espaciais:** grupos preparados, **ainda sem camada publicada** —
-  aparecem no painel marcados como vazios.
-- **Fontes e licenças:** uma entrada por camada publicada, com instituição,
-  fonte, licença, versão e data, lida do catálogo.
+Assim, meses depois ainda se sabe sobre qual estado do acervo cada resultado
+foi produzido — e se o acervo mudou desde então, a conferência acusa em vez de
+corrigir em silêncio.
 
-Este é o estado inicial do acervo: **uma camada publicada**. O inventário
-técnico completo (toda fonte, com licença, autorização de republicação,
-resolução/escala, período, script responsável e sha256) está em
-`data/catalogo_fontes.csv`, e o de camadas publicáveis em
-`data/catalogo_camadas.csv`.
+As regras completas estão em **[`docs/convencoes.md`](docs/convencoes.md)**.
 
-## Dados não espaciais
-
-Séries tabulares sem geometria própria (demografia, saúde, economia,
-educação) entram em `data/raw/tabular/`, com `.json` irmão, e são registradas
-no catálogo de fontes com `tema` adequado. No geoportal aparecem no grupo
-"Dados não espaciais" como referência, não como camada de mapa.
-
-**Nenhuma série tabular foi coletada ainda** — a estrutura está pronta e
-vazia.
-
-## Bibliografia
-
-- `bibliografia/bage.bib` — exportação automática da coleção **"Bagé"** do
-  Zotero (plugin Better BibTeX, `Keep updated`). **Arquivo gerado: nunca
-  editar à mão.**
-- `bibliografia/indice.md` — índice legível gerado do `.bib`
-  (`python scripts/bibliografia/gerar_indice.py`), com chave, autores, ano,
-  título, veículo, tema, DOI/URL e as camadas do geoportal que citam cada
-  referência, mais a data de geração e o sha256 do `.bib` de origem.
-- `bibliografia/pdfs/` — ponto de montagem local, **inteiramente ignorado pelo
-  git**: os PDFs ficam no Zotero (repositório público + material protegido por
-  direito autoral).
-
-O `bage.bib` atual é um **exemplo mínimo de uma entrada**, criado só para o
-pipeline ter o que validar; será substituído pela primeira exportação do
-Zotero. Ver `bibliografia/README.md`.
-
-## Padrões técnicos
-
-- **Linguagem:** Python. Bibliotecas: `geopandas`, `pyogrio`, `shapely`,
-  `pandas`, `pyproj`, `requests`, `pyyaml`.
-- **CRS padrão:** SIRGAS 2000 / UTM 21S — `EPSG:31981`. Dado bruto pode vir em
-  outro CRS; todo processamento reprojeta para o padrão. A publicação no
-  geoportal é em `EPSG:4326` (exigência do Leaflet).
-- **Área de estudo:** referenciada sempre a partir de
-  `config/area_estudo.geojson`.
-- **Parametrização por código IBGE:** default `4301602` (Bagé/RS), nada fixo no
-  código — a UF sai dos dois primeiros dígitos.
-- **Origem do dado:** navegar listagens/APIs documentadas; nunca montar URL de
-  download por adivinhação.
-- **Scripts de download:** idempotentes, registrando URL, `Last-Modified`,
-  tamanho e sha256.
-- **Nomenclatura:** `{tema}_{fonte}_{ano-ou-periodo}_{resolucao}.{ext}` —
-  ex.: `limite-municipal_ibge_2025_municipal.gpkg`.
-- **Metadados:** todo arquivo de dado tem um `.json` irmão (fonte, URL,
-  transformação, sha256, data). Versionados mesmo quando o dado não é.
-- **Produção × publicação:** GeoPackage em `data/processed/` (produção, não
-  versionado, rastreado por hash) × GeoJSON em `data/geoportal/` (publicação,
-  versionado — o portal estático precisa dele).
-
-As regras completas do repositório estão em [`CLAUDE.md`](CLAUDE.md).
-
-## Estrutura de pastas
+## Estrutura
 
 ```
-acervo_bage/
-├── README.md · CLAUDE.md · requirements.txt · requirements.lock.txt
-├── config/
-│   └── area_estudo.geojson          # limite municipal (referência única)
-├── data/
-│   ├── raw/{vetor,raster,tabular}/  # dado bruto (ignorado; .json irmão versionado)
-│   ├── processed/                   # produção: GeoPackage, EPSG:31981
-│   ├── externos/                    # cópias de camadas de outros projetos
-│   ├── geoportal/                   # publicação: GeoJSON 4326 + catalogo.json
-│   ├── catalogo_fontes.csv
-│   └── catalogo_camadas.csv
-├── scripts/
-│   ├── download/                    # um script por fonte
-│   ├── processamento/
-│   ├── geoportal/                   # produção -> publicação + teste headless
-│   ├── bibliografia/
-│   └── utils/                       # recorte, hashes, validadores
-├── bibliografia/                    # bage.bib, indice.md, pdfs/ (ignorado)
-├── css/ · js/ · index.html          # geoportal estático
-├── docs/ESTADO.md                   # diário do projeto
-└── notebooks/                       # exploração, não produção
+config/
+  config.yaml                 TODOS os parâmetros (município, CRS, caminhos).
+                              Nada disso se repete em código.
+  area_estudo.geojson         recorte de referência do acervo
+
+data/
+  raw/{vetor,raster,tabular}/ dado bruto, como veio da fonte
+  acervo/                     A CÓPIA PRINCIPAL, por tema:
+    limites/ censo/ hidrografia/ viario/
+    cadastro/ educacao/ saude/ ambiental/
+  externos/                   cópias de outros projetos, versão e sha256 fixados
+  geoportal/                  publicação: o que o portal serve (VERSIONADO)
+  catalogo_fontes.csv         de onde veio, sob qual licença
+  catalogo_camadas.csv        o que existe, em que versão, se pode publicar
+
+scripts/
+  download/                   um script por fonte
+  processamento/              limpeza, recorte, cruzamento
+  acervo/                     entrada e promoção de camadas no acervo
+  geoportal/                  acervo -> publicação + teste headless
+  bibliografia/               leitura do .bib e geração do índice
+  utils/                      config, hashes, nomes, metadados, manifesto,
+                              publicação, índice, barreira de publicação
+
+estudos/
+  A01_base-cartografica/      cada estudo com:
+  A02_portal/                   manifesto.yaml  contrato com o acervo
+  A03_censo/                    scripts/        código próprio
+                                derivados/      intermediários (fora do git)
+                                saidas/         resultados (fora do git)
+                                README.md
+
+bibliografia/                 bage.bib (do Zotero), indice.md (gerado)
+docs/                         convencoes.md, ESTADO.md, índices gerados
+notebooks/                    exploração, não produção
+css/ js/ index.html           geoportal estático
+.githooks/pre-commit          barreira de publicação
 ```
 
-## Como começar
+## Ambiente
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt        # ou requirements.lock.txt, para o ambiente exato
+pip install -r requirements.txt          # ou requirements.lock.txt, para o ambiente exato
 
-python scripts/download/vetor_ibge.py --codigo-ibge 4301602
+# OBRIGATÓRIO depois de clonar — hooks não são clonados pelo Git:
+git config core.hooksPath .githooks
 ```
 
-Isso baixa a malha municipal do IBGE (navegando as listagens do
-`geoftp.ibge.gov.br`), recorta Bagé e gera:
+Sem esse `git config`, o repositório funciona **sem a barreira de publicação**
+— e é nesse estado que o commit distraído passa. Conferir com
+`git config --get core.hooksPath`.
 
-- `config/area_estudo.geojson` (EPSG:31981) — referência única de recorte;
-- `data/processed/limite-municipal_ibge_2025_municipal.gpkg` — arquivo de
-  produção;
-- os `.json` irmãos de ambos, com URL, `Last-Modified`, sha256 e as áreas
-  calculada e oficial.
-
-Em seguida, para publicar no portal:
+### Comandos
 
 ```bash
-python scripts/geoportal/exportar_limite_municipal.py   # GeoJSON EPSG:4326
-python scripts/geoportal/exportar_catalogo.py           # catalogo.json do portal
-python scripts/utils/validar_catalogos.py               # antes de qualquer commit
+python scripts/utils/indice.py            # docs/indice_camadas_estudos.md
+python scripts/utils/validar_catalogos.py # coerência dos catálogos
+python scripts/utils/testar_validador.py  # controles do validador
+python scripts/utils/verificar_publicacao.py   # barreira, fora do hook
+
+python scripts/download/vetor_ibge.py     # limite municipal (IBGE, geoftp)
+python scripts/geoportal/exportar_limite_municipal.py
+python scripts/bibliografia/gerar_indice.py
+
+python -m http.server 8000                # geoportal em http://localhost:8000
+npm install && npx playwright install chromium
+npm run test:geoportal                    # teste headless do portal
 ```
 
-## Como testar o portal
+## Licença e publicação
 
-O geoportal usa `fetch()` para carregar as camadas, então precisa ser servido
-por HTTP — abrir `index.html` via `file://` não funciona.
+> **PENDENTE.**
+>
+> O repositório **ainda não tem `LICENSE`** e nenhuma decisão de licenciamento
+> foi tomada. Até que seja, vale o seguinte:
+>
+> - **Código e documentação:** sem licença declarada. Sem licença explícita,
+>   o padrão legal é "todos os direitos reservados" — ou seja, terceiros não
+>   têm permissão de uso garantida. Definir antes de qualquer divulgação.
+> - **Dados:** a licença é sempre a da **fonte**, registrada por linha em
+>   `data/catalogo_fontes.csv`. O acervo não relicencia dado de terceiro.
+> - **Publicação:** só vai para o repositório público o que tiver
+>   `pode_publicar=true` no catálogo e tiver passado por conferência visual.
+>   A barreira de pre-commit recusa o resto.
+> - **Saídas de estudo:** herdam a restrição **mais restritiva** entre as
+>   camadas declaradas no manifesto. Manifesto sem camadas declaradas resolve
+>   para `false` — ver [`docs/convencoes.md`](docs/convencoes.md) § 7.
+>
+> **Não publicar no GitHub Pages** enquanto esta seção estiver como pendente.
 
-```bash
-python -m http.server 8000
-# abrir http://localhost:8000
-```
+## Município de referência
 
-### Teste automatizado (Playwright headless)
-
-Mesmo esquema do ClimaPampa:
-
-```bash
-npm install
-npx playwright install chromium     # baixa o browser headless, uma vez
-npm run test:geoportal
-```
-
-`scripts/geoportal/test_headless.js` sobe um servidor local, abre o portal em
-Chromium headless e valida: inicialização do Leaflet, presença dos 7 grupos
-temáticos, carregamento da camada do limite municipal a partir do catálogo,
-enquadramento caindo sobre Bagé, alternância mapa/satélite, liga/desliga pelo
-checkbox, marcação dos grupos ainda vazios, rodapé de fontes/licenças
-preenchido, e ausência de erros de console/JS. Gera
-`scripts/geoportal/geoportal-headless.png` (não versionado).
-
-### Validação dos catálogos
-
-```bash
-python scripts/utils/validar_catalogos.py   # rc=0 se consistente
-python scripts/utils/testar_validador.py    # controles positivo + 3 negativos
-```
-
-O segundo monta catálogos deliberadamente quebrados (id de fonte inexistente,
-chave bibliográfica inexistente, camada publicada com fonte sem licença) e
-exige que o validador reprove cada um — um validador que nunca reprova nada
-não valida nada.
-
-## Município de referência (default)
-
-- **Bagé, RS** — código IBGE `4301602`
+- **Bagé, RS** — código IBGE `4301602` (em `config/config.yaml`, não em código)
 - Área oficial: **4.091,554 km²** (IBGE, Áreas Territoriais 2025)
-- Todos os scripts aceitam o código IBGE como argumento; o default é Bagé, mas
-  nada está fixo a ponto de impedir reuso em outro município.
+- CRS de produção `EPSG:31981` · publicação `EPSG:4326`
