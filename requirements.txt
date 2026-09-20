@@ -1,0 +1,17 @@
+# Dependências diretas do pipeline (versões mínimas).
+# Para reproduzir o ambiente exato desta sessão, use requirements.lock.txt.
+#
+#   python -m venv .venv && source .venv/bin/activate
+#   pip install -r requirements.txt          # desenvolvimento
+#   pip install -r requirements.lock.txt     # reprodução exata
+#
+# rasterio NÃO está listado de propósito: nenhum script do acervo usa raster
+# ainda. Ao adicionar o primeiro script raster, incluir aqui e regerar o lock.
+
+geopandas>=1.0
+pyogrio>=0.9
+shapely>=2.0
+pandas>=2.0
+pyproj>=3.6
+requests>=2.31
+PyYAML>=6.0

@@ -1,0 +1,30 @@
+{
+  "descricao": "Limite municipal (área de estudo do acervo).",
+  "fonte": {
+    "caminho_origem": "config/area_estudo.geojson",
+    "script_origem": "scripts/download/vetor_ibge.py",
+    "instituicao": "IBGE — Malhas Territoriais"
+  },
+  "crs_saida": "EPSG:4326",
+  "transformacao_aplicada": "reprojeção EPSG:31981 -> EPSG:4326, sem alteração de geometria/atributos",
+  "n_features": 1,
+  "colunas": [
+    "CD_MUN",
+    "NM_MUN",
+    "CD_RGI",
+    "NM_RGI",
+    "CD_RGINT",
+    "NM_RGINT",
+    "CD_UF",
+    "NM_UF",
+    "SIGLA_UF",
+    "CD_REGIAO",
+    "NM_REGIAO",
+    "SIGLA_RG",
+    "CD_CONCURB",
+    "NM_CONCURB",
+    "AREA_KM2"
+  ],
+  "sha256": "4b774d27a1bea84492ef48e3ec05165d0e890226d9ec02cee04d1a584f742e3d",
+  "data_processamento": "2026-09-20T18:38:02.497048+00:00"
+}

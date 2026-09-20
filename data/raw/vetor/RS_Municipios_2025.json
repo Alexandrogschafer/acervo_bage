@@ -1,0 +1,11 @@
+{
+  "descricao": "Malha municipal do IBGE, UF inteira, edição 2025 (arquivo bruto).",
+  "fonte": "IBGE — Malhas Territoriais (geoftp)",
+  "navegacao": "listagens do geoftp, a partir de organizacao_do_territorio/",
+  "edicao": "2025",
+  "url": "https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2025/UFs/RS/RS_Municipios_2025.zip",
+  "last_modified_origem": "Thu, 26 Feb 2026 20:02:52 GMT",
+  "tamanho_bytes": 10139778,
+  "sha256": "d70d47ccd1c2722e78a6dcc7fa4a00715679684785aa137ed2bf11999de28513",
+  "data_acesso": "2026-09-20T18:37:16.593604+00:00"
+}

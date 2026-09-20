@@ -1,0 +1,29 @@
+{
+  "gerado_em": "2026-09-20T18:42:03.998711+00:00",
+  "gerado_por": "scripts/geoportal/exportar_catalogo.py",
+  "origem": [
+    "data/catalogo_fontes.csv",
+    "data/catalogo_camadas.csv"
+  ],
+  "camadas": [
+    {
+      "id": "limite_municipal",
+      "nome": "Limite municipal de Bagé",
+      "tema": "territorio",
+      "arquivo": "limite_municipal.geojson",
+      "versao": "1.0",
+      "data": "2026-09-20",
+      "situacao": "publicada",
+      "referencias_bibliograficas": [],
+      "fontes": [
+        {
+          "id": "ibge_malhas_municipais",
+          "nome": "Malhas Territoriais — malhas municipais (RS_Municipios_2025.zip)",
+          "instituicao": "IBGE",
+          "url": "https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2025/UFs/RS/RS_Municipios_2025.zip",
+          "licenca": "dados abertos (uso livre com citação da fonte)"
+        }
+      ]
+    }
+  ]
+}

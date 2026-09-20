@@ -1,0 +1,12 @@
+{
+  "name": "acervo-bage-geoportal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Testes headless (Playwright) do geoportal do Acervo Bagé — Bagé/RS",
+  "scripts": {
+    "test:geoportal": "node scripts/geoportal/test_headless.js"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}

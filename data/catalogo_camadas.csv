@@ -1,0 +1,2 @@
+id,nome,tema,arquivo_producao,arquivo_publicacao,fontes,referencias_bibliograficas,versao,sha256,data,situacao
+limite_municipal,Limite municipal de Bagé,territorio,data/processed/limite-municipal_ibge_2025_municipal.gpkg,data/geoportal/limite_municipal.geojson,ibge_malhas_municipais,,1.0,4b774d27a1bea84492ef48e3ec05165d0e890226d9ec02cee04d1a584f742e3d,2026-09-20,publicada

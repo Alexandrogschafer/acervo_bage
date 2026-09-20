@@ -1,0 +1,61 @@
+# ---------------------------------------------------------------------------
+# acervo_bage — o que NÃO vai para o repositório público
+#
+# Regra geral: dado pesado não é versionado; é rastreado por catálogo
+# (data/catalogo_fontes.csv, data/catalogo_camadas.csv) + sha256 + o metadado
+# .json irmão de cada arquivo, que SÃO versionados.
+#
+# Atenção ao reordenar: em Git, não se pode re-incluir um arquivo se o
+# diretório pai foi excluído. Por isso as exclusões usam `dir/**` (conteúdo)
+# e não `dir/` (o próprio diretório), e logo abaixo vem `!dir/**/` para o Git
+# continuar descendo na árvore e enxergar as exceções.
+# Conferir sempre com: git check-ignore -v <caminho>
+# ---------------------------------------------------------------------------
+
+# ambiente
+.venv/
+__pycache__/
+*.pyc
+node_modules/
+
+# ---------------------------------------------------------------------------
+# dados brutos / processados / externos: ignorados, EXCETO os metadados .json
+# irmãos (leves, descrevem fonte, transformação e sha256 — são o rastro que
+# torna o dado reproduzível sem versionar o dado)
+# ---------------------------------------------------------------------------
+data/raw/**
+!data/raw/**/
+!data/raw/**/*.json
+!data/raw/**/.gitkeep
+
+data/processed/**
+!data/processed/**/
+!data/processed/**/*.json
+!data/processed/**/.gitkeep
+
+data/externos/**
+!data/externos/**/
+!data/externos/**/*.json
+!data/externos/**/.gitkeep
+
+# ---------------------------------------------------------------------------
+# bibliografia: PDFs ficam no Zotero, nunca no git (direito autoral).
+# O .bib exportado pelo Zotero é versionado.
+# ---------------------------------------------------------------------------
+bibliografia/pdfs/**
+!bibliografia/pdfs/.gitkeep
+!bibliografia/bage.bib
+
+# ---------------------------------------------------------------------------
+# VERSIONADOS por decisão explícita (nenhuma regra acima os pega, mas ficam
+# registrados aqui como contrato do repositório — conferidos por
+# `git check-ignore -v`, que deve retornar rc=1 para cada um):
+#   data/catalogo_fontes.csv
+#   data/catalogo_camadas.csv
+#   config/area_estudo.geojson  (+ area_estudo.json)
+#   data/geoportal/**           (o geoportal estático precisa deles em runtime)
+#   bibliografia/bage.bib
+# ---------------------------------------------------------------------------
+
+# saídas de teste do geoportal
+scripts/geoportal/geoportal-headless.png

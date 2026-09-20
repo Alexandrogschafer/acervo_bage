@@ -1,0 +1,342 @@
+"""
+Baixa a malha municipal do IBGE e gera o arquivo de referência único da área
+de estudo do acervo:
+
+    config/area_estudo.geojson                              (EPSG:31981)
+    data/processed/limite-municipal_ibge_{ano}_municipal.gpkg   (produção)
+
+REGRA DE ORIGEM DO DADO
+-----------------------
+O download vem exclusivamente do servidor de arquivos do IBGE
+(geoftp.ibge.gov.br) e NENHUMA URL é montada por adivinhação: o script parte
+da raiz e desce pelas listagens de diretório, conferindo em cada nível que o
+nome esperado realmente está listado. Se o IBGE reorganizar a árvore, o
+script falha dizendo qual nível sumiu — em vez de baixar silenciosamente um
+arquivo errado ou 404. A API de malhas (servicodados.ibge.gov.br) não é
+usada aqui de propósito: o produto do geoftp traz os atributos oficiais
+(inclusive AREA_KM2, do Áreas Territoriais), que o GeoJSON da API não traz.
+
+Idempotente: o ZIP já baixado não é baixado de novo (a menos de --forcar), e
+a conferência é por sha256, não por data de arquivo local.
+
+Parametrizado por código IBGE (default 4301602 = Bagé/RS) — a UF é deduzida
+dos 2 primeiros dígitos do código, então o script roda para qualquer
+município do país sem edição.
+
+Uso:
+    python scripts/download/vetor_ibge.py
+    python scripts/download/vetor_ibge.py --codigo-ibge 4322400
+    python scripts/download/vetor_ibge.py --ano 2024 --forcar
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import logging
+import re
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+import geopandas as gpd
+import requests
+
+RAIZ_PROJETO = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(RAIZ_PROJETO))
+
+from scripts.utils.hashes import sha256_arquivo  # noqa: E402
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+logger = logging.getLogger("vetor_ibge")
+
+CRS_PADRAO = "EPSG:31981"  # SIRGAS 2000 / UTM 21S
+CODIGO_IBGE_DEFAULT = "4301602"  # Bagé, RS
+
+# Único host autorizado para este script (ver "REGRA DE ORIGEM DO DADO").
+HOST_GEOFTP = "https://geoftp.ibge.gov.br/"
+# Ponto de partida da navegação: só o primeiro nível é nomeado aqui; todos os
+# demais são resolvidos lendo a listagem do nível anterior.
+RAIZ_NAVEGACAO = "organizacao_do_territorio/"
+CAMINHO_ESPERADO = ["malhas_territoriais/", "malhas_municipais/"]
+
+DIR_RAW_VETOR = RAIZ_PROJETO / "data" / "raw" / "vetor"
+DIR_PROCESSED = RAIZ_PROJETO / "data" / "processed"
+CAMINHO_AREA_ESTUDO = RAIZ_PROJETO / "config" / "area_estudo.geojson"
+
+# Códigos de UF do IBGE (2 primeiros dígitos do código municipal) -> sigla,
+# que é como os diretórios do geoftp são nomeados. Tabela fechada e estável
+# (Divisão Territorial Brasileira); não é hardcode de município.
+UF_POR_CODIGO = {
+    "11": "RO", "12": "AC", "13": "AM", "14": "RR", "15": "PA", "16": "AP",
+    "17": "TO", "21": "MA", "22": "PI", "23": "CE", "24": "RN", "25": "PB",
+    "26": "PE", "27": "AL", "28": "SE", "29": "BA", "31": "MG", "32": "ES",
+    "33": "RJ", "35": "SP", "41": "PR", "42": "SC", "43": "RS", "50": "MS",
+    "51": "MT", "52": "GO", "53": "DF",
+}
+
+# Nomes possíveis da coluna de código do município, entre as várias edições
+# da malha (o IBGE já usou CD_GEOCODM e CD_GEOCMU antes do CD_MUN atual).
+COLUNAS_CODIGO_MUNICIPIO = ("CD_MUN", "CD_GEOCODM", "CD_GEOCMU", "GEOCODIGO")
+
+TIMEOUT = 120
+
+
+# --------------------------------------------------------------------------
+# navegação pelas listagens do geoftp
+# --------------------------------------------------------------------------
+
+def listar_diretorio(url: str) -> list[str]:
+    """Lê uma listagem de diretório do geoftp e devolve as entradas filhas.
+
+    Descarta links de navegação do Apache (ordenação `?C=`), o link para o
+    diretório pai e qualquer link que aponte para fora do host.
+    """
+    if not url.startswith(HOST_GEOFTP):
+        raise RuntimeError(f"URL fora do host autorizado ({HOST_GEOFTP}): {url}")
+
+    resposta = requests.get(url, timeout=TIMEOUT)
+    resposta.raise_for_status()
+
+    entradas = []
+    for href in re.findall(r'href="([^"]+)"', resposta.text):
+        # só entradas relativas (filhos deste diretório): descarta "?C=N;O=D"
+        # (ordenação), "/caminho/absoluto" (pai) e "http..." (externos)
+        if href.startswith(("?", "/", "http://", "https://", "#")):
+            continue
+        entradas.append(href)
+    return entradas
+
+
+def entrar(url_pai: str, nome: str) -> str:
+    """Desce um nível, exigindo que `nome` esteja listado em `url_pai`."""
+    entradas = listar_diretorio(url_pai)
+    if nome not in entradas:
+        raise RuntimeError(
+            f"'{nome}' não está listado em {url_pai}. "
+            f"Entradas encontradas: {sorted(entradas)[:20]}"
+        )
+    logger.info("listagem ok: %s -> %s", url_pai, nome)
+    return url_pai + nome
+
+
+def resolver_url_malha(codigo_ibge: str, ano: str | None) -> tuple[str, str, str]:
+    """Navega o geoftp até o ZIP da malha municipal da UF do código informado.
+
+    Retorna (url_do_zip, nome_do_arquivo, ano_da_edicao).
+    """
+    uf = UF_POR_CODIGO.get(codigo_ibge[:2])
+    if uf is None:
+        raise RuntimeError(
+            f"Código IBGE '{codigo_ibge}' não começa com um código de UF válido."
+        )
+
+    url = entrar(HOST_GEOFTP, RAIZ_NAVEGACAO)
+    for nivel in CAMINHO_ESPERADO:
+        url = entrar(url, nivel)
+
+    # edições disponíveis: 'municipio_2000/' ... 'municipio_2025/'
+    edicoes = {}
+    for entrada in listar_diretorio(url):
+        achado = re.fullmatch(r"municipio_(\d{4})/", entrada)
+        if achado:
+            edicoes[achado.group(1)] = entrada
+    if not edicoes:
+        raise RuntimeError(f"Nenhuma edição 'municipio_AAAA/' listada em {url}")
+
+    ano_escolhido = ano or max(edicoes)
+    if ano_escolhido not in edicoes:
+        raise RuntimeError(
+            f"Edição {ano_escolhido} não existe. Disponíveis: {sorted(edicoes)}"
+        )
+    logger.info("edição da malha: %s (disponíveis: %s)", ano_escolhido, sorted(edicoes))
+
+    url = entrar(url, edicoes[ano_escolhido])
+    url = entrar(url, "UFs/")
+    url = entrar(url, f"{uf}/")
+
+    # o arquivo de municípios da UF, entre os produtos da pasta (a mesma pasta
+    # traz UF, regiões imediatas e intermediárias — não servem aqui)
+    candidatos = [
+        e for e in listar_diretorio(url)
+        if re.fullmatch(rf"{uf}_Municipios_\d{{4}}\.zip", e, flags=re.IGNORECASE)
+    ]
+    if len(candidatos) != 1:
+        raise RuntimeError(
+            f"Esperava exatamente 1 arquivo '{uf}_Municipios_AAAA.zip' em {url}, "
+            f"achei {candidatos}"
+        )
+    nome_arquivo = candidatos[0]
+    return url + nome_arquivo, nome_arquivo, ano_escolhido
+
+
+# --------------------------------------------------------------------------
+# download idempotente
+# --------------------------------------------------------------------------
+
+def baixar(url: str, destino: Path, forcar: bool) -> dict:
+    """Baixa `url` para `destino` (streaming) e devolve os metadados da coleta.
+
+    Idempotente: se o destino já existe e `forcar` é False, não rebaixa —
+    apenas relê o tamanho/sha256 do arquivo em disco e o Last-Modified da
+    origem (HEAD), para o metadado refletir a origem atual.
+    """
+    destino.parent.mkdir(parents=True, exist_ok=True)
+
+    cabecalho = requests.head(url, timeout=TIMEOUT)
+    cabecalho.raise_for_status()
+    last_modified = cabecalho.headers.get("Last-Modified")
+    tamanho_origem = cabecalho.headers.get("Content-Length")
+
+    if destino.exists() and not forcar:
+        logger.info("já existe, não rebaixando: %s (use --forcar)", destino.name)
+    else:
+        logger.info("baixando %s (%s bytes) -> %s", url, tamanho_origem, destino.name)
+        with requests.get(url, stream=True, timeout=TIMEOUT) as resposta:
+            resposta.raise_for_status()
+            with open(destino, "wb") as saida:
+                for bloco in resposta.iter_content(chunk_size=1024 * 1024):
+                    saida.write(bloco)
+
+    tamanho_local = destino.stat().st_size
+    if tamanho_origem and int(tamanho_origem) != tamanho_local:
+        raise RuntimeError(
+            f"Download incompleto: origem diz {tamanho_origem} bytes, "
+            f"arquivo local tem {tamanho_local}"
+        )
+
+    return {
+        "url": url,
+        "last_modified_origem": last_modified,
+        "tamanho_bytes": tamanho_local,
+        "sha256": sha256_arquivo(destino),
+        "data_acesso": datetime.now(timezone.utc).isoformat(),
+    }
+
+
+def escrever_metadado(caminho_dado: Path, metadados: dict) -> Path:
+    """Grava o .json irmão de um arquivo de dado."""
+    caminho = caminho_dado.with_suffix(".json")
+    caminho.write_text(json.dumps(metadados, ensure_ascii=False, indent=2), encoding="utf-8")
+    logger.info("metadado: %s", caminho.relative_to(RAIZ_PROJETO))
+    return caminho
+
+
+# --------------------------------------------------------------------------
+# recorte do município
+# --------------------------------------------------------------------------
+
+def recortar_municipio(caminho_zip: Path, codigo_ibge: str) -> gpd.GeoDataFrame:
+    """Lê a malha da UF direto do ZIP e devolve só o município pedido."""
+    # pyogrio/GDAL leem shapefile dentro de zip sem descompactar
+    gdf = gpd.read_file(f"zip://{caminho_zip}")
+
+    coluna = next((c for c in COLUNAS_CODIGO_MUNICIPIO if c in gdf.columns), None)
+    if coluna is None:
+        raise RuntimeError(
+            f"Nenhuma coluna de código municipal em {caminho_zip.name}. "
+            f"Colunas: {list(gdf.columns)}"
+        )
+
+    municipio = gdf[gdf[coluna].astype(str).str.strip() == codigo_ibge].copy()
+    if len(municipio) != 1:
+        raise RuntimeError(
+            f"Esperava 1 feição para o código {codigo_ibge} na coluna {coluna}, "
+            f"achei {len(municipio)}"
+        )
+
+    if municipio.crs is None:
+        raise RuntimeError("Malha do IBGE veio sem CRS declarado — abortando.")
+    logger.info("CRS de origem: %s | colunas: %s", municipio.crs.to_string(), list(municipio.columns))
+    return municipio.to_crs(CRS_PADRAO)
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Baixa a malha municipal do IBGE (geoftp) e gera a área de estudo."
+    )
+    parser.add_argument("--codigo-ibge", default=CODIGO_IBGE_DEFAULT,
+                        help="Código IBGE do município (default: 4301602, Bagé/RS)")
+    parser.add_argument("--ano", default=None,
+                        help="Edição da malha (default: a mais recente listada no geoftp)")
+    parser.add_argument("--forcar", action="store_true",
+                        help="Rebaixa o ZIP e regrava as saídas mesmo se já existirem")
+    args = parser.parse_args()
+
+    codigo = str(args.codigo_ibge).strip()
+
+    url_zip, nome_zip, ano = resolver_url_malha(codigo, args.ano)
+    caminho_zip = DIR_RAW_VETOR / nome_zip
+    coleta = baixar(url_zip, caminho_zip, args.forcar)
+    escrever_metadado(caminho_zip, {
+        "descricao": f"Malha municipal do IBGE, UF inteira, edição {ano} (arquivo bruto).",
+        "fonte": "IBGE — Malhas Territoriais (geoftp)",
+        "navegacao": "listagens do geoftp, a partir de organizacao_do_territorio/",
+        "edicao": ano,
+        **coleta,
+    })
+
+    municipio = recortar_municipio(caminho_zip, codigo)
+
+    # 1) referência única de recorte do acervo
+    CAMINHO_AREA_ESTUDO.parent.mkdir(parents=True, exist_ok=True)
+    municipio.to_file(CAMINHO_AREA_ESTUDO, driver="GeoJSON")
+
+    area_km2_geometrica = float(municipio.geometry.area.iloc[0]) / 1e6
+    area_km2_oficial = float(municipio["AREA_KM2"].iloc[0]) if "AREA_KM2" in municipio.columns else None
+    nome_municipio = next(
+        (str(municipio[c].iloc[0]) for c in ("NM_MUN", "NM_MUNICIP") if c in municipio.columns),
+        None,
+    )
+
+    metadados_comuns = {
+        "descricao": "Limite municipal — área de estudo de referência do acervo.",
+        "municipio": nome_municipio,
+        "codigo_ibge": codigo,
+        "fonte": "IBGE — Malhas Territoriais (geoftp)",
+        "url_origem": url_zip,
+        "edicao_malha": ano,
+        "sha256_origem": coleta["sha256"],
+        "last_modified_origem": coleta["last_modified_origem"],
+        "data_acesso": coleta["data_acesso"],
+        "crs_origem": "EPSG:4674 (SIRGAS 2000)",
+        "crs_saida": CRS_PADRAO,
+        "transformacao_aplicada": (
+            f"seleção da feição de código {codigo} na malha da UF + "
+            f"reprojeção para {CRS_PADRAO} (SIRGAS 2000 / UTM 21S)"
+        ),
+        "n_features": int(len(municipio)),
+        "area_km2_geometrica_epsg31981": round(area_km2_geometrica, 3),
+        "area_km2_oficial_ibge": area_km2_oficial,
+        "colunas": [c for c in municipio.columns if c != "geometry"],
+        "data_processamento": datetime.now(timezone.utc).isoformat(),
+    }
+    escrever_metadado(CAMINHO_AREA_ESTUDO, metadados_comuns)
+    logger.info("área de estudo: %s", CAMINHO_AREA_ESTUDO.relative_to(RAIZ_PROJETO))
+
+    # 2) arquivo de produção (GeoPackage), conforme CLAUDE.md: produção em GPKG,
+    #    publicação (GeoJSON do portal) é gerada à parte por scripts/geoportal/
+    DIR_PROCESSED.mkdir(parents=True, exist_ok=True)
+    caminho_gpkg = DIR_PROCESSED / f"limite-municipal_ibge_{ano}_municipal.gpkg"
+    municipio.to_file(caminho_gpkg, driver="GPKG", layer="limite_municipal")
+    escrever_metadado(caminho_gpkg, {
+        **metadados_comuns,
+        "descricao": "Limite municipal — arquivo de PRODUÇÃO (GeoPackage).",
+        "sha256": sha256_arquivo(caminho_gpkg),
+    })
+    logger.info("produção: %s", caminho_gpkg.relative_to(RAIZ_PROJETO))
+
+    print()
+    print(f"município ....... {nome_municipio} ({codigo})")
+    print(f"edição da malha . {ano}")
+    print(f"feições ......... {len(municipio)}")
+    print(f"CRS ............. {municipio.crs.to_string()}")
+    print(f"área geométrica . {area_km2_geometrica:,.3f} km² (calculada em {CRS_PADRAO})")
+    if area_km2_oficial is not None:
+        diferenca = abs(area_km2_geometrica - area_km2_oficial)
+        print(f"área oficial IBGE {area_km2_oficial:,.3f} km² (atributo AREA_KM2 da malha)")
+        print(f"diferença ....... {diferenca:,.3f} km² ({diferenca / area_km2_oficial * 100:.3f}%)")
+
+
+if __name__ == "__main__":
+    main()
