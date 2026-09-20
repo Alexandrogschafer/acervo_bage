@@ -1,0 +1,21 @@
+{
+  "arquivo": "data/externos/geoinformacao_bage/GeoDataBase/LOTEAMENTOS.geojson",
+  "autorizacao_fonte": false,
+  "campos_removidos": [],
+  "commit": "125c9753dca806422b5397969eaad726519177ad",
+  "crs": "EPSG:4326",
+  "data_commit": "2020-07-16",
+  "data_producao": "2026-09-20T20:31:59.947493-03:00",
+  "fonte_id": "geoinfo_geodatabase",
+  "licenca": "indefinida — repositório de origem sem arquivo LICENSE",
+  "observacoes": "USO INTERNO EM PESQUISA — sem autorização da fonte para republicação; repositório público, por isso pode_publicar=false e o arquivo fica fora do git (data/externos/, barrado pelo .gitignore e pelo hook de pre-commit).",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "repo_origem": "GeoDataBase",
+  "sha256": "a1d4532c4b7853fd6f874bfdc2514a974e1fbf631ff613714686e9f7319d936e",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 89041,
+  "tema": "cadastro",
+  "url_origem": "https://github.com/GeoInformacao/GeoDataBase.git",
+  "versao": "125c975"
+}

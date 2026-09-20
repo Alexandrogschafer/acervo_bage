@@ -1,0 +1,21 @@
+{
+  "arquivo": "data/externos/geoinformacao_bage/filesGeoJSONgeobage/RODOVIAS_SEM_PAVIMENTO.geojson",
+  "autorizacao_fonte": false,
+  "campos_removidos": [],
+  "commit": "dec129057da35adc245f352d0dfb1633adb70560",
+  "crs": "EPSG:4326",
+  "data_commit": "2022-07-26",
+  "data_producao": "2026-09-20T20:31:53.210594-03:00",
+  "fonte_id": "geoinfo_filesgeojsongeobage",
+  "licenca": "indefinida — repositório de origem sem arquivo LICENSE",
+  "observacoes": "USO INTERNO EM PESQUISA — sem autorização da fonte para republicação; repositório público, por isso pode_publicar=false e o arquivo fica fora do git (data/externos/, barrado pelo .gitignore e pelo hook de pre-commit).",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "repo_origem": "filesGeoJSONgeobage",
+  "sha256": "d49ffefda9c06c9ac2a17b6788323f488239db9dc62e98cb4a372348b040bc84",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 16056,
+  "tema": "viario",
+  "url_origem": "https://github.com/GeoInformacao/filesGeoJSONgeobage.git",
+  "versao": "dec1290"
+}

@@ -1,0 +1,21 @@
+{
+  "arquivo": "data/externos/geoinformacao_bage/filesGeoJSONgeobage/CURVAS_NIVEL.geojson",
+  "autorizacao_fonte": false,
+  "campos_removidos": [],
+  "commit": "dec129057da35adc245f352d0dfb1633adb70560",
+  "crs": "EPSG:4674",
+  "data_commit": "2022-07-26",
+  "data_producao": "2026-09-20T20:31:53.175463-03:00",
+  "fonte_id": "geoinfo_filesgeojsongeobage",
+  "licenca": "indefinida — repositório de origem sem arquivo LICENSE",
+  "observacoes": "USO INTERNO EM PESQUISA — sem autorização da fonte para republicação; repositório público, por isso pode_publicar=false e o arquivo fica fora do git (data/externos/, barrado pelo .gitignore e pelo hook de pre-commit). Tema aproximado — altimetria; sem tema de relevo no acervo.",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "repo_origem": "filesGeoJSONgeobage",
+  "sha256": "126533274aae79365613071381d9096aef63630f0d3305374181ece05a48ca28",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 2730609,
+  "tema": "ambiental",
+  "url_origem": "https://github.com/GeoInformacao/filesGeoJSONgeobage.git",
+  "versao": "dec1290"
+}

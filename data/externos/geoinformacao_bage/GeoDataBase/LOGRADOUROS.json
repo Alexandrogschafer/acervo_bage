@@ -1,0 +1,21 @@
+{
+  "arquivo": "data/externos/geoinformacao_bage/GeoDataBase/LOGRADOUROS.geojson",
+  "autorizacao_fonte": false,
+  "campos_removidos": [],
+  "commit": "125c9753dca806422b5397969eaad726519177ad",
+  "crs": "EPSG:31981",
+  "data_commit": "2020-07-16",
+  "data_producao": "2026-09-20T20:31:59.947198-03:00",
+  "fonte_id": "geoinfo_geodatabase",
+  "licenca": "indefinida — repositório de origem sem arquivo LICENSE",
+  "observacoes": "USO INTERNO EM PESQUISA — sem autorização da fonte para republicação; repositório público, por isso pode_publicar=false e o arquivo fica fora do git (data/externos/, barrado pelo .gitignore e pelo hook de pre-commit).",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "repo_origem": "GeoDataBase",
+  "sha256": "080efe0e5a940764e36899069bc49022b8da9c3c02b0438be16ca5715e955f49",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 1914362,
+  "tema": "viario",
+  "url_origem": "https://github.com/GeoInformacao/GeoDataBase.git",
+  "versao": "125c975"
+}

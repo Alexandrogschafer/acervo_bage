@@ -1,0 +1,21 @@
+{
+  "arquivo": "data/externos/geoinformacao_bage/filesGeoJSONgeobage/FERROVIAS.geojson",
+  "autorizacao_fonte": false,
+  "campos_removidos": [],
+  "commit": "dec129057da35adc245f352d0dfb1633adb70560",
+  "crs": "EPSG:4326",
+  "data_commit": "2022-07-26",
+  "data_producao": "2026-09-20T20:31:53.176385-03:00",
+  "fonte_id": "geoinfo_filesgeojsongeobage",
+  "licenca": "indefinida — repositório de origem sem arquivo LICENSE",
+  "observacoes": "USO INTERNO EM PESQUISA — sem autorização da fonte para republicação; repositório público, por isso pode_publicar=false e o arquivo fica fora do git (data/externos/, barrado pelo .gitignore e pelo hook de pre-commit).",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "repo_origem": "filesGeoJSONgeobage",
+  "sha256": "9d9a8bd5de62efae3421b1c6ec4c9fbc2f7a92a799eaa2c9c8ed4ab2fb575678",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 1483,
+  "tema": "viario",
+  "url_origem": "https://github.com/GeoInformacao/filesGeoJSONgeobage.git",
+  "versao": "dec1290"
+}

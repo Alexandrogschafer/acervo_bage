@@ -1,0 +1,21 @@
+{
+  "arquivo": "data/externos/geoinformacao_bage/filesGeoJSONgeobage/PREDIOS_PUBLICOS.geojson",
+  "autorizacao_fonte": false,
+  "campos_removidos": [],
+  "commit": "dec129057da35adc245f352d0dfb1633adb70560",
+  "crs": "EPSG:4326",
+  "data_commit": "2022-07-26",
+  "data_producao": "2026-09-20T20:31:53.201750-03:00",
+  "fonte_id": "geoinfo_filesgeojsongeobage",
+  "licenca": "indefinida — repositório de origem sem arquivo LICENSE",
+  "observacoes": "USO INTERNO EM PESQUISA — sem autorização da fonte para republicação; repositório público, por isso pode_publicar=false e o arquivo fica fora do git (data/externos/, barrado pelo .gitignore e pelo hook de pre-commit).",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "repo_origem": "filesGeoJSONgeobage",
+  "sha256": "d3425f1d80d9fbeb17dc3e72f21c05142f43594905ce88b3beb18716a413f1e6",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 23185,
+  "tema": "cadastro",
+  "url_origem": "https://github.com/GeoInformacao/filesGeoJSONgeobage.git",
+  "versao": "dec1290"
+}

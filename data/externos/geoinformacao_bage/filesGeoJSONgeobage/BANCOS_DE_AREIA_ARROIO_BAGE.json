@@ -1,0 +1,21 @@
+{
+  "arquivo": "data/externos/geoinformacao_bage/filesGeoJSONgeobage/BANCOS_DE_AREIA_ARROIO_BAGE.geojson",
+  "autorizacao_fonte": false,
+  "campos_removidos": [],
+  "commit": "dec129057da35adc245f352d0dfb1633adb70560",
+  "crs": "EPSG:4674",
+  "data_commit": "2022-07-26",
+  "data_producao": "2026-09-20T20:31:53.172915-03:00",
+  "fonte_id": "geoinfo_filesgeojsongeobage",
+  "licenca": "indefinida — repositório de origem sem arquivo LICENSE",
+  "observacoes": "USO INTERNO EM PESQUISA — sem autorização da fonte para republicação; repositório público, por isso pode_publicar=false e o arquivo fica fora do git (data/externos/, barrado pelo .gitignore e pelo hook de pre-commit).",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "repo_origem": "filesGeoJSONgeobage",
+  "sha256": "863c16b1868c3ddb231d296f998552feeb63aae4293aa9fa86e11bb405432279",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 1359,
+  "tema": "hidrografia",
+  "url_origem": "https://github.com/GeoInformacao/filesGeoJSONgeobage.git",
+  "versao": "dec1290"
+}

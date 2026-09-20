@@ -24,6 +24,19 @@ Campos (todos obrigatórios no arquivo gerado, mesmo que vazios):
     status_conferencia  "pendente" | "conferido"
     observacoes         texto livre
 
+Campos OPCIONAIS de procedência, aceitos em qualquer produto e gravados só
+quando informados (um produto gerado aqui dentro não os tem):
+
+    repo_origem         repositório de onde o arquivo veio
+    commit              commit exato, quando a origem é versionada
+    url_origem          URL do repositório/arquivo de origem
+    data_commit         data do commit de origem (ISO 8601)
+    nome_original       nome do arquivo na origem, quando foi renomeado aqui
+
+Existem porque cópia de terceiro só é rastreável se o arquivo disser de qual
+ponto exato da origem ele saiu: "veio do repositório X" não permite reencontrar
+nada se X mudou depois. O par (repo, commit) permite.
+
 `pode_publicar` é deliberadamente separado de `autorizacao_fonte`: a fonte
 pode autorizar redistribuição e mesmo assim o produto não poder ser publicado
 (ex.: derivado que reidentifica endereço). Nunca deduza um do outro aqui — a
@@ -53,6 +66,11 @@ CAMPOS: tuple[str, ...] = (
     "referencias_bib", "campos_removidos", "status_conferencia", "observacoes",
 )
 
+# Procedência: opcionais, só aparecem no .json quando informados.
+CAMPOS_OPCIONAIS: tuple[str, ...] = (
+    "repo_origem", "commit", "url_origem", "data_commit", "nome_original",
+)
+
 
 class MetadadoExistente(FileExistsError):
     """O `.json` irmão já existe e `sobrescrever` não foi pedido."""
@@ -80,6 +98,11 @@ def montar(
     status_conferencia: StatusConferencia = "pendente",
     observacoes: str = "",
     data_producao: datetime | None = None,
+    repo_origem: str | None = None,
+    commit: str | None = None,
+    url_origem: str | None = None,
+    data_commit: str | None = None,
+    nome_original: str | None = None,
 ) -> dict[str, Any]:
     """Monta o dicionário de metadados de um produto, lendo hash e tamanho do disco.
 
@@ -98,9 +121,15 @@ def montar(
         status_conferencia: "pendente" até a conferência visual do responsável.
         observacoes: texto livre.
         data_producao: default = agora, com fuso local.
+        repo_origem: repositório de origem, quando é cópia de terceiro.
+        commit: commit exato da origem.
+        url_origem: URL da origem.
+        data_commit: data do commit de origem (ISO 8601).
+        nome_original: nome do arquivo na origem, se renomeado aqui.
 
     Returns:
-        Dicionário com exatamente os campos de `CAMPOS`.
+        Dicionário com os campos de `CAMPOS`, mais os de `CAMPOS_OPCIONAIS`
+        que tiverem sido informados.
 
     Raises:
         FileNotFoundError: se `arquivo` não existe.
@@ -114,6 +143,14 @@ def montar(
 
     sha256, tamanho = hash_e_tamanho(arquivo)
     momento = data_producao or datetime.now(timezone.utc).astimezone()
+
+    procedencia = {
+        "repo_origem": repo_origem,
+        "commit": commit,
+        "url_origem": url_origem,
+        "data_commit": data_commit,
+        "nome_original": nome_original,
+    }
 
     return {
         "arquivo": paths.relativo(arquivo),
@@ -131,6 +168,7 @@ def montar(
         "campos_removidos": list(campos_removidos or []),
         "status_conferencia": status_conferencia,
         "observacoes": str(observacoes),
+        **{c: str(v) for c, v in procedencia.items() if v is not None},
     }
 
 
@@ -154,7 +192,7 @@ def escrever(
         ValueError: se faltar ou sobrar campo em relação a `CAMPOS`.
     """
     faltando = set(CAMPOS) - set(metadados)
-    se_sobrando = set(metadados) - set(CAMPOS)
+    se_sobrando = set(metadados) - set(CAMPOS) - set(CAMPOS_OPCIONAIS)
     if faltando or se_sobrando:
         raise ValueError(
             f"metadados fora do esquema — faltando: {sorted(faltando)}; "

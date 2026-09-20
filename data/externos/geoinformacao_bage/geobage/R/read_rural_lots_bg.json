@@ -1,0 +1,21 @@
+{
+  "arquivo": "data/externos/geoinformacao_bage/geobage/R/read_rural_lots_bg.R",
+  "autorizacao_fonte": false,
+  "campos_removidos": [],
+  "commit": "aaec7e8e3f537f99b646669dff00898d371a573d",
+  "crs": "",
+  "data_commit": "2022-07-26",
+  "data_producao": "2026-09-20T20:32:01.351147-03:00",
+  "fonte_id": "geoinfo_geobage",
+  "licenca": "MIT License + file LICENSE (titular: Prefeitura Municipal de Bagé)",
+  "observacoes": "USO INTERNO EM PESQUISA — sem autorização da fonte para republicação; repositório público, por isso pode_publicar=false e o arquivo fica fora do git (data/externos/, barrado pelo .gitignore e pelo hook de pre-commit).",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "repo_origem": "geobage",
+  "sha256": "eabe5c4f239e63dd088ef66808d2f6346bc1989c571c6ef3a5d3f99e8a35058f",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 597,
+  "tema": "procedencia",
+  "url_origem": "https://github.com/GeoInformacao/geobage.git",
+  "versao": "aaec7e8"
+}

@@ -1,0 +1,21 @@
+{
+  "arquivo": "data/externos/geoinformacao_bage/GeoDataBase/REGIOES_CENSITARIAS.geojson",
+  "autorizacao_fonte": false,
+  "campos_removidos": [],
+  "commit": "125c9753dca806422b5397969eaad726519177ad",
+  "crs": "EPSG:4036",
+  "data_commit": "2020-07-16",
+  "data_producao": "2026-09-20T20:31:59.967603-03:00",
+  "fonte_id": "geoinfo_geodatabase",
+  "licenca": "indefinida — repositório de origem sem arquivo LICENSE",
+  "observacoes": "USO INTERNO EM PESQUISA — sem autorização da fonte para republicação; repositório público, por isso pode_publicar=false e o arquivo fica fora do git (data/externos/, barrado pelo .gitignore e pelo hook de pre-commit).",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "repo_origem": "GeoDataBase",
+  "sha256": "35b9b1f4cb3889b645c202f8b6268f2e61c24d76fa2995cefe0ef4074d7687dc",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 138405,
+  "tema": "censo",
+  "url_origem": "https://github.com/GeoInformacao/GeoDataBase.git",
+  "versao": "125c975"
+}

@@ -1,0 +1,21 @@
+{
+  "arquivo": "data/externos/geoinformacao_bage/geobage/R/read_park_gaucho_bg.R",
+  "autorizacao_fonte": false,
+  "campos_removidos": [],
+  "commit": "aaec7e8e3f537f99b646669dff00898d371a573d",
+  "crs": "",
+  "data_commit": "2022-07-26",
+  "data_producao": "2026-09-20T20:32:01.349343-03:00",
+  "fonte_id": "geoinfo_geobage",
+  "licenca": "MIT License + file LICENSE (titular: Prefeitura Municipal de Bagé)",
+  "observacoes": "USO INTERNO EM PESQUISA — sem autorização da fonte para republicação; repositório público, por isso pode_publicar=false e o arquivo fica fora do git (data/externos/, barrado pelo .gitignore e pelo hook de pre-commit).",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "repo_origem": "geobage",
+  "sha256": "56231a4ae86495d2acbc41cc67b12fe5d9177f52dc6d3daa18d0878b081925d7",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 609,
+  "tema": "procedencia",
+  "url_origem": "https://github.com/GeoInformacao/geobage.git",
+  "versao": "aaec7e8"
+}

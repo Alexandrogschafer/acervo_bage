@@ -1,0 +1,21 @@
+{
+  "arquivo": "data/externos/geoinformacao_bage/geobage/R/read_unpaved_highways_bg.R",
+  "autorizacao_fonte": false,
+  "campos_removidos": [],
+  "commit": "aaec7e8e3f537f99b646669dff00898d371a573d",
+  "crs": "",
+  "data_commit": "2022-07-26",
+  "data_producao": "2026-09-20T20:32:01.353440-03:00",
+  "fonte_id": "geoinfo_geobage",
+  "licenca": "MIT License + file LICENSE (titular: Prefeitura Municipal de Bagé)",
+  "observacoes": "USO INTERNO EM PESQUISA — sem autorização da fonte para republicação; repositório público, por isso pode_publicar=false e o arquivo fica fora do git (data/externos/, barrado pelo .gitignore e pelo hook de pre-commit).",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "repo_origem": "geobage",
+  "sha256": "b464a495d3af6727df2860ff065b2ca0a01e8289335237d921dc0fbf98a5496f",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 608,
+  "tema": "procedencia",
+  "url_origem": "https://github.com/GeoInformacao/geobage.git",
+  "versao": "aaec7e8"
+}

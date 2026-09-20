@@ -1,0 +1,21 @@
+{
+  "arquivo": "data/externos/geoinformacao_bage/geobage/R/read_conservation_unit_bg.R",
+  "autorizacao_fonte": false,
+  "campos_removidos": [],
+  "commit": "aaec7e8e3f537f99b646669dff00898d371a573d",
+  "crs": "",
+  "data_commit": "2022-07-26",
+  "data_producao": "2026-09-20T20:32:01.342627-03:00",
+  "fonte_id": "geoinfo_geobage",
+  "licenca": "MIT License + file LICENSE (titular: Prefeitura Municipal de Bagé)",
+  "observacoes": "USO INTERNO EM PESQUISA — sem autorização da fonte para republicação; repositório público, por isso pode_publicar=false e o arquivo fica fora do git (data/externos/, barrado pelo .gitignore e pelo hook de pre-commit).",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "repo_origem": "geobage",
+  "sha256": "765a37e094853c491958b8fbf942d9dbdba8a803c9c0699a63c11e9af8497792",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 528,
+  "tema": "procedencia",
+  "url_origem": "https://github.com/GeoInformacao/geobage.git",
+  "versao": "aaec7e8"
+}
