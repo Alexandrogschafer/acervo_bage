@@ -12,7 +12,9 @@
   "crs_saida": "EPSG:31981",
   "transformacao_aplicada": "seleção da feição de código 4301602 na malha da UF + reprojeção para EPSG:31981 (SIRGAS 2000 / UTM 21S)",
   "n_features": 1,
-  "area_km2_geometrica_epsg31981": 4096.533,
+  "area_km2_geometrica": 4091.562,
+  "crs_medicao_area": "ESRI:102033",
+  "area_km2_geometrica_recalculada_em": "2026-09-22 (antes: 4096.533 km² em EPSG:31981, não equivalente; GeoPackage não regravado)",
   "area_km2_oficial_ibge": 4091.554,
   "colunas": [
     "CD_MUN",

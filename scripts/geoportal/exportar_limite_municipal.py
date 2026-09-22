@@ -1,12 +1,14 @@
 """
 Publica o limite municipal no geoportal.
 
-    config/area_estudo.geojson  (CRS de produção)
+    config/area_estudo.geojson  (EPSG:4326, lido já no CRS de produção)
         -> data/geoportal/limite_municipal.geojson  (CRS de publicação)
 
 Etapa de PUBLICAÇÃO: não recalcula nada, não altera geometria nem atributos —
 só reprojeta para o CRS que o Leaflet consome. A cópia do acervo
-correspondente (GeoPackage) é gerada por `scripts/download/vetor_ibge.py`.
+correspondente (GeoPackage, camada `limite_municipal`) é gerada por
+`scripts/download/vetor_ibge.py`; a área de estudo, por
+`scripts/processamento/area_estudo.py`.
 
 Uso:
     python scripts/geoportal/exportar_limite_municipal.py [--forcar]
@@ -40,7 +42,7 @@ def main() -> None:
                   f"(área de estudo do acervo).",
         fonte={
             "caminho_origem": paths.relativo(paths.area_estudo()),
-            "script_origem": "scripts/download/vetor_ibge.py",
+            "script_origem": "scripts/processamento/area_estudo.py",
             "instituicao": "IBGE — Malhas Territoriais",
         },
         transformacao=f"reprojeção {paths.crs_producao()} -> {paths.crs_publicacao()}, "

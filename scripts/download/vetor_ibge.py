@@ -1,9 +1,10 @@
 """
-Baixa a malha municipal do IBGE e gera o arquivo de referência único da área
-de estudo do acervo:
+Baixa a malha municipal do IBGE e gera a camada canônica do limite municipal:
 
-    config/area_estudo.geojson                                   (recorte de referência)
-    data/acervo/limites/limite-municipal_ibge_{ano}_municipal.gpkg  (acervo)
+    data/acervo/limites/limite-municipal_ibge_{ano}_municipal.gpkg  (camada `limite_municipal`)
+
+A área de estudo (config/area_estudo.geojson) NÃO é mais gravada aqui: ela é
+derivada desta camada por `scripts/processamento/area_estudo.py`, em EPSG:4326.
 
 Município, CRS e caminhos vêm todos de `config/config.yaml` via
 `scripts/utils/paths.py` — nada fixo neste arquivo.
@@ -48,7 +49,7 @@ import requests
 RAIZ_PROJETO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(RAIZ_PROJETO))
 
-from scripts.utils import paths  # noqa: E402
+from scripts.utils import medidas, paths  # noqa: E402
 from scripts.utils.hashes import sha256_arquivo  # noqa: E402
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
@@ -67,7 +68,6 @@ CAMINHO_ESPERADO = ["malhas_territoriais/", "malhas_municipais/"]
 
 DIR_RAW_VETOR = paths.caminho("raw_vetor")
 DIR_ACERVO_LIMITES = paths.caminho("acervo_limites")
-CAMINHO_AREA_ESTUDO = paths.area_estudo()
 
 # Códigos de UF do IBGE (2 primeiros dígitos do código municipal) -> sigla,
 # que é como os diretórios do geoftp são nomeados. Tabela fechada e estável
@@ -284,11 +284,8 @@ def main() -> None:
 
     municipio = recortar_municipio(caminho_zip, codigo)
 
-    # 1) referência única de recorte do acervo
-    CAMINHO_AREA_ESTUDO.parent.mkdir(parents=True, exist_ok=True)
-    municipio.to_file(CAMINHO_AREA_ESTUDO, driver="GeoJSON")
-
-    area_km2_geometrica = float(municipio.geometry.area.iloc[0]) / 1e6
+    # área no CRS equivalente (crs.area), nunca no UTM de produção
+    area_km2_geometrica = medidas.area_m2(municipio.geometry.iloc[0]) / 1e6
     area_km2_oficial = float(municipio["AREA_KM2"].iloc[0]) if "AREA_KM2" in municipio.columns else None
     nome_municipio = next(
         (str(municipio[c].iloc[0]) for c in ("NM_MUN", "NM_MUNICIP") if c in municipio.columns),
@@ -312,15 +309,13 @@ def main() -> None:
             f"reprojeção para {CRS_PADRAO} (SIRGAS 2000 / UTM 21S)"
         ),
         "n_features": int(len(municipio)),
-        "area_km2_geometrica_epsg31981": round(area_km2_geometrica, 3),
+        "area_km2_geometrica": round(area_km2_geometrica, 3),
+        "crs_medicao_area": medidas.crs_medicao_area(),
         "area_km2_oficial_ibge": area_km2_oficial,
         "colunas": [c for c in municipio.columns if c != "geometry"],
         "data_processamento": datetime.now(timezone.utc).isoformat(),
     }
-    escrever_metadado(CAMINHO_AREA_ESTUDO, metadados_comuns)
-    logger.info("área de estudo: %s", CAMINHO_AREA_ESTUDO.relative_to(RAIZ_PROJETO))
-
-    # 2) cópia do ACERVO (GeoPackage, CRS de produção). A publicação
+    # cópia do ACERVO (GeoPackage, CRS de produção). A publicação
     #    (GeoJSON do portal) é gerada à parte por scripts/geoportal/.
     DIR_ACERVO_LIMITES.mkdir(parents=True, exist_ok=True)
     caminho_gpkg = DIR_ACERVO_LIMITES / f"limite-municipal_ibge_{ano}_municipal.gpkg"
@@ -337,7 +332,7 @@ def main() -> None:
     print(f"edição da malha . {ano}")
     print(f"feições ......... {len(municipio)}")
     print(f"CRS ............. {municipio.crs.to_string()}")
-    print(f"área geométrica . {area_km2_geometrica:,.3f} km² (calculada em {CRS_PADRAO})")
+    print(f"área geométrica . {area_km2_geometrica:,.3f} km² (calculada em {paths.crs_area()})")
     if area_km2_oficial is not None:
         diferenca = abs(area_km2_geometrica - area_km2_oficial)
         print(f"área oficial IBGE {area_km2_oficial:,.3f} km² (atributo AREA_KM2 da malha)")

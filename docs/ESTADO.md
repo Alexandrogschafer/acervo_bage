@@ -317,6 +317,12 @@ polígono projetado em UTM 21S, e a projeção UTM distorce área ao se afastar 
 meridiano central. Bagé (≈54,1° W) está a cerca de 3° do meridiano central do
 fuso 21 (57° W), magnitude compatível com a distorção observada.
 
+> **Atualização 2026-09-22:** a regra mudou. Área passou a ser medida no CRS
+> equivalente `crs.area` do config (`ESRI:102033`, South America Albers Equal
+> Area Conic), via `scripts/utils/medidas.py`: Bagé = **4.091,562 km²**, resíduo
+> de **+0,008 km²** (0,0002 %) em relação ao oficial. Os 4.096,533 km² acima
+> ficam como registro da medição em UTM. Ver `docs/convencoes.md`, seção 2.
+
 Idempotência conferida: a segunda execução registrou
 `já existe, não rebaixando: RS_Municipios_2025.zip` e reproduziu as mesmas
 saídas.

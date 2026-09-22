@@ -17,12 +17,13 @@ de novo, haveria duas definições do mesmo polígono. O sha256 da camada de
 origem fica registrado em `camada_origem` do `.json` irmão; se a camada mudar
 sem reconferência, o script recusa a derivação (`catalogo.camada_conferida`).
 
-GeoJSON em EPSG:4326 porque a RFC 7946 exige WGS 84. Medições (área,
-perímetro) são sempre feitas no CRS de produção. Quem consome usa
+GeoJSON em EPSG:4326 porque a RFC 7946 exige WGS 84. A área é medida no CRS
+de área (equivalente, `crs.area`); o perímetro, no CRS de produção. Quem consome usa
 `paths.carregar_area_estudo()`, que devolve o recorte já no CRS de produção.
 
-Idempotente: se o GeoJSON gerado é byte a byte igual ao existente e o `.json`
-irmão aponta para o mesmo sha256 de origem, nada é regravado.
+Idempotente: o GeoJSON só é regravado se mudar; o `.json` irmão, só se o seu
+conteúdo mudar. Se o GeoJSON é o mesmo que foi conferido, a conferência
+(status e pode_publicar) é preservada; se mudou, volta a pendente/false.
 
 Uso:
     python scripts/processamento/area_estudo.py
@@ -39,7 +40,7 @@ import geopandas as gpd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from scripts.utils import catalogo, metadados, paths  # noqa: E402
+from scripts.utils import catalogo, medidas, metadados, paths  # noqa: E402
 from scripts.utils.hashes import sha256_arquivo  # noqa: E402
 
 ID_CAMADA_ORIGEM = "limite_municipal"
@@ -90,8 +91,8 @@ def main() -> None:
     destino = paths.area_estudo()
 
     geometria = municipio.geometry.iloc[0]
-    area_km2 = geometria.area / 1e6
-    perimetro_km = geometria.length / 1e3
+    area_km2 = medidas.area_m2(geometria) / 1e6          # CRS de área (equivalente)
+    perimetro_km = geometria.length / 1e3                # CRS de produção
 
     # grava num temporário e só substitui se mudou (idempotência)
     destino.parent.mkdir(parents=True, exist_ok=True)
@@ -105,20 +106,23 @@ def main() -> None:
         meta_atual = {}
         if destino.exists() and metadados.caminho_irmao(destino).exists():
             meta_atual = metadados.ler(destino)
-        coerente = not (meta_atual.get("pode_publicar")
-                        and meta_atual.get("status_conferencia") != "conferido")
-        if (destino.exists() and sha256_arquivo(destino) == sha_novo and coerente
-                and meta_atual.get("camada_origem", {}).get("sha256") == linha["sha256"]):
-            print(f"sem mudança: {paths.relativo(destino)} já corresponde a "
-                  f"{ID_CAMADA_ORIGEM} ({linha['sha256'][:12]}…)")
-            return
-        novo.replace(destino)
+        mesmo_arquivo = (destino.exists() and sha256_arquivo(destino) == sha_novo
+                         and meta_atual.get("camada_origem", {}).get("sha256") == linha["sha256"])
+        if not mesmo_arquivo:
+            novo.replace(destino)
+
+    # Conferência só sobrevive se o arquivo é exatamente o conferido; e nada
+    # pendente é publicável (mesma regra do validador).
+    status = "pendente"
+    if mesmo_arquivo and meta_atual.get("status_conferencia") == "conferido":
+        status = "conferido"
+    pode_publicar = status == "conferido" and linha["pode_publicar"].strip().lower() == "true"
 
     # confere a ida e volta 4326 -> produção (a RFC 7946 limita a 7 casas decimais)
     relido = paths.carregar_area_estudo(destino)
     if len(relido) != 1 or not relido.geometry.iloc[0].is_valid:
         raise RuntimeError(f"{paths.relativo(destino)} relido não tem 1 feição válida.")
-    desvio_m2 = relido.geometry.iloc[0].symmetric_difference(geometria).area
+    desvio_m2 = medidas.area_m2(relido.geometry.iloc[0].symmetric_difference(geometria))
 
     dados = metadados.montar(
         destino,
@@ -128,20 +132,17 @@ def main() -> None:
         crs=paths.crs_publicacao(),
         licenca=linha["licenca"],
         autorizacao_fonte=True,
-        # mesma regra do validador: nada pendente é publicável. Quando o
-        # responsável conferir no mapa, status vira "conferido" e pode_publicar
-        # passa a valer o da camada de origem.
-        pode_publicar=False,
-        status_conferencia="pendente",
+        pode_publicar=pode_publicar,
+        status_conferencia=status,
         observacoes=(
             f"Área de estudo do acervo = limite municipal exato de "
             f"{paths.nome_municipio()}/{paths.uf()}, sem buffer. Derivada de "
             f"'{ID_CAMADA_ORIGEM}' só por reprojeção {paths.crs_producao()} -> "
             f"{paths.crs_publicacao()} (RFC 7946). Não é camada do catálogo. "
-            "Status 'pendente' porque este arquivo reprojetado ainda não foi aberto "
-            "no mapa; por isso pode_publicar=false, embora a camada de origem seja "
-            f"pode_publicar={linha['pode_publicar'].strip().lower()}. Na conferência, "
-            "pode_publicar passa a valer o da origem."
+            "Enquanto status_conferencia=pendente, pode_publicar=false; conferido no "
+            "mapa, pode_publicar passa a valer o da camada de origem "
+            f"({linha['pode_publicar'].strip().lower()}). Área medida em "
+            f"{paths.crs_area()} (equivalente); perímetro em {paths.crs_producao()}."
         ),
     )
     dados["edicao"] = edicao
@@ -154,25 +155,33 @@ def main() -> None:
         "url_origem": meta_origem.get("url_origem"),
         "sha256_malha_bruta": meta_origem.get("sha256_origem"),
     }
+    oficial = float(municipio["AREA_KM2"].iloc[0]) if "AREA_KM2" in municipio else None
     dados["medidas"] = {
-        "crs_medicao": paths.crs_producao(),
         "area_km2": round(area_km2, 3),
+        "crs_medicao_area": medidas.crs_medicao_area(),
         "perimetro_km": round(perimetro_km, 3),
-        "area_km2_oficial_ibge": (
-            float(municipio["AREA_KM2"].iloc[0]) if "AREA_KM2" in municipio else None
-        ),
+        "crs_medicao_distancia": paths.crs_producao(),
+        "area_km2_oficial_ibge": oficial,
+        "area_menos_oficial_km2": (round(area_km2 - oficial, 3) if oficial else None),
     }
     dados["verificacoes"] = {
         "n_feicoes": 1,
         "geometria_valida": True,
         "codigo_ibge": paths.codigo_ibge(),
         "desvio_ida_e_volta_m2": round(desvio_m2, 2),
+        "crs_medicao_area": medidas.crs_medicao_area(),
     }
+    sem_data = lambda d: {k: v for k, v in d.items() if k != "data_producao"}  # noqa: E731
+    if mesmo_arquivo and sem_data(meta_atual) == sem_data(dados):
+        print(f"sem mudança: {paths.relativo(destino)} já corresponde a "
+              f"{ID_CAMADA_ORIGEM} ({linha['sha256'][:12]}…)")
+        return
     metadados.escrever(destino, dados, sobrescrever=True)
 
     print(f"área de estudo ... {paths.relativo(destino)} ({paths.crs_publicacao()})")
     print(f"origem ........... {ID_CAMADA_ORIGEM} ({linha['sha256'][:12]}…), {edicao}")
-    print(f"área ............. {area_km2:,.3f} km² (em {paths.crs_producao()})")
+    print(f"área ............. {area_km2:,.3f} km² (em {paths.crs_area()}; "
+          f"oficial IBGE {oficial} km²)")
     print(f"perímetro ........ {perimetro_km:,.3f} km")
     print(f"desvio ida-volta . {desvio_m2:,.2f} m² (arredondamento RFC 7946)")
 

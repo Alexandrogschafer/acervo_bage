@@ -22,8 +22,10 @@ Município, CRS e caminhos saem de `config/config.yaml`, lido por
 `scripts/utils/paths.py`. **Se aparecer um `"EPSG:31981"`, um `"4301602"` ou um
 caminho literal fora do YAML, é bug.**
 
-- CRS de produção `EPSG:31981` (métrico — toda medição acontece nele)
+- CRS de produção `EPSG:31981` (métrico — operações, distância e perímetro)
 - CRS de publicação `EPSG:4326` (só o Leaflet consome; reprojetar por último)
+- CRS de área `ESRI:102033` (equivalente): **toda área** é medida nele, via
+  `scripts/utils/medidas.py`, com `crs_medicao_area` registrado junto
 
 ## Módulos de `scripts/utils/` (usar, não reimplementar)
 
@@ -31,6 +33,7 @@ caminho literal fora do YAML, é bug.**
 | --- | --- |
 | `paths.py` | config, raiz, caminhos; erro legível se faltar chave; `carregar_area_estudo()` já no CRS de produção |
 | `catalogo.py` | lê/atualiza os catálogos; `camada_conferida()` confere o sha256 antes de derivar |
+| `medidas.py` | área no CRS equivalente (`area_m2`, `areas_m2`) |
 | `hashes.py` | sha256 em blocos + tamanho |
 | `nomes.py` | `{tema}_{fonte}_{ano-ou-periodo}_{resolucao}.{ext}` |
 | `metadados.py` | o `.json` irmão de todo produto |

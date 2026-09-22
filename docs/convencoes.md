@@ -59,11 +59,29 @@ que permite detectar que a origem mudou.
 | papel | CRS | onde |
 | --- | --- | --- |
 | **produção** | `EPSG:31981` (SIRGAS 2000 / UTM 21S) | `data/acervo/`, `data/raw/`, todo processamento |
-| **publicação** | `EPSG:4326` (WGS 84) | `data/geoportal/` |
+| **publicação** | `EPSG:4326` (WGS 84) | `data/geoportal/`, `config/area_estudo.geojson` (RFC 7946) |
+| **área** | `ESRI:102033` (South America Albers Equal Area Conic) | só para **medir área** — nenhum arquivo é gravado nele |
 
-Toda medição — área, distância, buffer — acontece no CRS de **produção**, que
-é métrico. A reprojeção para publicação é **sempre o último passo**, porque
-`EPSG:4326` é em graus: medir nele produz número errado sem nenhum aviso.
+Distância, perímetro, buffer e toda operação espacial (união, diferença,
+dissolve, clip) acontecem no CRS de **produção**, que é métrico. A reprojeção
+para publicação é **sempre o último passo**, porque `EPSG:4326` é em graus:
+medir nele produz número errado sem nenhum aviso.
+
+**Área é medida no CRS de área, nunca no de produção.** O UTM é conforme, não
+equivalente: fora do meridiano central ele infla a área, e Bagé fica na borda
+leste do fuso 21 (≈54° W, a ~3° do meridiano central 57° W). Medido em
+`EPSG:31981`, o município dá 4.096,533 km², 0,12 % acima dos 4.091,554 km²
+oficiais do IBGE; em `ESRI:102033` dá 4.091,562 km² (resíduo de 0,008 km²).
+
+Na prática:
+
+- a operação continua no CRS de produção; a **geometria resultante** é
+  reprojetada para o CRS de área só para ser medida — usar
+  `scripts/utils/medidas.py` (`area_m2`, `areas_m2`), nunca `.area` direto;
+- todo número de área gravado em metadado leva, no mesmo bloco, o campo
+  **`crs_medicao_area`**; perímetro e distância levam `crs_medicao_distancia`;
+- o CRS de área vem de `crs.area` no config (`paths.crs_area()`), como os
+  demais.
 
 Dado bruto pode chegar em qualquer CRS; reprojetar é obrigatório **antes** de
 qualquer operação espacial (join, clip, buffer), nunca depois.

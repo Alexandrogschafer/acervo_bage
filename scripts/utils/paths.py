@@ -149,6 +149,11 @@ def crs_publicacao() -> str:
     return str(valor("crs", "publicacao"))
 
 
+def crs_area() -> str:
+    """CRS equivalente — onde toda medida de ÁREA acontece (ver scripts/utils/medidas.py)."""
+    return str(valor("crs", "area"))
+
+
 def area_estudo() -> Path:
     """Caminho absoluto do recorte de referência do acervo."""
     return RAIZ / str(valor("area_estudo"))

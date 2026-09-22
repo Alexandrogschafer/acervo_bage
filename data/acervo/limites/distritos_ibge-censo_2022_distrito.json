@@ -3,11 +3,11 @@
   "autorizacao_fonte": true,
   "campos_removidos": [],
   "crs": "EPSG:31981",
-  "data_producao": "2026-09-22T09:28:25.777319-03:00",
+  "data_producao": "2026-09-22T09:36:28.380249-03:00",
   "edicao": "censo_2022",
   "fonte_id": "ibge_malha_distritos_2022",
   "licenca": "IBGE — uso livre com citação da fonte",
-  "observacoes": "Distritos de Bagé/RS: malha OFICIAL de distritos do IBGE (censo_2022, https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_de_setores_censitarios__divisoes_intramunicipais/censo_2022/distritos/gpkg/UF/RS/RS_distritos_CD2022.gpkg), recorte CD_MUN=4301602, atributos originais, reprojetada para EPSG:31981. Verificação: a dissolução dos setores 2022 por CD_DIST tem os mesmos 5 códigos e nomes e diferença simétrica máxima de 0.0000 m² por distrito (tolerância < 1.0 m²). Soma das áreas − limite_municipal: -1,196,834 m². pode_publicar=false só até a conferência visual: a fonte autoriza (autorizacao_fonte=true); vira true na promoção. Citar: IBGE, Censo 2022. Script: scripts/processamento/limites_ibge.py.",
+  "observacoes": "Distritos de Bagé/RS: malha OFICIAL de distritos do IBGE (censo_2022, https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_de_setores_censitarios__divisoes_intramunicipais/censo_2022/distritos/gpkg/UF/RS/RS_distritos_CD2022.gpkg), recorte CD_MUN=4301602, atributos originais, reprojetada para EPSG:31981. Verificação: a dissolução dos setores 2022 por CD_DIST tem os mesmos 5 códigos e nomes e diferença simétrica máxima de 0.0000 m² por distrito (tolerância < 1.0 m²). Soma das áreas − limite_municipal: -1,194,608 m² (áreas em ESRI:102033). pode_publicar=false só até a conferência visual: a fonte autoriza (autorizacao_fonte=true); vira true na promoção. Citar: IBGE, Censo 2022. Script: scripts/processamento/limites_ibge.py.",
   "pode_publicar": false,
   "referencias_bib": [],
   "sha256": "e49445a3f97075ff70bd5dadfcaea52c2fe4276939ae84186f8881fe43bdd98d",
@@ -19,10 +19,11 @@
     "comparacao_com_dissolucao_dos_setores": {
       "acima_da_tolerancia": [],
       "coincidem": true,
+      "crs_medicao_area": "ESRI:102033",
       "distritos": [
         {
-          "area_dissolucao_m2": 362337660.41,
-          "area_oficial_m2": 362337660.41,
+          "area_dissolucao_m2": 361923089.18,
+          "area_oficial_m2": 361923089.18,
           "cd_dist": "430160205",
           "dif_simetrica_m2": 0.0,
           "dif_simetrica_pct": 0.0,
@@ -31,8 +32,8 @@
           "nm_oficial": "Bagé"
         },
         {
-          "area_dissolucao_m2": 1144072508.39,
-          "area_oficial_m2": 1144072508.39,
+          "area_dissolucao_m2": 1142531249.77,
+          "area_oficial_m2": 1142531249.77,
           "cd_dist": "430160217",
           "dif_simetrica_m2": 0.0,
           "dif_simetrica_pct": 0.0,
@@ -41,8 +42,8 @@
           "nm_oficial": "Joca Tavares"
         },
         {
-          "area_dissolucao_m2": 925659280.96,
-          "area_oficial_m2": 925659280.96,
+          "area_dissolucao_m2": 924863773.81,
+          "area_oficial_m2": 924863773.81,
           "cd_dist": "430160220",
           "dif_simetrica_m2": 0.0,
           "dif_simetrica_pct": 0.0,
@@ -51,8 +52,8 @@
           "nm_oficial": "José Otávio"
         },
         {
-          "area_dissolucao_m2": 1045287557.16,
-          "area_oficial_m2": 1045287557.16,
+          "area_dissolucao_m2": 1043448974.59,
+          "area_oficial_m2": 1043448974.59,
           "cd_dist": "430160221",
           "dif_simetrica_m2": 0.0,
           "dif_simetrica_pct": 0.0,
@@ -61,8 +62,8 @@
           "nm_oficial": "Palmas"
         },
         {
-          "area_dissolucao_m2": 617978959.13,
-          "area_oficial_m2": 617978959.13,
+          "area_dissolucao_m2": 617600635.54,
+          "area_oficial_m2": 617600635.54,
           "cd_dist": "430160222",
           "dif_simetrica_m2": 0.0,
           "dif_simetrica_pct": 0.0,
@@ -78,12 +79,12 @@
       "so_na_oficial": [],
       "tolerancia_m2": 1.0
     },
-    "crs_medicao": "EPSG:31981",
+    "crs_medicao_area": "ESRI:102033",
     "n_distritos": 5,
     "origem": "malha oficial de distritos do IBGE",
-    "soma_areas_distritos_m2": 4095335966.04,
-    "soma_distritos_menos_limite_municipal_m2": -1196834.16,
-    "soma_distritos_menos_limite_municipal_pct": -0.029216
+    "soma_areas_distritos_m2": 4090367722.89,
+    "soma_distritos_menos_limite_municipal_m2": -1194608.3,
+    "soma_distritos_menos_limite_municipal_pct": -0.029197
   },
   "versao": "censo_2022"
 }

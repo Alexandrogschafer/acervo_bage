@@ -12,17 +12,19 @@
   },
   "campos_removidos": [],
   "crs": "EPSG:4326",
-  "data_producao": "2026-09-22T09:26:21.774666-03:00",
+  "data_producao": "2026-09-22T09:35:29.218412-03:00",
   "edicao": "municipio_2025",
   "fonte_id": "ibge_malhas_municipais",
   "licenca": "dados abertos (uso livre com citação da fonte)",
   "medidas": {
-    "area_km2": 4096.533,
+    "area_km2": 4091.562,
     "area_km2_oficial_ibge": 4091.554,
-    "crs_medicao": "EPSG:31981",
+    "area_menos_oficial_km2": 0.008,
+    "crs_medicao_area": "ESRI:102033",
+    "crs_medicao_distancia": "EPSG:31981",
     "perimetro_km": 580.259
   },
-  "observacoes": "Área de estudo do acervo = limite municipal exato de Bagé/RS, sem buffer. Derivada de 'limite_municipal' só por reprojeção EPSG:31981 -> EPSG:4326 (RFC 7946). Não é camada do catálogo. Status 'pendente' porque este arquivo reprojetado ainda não foi aberto no mapa; por isso pode_publicar=false, embora a camada de origem seja pode_publicar=true. Na conferência, pode_publicar passa a valer o da origem.",
+  "observacoes": "Área de estudo do acervo = limite municipal exato de Bagé/RS, sem buffer. Derivada de 'limite_municipal' só por reprojeção EPSG:31981 -> EPSG:4326 (RFC 7946). Não é camada do catálogo. Enquanto status_conferencia=pendente, pode_publicar=false; conferido no mapa, pode_publicar passa a valer o da camada de origem (true). Área medida em ESRI:102033 (equivalente); perímetro em EPSG:31981.",
   "pode_publicar": false,
   "referencias_bib": [],
   "sha256": "b0144fc342531d615f0ad3448054e783d8fcf7718116af99cd6a67cf9e4c28e0",
@@ -31,6 +33,7 @@
   "tema": "limites",
   "verificacoes": {
     "codigo_ibge": "4301602",
+    "crs_medicao_area": "ESRI:102033",
     "desvio_ida_e_volta_m2": 0.0,
     "geometria_valida": true,
     "n_feicoes": 1

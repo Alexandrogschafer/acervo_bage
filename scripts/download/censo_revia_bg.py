@@ -66,6 +66,17 @@ ORIGEM_RELATIVA = "dados/externos/censo"
 DESTINO = RAIZ_PROJETO / "data" / "acervo" / "censo"
 
 ANOS = ("2000", "2010", "2022")
+
+# Arquivos da origem que NÃO são mais copiados: aposentados porque o acervo já
+# tem o mesmo dado (mesmo sha256) obtido direto do IBGE por um script próprio.
+# caminho relativo na origem -> arquivo que o substitui neste repositório.
+# O .json irmão do aposentado fica no destino como rastro (aposentado_em,
+# substituido_por); este script não o regrava.
+APOSENTADOS: dict[str, str] = {
+    "2022/malha/geoftp_malha_territorial/RS_setores_CD2022.gpkg":
+        "data/raw/vetor/ibge/censo_2022/RS_setores_CD2022.gpkg "
+        "(scripts/download/baixar_malhas_ibge.py)",
+}
 SCRIPT_RESPONSAVEL = "scripts/download/censo_revia_bg.py"
 
 # Licença: confirmada no próprio servidor que serviu os arquivos, e só ali.
@@ -112,9 +123,10 @@ def carregar_manifestos(origem: Path) -> tuple[list[dict], dict]:
 
 
 def inventariar(origem: Path) -> list[str]:
-    """Todos os arquivos da árvore de origem, em caminho relativo ordenado."""
+    """Arquivos da árvore de origem a copiar (menos APOSENTADOS), ordenados."""
     return sorted(
-        str(p.relative_to(origem)) for p in origem.rglob("*") if p.is_file()
+        rel for p in origem.rglob("*")
+        if p.is_file() and (rel := str(p.relative_to(origem))) not in APOSENTADOS
     )
 
 
@@ -221,7 +233,7 @@ def main() -> None:
           f"{len(acompanham)} arquivos de procedência que acompanham a cópia:")
     for r in acompanham:
         print(f"        · {r}")
-    faltando = sorted(set(por_caminho) - set(relativos))
+    faltando = sorted(set(por_caminho) - set(relativos) - set(APOSENTADOS))
     if faltando:
         raise SystemExit(f"ERRO: manifesto cita arquivo ausente na origem: {faltando}")
 
@@ -349,6 +361,11 @@ def main() -> None:
             "arquivos_de_procedencia": len(acompanham),
             "bytes": bytes_origem,
         },
+        "aposentados": [
+            {"caminho": r, "substituido_por": substituto,
+             "nota": "não copiado: mesmo dado já obtido direto do IBGE"}
+            for r, substituto in APOSENTADOS.items()
+        ],
         "arquivos": [
             {
                 "caminho": r,

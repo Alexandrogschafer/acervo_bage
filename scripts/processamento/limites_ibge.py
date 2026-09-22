@@ -35,7 +35,9 @@ malha municipal: a do ano do Censo (municipio_2022, só em data/raw/, não vira
 camada) e a canônica (`limite_municipal`, municipio_2025). Os setores NÃO são
 recortados por nenhuma das duas.
 
-Toda medição é feita no CRS de produção.
+Operações espaciais no CRS de produção; toda ÁREA é medida no CRS de área
+(equivalente, `crs.area`) via `scripts/utils/medidas.py`, e cada bloco de
+medidas registra `crs_medicao_area`.
 
 STATUS: as camadas entram com status_conferencia=pendente e pode_publicar=false.
 A fonte autoriza redistribuição (autorizacao_fonte=true), mas o acervo só
@@ -44,7 +46,9 @@ vira true na promoção, junto com status_conferencia=conferido.
 
 GeoPackage determinístico: `OGR_CURRENT_DATE` é fixado no Last-Modified da
 malha de origem, então a mesma entrada gera os mesmos bytes. Se o arquivo e o
-metadado gerados forem iguais aos existentes, nada é regravado.
+metadado gerados forem iguais aos existentes, nada é regravado. Se o GeoPackage
+é o mesmo (sha256 igual ao do catálogo), a conferência já registrada (status e
+pode_publicar) é preservada.
 
 Uso:
     python scripts/processamento/limites_ibge.py
@@ -64,7 +68,7 @@ import pyogrio
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from scripts.utils import catalogo, metadados, nomes, paths  # noqa: E402
+from scripts.utils import catalogo, medidas, metadados, nomes, paths  # noqa: E402
 from scripts.utils.hashes import sha256_arquivo  # noqa: E402
 
 EDICAO_CENSO = "censo_2022"
@@ -164,13 +168,14 @@ def comparar_distritos(oficiais: gpd.GeoDataFrame, dissolvidos: gpd.GeoDataFrame
                  "nm_dissolucao": di[COL_NM_DIST].get(codigo)}
         if codigo in of.index and codigo in di.index:
             g_of, g_di = of.geometry[codigo], di.geometry[codigo]
-            dif = g_of.symmetric_difference(g_di).area
+            dif = medidas.area_m2(g_of.symmetric_difference(g_di))
+            area_of = medidas.area_m2(g_of)
             linha.update(
-                area_oficial_m2=round(g_of.area, 2),
-                area_dissolucao_m2=round(g_di.area, 2),
+                area_oficial_m2=round(area_of, 2),
+                area_dissolucao_m2=round(medidas.area_m2(g_di), 2),
                 n_setores=int(di["N_SETORES"][codigo]),
                 dif_simetrica_m2=round(dif, 4),
-                dif_simetrica_pct=round(dif / g_of.area * 100, 8),
+                dif_simetrica_pct=round(dif / area_of * 100, 8),
             )
         linhas.append(linha)
 
@@ -188,6 +193,7 @@ def comparar_distritos(oficiais: gpd.GeoDataFrame, dissolvidos: gpd.GeoDataFrame
         "so_na_dissolucao": so_dissolucao,
         "nomes_divergentes": nomes_divergentes,
         "tolerancia_m2": TOLERANCIA_DISTRITO_M2,
+        "crs_medicao_area": medidas.crs_medicao_area(),
         "acima_da_tolerancia": acima,
         "coincidem": not (so_oficial or so_dissolucao or nomes_divergentes or acima),
         "distritos": linhas,
@@ -197,16 +203,17 @@ def comparar_distritos(oficiais: gpd.GeoDataFrame, dissolvidos: gpd.GeoDataFrame
 def cobertura(setores: gpd.GeoDataFrame, limite, rotulo: str) -> dict:
     """União dos setores x um limite municipal: diferença simétrica e suas partes."""
     uniao = setores.geometry.union_all()
-    area = limite.area
-    simetrica = uniao.symmetric_difference(limite).area
+    area = medidas.area_m2(limite)
+    simetrica = medidas.area_m2(uniao.symmetric_difference(limite))
     return {
         "referencia": rotulo,
+        "crs_medicao_area": medidas.crs_medicao_area(),
         "area_municipio_m2": round(area, 2),
-        "area_uniao_setores_m2": round(uniao.area, 2),
+        "area_uniao_setores_m2": round(medidas.area_m2(uniao), 2),
         "diferenca_simetrica_m2": round(simetrica, 2),
         "diferenca_simetrica_pct": round(simetrica / area * 100, 6),
-        "setores_fora_do_limite_m2": round(uniao.difference(limite).area, 2),
-        "limite_nao_coberto_m2": round(limite.difference(uniao).area, 2),
+        "setores_fora_do_limite_m2": round(medidas.area_m2(uniao.difference(limite)), 2),
+        "limite_nao_coberto_m2": round(medidas.area_m2(limite.difference(uniao)), 2),
     }
 
 
@@ -219,8 +226,8 @@ def escrever_comparacao(comp: dict) -> Path:
         "",
         f"Gerado por `scripts/processamento/limites_ibge.py` em "
         f"{datetime.now().astimezone().isoformat(timespec='seconds')}. Município "
-        f"{paths.nome_municipio()}/{paths.uf()} ({paths.codigo_ibge()}); medições em "
-        f"{paths.crs_producao()}.",
+        f"{paths.nome_municipio()}/{paths.uf()} ({paths.codigo_ibge()}); áreas medidas em "
+        f"{paths.crs_area()} (equivalente).",
         "",
         f"**As camadas NÃO coincidem** (tolerância: < {TOLERANCIA_DISTRITO_M2} m² de "
         "diferença simétrica por distrito). `distritos_2022` não foi alterada; a "
@@ -274,10 +281,17 @@ def registrar(destino: Path, id_camada: str, meta_bruto: dict, observacoes: str,
         "(autorizacao_fonte=true); vira true na promoção. Citar: IBGE, Censo 2022. "
         "Script: scripts/processamento/limites_ibge.py."
     )
+    # conferência só sobrevive se o GeoPackage é exatamente o conferido
+    linha = {l["id_camada"]: l for l in catalogo.ler("catalogo_camadas")}.get(id_camada)
+    status, publicar = "pendente", False
+    if (linha and linha["status_conferencia"] == "conferido"
+            and linha["sha256"].strip().lower() == sha256_arquivo(destino)):
+        status = "conferido"
+        publicar = linha["pode_publicar"].strip().lower() == "true"
     dados = metadados.montar(
         destino, tema=TEMA, fonte_id=meta_bruto["fonte_id"], versao=EDICAO_CENSO,
         crs=paths.crs_producao(), licenca=LICENCA, autorizacao_fonte=True,
-        pode_publicar=False, status_conferencia="pendente", observacoes=observacoes,
+        pode_publicar=publicar, status_conferencia=status, observacoes=observacoes,
     )
     dados["edicao"] = EDICAO_CENSO
     dados["url_origem"] = meta_bruto["url_origem"]
@@ -299,10 +313,10 @@ def registrar(destino: Path, id_camada: str, meta_bruto: dict, observacoes: str,
         "crs": paths.crs_producao(),
         "data_producao": datetime.now(timezone.utc).astimezone().date().isoformat(),
         "sha256": dados["sha256"],
-        "status_conferencia": "pendente",
+        "status_conferencia": status,
         "referencias_bib": "",
         "licenca": LICENCA,
-        "pode_publicar": "false",
+        "pode_publicar": "true" if publicar else "false",
         "observacoes": observacoes,
     }])
     return True
@@ -352,10 +366,11 @@ def main() -> None:
     ]
     uniao = setores.geometry.union_all()
     verif_setores = {
-        "crs_medicao": paths.crs_producao(),
+        "crs_medicao_area": medidas.crs_medicao_area(),
         "n_setores": int(len(setores)),
         "setores_invalidos": 0,
-        "sobreposicao_entre_setores_m2": round(float(setores.area.sum()) - uniao.area, 2),
+        "sobreposicao_entre_setores_m2": round(
+            float(medidas.areas_m2(setores).sum()) - medidas.area_m2(uniao), 2),
         "cobertura_por_edicao": coberturas,
         "recorte_aplicado": "nenhum — setores não são recortados por limite algum",
     }
@@ -364,7 +379,8 @@ def main() -> None:
         f"originais. Malha territorial de setores do IBGE ({EDICAO_CENSO}, "
         f"{meta_setores['url_origem']}), recorte {COL_MUN}={paths.codigo_ibge()}, "
         f"reprojetada para {paths.crs_producao()}. Cobertura da união dos setores "
-        f"(diferença simétrica, sem recorte) — {_cob_texto(coberturas[0])}; "
+        f"(diferença simétrica, sem recorte; áreas em {paths.crs_area()}) — "
+        f"{_cob_texto(coberturas[0])}; "
         f"{_cob_texto(coberturas[1])}."
     )
     destino_setores = destino_de("setores", "setor-censitario")
@@ -378,7 +394,7 @@ def main() -> None:
 
     print()
     print(f"setores_2022    {paths.relativo(destino_setores)} ({len(setores)} feições; "
-          f"{'gravado' if gravou_setores or registrou_setores else 'sem mudança'})")
+          f"{_situacao(gravou_setores, registrou_setores)})")
 
     destino_distritos = destino_de("distritos", "distrito")
     if not comp["coincidem"]:
@@ -390,10 +406,10 @@ def main() -> None:
         )
 
     oficiais = oficiais.sort_values(COL_DIST).reset_index(drop=True)
-    soma = float(oficiais.area.sum())
-    area_limite = limite.geometry.iloc[0].area
+    soma = float(medidas.areas_m2(oficiais).sum())
+    area_limite = medidas.area_m2(limite.geometry.iloc[0])
     verif_distritos = {
-        "crs_medicao": paths.crs_producao(),
+        "crs_medicao_area": medidas.crs_medicao_area(),
         "n_distritos": int(len(oficiais)),
         "origem": "malha oficial de distritos do IBGE",
         "comparacao_com_dissolucao_dos_setores": comp,
@@ -410,17 +426,23 @@ def main() -> None:
         f"{COL_DIST} tem os mesmos {comp['n_oficial']} códigos e nomes e diferença "
         f"simétrica máxima de {max_dif:.4f} m² por distrito (tolerância "
         f"< {TOLERANCIA_DISTRITO_M2} m²). Soma das áreas − {ID_LIMITE}: "
-        f"{soma - area_limite:,.0f} m²."
+        f"{soma - area_limite:,.0f} m² (áreas em {paths.crs_area()})."
     )
     gravou_distritos = gravar(oficiais, destino_distritos, "distritos_2022",
                               last_modified(meta_distritos))
     registrou_distritos = registrar(destino_distritos, "distritos_2022", meta_distritos,
                                     obs_distritos, verif_distritos)
     print(f"distritos_2022  {paths.relativo(destino_distritos)} ({len(oficiais)} feições, "
-          f"OFICIAL; {'gravado' if gravou_distritos or registrou_distritos else 'sem mudança'})")
+          f"OFICIAL; {_situacao(gravou_distritos, registrou_distritos)})")
     print(f"\nentradas: {paths.relativo(bruto_setores)}, {paths.relativo(bruto_distritos)}, "
           f"{meta_mun_censo['arquivo']}")
     _imprimir(comp, coberturas)
+
+
+def _situacao(gravou: bool, registrou: bool) -> str:
+    if gravou:
+        return "GeoPackage gravado"
+    return "GeoPackage inalterado, metadado atualizado" if registrou else "sem mudança"
 
 
 def _imprimir(comp: dict, coberturas: list[dict]) -> None:

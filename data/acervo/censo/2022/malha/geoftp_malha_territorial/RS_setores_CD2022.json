@@ -23,5 +23,13 @@
     "bytes_no_manifesto_de_origem": 57069568,
     "reaproveitado_no_download_original": false
   },
-  "script_responsavel": "scripts/download/censo_revia_bg.py"
+  "script_responsavel": "scripts/download/censo_revia_bg.py",
+  "aposentado_em": "2026-09-22T09:34:11-03:00",
+  "substituido_por": {
+    "arquivo": "data/raw/vetor/ibge/censo_2022/RS_setores_CD2022.gpkg",
+    "sha256": "3816950f005616207e21b120b64d6d587d8457fd7788ed2a231595ab3ca2f711",
+    "fonte_id": "ibge_malha_setores_2022",
+    "script": "scripts/download/baixar_malhas_ibge.py",
+    "nota": "Cópia duplicada aposentada: o gpkg foi removido deste diretório porque o acervo tem o mesmo arquivo (sha256 idêntico) baixado direto do geoftp do IBGE. Este .json fica como rastro; scripts/download/censo_revia_bg.py não copia mais o arquivo (APOSENTADOS)."
+  }
 }

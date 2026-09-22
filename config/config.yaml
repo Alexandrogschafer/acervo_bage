@@ -15,12 +15,17 @@ municipio:
   codigo_ibge: "4301602"
 
 crs:
-  # CRS métrico de trabalho: toda medição (área, distância, buffer) acontece
-  # aqui. SIRGAS 2000 / UTM 21S.
+  # CRS métrico de trabalho: produção, operações espaciais e medição de
+  # distância, perímetro e buffer. SIRGAS 2000 / UTM 21S. Área NÃO: ver `area`.
   producao: "EPSG:31981"
   # CRS de publicação: único que o Leaflet consome. A reprojeção para cá é
   # sempre o último passo, depois de qualquer operação métrica.
   publicacao: "EPSG:4326"
+  # CRS de medição de ÁREA: equivalente (preserva área). O UTM 21S não é
+  # equivalente e Bagé fica na borda leste do fuso 21 — a área medida nele sai
+  # ~0,12% maior. Só medidas de área usam este CRS; distância, perímetro e
+  # produção continuam no CRS de produção. South America Albers Equal Area Conic.
+  area: "ESRI:102033"
 
 # Recorte de referência do acervo, em EPSG:4326 (RFC 7946). Gerado por
 # scripts/processamento/area_estudo.py a partir da camada `limite_municipal`;
