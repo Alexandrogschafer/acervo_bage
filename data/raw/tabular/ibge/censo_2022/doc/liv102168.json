@@ -1,0 +1,19 @@
+{
+  "arquivo": "data/raw/tabular/ibge/censo_2022/doc/liv102168.pdf",
+  "autorizacao_fonte": false,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-22T16:31:37+00:00",
+  "edicao": "censo_2022",
+  "fonte_id": "ibge_censo2022_entorno_publicacao",
+  "licenca": "publicação do IBGE em acesso aberto na biblioteca do IBGE; termos de uso do site NÃO lidos (biblioteca.ibge.gov.br e www.ibge.gov.br respondem HTTP 403 a acesso automatizado) — a declaração \"Todos os arquivos aqui disponíveis são públicos.\" vale para ftp.ibge.gov.br e geoftp.ibge.gov.br, não para este host",
+  "observacoes": "IBGE (2025), Censo Demográfico 2022: Características urbanísticas do entorno dos domicílios (123 pp.); universo da pesquisa p. 13; setores sem morfologia urbana retirados da divulgação p. 50; comparabilidade com 2010 pp. 50-52 (Tabela 2, p. 51); setores do universo 2010 × 2022 por UF, Tabela 3, p. 53. Arquivo bruto, exatamente como veio do IBGE. Obtido manualmente pelo responsável em 2026-09-22, pelo navegador, de https://biblioteca.ibge.gov.br/visualizacao/livros/liv102168.pdf (o site bloqueia acesso automatizado: HTTP 403, desafio Cloudflare); sha256 e tamanho calculados do arquivo local. Lista fixa em config/fontes_censo_ibge.yaml, como item de obtenção MANUAL: scripts/download/baixar_censo_ibge.py só confere o sha256, não baixa nem verifica a origem. Numeração impressa = página do PDF.",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "sha256": "f056eb333f5bd942f86e0f87b8193469e3e29dbc81d2da13df7c577834bf712d",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 8857725,
+  "tema": "censo",
+  "url_origem": "https://biblioteca.ibge.gov.br/visualizacao/livros/liv102168.pdf",
+  "versao": "censo_2022"
+}

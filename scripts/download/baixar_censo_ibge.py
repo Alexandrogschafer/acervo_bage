@@ -44,6 +44,14 @@ tamanho e o Last-Modified lidos por HEAD. O download confere o tamanho,
 instala e imprime o sha256 obtido, que o responsável grava na lista — a partir
 daí o item é tratado como os demais (sha256 esperado, recusa se mudar).
 
+ITEM MANUAL (`obtencao: manual`): arquivo que o responsável baixou pelo
+navegador porque o site de origem bloqueia acesso automatizado (a biblioteca do
+IBGE responde HTTP 403, desafio Cloudflare). Entra na lista com a URL da
+origem, `baixado_em` = quando foi obtido, e sha256 e tamanho calculados do
+arquivo local; `last_modified` fica vazio (não há HEAD). O script nunca baixa
+nem move esse item: só confere o sha256 no destino e grava o `.json` irmão;
+`--verificar` o pula e diz isso. Só itens manuais podem vir de `HOSTS_MANUAIS`.
+
 Uso:
     python scripts/download/baixar_censo_ibge.py --semear data/acervo/censo
     python scripts/download/baixar_censo_ibge.py
@@ -69,6 +77,8 @@ from scripts.utils import catalogo, metadados, paths  # noqa: E402
 from scripts.utils.hashes import sha256_arquivo  # noqa: E402
 
 HOSTS_AUTORIZADOS = ("https://ftp.ibge.gov.br/", "https://geoftp.ibge.gov.br/")
+# origem de itens de obtenção MANUAL (nunca acessada pelo script)
+HOSTS_MANUAIS = ("https://biblioteca.ibge.gov.br/",)
 TIMEOUT = 300
 TEMA = "censo"
 
@@ -92,6 +102,12 @@ class Item:
     # ou ausente; vai para o campo `crs` do .json irmão (o arquivo não é alterado)
     crs_decidido: str = ""
     nota: str = ""
+    # "manual": obtido pelo responsável no navegador; o script não baixa nem verifica
+    obtencao: str = ""
+
+    @property
+    def manual(self) -> bool:
+        return self.obtencao == "manual"
 
     @property
     def destino(self) -> Path:
@@ -111,8 +127,13 @@ def carregar_lista() -> list[Item]:
         destino = bruto.pop("destino")
         item = Item(base=destino["base"], subdir=destino["subdir"],
                     **{k: (str(v or "") if k != "bytes" else int(v)) for k, v in bruto.items()})
-        if not item.url.startswith(HOSTS_AUTORIZADOS):
+        if item.obtencao not in ("", "manual"):
+            raise RuntimeError(f"obtencao desconhecida {item.obtencao!r}: {item.arquivo}")
+        hosts = HOSTS_AUTORIZADOS + (HOSTS_MANUAIS if item.manual else ())
+        if not item.url.startswith(hosts):
             raise RuntimeError(f"URL fora dos hosts do IBGE: {item.url}")
+        if item.manual and not item.sha256:
+            raise RuntimeError(f"item manual sem sha256 fixado: {item.arquivo}")
         itens.append(item)
     destinos = [i.destino for i in itens]
     if len(set(destinos)) != len(destinos):
@@ -132,6 +153,8 @@ def semear(item: Item, origem: Path) -> str:
     """Move o arquivo de uma cópia local, conferindo o sha256 antes e depois."""
     if ja_instalado(item):
         return "já no destino"
+    if item.manual:
+        return situacao_manual(item)
     if not item.caminho_revia_bg:
         return "sem cópia local (item novo)"
     fonte = origem / item.caminho_revia_bg
@@ -149,10 +172,19 @@ def semear(item: Item, origem: Path) -> str:
     return "movido"
 
 
+def situacao_manual(item: Item) -> str:
+    """Item manual fora do destino (ou com outro sha256): o script não o obtém."""
+    if item.destino.exists():
+        return "MANUAL: arquivo no destino com outro sha256 — não alterado"
+    return f"MANUAL ausente: baixar pelo navegador de {item.url}"
+
+
 def baixar(item: Item) -> str:
     """Baixa se preciso; instala só com o sha256 esperado."""
     if ja_instalado(item):
         return "já no destino"
+    if item.manual:
+        return situacao_manual(item)
     if item.destino.exists() and item.sha256:
         return "destino ocupado por arquivo com outro sha256 — não baixado"
     if item.destino.exists():
@@ -212,6 +244,28 @@ def _crs(arquivo: Path) -> str:
         return ""
 
 
+def _observacoes(item: Item) -> str:
+    if item.manual:
+        procedencia = (
+            f"Obtido manualmente pelo responsável em {item.baixado_em[:10]}, pelo navegador, "
+            f"de {item.url} (o site bloqueia acesso automatizado: HTTP 403, desafio "
+            "Cloudflare); sha256 e tamanho calculados do arquivo local. Lista fixa em "
+            "config/fontes_censo_ibge.yaml, como item de obtenção MANUAL: "
+            "scripts/download/baixar_censo_ibge.py só confere o sha256, não baixa nem "
+            "verifica a origem.")
+    else:
+        procedencia = (
+            f"Last-Modified da origem: {item.last_modified}. "
+            + (f"Baixado em {item.baixado_em} (pelo REVIA_BG, cópia aposentada; procedência "
+               "em docs/procedencia/revia_bg_censo/). " if item.caminho_revia_bg else
+               f"Baixado em {item.baixado_em} direto do IBGE (URL obtida navegando as listagens "
+               "do FTP). ")
+            + "Lista fixa em config/fontes_censo_ibge.yaml; "
+            "rebaixável por scripts/download/baixar_censo_ibge.py.")
+    return (f"{item.descricao}. Arquivo bruto, exatamente como veio do IBGE. {procedencia}"
+            + (f" {item.nota}" if item.nota else ""))
+
+
 def escrever_metadado(item: Item, fontes: dict[str, dict]) -> bool:
     """`.json` irmão; devolve True se gravou (só grava se o conteúdo mudou)."""
     fonte = fontes[item.fonte_id]
@@ -227,17 +281,7 @@ def escrever_metadado(item: Item, fontes: dict[str, dict]) -> bool:
         pode_publicar=verdadeiro("pode_publicar"),
         status_conferencia="pendente",
         url_origem=item.url,
-        observacoes=(
-            f"{item.descricao}. Arquivo bruto, exatamente como veio do IBGE. "
-            f"Last-Modified da origem: {item.last_modified}. "
-            + (f"Baixado em {item.baixado_em} (pelo REVIA_BG, cópia aposentada; procedência "
-               "em docs/procedencia/revia_bg_censo/). " if item.caminho_revia_bg else
-               f"Baixado em {item.baixado_em} direto do IBGE (URL obtida navegando as listagens "
-               "do FTP). ")
-            + "Lista fixa em config/fontes_censo_ibge.yaml; "
-            "rebaixável por scripts/download/baixar_censo_ibge.py."
-            + (f" {item.nota}" if item.nota else "")
-        ),
+        observacoes=_observacoes(item),
         data_producao=datetime.fromisoformat(item.baixado_em),
     )
     dados["edicao"] = f"censo_{item.ano}"
@@ -296,11 +340,17 @@ def main() -> None:
 
     if args.verificar:
         mudaram = 0
+        manuais = [i for i in itens if i.manual]
+        for item in manuais:
+            print(f"{'pula':<5}  censo_{item.ano}  {item.arquivo:<70} obtenção manual "
+                  "(o site bloqueia acesso automatizado) — não verificado")
+        itens = [i for i in itens if not i.manual]
         for item in itens:
             mudou, texto = verificar(item)
             mudaram += mudou
             print(f"{'MUDOU' if mudou else 'igual':<5}  censo_{item.ano}  {item.arquivo:<70} {texto if mudou else ''}")
-        print(f"\n{len(itens)} arquivos verificados na origem; {mudaram} com diferença.")
+        print(f"\n{len(itens)} arquivos verificados na origem; {mudaram} com diferença; "
+              f"{len(manuais)} de obtenção manual pulados (conferir à mão na origem).")
         return
 
     origem = args.semear.resolve() if args.semear else None
