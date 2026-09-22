@@ -24,7 +24,11 @@ Confere:
      camada do catálogo, segue a MESMA regra de publicação pelo seu `.json`
      irmão: `pode_publicar=true` só com `status_conferencia=conferido`; e o
      sha256 do `.json` bate com o arquivo. Se a camada de origem mudou no
-     catálogo desde a derivação, é aviso (regerar com area_estudo.py).
+     catálogo desde a derivação, é aviso (regerar com area_estudo.py). Se o
+     `.json` registra `sha256_conteudo`, ele é recalculado e tem de bater;
+  8. o bloco "--- conferência ---" de observacoes (scripts/utils/metadados.py)
+     só existe com `status_conferencia=conferido` — nota de conferência em
+     produto pendente é rastro de despromoção mal feita — e tem de estar fechado.
 
 Complementa — não substitui — `verificar_publicacao.py`: aquele barra o
 commit, este confere a coerência interna dos catálogos.
@@ -47,8 +51,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from scripts.bibliografia.bibtex import chaves as chaves_bib  # noqa: E402
-from scripts.utils import paths  # noqa: E402
+from scripts.utils import metadados, paths  # noqa: E402
 from scripts.utils.catalogo import conteudo_confere  # noqa: E402
+from scripts.utils.conteudo import sha256_conteudo  # noqa: E402
 from scripts.utils.hashes import sha256_arquivo  # noqa: E402
 
 COLUNAS_FONTES: frozenset[str] = frozenset({
@@ -171,6 +176,11 @@ def validar(
                 f"camada '{identificador}': pode_publicar=true com "
                 f"status_conferencia='{status}' — só se publica o que foi conferido no mapa"
             )
+        # (8) nota de conferência
+        erro_bloco = _erro_de_bloco(f"camada '{identificador}'", status,
+                                    camada.get("observacoes") or "")
+        if erro_bloco:
+            erros.append(erro_bloco)
 
         # (1) arquivo existe
         arquivo_rel = (camada.get("arquivo") or "").strip()
@@ -251,6 +261,18 @@ def validar(
     return erros, avisos
 
 
+def _erro_de_bloco(rotulo: str, status: str, observacoes: str) -> str | None:
+    """Conferência 8: bloco de conferência só em produto conferido, e bem fechado."""
+    try:
+        bloco = metadados.bloco_conferencia(observacoes)
+    except ValueError as erro:
+        return f"{rotulo}: {erro}"
+    if bloco is not None and status != "conferido":
+        return (f"{rotulo}: observacoes tem o bloco '{metadados.MARCADOR_INICIO}' mas "
+                f"status_conferencia='{status}' — a despromoção tem de remover a nota")
+    return None
+
+
 def validar_area_estudo(caminho: Path, caminho_camadas: Path) -> tuple[list[str], list[str]]:
     """Confere a área de estudo pelo seu `.json` irmão (conferência 7).
 
@@ -280,6 +302,15 @@ def validar_area_estudo(caminho: Path, caminho_camadas: Path) -> tuple[list[str]
             f"área de estudo {rotulo}: sha256 do .json não bate com o arquivo — "
             "regerar com scripts/processamento/area_estudo.py"
         )
+    elif meta.get("sha256_conteudo") and \
+            sha256_conteudo(caminho) != str(meta["sha256_conteudo"]).lower():
+        erros.append(
+            f"área de estudo {rotulo}: sha256_conteudo do .json não confere com o arquivo"
+        )
+    erro_bloco = _erro_de_bloco(f"área de estudo {rotulo}", status,
+                                str(meta.get("observacoes", "")))
+    if erro_bloco:
+        erros.append(erro_bloco)
 
     origem = meta.get("camada_origem") or {}
     if origem.get("id_camada") and caminho_camadas.exists():

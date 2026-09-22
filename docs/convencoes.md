@@ -40,6 +40,32 @@ atravessa todos os testes automáticos e aparece na primeira olhada no mapa.
 `validar_catalogos.py` recusa `pode_publicar=true` em camada que ainda esteja
 com `status_conferencia = pendente`.
 
+### Nota de conferência
+
+A conferência é registrada em `observacoes`, no `.json` irmão e na linha do
+catálogo, num **bloco delimitado** gravado na promoção
+(`metadados.promover()` e depois `catalogo.promover()`, que conferem antes
+que o arquivo em disco é o registrado):
+
+```
+<texto do script produtor> --- conferência --- <nota do responsável> --- fim da conferência ---
+```
+
+O texto fora do bloco pertence ao script produtor e é reescrito a cada
+execução. O bloco pertence ao responsável. Todo script que regrava metadado ou
+linha de catálogo passa pela mesma regra (`metadados.reconciliar()`,
+`catalogo.reconciliar_linha()`, aplicadas por `metadados.escrever()`,
+`catalogo.upsert()` e `catalogo.registrar_regravacao()`):
+
+| antes | dado regravado | resultado |
+| --- | --- | --- |
+| conferido | mesmo `sha256_conteudo` (ou mesmo `sha256`, se um lado não tem conteúdo) | status, `pode_publicar` e bloco **preservados** |
+| conferido | conteúdo mudou | bloco **removido**, `status_conferencia=pendente`, `pode_publicar=false` |
+| pendente | qualquer | continua pendente: **regravação nunca promove** |
+
+`validar_catalogos.py` recusa bloco de conferência em produto pendente
+(conferência 8). `testar_validador.py` tem os controles (C1–C8).
+
 ### Camadas de outros projetos entram por CÓPIA
 
 Camada vinda de outro repositório é **copiada** para `data/externos/` (ou,
@@ -273,9 +299,13 @@ commit**; os controles do próprio validador estão em
 
 ## 7. Propagação de `pode_publicar`
 
-**Uma saída de estudo herda a restrição MAIS RESTRITIVA entre todas as camadas
-declaradas no manifesto.** Basta uma camada com `pode_publicar=false` para a
-saída inteira ser `false`.
+**Uma saída de estudo herda a restrição MAIS RESTRITIVA entre todas as
+entradas declaradas no manifesto: as camadas (`camadas:`) E as fontes brutas
+(`fontes_brutas:`).** Basta uma camada ou uma fonte bruta com
+`pode_publicar=false` para a saída inteira ser `false`. O `pode_publicar` da
+camada vem de `data/catalogo_camadas.csv`; o da fonte bruta, de
+`data/catalogo_fontes.csv`. (Regra ampliada às fontes brutas em 2026-09-22;
+antes só as camadas contavam.)
 
 Restrição **não se dilui em processamento**: se uma entrada não pode ser
 redistribuída, o produto que a incorpora também não pode, por mais
@@ -287,9 +317,9 @@ Dois pontos deliberados em
 1. **Manifesto sem camadas devolve `false`**, não `true`. Quem não declarou
    entradas não provou que pode publicar; o vácuo é "não sei", e "não sei" não
    autoriza publicação em repositório público.
-2. **Camada `divergente` ou `ausente` também bloqueia.** Se o acervo mudou
-   desde que o estudo fixou o sha256, não dá para afirmar sob qual licença a
-   saída foi produzida.
+2. **Entrada `divergente` ou `ausente` também bloqueia**, seja camada ou
+   fonte bruta. Se o acervo mudou desde que o estudo fixou o sha256, não dá
+   para afirmar sob qual licença a saída foi produzida.
 
 ---
 

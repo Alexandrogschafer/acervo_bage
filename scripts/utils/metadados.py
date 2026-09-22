@@ -57,6 +57,27 @@ propagação para saídas de estudo é responsabilidade de `publicacao.py`.
 
 Por segurança, `escrever()` NUNCA sobrescreve um `.json` existente sem
 `sobrescrever=True`: metadado apagado por engano é rastro perdido.
+
+NOTA DE CONFERÊNCIA
+-------------------
+A conferência visual do responsável é registrada DENTRO de `observacoes`,
+num bloco delimitado gravado na promoção (`promover()`):
+
+    ... texto do script ... --- conferência --- <nota> --- fim da conferência ---
+
+O texto fora do bloco é do script produtor e é reescrito a cada execução; o
+bloco é do responsável e só sai por despromoção. `escrever()` sobre um `.json`
+existente aplica `reconciliar()`:
+
+    antes conferido, mesmo conteúdo   -> status, pode_publicar e bloco preservados
+    antes conferido, conteúdo mudou   -> bloco removido, status "pendente",
+                                         pode_publicar false (despromoção)
+    antes pendente                    -> regravação nunca promove: se o novo
+                                         dicionário diz "conferido", vira "pendente"
+
+"Mesmo conteúdo" é `sha256_conteudo` igual quando os dois lados o têm; senão,
+`sha256` do arquivo igual. O catálogo segue a mesma regra
+(`catalogo.reconciliar_linha`).
 """
 
 from __future__ import annotations
@@ -86,8 +107,88 @@ CAMPOS_OPCIONAIS: tuple[str, ...] = (
 )
 
 
+MARCADOR_INICIO: str = "--- conferência ---"
+MARCADOR_FIM: str = "--- fim da conferência ---"
+
+
 class MetadadoExistente(FileExistsError):
     """O `.json` irmão já existe e `sobrescrever` não foi pedido."""
+
+
+class ConteudoNaoConfere(ValueError):
+    """Promoção recusada: o arquivo em disco não é o registrado no `.json`."""
+
+
+# --- nota de conferência ----------------------------------------------------
+
+def bloco_conferencia(observacoes: str) -> str | None:
+    """O bloco de conferência de `observacoes` (com marcadores), ou `None`."""
+    texto = str(observacoes or "")
+    inicio = texto.find(MARCADOR_INICIO)
+    if inicio < 0:
+        return None
+    fim = texto.find(MARCADOR_FIM, inicio)
+    if fim < 0:
+        raise ValueError(f"bloco de conferência sem '{MARCADOR_FIM}' em observacoes")
+    return texto[inicio:fim + len(MARCADOR_FIM)]
+
+
+def sem_bloco(observacoes: str) -> str:
+    """`observacoes` sem o bloco de conferência."""
+    bloco = bloco_conferencia(observacoes)
+    if bloco is None:
+        return str(observacoes or "")
+    return " ".join(str(observacoes).replace(bloco, " ").split())
+
+
+def com_bloco(observacoes: str, bloco: str | None) -> str:
+    """`observacoes` (sem bloco antigo) + `bloco` ao final."""
+    base = sem_bloco(observacoes)
+    return f"{base} {bloco}".strip() if bloco else base
+
+
+def montar_bloco(nota: str) -> str:
+    """Bloco delimitado a partir do texto da nota."""
+    return f"{MARCADOR_INICIO} {' '.join(str(nota).split())} {MARCADOR_FIM}"
+
+
+def mesmo_conteudo(antigo: dict[str, Any], novo: dict[str, Any]) -> bool:
+    """O dado de `novo` é o de `antigo`? Por conteúdo quando ambos têm; senão, bytes."""
+    ca, cn = antigo.get("sha256_conteudo"), novo.get("sha256_conteudo")
+    if ca and cn:
+        return str(ca).lower() == str(cn).lower()
+    return bool(antigo.get("sha256")) and \
+        str(antigo.get("sha256")).lower() == str(novo.get("sha256", "")).lower()
+
+
+def reconciliar(antigo: dict[str, Any] | None, novo: dict[str, Any],
+                teto_publicacao: bool = True) -> dict[str, Any]:
+    """Aplica a regra da nota de conferência a uma regravação (ver docstring do módulo).
+
+    Args:
+        antigo: `.json` atual (ou `None` se não existe).
+        novo: dicionário que o script produtor quer gravar.
+        teto_publicacao: restrição do produtor sobre pode_publicar quando a
+            conferência é preservada (mais restritivo vence).
+
+    Returns:
+        Cópia de `novo` com status_conferencia, pode_publicar e observacoes
+        reconciliados.
+    """
+    dados = dict(novo)
+    obs = sem_bloco(dados.get("observacoes", ""))
+    if (antigo and antigo.get("status_conferencia") == "conferido"
+            and mesmo_conteudo(antigo, dados)):
+        dados["status_conferencia"] = "conferido"
+        dados["pode_publicar"] = bool(antigo.get("pode_publicar")) and bool(teto_publicacao)
+        dados["observacoes"] = com_bloco(obs, bloco_conferencia(antigo.get("observacoes", "")))
+    else:
+        if dados.get("status_conferencia") == "conferido" or \
+                (antigo and antigo.get("status_conferencia") == "conferido"):
+            dados["pode_publicar"] = False
+        dados["status_conferencia"] = "pendente"
+        dados["observacoes"] = obs
+    return dados
 
 
 def caminho_irmao(arquivo: Path | str) -> Path:
@@ -190,13 +291,20 @@ def escrever(
     arquivo: Path | str,
     metadados: dict[str, Any],
     sobrescrever: bool = False,
+    teto_publicacao: bool = True,
+    _reconciliar: bool = True,
 ) -> Path:
     """Grava o `.json` irmão: UTF-8, indent=2, chaves ordenadas.
+
+    Sobre um `.json` existente, aplica `reconciliar()`: a nota de conferência
+    sobrevive à regravação do mesmo dado e cai com a mudança de dado.
 
     Args:
         arquivo: o produto (não o `.json`).
         metadados: dicionário, normalmente vindo de `montar()`.
         sobrescrever: obrigatório para substituir um `.json` já existente.
+        teto_publicacao: ver `reconciliar()`.
+        _reconciliar: só `promover()` desliga — é o único caminho que promove.
 
     Returns:
         Caminho do `.json` gravado.
@@ -219,6 +327,9 @@ def escrever(
             f"{paths.relativo(destino)} já existe. Passe sobrescrever=True se a "
             "substituição for intencional — metadado apagado por engano é rastro perdido."
         )
+    if _reconciliar:
+        antigo = json.loads(destino.read_text(encoding="utf-8")) if destino.exists() else None
+        metadados = reconciliar(antigo, metadados, teto_publicacao)
 
     destino.parent.mkdir(parents=True, exist_ok=True)
     destino.write_text(
@@ -238,6 +349,45 @@ def ler(arquivo: Path | str) -> dict[str, Any]:
     if not destino.exists():
         raise FileNotFoundError(f"metadado não encontrado: {paths.relativo(destino)}")
     return json.loads(destino.read_text(encoding="utf-8"))
+
+
+def conferir_disco(arquivo: Path | str, meta: dict[str, Any] | None = None) -> None:
+    """Exige que o arquivo em disco seja o registrado no `.json` (bytes e conteúdo).
+
+    Raises:
+        ConteudoNaoConfere: se o sha256 ou o sha256_conteudo divergem.
+    """
+    from scripts.utils.conteudo import sha256_conteudo
+    from scripts.utils.hashes import sha256_arquivo
+
+    meta = meta if meta is not None else ler(arquivo)
+    rotulo = paths.relativo(arquivo)
+    if sha256_arquivo(arquivo) != str(meta.get("sha256", "")).lower():
+        raise ConteudoNaoConfere(f"{rotulo}: sha256 do arquivo diverge do .json")
+    if meta.get("sha256_conteudo") and \
+            sha256_conteudo(arquivo) != str(meta["sha256_conteudo"]).lower():
+        raise ConteudoNaoConfere(f"{rotulo}: sha256_conteudo do arquivo diverge do .json")
+
+
+def promover(arquivo: Path | str, nota: str, pode_publicar: bool = True) -> dict[str, Any]:
+    """Promove um produto a conferido: grava o bloco de conferência no `.json`.
+
+    Confere antes que o arquivo em disco é o registrado (é o conferido que se
+    congela). A linha do catálogo, quando há, é promovida à parte por
+    `catalogo.promover()`.
+
+    Returns:
+        O `.json` gravado.
+
+    Raises:
+        ConteudoNaoConfere: se o arquivo não é o registrado no `.json`.
+    """
+    meta = ler(arquivo)
+    conferir_disco(arquivo, meta)
+    meta.update(status_conferencia="conferido", pode_publicar=bool(pode_publicar),
+                observacoes=com_bloco(meta.get("observacoes", ""), montar_bloco(nota)))
+    escrever(arquivo, meta, sobrescrever=True, _reconciliar=False)
+    return meta
 
 
 def gerar(arquivo: Path | str, sobrescrever: bool = False, **campos: Any) -> Path:

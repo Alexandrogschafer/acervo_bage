@@ -51,8 +51,8 @@ caminho literal fora do YAML, é bug.**
 1. **Estudo nunca escreve no acervo.** Camada derivada entra por **promoção**:
    conferência visual no mapa → cópia para `data/acervo/<tema>/` → linha no
    catálogo com `status_conferencia=conferido`.
-2. **`pode_publicar` propaga pelo mais restritivo.** Uma camada `false` torna
-   a saída inteira `false`. Manifesto sem camadas declaradas resolve para
+2. **`pode_publicar` propaga pelo mais restritivo.** Uma camada ou uma fonte
+   bruta `false` torna a saída inteira `false`. Manifesto sem camadas declaradas resolve para
    `false` — o vácuo é "não sei", e "não sei" não autoriza publicar.
 3. **Dado não é versionado; o rastro é.** `.json` irmão + linha no catálogo +
    sha256. A barreira de pre-commit recusa arquivo de dado estagiado.
@@ -64,7 +64,11 @@ caminho literal fora do YAML, é bug.**
 6. **Nunca montar URL de download por adivinhação.** Navegar as listagens/APIs
    documentadas, para que mudança na fonte **falhe** em vez de baixar outra
    coisa em silêncio.
-7. **Arquivos gerados não se editam à mão:** `bibliografia/bage.bib` (Zotero),
+7. **A nota de conferência é do responsável.** Fica no bloco
+   `--- conferência ---` de `observacoes`, gravado por `metadados.promover()` +
+   `catalogo.promover()`. Regravar o mesmo conteúdo a preserva; conteúdo novo
+   despromove (pendente, `pode_publicar=false`, sem nota). Regravação nunca promove.
+8. **Arquivos gerados não se editam à mão:** `bibliografia/bage.bib` (Zotero),
    `bibliografia/indice.md`, `docs/indice_camadas_estudos.md`,
    `data/geoportal/*.geojson`, `data/geoportal/catalogo.json`.
 

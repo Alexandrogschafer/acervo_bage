@@ -2,8 +2,11 @@
 Propagação da restrição de publicação.
 
 Regra do acervo: **uma saída de estudo herda a restrição MAIS RESTRITIVA entre
-todas as camadas que o estudo declara no manifesto.** Basta uma camada com
-`pode_publicar=false` para a saída inteira ser `false`.
+todas as entradas que o estudo declara no manifesto — camadas (`camadas:`) E
+fontes brutas (`fontes_brutas:`).** Basta uma camada ou uma fonte bruta com
+`pode_publicar=false` para a saída inteira ser `false`. O `pode_publicar` da
+camada vem de data/catalogo_camadas.csv; o da fonte bruta, de
+data/catalogo_fontes.csv.
 
 O motivo é simples: uma saída é feita a partir das camadas de entrada. Se uma
 delas não pode ser redistribuída, o produto que a incorpora também não pode —
@@ -16,7 +19,7 @@ Dois pontos deliberados:
    declarou nenhuma camada não provou que pode publicar; o vácuo é tratado
    como "não sei", e "não sei" não autoriza publicação num repositório
    público. Estudo em reconhecimento fica assim até declarar suas entradas.
-2. **Camada divergente ou ausente também bloqueia.** Se o acervo mudou desde
+2. **Entrada divergente ou ausente também bloqueia** (camada ou fonte bruta). Se o acervo mudou desde
    que o estudo fixou o sha256, não dá para afirmar sob qual licença a saída
    foi produzida.
 
@@ -80,19 +83,23 @@ def pode_publicar_camada(id_camada: str) -> Decisao:
     return Decisao(True, f"camada '{id_camada}' pode ser publicada")
 
 
-def pode_publicar_estudo(estudo: str) -> Decisao:
+def pode_publicar_estudo(estudo: str, caminho: Path | str | None = None,
+                         **resolver_kwargs) -> Decisao:
     """Aplica a regra do mais restritivo sobre o manifesto de um estudo.
 
     Args:
         estudo: id do diretório em `estudos/` (ex.: "A03_expansao_adensamento").
+        caminho: manifesto alternativo (para teste); default o do estudo.
+        resolver_kwargs: repassados a `manifesto.resolver()` (catálogos e raiz
+            alternativos, para teste).
 
     Returns:
         `Decisao` com todos os bloqueios encontrados — não só o primeiro, para
         quem for resolver ver o problema inteiro de uma vez.
     """
-    caminho = mod_manifesto.caminho_manifesto(estudo)
+    caminho = caminho or mod_manifesto.caminho_manifesto(estudo)
     try:
-        relatorio = mod_manifesto.resolver(caminho)
+        relatorio = mod_manifesto.resolver(caminho, **resolver_kwargs)
     except mod_manifesto.ManifestoInvalido as erro:
         return Decisao(False, f"manifesto de '{estudo}' ilegível: {erro}", [estudo])
 
@@ -110,17 +117,26 @@ def pode_publicar_estudo(estudo: str) -> Decisao:
             bloqueios.append(f"{camada.id_camada}: {camada.situacao} — {camada.detalhe}")
         elif not camada.pode_publicar:
             bloqueios.append(f"{camada.id_camada}: pode_publicar=false no catálogo")
+    for fonte in relatorio.fontes_brutas:
+        rotulo = f"fonte bruta {fonte.fonte_id} ({fonte.arquivo})"
+        if fonte.situacao != "ok":
+            bloqueios.append(f"{rotulo}: {fonte.situacao} — {fonte.detalhe}")
+        elif not fonte.pode_publicar:
+            bloqueios.append(f"{rotulo}: pode_publicar=false no catálogo de fontes")
 
+    total = len(relatorio.camadas) + len(relatorio.fontes_brutas)
+    descricao = (f"{len(relatorio.camadas)} camadas + "
+                 f"{len(relatorio.fontes_brutas)} fontes brutas")
     if bloqueios:
         return Decisao(
             False,
-            f"estudo '{estudo}': {len(bloqueios)} de {len(relatorio.camadas)} camadas "
+            f"estudo '{estudo}': {len(bloqueios)} de {total} entradas ({descricao}) "
             "impedem a publicação (regra do mais restritivo)",
             bloqueios,
         )
     return Decisao(
         True,
-        f"estudo '{estudo}': todas as {len(relatorio.camadas)} camadas declaradas "
+        f"estudo '{estudo}': todas as {total} entradas declaradas ({descricao}) "
         "conferem e podem ser publicadas",
     )
 

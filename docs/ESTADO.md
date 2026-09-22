@@ -5,6 +5,36 @@ pendente. Entrada nova no topo.
 
 ---
 
+## 2026-09-22 — Nota de conferência preservada; fontes brutas na regra de publicação
+
+Resolve o "Atenção" da entrada abaixo.
+
+- **Nota de conferência.** Agora fica num bloco `--- conferência --- … --- fim da
+  conferência ---` dentro de `observacoes`, gravado por `metadados.promover()` +
+  `catalogo.promover()`. Ao regravar: o mesmo conteúdo preserva status,
+  `pode_publicar` e bloco; conteúdo novo despromove (pendente, `false`, sem
+  bloco). Regravação nunca promove. A regra está em `metadados.escrever()`,
+  `catalogo.upsert()` e `catalogo.registrar_regravacao()`, e com isso vale para
+  `limites_ibge.py`, `area_estudo.py`, `vetor_ibge.py` (linha de
+  `limite_municipal`) e os três scripts de download. O validador recusa bloco em
+  produto pendente. A regra está descrita em `convencoes.md` § 1.
+- **Migração.** As notas de setores, distritos e área de estudo foram movidas
+  para o bloco, sem mudar o texto. Depois disso `limites_ibge.py` e
+  `area_estudo.py` rodaram de novo: os três seguem conferidos e publicáveis, com
+  o bloco intacto no `.json` e no catálogo. Uma segunda execução não mudou
+  nenhum byte.
+- **Área de estudo.** `config/area_estudo.json` ganhou `sha256_conteudo`
+  (`53c4eee1c72e…`). O GeoJSON só é substituído se o conteúdo mudar.
+- **Publicação.** `pode_publicar_estudo` aplica o mais restritivo a camadas E
+  fontes brutas (`convencoes.md` § 7). A03 segue publicável: 2 camadas e 10
+  fontes brutas, nenhum bloqueio.
+- `testar_validador.py`: 30/30, sendo 10 controles novos (C1–C8 conferência,
+  P1–P2 publicação).
+- `limite_municipal` continua conferido, mas a nota dele (de 2026-09-20) está
+  solta no texto, fora do bloco, e não foi tocada.
+
+---
+
 ## 2026-09-22 — Limites: setores, distritos e área de estudo promovidos a conferido
 
 O responsável conferiu os produtos de limites no QGIS, sobre imagem de satélite,

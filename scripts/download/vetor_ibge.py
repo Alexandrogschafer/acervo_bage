@@ -43,6 +43,10 @@ físico do SQLite sem que o dado mude.
 Determinismo: o GeoPackage é gravado com `last_change` fixado no Last-Modified
 da malha de origem (como em limites_ibge.py), e só substitui o existente se o
 CONTEÚDO mudou — uma camada conferida com o mesmo dado nunca é regravada.
+
+Conferência: a linha de `limite_municipal` no catálogo segue a regra da nota
+de conferência (scripts/utils/metadados.py): o mesmo conteúdo preserva
+status, pode_publicar e o bloco "--- conferência ---"; dado novo despromove.
 """
 
 from __future__ import annotations
@@ -398,13 +402,27 @@ def main() -> None:
     # cópia do ACERVO (GeoPackage, CRS de produção). A publicação
     #    (GeoJSON do portal) é gerada à parte por scripts/geoportal/.
     caminho_gpkg = DIR_ACERVO_LIMITES / f"limite-municipal_ibge_{ano}_municipal.gpkg"
+    irmao = caminho_gpkg.with_suffix(".json")
+    conteudo_antigo = (json.loads(irmao.read_text(encoding="utf-8")).get("sha256_conteudo")
+                       if irmao.is_file() else None)
     regravou = gravar_gpkg(municipio, caminho_gpkg, carimbo_gpkg(coleta["last_modified_origem"]))
+    conteudo_novo = sha256_conteudo(caminho_gpkg)
+    sha_novo = sha256_arquivo(caminho_gpkg)
     escrever_metadado(caminho_gpkg, {
         **metadados_comuns,
         "descricao": "Limite municipal — cópia principal do ACERVO (GeoPackage).",
-        "sha256": sha256_arquivo(caminho_gpkg),
-        "sha256_conteudo": sha256_conteudo(caminho_gpkg),
+        "sha256": sha_novo,
+        "sha256_conteudo": conteudo_novo,
     })
+    # a conferência de `limite_municipal` vive na linha do catálogo: mesmo
+    # CONTEÚDO preserva status, pode_publicar e o bloco "--- conferência ---";
+    # dado novo despromove (catalogo.reconciliar_linha). O script nunca promove.
+    from scripts.utils import catalogo
+    afetada = catalogo.registrar_regravacao(caminho_gpkg, sha_novo,
+                                            mesmo_conteudo=conteudo_antigo == conteudo_novo)
+    if afetada and conteudo_antigo != conteudo_novo:
+        logger.warning("%s: o DADO mudou — '%s' volta a pendente e pode_publicar=false "
+                       "até nova conferência no mapa", paths.relativo(caminho_gpkg), afetada)
     logger.info("acervo: %s (%s)", paths.relativo(caminho_gpkg),
                 "gravado" if regravou else "mesmo conteúdo — arquivo mantido")
 

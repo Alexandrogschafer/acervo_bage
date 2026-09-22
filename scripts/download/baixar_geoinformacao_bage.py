@@ -60,7 +60,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from scripts.utils import metadados, paths  # noqa: E402
+from scripts.utils import catalogo, metadados, paths  # noqa: E402
 from scripts.utils.hashes import hash_e_tamanho, sha256_arquivo  # noqa: E402
 
 URL_BASE = "https://github.com/GeoInformacao/{repo}.git"
@@ -616,7 +616,9 @@ def registrar_catalogos(
 
     return (
         _upsert_csv(paths.caminho("catalogo_fontes"), "id_fonte", linhas_fontes),
-        _upsert_csv(paths.caminho("catalogo_camadas"), "id_camada", linhas_camadas),
+        # catalogo.upsert aplica a regra da nota de conferência: linha conferida
+        # com o mesmo sha256 mantém a conferência; arquivo novo a despromove
+        catalogo.upsert("catalogo_camadas", "id_camada", linhas_camadas),
     )
 
 

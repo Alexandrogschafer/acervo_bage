@@ -236,6 +236,202 @@ def controles_de_fontes_brutas(tmp: Path) -> list[tuple]:
     return resultados
 
 
+def controles_de_conferencia(tmp: Path, campos: list[str], camadas: list[dict]) -> list[tuple]:
+    """Nota de conferência (metadados.reconciliar / catalogo.reconciliar_linha).
+
+    Regrava, numa raiz temporária, uma cópia conferida de `setores_2022` (o
+    GeoPackage e o `.json` com o bloco "--- conferência ---") do jeito que os
+    scripts de produção regravam: `metadados.montar()` com status pendente e o
+    texto do script, e `metadados.escrever()`. Para o catálogo, o `upsert()` e o
+    `registrar_regravacao()` rodam sobre uma cópia do CSV. Nada real é tocado.
+    """
+    from unittest import mock
+
+    import geopandas as gpd
+    import pyogrio
+
+    sys.path.insert(0, str(RAIZ_PROJETO))
+    from scripts.utils import catalogo, metadados, paths
+    from scripts.utils.conteudo import sha256_conteudo
+
+    linha = next(c for c in camadas if c["id_camada"] == "setores_2022")
+    original = RAIZ_PROJETO / linha["arquivo"]
+    meta = metadados.ler(original)
+    bloco = metadados.bloco_conferencia(meta["observacoes"])
+    if meta["status_conferencia"] != "conferido" or not bloco:
+        return [("PRÉ-CONDIÇÃO: setores_2022 conferido e com nota", "conferido + bloco",
+                 False, 1, "setores_2022 não está conferido com bloco — controles sem base")]
+
+    def copia(nome: str, alterar: bool) -> Path:
+        destino = tmp / f"conf_{nome}" / original.name
+        destino.parent.mkdir(parents=True)
+        if alterar:
+            gdf = gpd.read_file(original)
+            gdf.loc[0, "NM_MUN"] = "Outro"
+            pyogrio.set_gdal_config_options({"OGR_CURRENT_DATE": "2002-01-01T00:00:00.000Z"})
+            try:
+                gdf.to_file(destino, driver="GPKG")
+            finally:
+                pyogrio.set_gdal_config_options({"OGR_CURRENT_DATE": None})
+        else:
+            shutil.copy2(original, destino)
+        # o .json de antes da regravação: o conferido, com a nota
+        metadados.caminho_irmao(destino).write_text(json.dumps(meta), encoding="utf-8")
+        return destino
+
+    def regravar(destino: Path, status: str = "pendente") -> dict:
+        dados = metadados.montar(
+            destino, tema="limites", fonte_id=meta["fonte_id"], versao=meta["versao"],
+            crs=meta["crs"], licenca=meta["licenca"], autorizacao_fonte=True,
+            pode_publicar=False, status_conferencia=status, observacoes="texto do script.")
+        dados["sha256_conteudo"] = sha256_conteudo(destino)
+        metadados.escrever(destino, dados, sobrescrever=True)
+        return metadados.ler(destino)
+
+    def resumo(d: dict) -> str:
+        return (f"status={d['status_conferencia']} pode_publicar={d['pode_publicar']} "
+                f"bloco={'sim' if metadados.bloco_conferencia(d['observacoes']) else 'não'}")
+
+    resultados = []
+
+    # (C1) .json: mesmo conteúdo -> preserva status, pode_publicar e a nota
+    d = regravar(copia("igual", alterar=False))
+    ok = (d["status_conferencia"] == "conferido" and d["pode_publicar"] is True
+          and metadados.bloco_conferencia(d["observacoes"]) == bloco
+          and d["observacoes"].startswith("texto do script."))
+    resultados.append(("POSITIVO C1: .json regravado sem mudança preserva a nota",
+                       "conferido, true, bloco intacto", ok, 0, resumo(d)))
+
+    # (C2) .json: dado alterado -> despromove e remove a nota
+    d = regravar(copia("alterado", alterar=True))
+    ok = (d["status_conferencia"] == "pendente" and d["pode_publicar"] is False
+          and metadados.bloco_conferencia(d["observacoes"]) is None)
+    resultados.append(("NEGATIVO C2: .json regravado com o dado alterado despromove",
+                       "pendente, false, sem bloco", ok, 0, resumo(d)))
+
+    # (C3) regravação nunca promove: .json pendente + dicionário dizendo conferido
+    destino = copia("sem_promocao", alterar=False)
+    metadados.caminho_irmao(destino).write_text(
+        json.dumps({**meta, "status_conferencia": "pendente", "pode_publicar": False,
+                    "observacoes": metadados.sem_bloco(meta["observacoes"])}),
+        encoding="utf-8")
+    d = regravar(destino, status="conferido")
+    resultados.append(("NEGATIVO C3: regravação não promove", "pendente, false",
+                       d["status_conferencia"] == "pendente" and d["pode_publicar"] is False,
+                       0, resumo(d)))
+
+    # catálogo: cópia do CSV real, apontada por paths.caminho durante o controle
+    def catalogo_tmp(nome: str) -> Path:
+        return escrever(tmp / f"conf_cat_{nome}.csv", campos, [dict(c) for c in camadas])
+
+    def com_catalogo(csv_tmp: Path, funcao):
+        real = paths.caminho
+        def caminho(nome, *extras):
+            return csv_tmp if nome == "catalogo_camadas" else real(nome, *extras)
+        with mock.patch.object(paths, "caminho", caminho):
+            funcao()
+        return next(l for l in ler(csv_tmp)[1] if l["id_camada"] == "setores_2022")
+
+    def resumo_linha(l: dict) -> str:
+        return (f"status={l['status_conferencia']} pode_publicar={l['pode_publicar']} "
+                f"bloco={'sim' if metadados.bloco_conferencia(l['observacoes']) else 'não'}")
+
+    nova = {**linha, "status_conferencia": "pendente", "pode_publicar": "false",
+            "observacoes": "texto do script."}
+
+    # (C4) catálogo: upsert com o mesmo conteúdo -> preserva
+    l = com_catalogo(catalogo_tmp("igual"), lambda: catalogo.upsert(
+        "catalogo_camadas", "id_camada", [nova], mesmo_conteudo={"setores_2022": True}))
+    ok = (l["status_conferencia"] == "conferido" and l["pode_publicar"] == "true"
+          and metadados.bloco_conferencia(l["observacoes"]) == bloco)
+    resultados.append(("POSITIVO C4: catálogo regravado sem mudança preserva a nota",
+                       "conferido, true, bloco intacto", ok, 0, resumo_linha(l)))
+
+    # (C5) catálogo: upsert com dado novo -> despromove
+    l = com_catalogo(catalogo_tmp("alterado"), lambda: catalogo.upsert(
+        "catalogo_camadas", "id_camada", [{**nova, "sha256": "0" * 64}],
+        mesmo_conteudo={"setores_2022": False}))
+    ok = (l["status_conferencia"] == "pendente" and l["pode_publicar"] == "false"
+          and metadados.bloco_conferencia(l["observacoes"]) is None)
+    resultados.append(("NEGATIVO C5: catálogo regravado com o dado alterado despromove",
+                       "pendente, false, sem bloco", ok, 0, resumo_linha(l)))
+
+    # (C6) catálogo: sem decisão de conteúdo, sha256 novo -> despromove (fallback)
+    l = com_catalogo(catalogo_tmp("sem_decisao"), lambda: catalogo.upsert(
+        "catalogo_camadas", "id_camada", [{**nova, "sha256": "0" * 64}]))
+    resultados.append(("NEGATIVO C6: catálogo com sha256 novo e sem decisão despromove",
+                       "pendente, false", l["status_conferencia"] == "pendente"
+                       and l["pode_publicar"] == "false", 0, resumo_linha(l)))
+
+    # (C7) registrar_regravacao (produtor que não monta a linha, ex. vetor_ibge)
+    csv_c7 = catalogo_tmp("regravacao")
+    l = com_catalogo(csv_c7, lambda: catalogo.registrar_regravacao(
+        RAIZ_PROJETO / linha["arquivo"], "0" * 64, mesmo_conteudo=False))
+    ok = (l["status_conferencia"] == "pendente" and l["sha256"] == "0" * 64
+          and metadados.bloco_conferencia(l["observacoes"]) is None)
+    resultados.append(("NEGATIVO C7: registrar_regravacao com dado novo despromove",
+                       "pendente, sha256 novo, sem bloco", ok, 0, resumo_linha(l)))
+
+    # (C8) validador: nota de conferência em linha pendente é erro
+    quebrada = [dict(c) for c in camadas]
+    for c in quebrada:
+        if c["id_camada"] == "setores_2022":
+            c.update(status_conferencia="pendente", pode_publicar="false")
+    rc, saida = rodar(CAMINHO_FONTES, escrever(tmp / "conf_bloco_pendente.csv", campos, quebrada))
+    resultados.append(("NEGATIVO C8: nota de conferência em camada pendente", "falhar (rc=1)",
+                       rc == 1 and "a despromoção tem de remover a nota" in saida, rc, saida))
+    return resultados
+
+
+def controles_de_publicacao(tmp: Path, campos_fontes: list[str], fontes: list[dict]) -> list[tuple]:
+    """publicacao.pode_publicar_estudo: o mais restritivo vale para camadas E fontes brutas.
+
+    Manifesto temporário com `limite_municipal` e uma fonte bruta real; o
+    negativo usa uma cópia do catálogo de fontes com essa fonte em
+    pode_publicar=false. Nenhum manifesto nem catálogo real é tocado.
+    """
+    import yaml
+
+    sys.path.insert(0, str(RAIZ_PROJETO))
+    from scripts.utils import metadados, publicacao
+
+    _, camadas = ler(CAMINHO_CAMADAS)
+    limite = next(c for c in camadas if c["id_camada"] == "limite_municipal")
+    arquivo = "data/raw/vetor/ibge/censo_2022/grade_estatistica/grade_id04.zip"
+    rastro = metadados.ler(RAIZ_PROJETO / arquivo)
+    fonte_id = rastro["fonte_id"]
+    manifesto_tmp = tmp / "pub_manifesto.yaml"
+    manifesto_tmp.write_text(yaml.safe_dump({
+        "estudo": "teste", "pergunta": "-", "status": "planejado",
+        "camadas": [{"id": "limite_municipal", "versao": limite["versao"],
+                     "sha256": limite["sha256"]}],
+        "fontes_brutas": [{"fonte_id": fonte_id, "arquivo": arquivo,
+                           "versao": rastro["versao"], "sha256": rastro["sha256"]}],
+    }), encoding="utf-8")
+
+    restrita = [dict(f) for f in fontes]
+    for f in restrita:
+        if f["id_fonte"] == fonte_id:
+            f["pode_publicar"] = "false"
+    fontes_restritas = escrever(tmp / "pub_fontes_restritas.csv", campos_fontes, restrita)
+
+    base = next(f for f in fontes if f["id_fonte"] == fonte_id)
+    resultados = []
+    if str(base.get("pode_publicar", "")).strip().lower() == "true" and \
+            str(limite.get("pode_publicar", "")).strip().lower() == "true":
+        d = publicacao.pode_publicar_estudo("teste", caminho=manifesto_tmp)
+        resultados.append(("POSITIVO P1: camada e fonte bruta publicáveis", "pode_publicar=true",
+                           d.pode_publicar, 0, d.motivo))
+    d = publicacao.pode_publicar_estudo("teste", caminho=manifesto_tmp,
+                                        caminho_catalogo_fontes=fontes_restritas)
+    ok = (not d.pode_publicar and any(b.startswith(f"fonte bruta {fonte_id}")
+                                      and "pode_publicar=false" in b for b in d.bloqueios))
+    resultados.append(("NEGATIVO P2: fonte bruta com pode_publicar=false bloqueia o estudo",
+                       "pode_publicar=false, bloqueio na fonte", ok, 0,
+                       f"{d.motivo} | {d.bloqueios}"))
+    return resultados
+
+
 def main() -> None:
     campos_fontes, fontes = ler(CAMINHO_FONTES)
     campos_camadas, camadas = ler(CAMINHO_CAMADAS)
@@ -294,6 +490,8 @@ def main() -> None:
         resultados += controles_de_conteudo(tmp, campos_camadas, camadas)
         resultados += controles_de_manifesto(tmp, campos_camadas, camadas)
         resultados += controles_de_fontes_brutas(tmp)
+        resultados += controles_de_conferencia(tmp, campos_camadas, camadas)
+        resultados += controles_de_publicacao(tmp, campos_fontes, fontes)
 
     print("=" * 78)
     print("CONTROLES DO VALIDADOR DE CATÁLOGOS")

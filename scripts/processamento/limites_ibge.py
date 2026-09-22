@@ -42,14 +42,17 @@ medidas registra `crs_medicao_area`.
 STATUS: as camadas entram com status_conferencia=pendente e pode_publicar=false.
 A fonte autoriza redistribuição (autorizacao_fonte=true), mas o acervo só
 publica o que foi conferido no mapa (validar_catalogos.py). pode_publicar
-vira true na promoção, junto com status_conferencia=conferido.
+vira true na promoção (metadados.promover + catalogo.promover), junto com
+status_conferencia=conferido e o bloco "--- conferência ---" em observacoes.
+Rodar de novo preserva os três se o CONTEÚDO é o conferido e os remove se o
+dado mudou (metadados.reconciliar / catalogo.reconciliar_linha).
 
 GeoPackage determinístico: `OGR_CURRENT_DATE` é fixado no Last-Modified da
 malha de origem, então a mesma entrada gera os mesmos bytes. Se o CONTEÚDO
 gerado (sha256_conteudo) e o metadado forem iguais aos existentes, nada é
-regravado; o `.json` registra `sha256_conteudo` ao lado do `sha256`. Se o GeoPackage
-é o mesmo (sha256 igual ao do catálogo, ou mesmo sha256_conteudo), a conferência já registrada (status e
-pode_publicar) é preservada.
+regravado; o `.json` registra `sha256_conteudo` ao lado do `sha256`. Se o
+CONTEÚDO é o conferido, a conferência (status, pode_publicar e a nota) é
+preservada no `.json` e no catálogo; se mudou, é removida (ver STATUS acima).
 
 Uso:
     python scripts/processamento/limites_ibge.py
@@ -283,37 +286,29 @@ def registrar(destino: Path, id_camada: str, meta_bruto: dict, observacoes: str,
               verificacoes: dict) -> bool:
     """`.json` irmão + linha no catálogo. Devolve False se nada mudou."""
     observacoes += (
-        " pode_publicar=false só até a conferência visual: a fonte autoriza "
-        "(autorizacao_fonte=true); vira true na promoção. Citar: IBGE, Censo 2022. "
+        " A fonte autoriza (autorizacao_fonte=true); pode_publicar só vira true na "
+        "promoção, depois da conferência visual. Citar: IBGE, Censo 2022. "
         "Script: scripts/processamento/limites_ibge.py."
     )
-    # conferência só sobrevive se o dado é exatamente o conferido (mesmo
-    # arquivo, ou mesmo conteúdo registrado no .json irmão)
-    linha = {l["id_camada"]: l for l in catalogo.ler("catalogo_camadas")}.get(id_camada)
-    conteudo_novo = sha256_conteudo(destino)
-    conteudo_antigo = (metadados.ler(destino).get("sha256_conteudo")
-                       if metadados.caminho_irmao(destino).exists() else None)
-    status, publicar = "pendente", False
-    if (linha and linha["status_conferencia"] == "conferido"
-            and (linha["sha256"].strip().lower() == sha256_arquivo(destino)
-                 or conteudo_antigo == conteudo_novo)):
-        status = "conferido"
-        publicar = linha["pode_publicar"].strip().lower() == "true"
+    # nota de conferência (metadados.reconciliar): preservada se o CONTEÚDO é
+    # o conferido; despromovida se mudou. O script nunca promove.
+    antigo = (metadados.ler(destino) if metadados.caminho_irmao(destino).exists() else None)
     dados = metadados.montar(
         destino, tema=TEMA, fonte_id=meta_bruto["fonte_id"], versao=EDICAO_CENSO,
         crs=paths.crs_producao(), licenca=LICENCA, autorizacao_fonte=True,
-        pode_publicar=publicar, status_conferencia=status, observacoes=observacoes,
+        pode_publicar=False, status_conferencia="pendente", observacoes=observacoes,
     )
     dados["edicao"] = EDICAO_CENSO
     dados["url_origem"] = meta_bruto["url_origem"]
     dados["verificacoes"] = verificacoes
-    dados["sha256_conteudo"] = conteudo_novo
+    dados["sha256_conteudo"] = sha256_conteudo(destino)
+    dados = metadados.reconciliar(antigo, dados)
+    mesmo = bool(antigo) and metadados.mesmo_conteudo(antigo, dados)
 
-    if metadados.caminho_irmao(destino).exists():
-        atual = metadados.ler(destino)
-        if {k: v for k, v in atual.items() if k != "data_producao"} == \
-                {k: v for k, v in dados.items() if k != "data_producao"}:
-            return False
+    if antigo is not None and \
+            {k: v for k, v in antigo.items() if k != "data_producao"} == \
+            {k: v for k, v in dados.items() if k != "data_producao"}:
+        return False
     metadados.escrever(destino, dados, sobrescrever=True)
 
     catalogo.upsert("catalogo_camadas", "id_camada", [{
@@ -325,12 +320,12 @@ def registrar(destino: Path, id_camada: str, meta_bruto: dict, observacoes: str,
         "crs": paths.crs_producao(),
         "data_producao": datetime.now(timezone.utc).astimezone().date().isoformat(),
         "sha256": dados["sha256"],
-        "status_conferencia": status,
+        "status_conferencia": dados["status_conferencia"],
         "referencias_bib": "",
         "licenca": LICENCA,
-        "pode_publicar": "true" if publicar else "false",
+        "pode_publicar": "true" if dados["pode_publicar"] else "false",
         "observacoes": observacoes,
-    }])
+    }], mesmo_conteudo={id_camada: mesmo})
     return True
 
 
