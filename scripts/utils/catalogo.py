@@ -7,8 +7,10 @@ Leitura e atualização dos catálogos do acervo.
 Dois usos:
 
 - `camada_conferida()` resolve o `id_camada` para o arquivo em disco e EXIGE
-  que o sha256 do arquivo bata com o do catálogo. Um produtor que deriva algo
-  de uma camada do acervo não deve usar um arquivo que mudou desde a
+  que ele seja o registrado: sha256 do arquivo igual ao do catálogo, OU — se o
+  arquivo foi regravado com outros bytes — `sha256_conteudo` recalculado igual
+  ao gravado no `.json` irmão (scripts/utils/conteudo.py). Um produtor que
+  deriva algo de uma camada do acervo não deve usar um dado que mudou desde a
   conferência: o derivado ficaria amarrado a um dado que ninguém conferiu.
 - `upsert()` acrescenta ou atualiza linhas pela chave, preservando o
   cabeçalho, a ordem e todas as demais linhas.
@@ -49,12 +51,35 @@ def camada_conferida(id_camada: str) -> tuple[dict[str, str], Path]:
         raise CamadaIndisponivel(f"camada '{id_camada}': arquivo ausente: {linha['arquivo']}")
     real = sha256_arquivo(arquivo)
     if real != linha["sha256"].strip().lower():
-        raise CamadaIndisponivel(
-            f"camada '{id_camada}': sha256 do arquivo ({real[:12]}…) diverge do "
-            f"catálogo ({linha['sha256'][:12]}…). O arquivo mudou depois do registro; "
-            "reconferir antes de derivar qualquer coisa dele."
-        )
+        situacao = conteudo_confere(arquivo)
+        if situacao is not True:
+            motivo = ("e o .json irmão não tem sha256_conteudo" if situacao is None
+                      else "e o sha256_conteudo também diverge — o DADO mudou")
+            raise CamadaIndisponivel(
+                f"camada '{id_camada}': sha256 do arquivo ({real[:12]}…) diverge do "
+                f"catálogo ({linha['sha256'][:12]}…) {motivo}. Reconferir antes de "
+                "derivar qualquer coisa dele."
+            )
     return linha, arquivo
+
+
+def conteudo_confere(arquivo: Path) -> bool | None:
+    """Compara o sha256_conteudo do `.json` irmão com o recalculado do arquivo.
+
+    Returns:
+        True se bate, False se diverge, None se o `.json` não registra o hash.
+    """
+    import json
+
+    from scripts.utils.conteudo import sha256_conteudo
+
+    irmao = arquivo.with_suffix(".json")
+    if not irmao.is_file():
+        return None
+    registrado = json.loads(irmao.read_text(encoding="utf-8")).get("sha256_conteudo")
+    if not registrado:
+        return None
+    return sha256_conteudo(arquivo) == str(registrado).strip().lower()
 
 
 def upsert(nome: str, chave: str, novas: list[dict[str, str]]) -> tuple[int, int]:

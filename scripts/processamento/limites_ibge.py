@@ -45,9 +45,10 @@ publica o que foi conferido no mapa (validar_catalogos.py). pode_publicar
 vira true na promoção, junto com status_conferencia=conferido.
 
 GeoPackage determinístico: `OGR_CURRENT_DATE` é fixado no Last-Modified da
-malha de origem, então a mesma entrada gera os mesmos bytes. Se o arquivo e o
-metadado gerados forem iguais aos existentes, nada é regravado. Se o GeoPackage
-é o mesmo (sha256 igual ao do catálogo), a conferência já registrada (status e
+malha de origem, então a mesma entrada gera os mesmos bytes. Se o CONTEÚDO
+gerado (sha256_conteudo) e o metadado forem iguais aos existentes, nada é
+regravado; o `.json` registra `sha256_conteudo` ao lado do `sha256`. Se o GeoPackage
+é o mesmo (sha256 igual ao do catálogo, ou mesmo sha256_conteudo), a conferência já registrada (status e
 pode_publicar) é preservada.
 
 Uso:
@@ -69,6 +70,7 @@ import pyogrio
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from scripts.utils import catalogo, medidas, metadados, nomes, paths  # noqa: E402
+from scripts.utils.conteudo import sha256_conteudo  # noqa: E402
 from scripts.utils.hashes import sha256_arquivo  # noqa: E402
 
 EDICAO_CENSO = "censo_2022"
@@ -259,7 +261,11 @@ def escrever_comparacao(comp: dict) -> Path:
 # --------------------------------------------------------------------------
 
 def gravar(gdf: gpd.GeoDataFrame, destino: Path, camada: str, carimbo: datetime) -> bool:
-    """Grava o GeoPackage; devolve False se o resultado é idêntico ao existente."""
+    """Grava o GeoPackage; devolve False se o existente já tem o mesmo CONTEÚDO.
+
+    Critério de conteúdo (sha256_conteudo), não de bytes: um arquivo com o
+    mesmo dado não é substituído, e o sha256 conferido continua valendo.
+    """
     pyogrio.set_gdal_config_options(
         {"OGR_CURRENT_DATE": carimbo.strftime("%Y-%m-%dT%H:%M:%S.000Z")}
     )
@@ -267,7 +273,7 @@ def gravar(gdf: gpd.GeoDataFrame, destino: Path, camada: str, carimbo: datetime)
     with tempfile.TemporaryDirectory(dir=destino.parent) as tmp:
         novo = Path(tmp) / destino.name
         gdf.to_file(novo, driver="GPKG", layer=camada)
-        if destino.exists() and sha256_arquivo(destino) == sha256_arquivo(novo):
+        if destino.exists() and sha256_conteudo(destino) == sha256_conteudo(novo):
             return False
         novo.replace(destino)
     return True
@@ -281,11 +287,16 @@ def registrar(destino: Path, id_camada: str, meta_bruto: dict, observacoes: str,
         "(autorizacao_fonte=true); vira true na promoção. Citar: IBGE, Censo 2022. "
         "Script: scripts/processamento/limites_ibge.py."
     )
-    # conferência só sobrevive se o GeoPackage é exatamente o conferido
+    # conferência só sobrevive se o dado é exatamente o conferido (mesmo
+    # arquivo, ou mesmo conteúdo registrado no .json irmão)
     linha = {l["id_camada"]: l for l in catalogo.ler("catalogo_camadas")}.get(id_camada)
+    conteudo_novo = sha256_conteudo(destino)
+    conteudo_antigo = (metadados.ler(destino).get("sha256_conteudo")
+                       if metadados.caminho_irmao(destino).exists() else None)
     status, publicar = "pendente", False
     if (linha and linha["status_conferencia"] == "conferido"
-            and linha["sha256"].strip().lower() == sha256_arquivo(destino)):
+            and (linha["sha256"].strip().lower() == sha256_arquivo(destino)
+                 or conteudo_antigo == conteudo_novo)):
         status = "conferido"
         publicar = linha["pode_publicar"].strip().lower() == "true"
     dados = metadados.montar(
@@ -296,6 +307,7 @@ def registrar(destino: Path, id_camada: str, meta_bruto: dict, observacoes: str,
     dados["edicao"] = EDICAO_CENSO
     dados["url_origem"] = meta_bruto["url_origem"]
     dados["verificacoes"] = verificacoes
+    dados["sha256_conteudo"] = conteudo_novo
 
     if metadados.caminho_irmao(destino).exists():
         atual = metadados.ler(destino)

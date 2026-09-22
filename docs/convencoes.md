@@ -131,6 +131,7 @@ produto**. Gerado por
 | `crs` | CRS do arquivo (vazio para tabular) |
 | `data_producao` | ISO 8601 com fuso |
 | `sha256` | hash do arquivo |
+| `sha256_conteudo` | camadas vetoriais do acervo: hash do **conteúdo** (ver abaixo) |
 | `tamanho_bytes` | tamanho do arquivo |
 | `licenca` | texto da licença da fonte |
 | `autorizacao_fonte` | bool — a fonte autoriza redistribuição? |
@@ -143,6 +144,29 @@ produto**. Gerado por
 Formato: **UTF-8, `indent=2`, chaves ordenadas**. `escrever()` **não
 sobrescreve** um `.json` existente sem `sobrescrever=True` — metadado apagado
 por engano é rastro perdido.
+
+### `sha256` × `sha256_conteudo`
+
+O `sha256` do arquivo muda sem que o dado mude: um GeoPackage é um banco
+SQLite, e a ordem das páginas, o contador de alterações do cabeçalho e o
+carimbo `last_change` dependem de como e quando ele foi escrito. Por isso
+toda camada vetorial do acervo registra também `sha256_conteudo`
+([`scripts/utils/conteudo.py`](../scripts/utils/conteudo.py)): CRS + nomes
+de colunas + cada feição como atributos em JSON canônico e WKB da geometria
+normalizada, com as feições ordenadas pelo próprio hash (independe do fid).
+Nenhuma coordenada é arredondada: é igualdade exata de dado.
+
+- **Comparar camadas** (`--verificar`, idempotência dos produtores, "posso
+  derivar desta camada?") é sempre por `sha256_conteudo`, nunca pelo sha256 do
+  arquivo. Produtor que gera o mesmo conteúdo **não substitui** o arquivo, e o
+  sha256 conferido continua valendo.
+- **Validador:** arquivo com sha256 diferente do catálogo é aceito (com aviso)
+  se o `sha256_conteudo` recalculado bate com o do `.json`; se não bate, é
+  erro — o dado mudou e a conferência caducou. Quando o `.json` registra
+  `sha256_conteudo`, ele é sempre recalculado e tem de bater.
+- Produtores gravam GeoPackage com `last_change` fixo (Last-Modified da origem,
+  via `OGR_CURRENT_DATE`), para que a mesma entrada dê os mesmos bytes.
+- `manifesto.py` (contrato dos estudos) ainda compara o sha256 do arquivo.
 
 `pode_publicar` é separado de `autorizacao_fonte` de propósito: a fonte pode
 autorizar redistribuição e mesmo assim o produto não poder ser publicado (um

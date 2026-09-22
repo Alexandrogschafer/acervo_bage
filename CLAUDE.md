@@ -35,6 +35,7 @@ caminho literal fora do YAML, é bug.**
 | `catalogo.py` | lê/atualiza os catálogos; `camada_conferida()` confere o sha256 antes de derivar |
 | `medidas.py` | área no CRS equivalente (`area_m2`, `areas_m2`) |
 | `hashes.py` | sha256 em blocos + tamanho |
+| `conteudo.py` | `sha256_conteudo`: hash do DADO (geometria + atributos + CRS), não dos bytes |
 | `nomes.py` | `{tema}_{fonte}_{ano-ou-periodo}_{resolucao}.{ext}` |
 | `metadados.py` | o `.json` irmão de todo produto |
 | `manifesto.py` | resolve o contrato do estudo contra o acervo |

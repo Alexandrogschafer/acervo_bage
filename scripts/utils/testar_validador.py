@@ -45,13 +45,71 @@ def escrever(caminho: Path, campos: list[str], linhas: list[dict]) -> Path:
     return caminho
 
 
-def rodar(fontes: Path, camadas: Path, area_estudo: Path | None = None) -> tuple[int, str]:
+def rodar(fontes: Path, camadas: Path, area_estudo: Path | None = None,
+          raiz: Path = RAIZ_PROJETO) -> tuple[int, str]:
     comando = [sys.executable, str(VALIDADOR), "--fontes", str(fontes),
-               "--camadas", str(camadas), "--bib", str(CAMINHO_BIB), "--raiz", str(RAIZ_PROJETO)]
+               "--camadas", str(camadas), "--bib", str(CAMINHO_BIB), "--raiz", str(raiz)]
     if area_estudo is not None:
         comando += ["--area-estudo", str(area_estudo)]
     processo = subprocess.run(comando, capture_output=True, text=True)
     return processo.returncode, processo.stdout + processo.stderr
+
+
+def controles_de_conteudo(tmp: Path, campos: list[str], camadas: list[dict]) -> list[tuple]:
+    """sha256 do arquivo x sha256_conteudo, sobre cópias de `limite_municipal`.
+
+    Cada controle monta uma raiz temporária com o GeoPackage (e o .json irmão)
+    no mesmo caminho relativo do catálogo, e um catálogo só com essa camada.
+    """
+    import geopandas as gpd
+    import pyogrio
+
+    linha = next(c for c in camadas if c["id_camada"] == "limite_municipal")
+    original = RAIZ_PROJETO / linha["arquivo"]
+    meta = json.loads(original.with_suffix(".json").read_text(encoding="utf-8"))
+    gdf = gpd.read_file(original)
+
+    def montar(nome: str, gravar, sha_conteudo: str) -> tuple[Path, Path]:
+        raiz = tmp / nome
+        destino = raiz / linha["arquivo"]
+        destino.parent.mkdir(parents=True)
+        gravar(destino)
+        destino.with_suffix(".json").write_text(
+            json.dumps({**meta, "sha256_conteudo": sha_conteudo}), encoding="utf-8")
+        return raiz, escrever(tmp / f"{nome}.csv", campos, [linha])
+
+    def regravar(g):
+        def _gravar(destino: Path) -> None:
+            pyogrio.set_gdal_config_options({"OGR_CURRENT_DATE": "2000-01-01T00:00:00.000Z"})
+            try:
+                g.to_file(destino, driver="GPKG", layer="limite_municipal")
+            finally:
+                pyogrio.set_gdal_config_options({"OGR_CURRENT_DATE": None})
+        return _gravar
+
+    resultados = []
+    sha_conteudo = meta["sha256_conteudo"]
+
+    # (P2) regravado: outros bytes, mesmo dado -> aceito
+    raiz, csv_p = montar("conteudo_igual", regravar(gdf), sha_conteudo)
+    rc, saida = rodar(CAMINHO_FONTES, csv_p, raiz=raiz)
+    resultados.append(("POSITIVO 2: arquivo regravado, mesmo conteúdo", "passar (rc=0)",
+                       rc == 0 and "sha256_conteudo confere" in saida, rc, saida))
+
+    # (E) regravado com um atributo alterado -> recusado
+    alterado = gdf.copy()
+    alterado.loc[0, "NM_MUN"] = "Outro"
+    raiz, csv_e = montar("conteudo_alterado", regravar(alterado), sha_conteudo)
+    rc, saida = rodar(CAMINHO_FONTES, csv_e, raiz=raiz)
+    resultados.append(("NEGATIVO E: arquivo com o dado alterado", "falhar (rc=1)",
+                       rc == 1 and "o DADO mudou" in saida, rc, saida))
+
+    # (F) arquivo idêntico, mas sha256_conteudo do .json adulterado -> recusado
+    raiz, csv_f = montar("json_adulterado", lambda d: shutil.copy2(original, d), "0" * 64)
+    rc, saida = rodar(CAMINHO_FONTES, csv_f, raiz=raiz)
+    resultados.append(("NEGATIVO F: sha256_conteudo do .json não confere", "falhar (rc=1)",
+                       rc == 1 and "sha256_conteudo do .json irmão não" in saida, rc, saida))
+    return resultados
 
 
 def main() -> None:
@@ -108,6 +166,8 @@ def main() -> None:
         resultados.append(("NEGATIVO D: área de estudo publicável e pendente", "falhar (rc=1)",
                            rc == 1 and "área de estudo" in saida and "pode_publicar=true" in saida,
                            rc, saida))
+
+        resultados += controles_de_conteudo(tmp, campos_camadas, camadas)
 
     print("=" * 78)
     print("CONTROLES DO VALIDADOR DE CATÁLOGOS")

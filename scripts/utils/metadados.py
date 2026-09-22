@@ -41,6 +41,10 @@ Campos OPCIONAIS de derivação e medida, também gravados só quando informados
                         acervo de que o produto foi derivado
     medidas             medidas geométricas, sempre no CRS de produção
     verificacoes        resultado das conferências automáticas do produtor
+    sha256_conteudo     hash de CONTEÚDO da camada vetorial (geometria
+                        normalizada + atributos + CRS; scripts/utils/conteudo.py).
+                        Ao lado do `sha256` do arquivo: o arquivo pode mudar
+                        de bytes sem mudar de dado, e é este que diz se mudou.
 
 Existem porque cópia de terceiro só é rastreável se o arquivo disser de qual
 ponto exato da origem ele saiu: "veio do repositório X" não permite reencontrar
@@ -78,7 +82,7 @@ CAMPOS: tuple[str, ...] = (
 # Procedência: opcionais, só aparecem no .json quando informados.
 CAMPOS_OPCIONAIS: tuple[str, ...] = (
     "repo_origem", "commit", "url_origem", "data_commit", "nome_original",
-    "edicao", "camada_origem", "medidas", "verificacoes",
+    "edicao", "camada_origem", "medidas", "verificacoes", "sha256_conteudo",
 )
 
 

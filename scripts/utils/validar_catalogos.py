@@ -13,7 +13,12 @@ Confere:
   4. nenhuma camada com `pode_publicar=true` tem licença vazia ou fonte sem
      `autorizacao_fonte=true` — restrição da fonte não se dilui na camada;
   5. o sha256 registrado da camada bate com o arquivo em disco (se o arquivo
-     mudou depois de conferido, a conferência caducou);
+     mudou depois de conferido, a conferência caducou) — com uma exceção: se
+     o arquivo foi regravado com outros bytes mas o `sha256_conteudo` do seu
+     `.json` irmão (geometria normalizada + atributos + CRS,
+     scripts/utils/conteudo.py) bate com o recalculado, o DADO é o mesmo e a
+     camada é aceita (aviso). Se o `.json` registra `sha256_conteudo`, ele é
+     sempre recalculado e tem de bater;
   6. `tema` é um dos temas de data/acervo/ e `status_conferencia` é válido;
   7. a área de estudo (config/area_estudo.geojson), que é versionada mas não é
      camada do catálogo, segue a MESMA regra de publicação pelo seu `.json`
@@ -43,6 +48,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from scripts.bibliografia.bibtex import chaves as chaves_bib  # noqa: E402
 from scripts.utils import paths  # noqa: E402
+from scripts.utils.catalogo import conteudo_confere  # noqa: E402
 from scripts.utils.hashes import sha256_arquivo  # noqa: E402
 
 COLUNAS_FONTES: frozenset[str] = frozenset({
@@ -183,12 +189,26 @@ def validar(
                 erros.append(f"camada '{identificador}': sha256 não registrado")
             else:
                 sha_real = sha256_arquivo(caminho_arquivo)
-                if sha_real != sha_registrado:
+                conteudo = conteudo_confere(caminho_arquivo)
+                if sha_real != sha_registrado and conteudo is True:
+                    avisos.append(
+                        f"camada '{identificador}': arquivo regravado (sha256 "
+                        f"{sha_real[:12]}… ≠ catálogo {sha_registrado[:12]}…), mas o "
+                        "sha256_conteudo confere — mesmo dado, aceito."
+                    )
+                elif sha_real != sha_registrado:
+                    motivo = (" e o sha256_conteudo do .json também diverge — o DADO mudou"
+                              if conteudo is False else "")
                     erros.append(
                         f"camada '{identificador}': sha256 divergente — catálogo diz "
-                        f"{sha_registrado[:12]}…, arquivo tem {sha_real[:12]}…. "
+                        f"{sha_registrado[:12]}…, arquivo tem {sha_real[:12]}…{motivo}. "
                         "O arquivo mudou depois de conferido: reconferir no mapa e "
                         "atualizar o catálogo."
+                    )
+                elif conteudo is False:
+                    erros.append(
+                        f"camada '{identificador}': sha256_conteudo do .json irmão não "
+                        "confere com o arquivo — metadado errado ou gerado de outro dado."
                     )
 
         # (2) fonte existe + (4) licença/autorização

@@ -34,10 +34,15 @@ Uso:
     python scripts/download/vetor_ibge.py --verificar
 
 --verificar NÃO grava nada no repositório: exige o ZIP já baixado, gera o
-GeoPackage num diretório temporário do sistema e compara o sha256 com o da
-camada `limite_municipal` no catálogo. Como diagnóstico, gera também uma
-versão com `last_change` (gpkg_contents) fixado no da camada conferida — se
-só essa bate, a única diferença é o carimbo de data que o GeoPackage grava.
+GeoPackage num diretório temporário do sistema e compara o CONTEÚDO
+(sha256_conteudo: geometria normalizada + atributos + CRS, ver
+scripts/utils/conteudo.py) com o registrado no `.json` de `limite_municipal`.
+O sha256 do arquivo é mostrado só como informação: ele muda com o layout
+físico do SQLite sem que o dado mude.
+
+Determinismo: o GeoPackage é gravado com `last_change` fixado no Last-Modified
+da malha de origem (como em limites_ibge.py), e só substitui o existente se o
+CONTEÚDO mudou — uma camada conferida com o mesmo dado nunca é regravada.
 """
 
 from __future__ import annotations
@@ -47,16 +52,20 @@ import json
 import logging
 import re
 import sys
+import tempfile
 from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 
 import geopandas as gpd
+import pyogrio
 import requests
 
 RAIZ_PROJETO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(RAIZ_PROJETO))
 
 from scripts.utils import medidas, paths  # noqa: E402
+from scripts.utils.conteudo import sha256_conteudo  # noqa: E402
 from scripts.utils.hashes import sha256_arquivo  # noqa: E402
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
@@ -263,44 +272,62 @@ def recortar_municipio(caminho_zip: Path, codigo_ibge: str) -> gpd.GeoDataFrame:
     return municipio.to_crs(CRS_PADRAO)
 
 
+def carimbo_gpkg(last_modified: str | None) -> str:
+    """`last_change` fixo do GeoPackage: o Last-Modified da malha de origem.
+
+    Mesma técnica de limites_ibge.py: a mesma entrada gera o mesmo carimbo, em
+    vez da hora da execução.
+    """
+    if not last_modified:
+        raise RuntimeError("Last-Modified da origem ausente — sem carimbo determinístico.")
+    return (parsedate_to_datetime(last_modified).astimezone(timezone.utc)
+            .strftime("%Y-%m-%dT%H:%M:%S.000Z"))
+
+
+def gravar_gpkg(municipio: gpd.GeoDataFrame, destino: Path, carimbo: str) -> bool:
+    """Grava o GeoPackage com carimbo fixo; devolve False se o existente já tem
+    o mesmo CONTEÚDO (sha256_conteudo) — nesse caso o arquivo NÃO é substituído,
+    e o sha256 conferido continua valendo."""
+    destino.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(dir=destino.parent) as tmp:
+        novo = Path(tmp) / destino.name
+        pyogrio.set_gdal_config_options({"OGR_CURRENT_DATE": carimbo})
+        try:
+            municipio.to_file(novo, driver="GPKG", layer="limite_municipal")
+        finally:
+            pyogrio.set_gdal_config_options({"OGR_CURRENT_DATE": None})
+        if destino.exists() and sha256_conteudo(destino) == sha256_conteudo(novo):
+            return False
+        novo.replace(destino)
+    return True
+
+
 def verificar_sem_gravar(caminho_zip: Path, codigo: str, ano: str) -> None:
-    """Gera o gpkg fora do repositório e compara com `limite_municipal`."""
-    import sqlite3
-    import tempfile
-
-    import pyogrio
-
+    """Gera o gpkg fora do repositório e compara o CONTEÚDO com `limite_municipal`."""
     from scripts.utils import catalogo
 
     if not caminho_zip.exists():
         raise SystemExit(f"--verificar exige o ZIP já baixado: {paths.relativo(caminho_zip)}")
     linha, conferido = catalogo.camada_conferida("limite_municipal")
-    with sqlite3.connect(f"file:{conferido}?mode=ro", uri=True) as con:
-        carimbo = con.execute("select last_change from gpkg_contents").fetchone()[0]
+    registrado = json.loads(conferido.with_suffix(".json").read_text(encoding="utf-8")) \
+        .get("sha256_conteudo")
+    referencia = registrado or sha256_conteudo(conferido)
 
     municipio = recortar_municipio(caminho_zip, codigo)
-    nome = f"limite-municipal_ibge_{ano}_municipal.gpkg"
     with tempfile.TemporaryDirectory(prefix="vetor_ibge_verificar_") as tmp:
-        normal = Path(tmp) / "normal" / nome
-        normal.parent.mkdir()
-        municipio.to_file(normal, driver="GPKG", layer="limite_municipal")
-        fixado = Path(tmp) / "fixado" / nome
-        fixado.parent.mkdir()
-        pyogrio.set_gdal_config_options({"OGR_CURRENT_DATE": carimbo})
-        try:
-            municipio.to_file(fixado, driver="GPKG", layer="limite_municipal")
-        finally:
-            pyogrio.set_gdal_config_options({"OGR_CURRENT_DATE": None})
-        sha_normal, sha_fixado = sha256_arquivo(normal), sha256_arquivo(fixado)
+        gerado = Path(tmp) / f"limite-municipal_ibge_{ano}_municipal.gpkg"
+        municipio.to_file(gerado, driver="GPKG", layer="limite_municipal")
+        conteudo_gerado = sha256_conteudo(gerado)
+        sha_gerado = sha256_arquivo(gerado)
 
-    esperado = linha["sha256"].strip().lower()
     print()
-    print(f"camada conferida ...... {linha['arquivo']}")
-    print(f"sha256 conferido ...... {esperado}")
-    print(f"sha256 gerado agora ... {sha_normal}  "
-          f"{'IGUAL' if sha_normal == esperado else 'DIFERENTE'}")
-    print(f"sha256 com last_change = {carimbo} (diagnóstico) ... {sha_fixado}  "
-          f"{'IGUAL' if sha_fixado == esperado else 'DIFERENTE'}")
+    print(f"camada conferida ........ {linha['arquivo']}")
+    print(f"sha256_conteudo esperado  {referencia} "
+          f"({'do .json irmão' if registrado else 'recalculado do arquivo conferido'})")
+    print(f"sha256_conteudo gerado .. {conteudo_gerado}  "
+          f"{'IGUAL — mesmo dado' if conteudo_gerado == referencia else 'DIFERENTE — o dado mudou'}")
+    print(f"(sha256 do arquivo, só informativo: conferido {linha['sha256'][:12]}…, "
+          f"gerado {sha_gerado[:12]}…)")
     print("nada foi gravado no repositório.")
 
 
@@ -370,15 +397,16 @@ def main() -> None:
     }
     # cópia do ACERVO (GeoPackage, CRS de produção). A publicação
     #    (GeoJSON do portal) é gerada à parte por scripts/geoportal/.
-    DIR_ACERVO_LIMITES.mkdir(parents=True, exist_ok=True)
     caminho_gpkg = DIR_ACERVO_LIMITES / f"limite-municipal_ibge_{ano}_municipal.gpkg"
-    municipio.to_file(caminho_gpkg, driver="GPKG", layer="limite_municipal")
+    regravou = gravar_gpkg(municipio, caminho_gpkg, carimbo_gpkg(coleta["last_modified_origem"]))
     escrever_metadado(caminho_gpkg, {
         **metadados_comuns,
         "descricao": "Limite municipal — cópia principal do ACERVO (GeoPackage).",
         "sha256": sha256_arquivo(caminho_gpkg),
+        "sha256_conteudo": sha256_conteudo(caminho_gpkg),
     })
-    logger.info("acervo: %s", paths.relativo(caminho_gpkg))
+    logger.info("acervo: %s (%s)", paths.relativo(caminho_gpkg),
+                "gravado" if regravou else "mesmo conteúdo — arquivo mantido")
 
     print()
     print(f"município ....... {nome_municipio} ({codigo})")
