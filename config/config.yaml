@@ -58,6 +58,10 @@ paths:
   # Publicação do geoportal (versionada: o portal estático precisa em runtime).
   geoportal: "data/geoportal"
 
+  # --- listas fixas de download ---
+  # arquivos do Censo no IBGE (URL, bytes, Last-Modified, sha256 esperados)
+  fontes_censo_ibge: "config/fontes_censo_ibge.yaml"
+
   # --- catálogos ---
   catalogo_fontes: "data/catalogo_fontes.csv"
   catalogo_camadas: "data/catalogo_camadas.csv"

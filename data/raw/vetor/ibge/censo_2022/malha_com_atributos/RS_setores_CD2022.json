@@ -1,0 +1,19 @@
+{
+  "arquivo": "data/raw/vetor/ibge/censo_2022/malha_com_atributos/RS_setores_CD2022.gpkg",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "EPSG:4674",
+  "data_producao": "2026-09-20T16:11:58+00:00",
+  "edicao": "censo_2022",
+  "fonte_id": "ibge_censo2022_malha_setores",
+  "licenca": "dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "observacoes": "malha de setores 2022 COM os atributos do Censo, recorte RS. Arquivo bruto, exatamente como veio do IBGE. Last-Modified da origem: Wed, 13 Nov 2024 18:23:47 GMT. Baixado em 2026-09-20T16:11:58+00:00 (pelo REVIA_BG, cópia aposentada; procedência em docs/procedencia/revia_bg_censo/). Lista fixa em config/fontes_censo_ibge.yaml; rebaixável por scripts/download/baixar_censo_ibge.py.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "8d6c46bbc8d0690d85dfc10041e0e89ea23615b1c20ffc3cb4ab677d9536a943",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 57962496,
+  "tema": "censo",
+  "url_origem": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/malha_com_atributos/setores/gpkg/UF/RS/RS_setores_CD2022.gpkg",
+  "versao": "censo_2022"
+}

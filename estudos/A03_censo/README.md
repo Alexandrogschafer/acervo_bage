@@ -3,7 +3,9 @@
 **Status:** reconhecimento · **Manifesto:** [`manifesto.yaml`](manifesto.yaml)
 
 Reconhecimento do Censo Demográfico (2000, 2010, 2022) e do CNEFE 2022
-para Bagé/RS, já no acervo em `data/acervo/censo/`.
+para Bagé/RS. O dado bruto está em `data/raw/tabular/ibge/censo_<ano>/` e
+`data/raw/vetor/ibge/censo_<ano>/` (obtido por `scripts/download/baixar_censo_ibge.py`);
+`data/acervo/censo/` fica para as camadas curadas do censo.
 
 **Antes de usar qualquer número, ler [`docs/ressalvas_censo_bage.md`](../../docs/ressalvas_censo_bage.md)**:
 a soma dos setores fecha em 2022 e não fecha em 2010; a malha de 2000 vem com

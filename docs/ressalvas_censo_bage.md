@@ -1,6 +1,16 @@
 # Ressalvas do Censo e do CNEFE para Bagé/RS
 
-Quem usar os arquivos de `data/acervo/censo/` neste acervo precisa ler isto antes.
+> **Origem destas ressalvas:** medições feitas no projeto **REVIA_BG**
+> (`~/projetos/rede_viaria_bage`) sobre os arquivos do IBGE que ele baixou em
+> 20/09/2026. Não foram refeitas aqui; valem porque os arquivos deste
+> repositório têm o **mesmo sha256** dos medidos lá. Desde 22/09/2026 esses
+> arquivos ficam como dado bruto em `data/raw/tabular/ibge/censo_<ano>/` e
+> `data/raw/vetor/ibge/censo_<ano>/`, obtidos direto do IBGE por
+> `scripts/download/baixar_censo_ibge.py` (lista fixa em
+> `config/fontes_censo_ibge.yaml`). A procedência da cópia original está em
+> `docs/procedencia/revia_bg_censo/`.
+
+Quem usar os arquivos brutos do Censo (`data/raw/*/ibge/censo_<ano>/`) neste acervo precisa ler isto antes.
 São conclusões **medidas** sobre estes arquivos exatos — os mesmos sha256 que estão
 no `.json` irmão de cada um e em `data/catalogo_fontes.csv` — no projeto REVIA_BG
 (`~/projetos/rede_viaria_bage`), de onde os arquivos vieram por cópia em 20/09/2026.
@@ -61,11 +71,11 @@ Só **141 dos 199 setores de 2022 (70,9 %)** têm correspondência **1:1** com 2
 
 > **O geocódigo de setor NÃO é identificador estável entre censos.** Qualquer série
 > temporal por setor tem de passar pelo de/para do IBGE —
-> `data/acervo/censo/2022/documentacao/Historico_formacao_Setores_Censitarios_2010_2022.xlsx`
+> `data/raw/tabular/ibge/censo_2022/doc/Historico_formacao_Setores_Censitarios_2010_2022.xlsx`
 > — ou usar um recorte estável (bairros, município).
 
 O próprio IBGE publica a ressalva em
-`data/acervo/censo/2022/documentacao/Leia_me_Comparabilidade_2010_2022.pdf`.
+`data/raw/tabular/ibge/censo_2022/doc/Leia_me_Comparabilidade_2010_2022.pdf`.
 
 Juntar 2010 com 2022 por igualdade de geocódigo **não gera erro**: gera número plausível
 e falso, porque parte dos códigos casa por coincidência de recorte parcial.
@@ -79,7 +89,7 @@ um deles, e os 199 setores têm `NM_BAIRRO` vazio.
 **Controle negativo:** a mesma medição em **Porto Alegre** devolve **99 bairros** — ou
 seja, a contagem zero em Bagé é ausência real na fonte, não filtro quebrado.
 
-Consequência: `2022/malha/ftp_com_atributos/RS_bairros_CD2022.gpkg` está no acervo pelo
+Consequência: `data/raw/vetor/ibge/censo_2022/malha_com_atributos/RS_bairros_CD2022.gpkg` está guardado pelo
 RS e como controle, **não** como fonte de bairros de Bagé. Para bairros de Bagé existe a
 camada própria do REVIA_BG (decisão DN-B1), com dois recortes — administrativo e
 recortado pela mancha urbana —, e todo cruzamento "por bairro" tem de declarar qual usa.
@@ -129,15 +139,23 @@ prática já adotada para as demais fontes IBGE do acervo.
 
 ## Procedência
 
-Nenhum destes arquivos foi baixado por este repositório. Todos vieram por **cópia** de
+Os arquivos chegaram primeiro por **cópia** de
 `~/projetos/rede_viaria_bage/dados/externos/censo/` (projeto REVIA_BG), que os baixou das
 fontes oficiais do IBGE em 20/09/2026 navegando as listagens do FTP — nenhuma URL montada
 por adivinhação. A cópia foi conferida arquivo a arquivo (sha256 origem = sha256 cópia) e
 a origem saiu inalterada.
 
-Cada arquivo tem seu `.json` irmão com URL exata, `Last-Modified` do servidor, data do
-download original, data da cópia, sha256 e o caminho de origem.
-`data/acervo/censo/manifesto_copia_censo.json` cobre a árvore inteira, inclusive os
-`FONTE.md` e os `manifesto_censo_<ano>.json` do REVIA_BG, que vieram junto.
+Em 22/09/2026 os 50 arquivos de dado foram movidos (sha256 conferido antes e depois) para
+`data/raw/tabular/ibge/censo_<ano>/` (tabelas; documentação em `doc/`) e
+`data/raw/vetor/ibge/censo_<ano>/` (malhas; `malha_com_atributos/` e `cnefe/` em 2022).
+A malha territorial de setores 2022 do geoftp, que também veio na cópia, é hoje obtida por
+`scripts/download/baixar_malhas_ibge.py`. Cada arquivo tem `.json` irmão com URL exata,
+`Last-Modified` do servidor, data do download original e sha256; a lista fixa está em
+`config/fontes_censo_ibge.yaml`, e `scripts/download/baixar_censo_ibge.py --verificar`
+confere a origem sem baixar.
 
-Script: `scripts/download/censo_revia_bg.py`.
+O registro da cópia original — `.json` irmãos antigos (com `origem_da_copia`),
+`manifesto_copia_censo.json`, `FONTE.md` e `manifesto_censo_<ano>.json` do REVIA_BG — está,
+sem edição, em `docs/procedencia/revia_bg_censo/`.
+
+Script: `scripts/download/baixar_censo_ibge.py` (substitui `scripts/download/censo_revia_bg.py`).

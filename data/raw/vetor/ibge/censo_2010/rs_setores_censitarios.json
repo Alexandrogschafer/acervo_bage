@@ -1,0 +1,19 @@
+{
+  "arquivo": "data/raw/vetor/ibge/censo_2010/rs_setores_censitarios.zip",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "EPSG:4674",
+  "data_producao": "2026-09-20T16:12:26+00:00",
+  "edicao": "censo_2010",
+  "fonte_id": "ibge_censo2010_malha_setores",
+  "licenca": "dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "observacoes": "malha de setores censitários 2010 (urbanos e rurais), recorte RS. Arquivo bruto, exatamente como veio do IBGE. Last-Modified da origem: Tue, 14 Jun 2016 19:42:44 GMT. Baixado em 2026-09-20T16:12:26+00:00 (pelo REVIA_BG, cópia aposentada; procedência em docs/procedencia/revia_bg_censo/). Lista fixa em config/fontes_censo_ibge.yaml; rebaixável por scripts/download/baixar_censo_ibge.py.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "c7f65e26bf0813a01795084391ca6211da499a6498b8e523d98390568414b3b0",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 12729964,
+  "tema": "censo",
+  "url_origem": "https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_de_setores_censitarios__divisoes_intramunicipais/censo_2010/setores_censitarios_shp/rs/rs_setores_censitarios.zip",
+  "versao": "censo_2010"
+}

@@ -1,0 +1,19 @@
+{
+  "arquivo": "data/raw/tabular/ibge/censo_2022/doc/dicionario_de_dados_agregados_por_setores_censitarios_20260520.xlsx",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-20T16:11:55+00:00",
+  "edicao": "censo_2022",
+  "fonte_id": "ibge_censo2022_agregados_setores",
+  "licenca": "dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "observacoes": "dicionário de dados dos agregados por setores (versão 20/05/2026, a mais recente). Arquivo bruto, exatamente como veio do IBGE. Last-Modified da origem: Tue, 12 May 2026 21:29:48 GMT. Baixado em 2026-09-20T16:11:55+00:00 (pelo REVIA_BG, cópia aposentada; procedência em docs/procedencia/revia_bg_censo/). Lista fixa em config/fontes_censo_ibge.yaml; rebaixável por scripts/download/baixar_censo_ibge.py.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "0b8aedece57f6125d785b6aa2234cfd587e92dfb6ce5ca6ace8c67f140831344",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 118369,
+  "tema": "censo",
+  "url_origem": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/dicionario_de_dados_agregados_por_setores_censitarios_20260520.xlsx",
+  "versao": "censo_2022"
+}

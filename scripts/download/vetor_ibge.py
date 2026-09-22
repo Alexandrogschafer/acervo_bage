@@ -31,6 +31,13 @@ Uso:
     python scripts/download/vetor_ibge.py
     python scripts/download/vetor_ibge.py --codigo-ibge 4322400
     python scripts/download/vetor_ibge.py --ano 2024 --forcar
+    python scripts/download/vetor_ibge.py --verificar
+
+--verificar NÃO grava nada no repositório: exige o ZIP já baixado, gera o
+GeoPackage num diretório temporário do sistema e compara o sha256 com o da
+camada `limite_municipal` no catálogo. Como diagnóstico, gera também uma
+versão com `last_change` (gpkg_contents) fixado no da camada conferida — se
+só essa bate, a única diferença é o carimbo de data que o GeoPackage grava.
 """
 
 from __future__ import annotations
@@ -256,6 +263,47 @@ def recortar_municipio(caminho_zip: Path, codigo_ibge: str) -> gpd.GeoDataFrame:
     return municipio.to_crs(CRS_PADRAO)
 
 
+def verificar_sem_gravar(caminho_zip: Path, codigo: str, ano: str) -> None:
+    """Gera o gpkg fora do repositório e compara com `limite_municipal`."""
+    import sqlite3
+    import tempfile
+
+    import pyogrio
+
+    from scripts.utils import catalogo
+
+    if not caminho_zip.exists():
+        raise SystemExit(f"--verificar exige o ZIP já baixado: {paths.relativo(caminho_zip)}")
+    linha, conferido = catalogo.camada_conferida("limite_municipal")
+    with sqlite3.connect(f"file:{conferido}?mode=ro", uri=True) as con:
+        carimbo = con.execute("select last_change from gpkg_contents").fetchone()[0]
+
+    municipio = recortar_municipio(caminho_zip, codigo)
+    nome = f"limite-municipal_ibge_{ano}_municipal.gpkg"
+    with tempfile.TemporaryDirectory(prefix="vetor_ibge_verificar_") as tmp:
+        normal = Path(tmp) / "normal" / nome
+        normal.parent.mkdir()
+        municipio.to_file(normal, driver="GPKG", layer="limite_municipal")
+        fixado = Path(tmp) / "fixado" / nome
+        fixado.parent.mkdir()
+        pyogrio.set_gdal_config_options({"OGR_CURRENT_DATE": carimbo})
+        try:
+            municipio.to_file(fixado, driver="GPKG", layer="limite_municipal")
+        finally:
+            pyogrio.set_gdal_config_options({"OGR_CURRENT_DATE": None})
+        sha_normal, sha_fixado = sha256_arquivo(normal), sha256_arquivo(fixado)
+
+    esperado = linha["sha256"].strip().lower()
+    print()
+    print(f"camada conferida ...... {linha['arquivo']}")
+    print(f"sha256 conferido ...... {esperado}")
+    print(f"sha256 gerado agora ... {sha_normal}  "
+          f"{'IGUAL' if sha_normal == esperado else 'DIFERENTE'}")
+    print(f"sha256 com last_change = {carimbo} (diagnóstico) ... {sha_fixado}  "
+          f"{'IGUAL' if sha_fixado == esperado else 'DIFERENTE'}")
+    print("nada foi gravado no repositório.")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Baixa a malha municipal do IBGE (geoftp) e gera a área de estudo."
@@ -267,12 +315,17 @@ def main() -> None:
                         help="Edição da malha (default: a mais recente listada no geoftp)")
     parser.add_argument("--forcar", action="store_true",
                         help="Rebaixa o ZIP e regrava as saídas mesmo se já existirem")
+    parser.add_argument("--verificar", action="store_true",
+                        help="Não grava nada: compara o gpkg que seria gerado com a camada conferida")
     args = parser.parse_args()
 
     codigo = str(args.codigo_ibge).strip()
 
     url_zip, nome_zip, ano = resolver_url_malha(codigo, args.ano)
     caminho_zip = DIR_RAW_VETOR / nome_zip
+    if args.verificar:
+        verificar_sem_gravar(caminho_zip, codigo, ano)
+        return
     coleta = baixar(url_zip, caminho_zip, args.forcar)
     escrever_metadado(caminho_zip, {
         "descricao": f"Malha municipal do IBGE, UF inteira, edição {ano} (arquivo bruto).",

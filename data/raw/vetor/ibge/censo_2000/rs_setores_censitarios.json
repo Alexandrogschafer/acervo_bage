@@ -1,0 +1,19 @@
+{
+  "arquivo": "data/raw/vetor/ibge/censo_2000/rs_setores_censitarios.zip",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-20T16:12:32+00:00",
+  "edicao": "censo_2000",
+  "fonte_id": "ibge_censo2000_malha_setores",
+  "licenca": "dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "observacoes": "malha de setores RURAIS 2000 (projeção geográfica, e500), recorte RS. Arquivo bruto, exatamente como veio do IBGE. Last-Modified da origem: Tue, 14 Jun 2016 19:44:01 GMT. Baixado em 2026-09-20T16:12:32+00:00 (pelo REVIA_BG, cópia aposentada; procedência em docs/procedencia/revia_bg_censo/). Lista fixa em config/fontes_censo_ibge.yaml; rebaixável por scripts/download/baixar_censo_ibge.py.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "d9f491a2dddf3e201188052483eee5e5e1dc41ef9ca17647ad73f7af174cc108",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 4466420,
+  "tema": "censo",
+  "url_origem": "https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_de_setores_censitarios__divisoes_intramunicipais/censo_2000/setor_rural/projecao_geografica/censo_2000/e500_arcview_shp/uf/rs/rs_setores_censitarios.zip",
+  "versao": "censo_2000"
+}

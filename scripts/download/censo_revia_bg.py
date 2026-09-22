@@ -1,4 +1,15 @@
 """
+SUBSTITUÍDO por `scripts/download/baixar_censo_ibge.py` (2026-09-22).
+
+Mantido só como registro de como a primeira cópia foi feita. Ele NÃO grava
+mais nada: dado bruto do IBGE pertence a data/raw/, não a data/acervo/, e o
+download agora é direto do IBGE a partir da lista fixa
+`config/fontes_censo_ibge.yaml`. Só `--dry-run` (que apenas lê e confere)
+continua permitido. A procedência da cópia original está em
+docs/procedencia/revia_bg_censo/.
+
+--- descrição original ---
+
 Importa o Censo Demográfico (2000, 2010, 2022) e o CNEFE 2022 para o acervo,
 **por cópia** a partir do projeto REVIA_BG (`rede_viaria_bage`).
 
@@ -202,6 +213,13 @@ def main() -> None:
 
     origem: Path = args.origem.expanduser().resolve()
     destino: Path = args.destino.expanduser().resolve()
+
+    if not args.dry_run:
+        raise SystemExit(
+            "SUBSTITUÍDO: este script não grava mais (o bruto do Censo fica em "
+            "data/raw/). Use scripts/download/baixar_censo_ibge.py. Só --dry-run "
+            "continua disponível."
+        )
 
     if not origem.is_dir():
         raise SystemExit(f"ERRO: origem não encontrada: {origem}")

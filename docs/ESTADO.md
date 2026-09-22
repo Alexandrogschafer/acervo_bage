@@ -5,6 +5,32 @@ pendente. Entrada nova no topo.
 
 ---
 
+## 2026-09-22 — Censo: bruto do IBGE em `data/raw/`, download direto
+
+Dado bruto oficial pertence a `data/raw/`, não ao acervo. Os 50 arquivos de dado
+do Censo (2000, 2010, 2022) e do CNEFE 2022 foram **movidos** de
+`data/acervo/censo/` (sha256 conferido antes e depois de cada movimento):
+
+| de | para |
+| --- | --- |
+| `data/acervo/censo/<ano>/tabelas/` | `data/raw/tabular/ibge/censo_<ano>/` |
+| `data/acervo/censo/<ano>/documentacao/`, dicionários do CNEFE | `data/raw/tabular/ibge/censo_<ano>/doc/` |
+| `data/acervo/censo/<ano>/malha/` | `data/raw/vetor/ibge/censo_<ano>/` |
+| `data/acervo/censo/2022/malha/ftp_com_atributos/` | `data/raw/vetor/ibge/censo_2022/malha_com_atributos/` |
+| `data/acervo/censo/2022/cnefe/` (zips) | `data/raw/vetor/ibge/censo_2022/cnefe/` |
+| `.json` irmãos antigos, `FONTE.md`, manifestos do REVIA_BG | `docs/procedencia/revia_bg_censo/` (sem edição) |
+
+- `scripts/download/baixar_censo_ibge.py` baixa direto do IBGE a partir da lista
+  fixa `config/fontes_censo_ibge.yaml` (gerada uma vez dos manifestos do REVIA_BG);
+  `--verificar` confere a origem por HEAD. Em 22/09: 50/50 iguais à origem.
+- `scripts/download/censo_revia_bg.py` está SUBSTITUÍDO e não grava mais.
+- `data/acervo/censo/` ficou vazia (`.gitkeep`): é para as camadas curadas do
+  censo (setores com agregados, harmonização), não para o bruto.
+- As entradas de 2026-09-20 abaixo descrevem o estado daquele dia; os caminhos
+  nelas são os da época e não foram reescritos.
+
+---
+
 ## 2026-09-20 — Reestruturação: acervo compartilhado + estudos derivados
 
 Substitui a estrutura anterior. **Nada foi apagado: tudo que existia foi

@@ -1,0 +1,19 @@
+{
+  "arquivo": "data/raw/tabular/ibge/censo_2000/Agregado_de_setores_2000_RS.zip",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-20T16:12:30+00:00",
+  "edicao": "censo_2000",
+  "fonte_id": "ibge_censo2000_agregado_setores",
+  "licenca": "dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "observacoes": "agregado por setores censitários 2000, recorte RS. Arquivo bruto, exatamente como veio do IBGE. Last-Modified da origem: Wed, 17 Aug 2016 14:09:08 GMT. Baixado em 2026-09-20T16:12:30+00:00 (pelo REVIA_BG, cópia aposentada; procedência em docs/procedencia/revia_bg_censo/). Lista fixa em config/fontes_censo_ibge.yaml; rebaixável por scripts/download/baixar_censo_ibge.py.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "5c0d655a1dc8c87fc2bb80b4e76742330daf899f12251d4bd732e130198b158a",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 53869085,
+  "tema": "censo",
+  "url_origem": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2000/Dados_do_Universo/Agregado_por_Setores_Censitarios/Agregado_de_setores_2000_RS.zip",
+  "versao": "censo_2000"
+}

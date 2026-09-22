@@ -1,0 +1,19 @@
+{
+  "arquivo": "data/raw/tabular/ibge/censo_2000/doc/referencias_metodologicas.zip",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-20T16:12:32+00:00",
+  "edicao": "censo_2000",
+  "fonte_id": "ibge_censo2000_malha_setores",
+  "licenca": "dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "observacoes": "referências metodológicas da malha de 2000. Arquivo bruto, exatamente como veio do IBGE. Last-Modified da origem: Thu, 02 Jun 2016 19:37:06 GMT. Baixado em 2026-09-20T16:12:32+00:00 (pelo REVIA_BG, cópia aposentada; procedência em docs/procedencia/revia_bg_censo/). Lista fixa em config/fontes_censo_ibge.yaml; rebaixável por scripts/download/baixar_censo_ibge.py.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "6c9a5b8db5a034c20810c6422a6fd29c2807fb31256b88e75fae0f8da7a41479",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 34191,
+  "tema": "censo",
+  "url_origem": "https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_de_setores_censitarios__divisoes_intramunicipais/censo_2000/setor_rural/documentacao/referencias_metodologicas.zip",
+  "versao": "censo_2000"
+}

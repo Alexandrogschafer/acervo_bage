@@ -33,7 +33,7 @@ config/
   area_estudo.geojson         recorte de referência do acervo
 
 data/
-  raw/{vetor,raster,tabular}/ dado bruto, como veio da fonte
+  raw/{vetor,raster,tabular}/ dado bruto, como veio da fonte (ex.: Censo em ibge/censo_<ano>/)
   acervo/                     A CÓPIA PRINCIPAL, por tema:
     limites/ censo/ hidrografia/ viario/
     cadastro/ educacao/ saude/ ambiental/
@@ -92,6 +92,9 @@ python scripts/download/vetor_ibge.py     # limite municipal (IBGE, geoftp) — 
 python scripts/download/baixar_malhas_ibge.py   # malhas brutas: municipal (mais recente e 2022) + setores e distritos 2022
 python scripts/processamento/area_estudo.py     # config/area_estudo.geojson a partir de limite_municipal
 python scripts/processamento/limites_ibge.py    # setores_2022 e distritos_2022 em data/acervo/limites/
+python scripts/download/baixar_censo_ibge.py    # Censo 2000/2010/2022 + CNEFE, direto do IBGE -> data/raw/
+python scripts/download/baixar_censo_ibge.py --verificar   # só HEAD: algo mudou na origem?
+# scripts/download/censo_revia_bg.py está SUBSTITUÍDO por baixar_censo_ibge.py (não grava mais)
 python scripts/geoportal/exportar_limite_municipal.py
 python scripts/bibliografia/gerar_indice.py
 

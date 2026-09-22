@@ -1,0 +1,719 @@
+# ---------------------------------------------------------------------------
+# fontes_censo_ibge.yaml — lista FIXA dos arquivos do Censo baixados do IBGE
+#
+# Lida por scripts/download/baixar_censo_ibge.py. Gerada UMA vez, em 2026-09-22,
+# a partir dos manifestos do REVIA_BG (manifesto_censo_<ano>.json, hoje em
+# docs/procedencia/revia_bg_censo/), que registraram cada arquivo baixado do
+# IBGE em 2026-09-20 navegando as listagens do FTP. Desde então o download não
+# depende mais do REVIA_BG: a URL, o tamanho, o Last-Modified e o sha256
+# esperados estão aqui.
+#
+# destino.base é uma chave de `paths:` em config.yaml; destino.subdir é
+# relativo a ela. `caminho_revia_bg` só serve à semeadura (--semear) e ao
+# rastro: é onde o arquivo estava na cópia do REVIA_BG.
+#
+# Ficou de fora a malha territorial de setores 2022 do geoftp
+# (RS_setores_CD2022.gpkg, sha256 3816950f…): ela é baixada por
+# scripts/download/baixar_malhas_ibge.py (fonte ibge_malha_setores_2022).
+# ---------------------------------------------------------------------------
+arquivos:
+- ano: '2000'
+  categoria: tabelas
+  fonte_id: ibge_censo2000_agregado_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2000/Dados_do_Universo/Agregado_por_Setores_Censitarios/Agregado_de_setores_2000_RS.zip
+  arquivo: Agregado_de_setores_2000_RS.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2000
+  bytes: 53869085
+  sha256: 5c0d655a1dc8c87fc2bb80b4e76742330daf899f12251d4bd732e130198b158a
+  last_modified: Wed, 17 Aug 2016 14:09:08 GMT
+  baixado_em: '2026-09-20T16:12:30+00:00'
+  descricao: agregado por setores censitários 2000, recorte RS
+  caminho_revia_bg: 2000/tabelas/Agregado_de_setores_2000_RS.zip
+- ano: '2000'
+  categoria: documentacao
+  fonte_id: ibge_censo2000_agregado_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2000/Dados_do_Universo/Agregado_por_Setores_Censitarios/Arquivo_AgreSetores_Completo_V2.doc
+  arquivo: Arquivo_AgreSetores_Completo_V2.doc
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2000/doc
+  bytes: 86016
+  sha256: 0e3ccba3a96095ab08a482866ce4079340648023f0f9249bd5bedf769c7f415a
+  last_modified: Wed, 17 Aug 2016 14:09:03 GMT
+  baixado_em: '2026-09-20T16:12:30+00:00'
+  descricao: documentação do agregado por setores 2000 (layout dos arquivos)
+  caminho_revia_bg: 2000/documentacao/Arquivo_AgreSetores_Completo_V2.doc
+- ano: '2000'
+  categoria: tabelas
+  fonte_id: ibge_censo2000_agregado_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2000/Dados_do_Universo/Municipios/PopMun_43_31.zip
+  arquivo: PopMun_43_31.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2000
+  bytes: 54484
+  sha256: fa8e27ffe6fff91c53c70d2033b385b69f9983e6d885105fb53a8e6c6fc4b748
+  last_modified: Wed, 17 Aug 2016 14:09:20 GMT
+  baixado_em: '2026-09-20T16:12:31+00:00'
+  descricao: TOTAL OFICIAL por município, RS, 2000 (tabela 1.31) — confere a soma dos setores
+  caminho_revia_bg: 2000/tabelas/PopMun_43_31.zip
+- ano: '2000'
+  categoria: tabelas
+  fonte_id: ibge_censo2000_agregado_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2000/Dados_do_Universo/Municipios/PopMun_43_33.zip
+  arquivo: PopMun_43_33.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2000
+  bytes: 46844
+  sha256: a79b81a3d49bfe5d7d863dea7f01afab6a5489ee5f78a5f631bb2d7563714691
+  last_modified: Wed, 17 Aug 2016 14:09:20 GMT
+  baixado_em: '2026-09-20T16:12:31+00:00'
+  descricao: população por situação do domicílio, municípios do RS, 2000 (tabela 1.33)
+  caminho_revia_bg: 2000/tabelas/PopMun_43_33.zip
+- ano: '2000'
+  categoria: malha
+  fonte_id: ibge_censo2000_malha_setores
+  url: https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_de_setores_censitarios__divisoes_intramunicipais/censo_2000/setor_urbano/rs/4301602/4301602.zip
+  arquivo: 4301602.zip
+  destino:
+    base: raw_vetor
+    subdir: ibge/censo_2000
+  bytes: 13126
+  sha256: 39480d0035683affc4df7c0206d8c2a8c39089bbecde2aaed8eef407b7d6f312
+  last_modified: Thu, 02 Jun 2016 20:59:09 GMT
+  baixado_em: '2026-09-20T16:12:31+00:00'
+  descricao: malha de setores URBANOS 2000, recorte MUNICÍPIO de Bagé (4301602)
+  caminho_revia_bg: 2000/malha/4301602.zip
+- ano: '2000'
+  categoria: malha
+  fonte_id: ibge_censo2000_malha_setores
+  url: https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_de_setores_censitarios__divisoes_intramunicipais/censo_2000/setor_rural/projecao_geografica/censo_2000/e500_arcview_shp/uf/rs/rs_setores_censitarios.zip
+  arquivo: rs_setores_censitarios.zip
+  destino:
+    base: raw_vetor
+    subdir: ibge/censo_2000
+  bytes: 4466420
+  sha256: d9f491a2dddf3e201188052483eee5e5e1dc41ef9ca17647ad73f7af174cc108
+  last_modified: Tue, 14 Jun 2016 19:44:01 GMT
+  baixado_em: '2026-09-20T16:12:32+00:00'
+  descricao: malha de setores RURAIS 2000 (projeção geográfica, e500), recorte RS
+  caminho_revia_bg: 2000/malha/rs_setores_censitarios.zip
+- ano: '2000'
+  categoria: documentacao
+  fonte_id: ibge_censo2000_malha_setores
+  url: https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_de_setores_censitarios__divisoes_intramunicipais/censo_2000/setor_rural/documentacao/referencias_metodologicas.zip
+  arquivo: referencias_metodologicas.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2000/doc
+  bytes: 34191
+  sha256: 6c9a5b8db5a034c20810c6422a6fd29c2807fb31256b88e75fae0f8da7a41479
+  last_modified: Thu, 02 Jun 2016 19:37:06 GMT
+  baixado_em: '2026-09-20T16:12:32+00:00'
+  descricao: referências metodológicas da malha de 2000
+  caminho_revia_bg: 2000/documentacao/referencias_metodologicas.zip
+- ano: '2010'
+  categoria: tabelas
+  fonte_id: ibge_censo2010_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2010/Resultados_do_Universo/Agregados_por_Setores_Censitarios/RS_20260615.zip
+  arquivo: RS_20260615.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2010
+  bytes: 137504353
+  sha256: 952d751b5441416b164cd9129818c7d7c56853a4bfe827b928671679ca6fd93b
+  last_modified: Mon, 15 Jun 2026 11:37:18 GMT
+  baixado_em: '2026-09-20T16:12:20+00:00'
+  descricao: agregados por setores 2010, recorte RS, versão 15/06/2026 (inclui entorno dos domicílios)
+  caminho_revia_bg: 2010/tabelas/RS_20260615.zip
+- ano: '2010'
+  categoria: documentacao
+  fonte_id: ibge_censo2010_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2010/Resultados_do_Universo/Agregados_por_Setores_Censitarios/Documentacao_Agregado_dos_Setores_2010_20231030.zip
+  arquivo: Documentacao_Agregado_dos_Setores_2010_20231030.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2010/doc
+  bytes: 34133643
+  sha256: eccb3896d19c4e29c733fd8b63869a01fb6ac47281cb409c6f7daf81cc49bb5b
+  last_modified: Mon, 30 Oct 2023 20:16:16 GMT
+  baixado_em: '2026-09-20T16:12:23+00:00'
+  descricao: documentação e dicionário dos agregados por setores 2010
+  caminho_revia_bg: 2010/documentacao/Documentacao_Agregado_dos_Setores_2010_20231030.zip
+- ano: '2010'
+  categoria: tabelas
+  fonte_id: ibge_censo2010_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2010/Resultados_do_Universo/ods/Municipios/rio_grande_do_sul.zip
+  arquivo: rio_grande_do_sul.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2010
+  bytes: 7252014
+  sha256: 3079fe5e337da680b1895eae0c42dcc383eae59cae31e733e5bce8adf1cb9b27
+  last_modified: Wed, 17 Aug 2016 14:02:12 GMT
+  baixado_em: '2026-09-20T16:12:25+00:00'
+  descricao: TOTAL OFICIAL por município, 2010 (Resultados do Universo, ODS) — confere a soma dos setores
+  caminho_revia_bg: 2010/tabelas/rio_grande_do_sul.zip
+- ano: '2010'
+  categoria: malha
+  fonte_id: ibge_censo2010_malha_setores
+  url: https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_de_setores_censitarios__divisoes_intramunicipais/censo_2010/setores_censitarios_shp/rs/rs_setores_censitarios.zip
+  arquivo: rs_setores_censitarios.zip
+  destino:
+    base: raw_vetor
+    subdir: ibge/censo_2010
+  bytes: 12729964
+  sha256: c7f65e26bf0813a01795084391ca6211da499a6498b8e523d98390568414b3b0
+  last_modified: Tue, 14 Jun 2016 19:42:44 GMT
+  baixado_em: '2026-09-20T16:12:26+00:00'
+  descricao: malha de setores censitários 2010 (urbanos e rurais), recorte RS
+  caminho_revia_bg: 2010/malha/rs_setores_censitarios.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Setor_csv/Agregados_por_setores_alfabetizacao_BR.zip
+  arquivo: Agregados_por_setores_alfabetizacao_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 142133036
+  sha256: 3b2de94e0099d9b6aa32bf967b1e96321a0f6ee7df674bbac984c3b751c8a17b
+  last_modified: Tue, 12 Nov 2024 18:50:37 GMT
+  baixado_em: '2026-09-20T16:11:19+00:00'
+  descricao: agregados por setor censitário, tema alfabetizacao (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_setores_alfabetizacao_BR.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Bairro_csv/Agregados_por_bairros_alfabetizacao_BR.zip
+  arquivo: Agregados_por_bairros_alfabetizacao_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 7903938
+  sha256: 0bbdffdb0011182c4845173952548c29993a0832bac18fd1db7a559e0affcf2c
+  last_modified: Tue, 12 Nov 2024 18:50:25 GMT
+  baixado_em: '2026-09-20T16:11:20+00:00'
+  descricao: agregados por BAIRRO, tema alfabetizacao (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_bairros_alfabetizacao_BR.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Setor_csv/Agregados_por_setores_basico_BR_20260520.zip
+  arquivo: Agregados_por_setores_basico_BR_20260520.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 15418417
+  sha256: ec04624286233d699ebe69c7b9625744a1cfdfc8352126f30245bdef5e9bdc63
+  last_modified: Wed, 20 May 2026 13:37:23 GMT
+  baixado_em: '2026-09-20T16:11:22+00:00'
+  descricao: agregados por setor censitário, tema basico (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_setores_basico_BR_20260520.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Bairro_csv/Agregados_por_bairros_basico_BR_20260520.zip
+  arquivo: Agregados_por_bairros_basico_BR_20260520.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 724481
+  sha256: c84bea0184477b8eb750948e50f87a7a57d2af4cfb71b1b061729e2f0a6b9a52
+  last_modified: Wed, 20 May 2026 13:36:44 GMT
+  baixado_em: '2026-09-20T16:11:23+00:00'
+  descricao: agregados por BAIRRO, tema basico (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_bairros_basico_BR_20260520.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Setor_csv/Agregados_por_setores_caracteristicas_domicilio1_BR.zip
+  arquivo: Agregados_por_setores_caracteristicas_domicilio1_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 24196895
+  sha256: 8e0a27fc90912acba17586077ab83c0fd58b92975d90f19a600c0110d0cf72ca
+  last_modified: Tue, 12 Nov 2024 18:50:33 GMT
+  baixado_em: '2026-09-20T16:11:26+00:00'
+  descricao: agregados por setor censitário, tema caracteristicas_domicilio1 (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_setores_caracteristicas_domicilio1_BR.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Bairro_csv/Agregados_por_bairros_caracteristicas_domicilio1_BR.zip
+  arquivo: Agregados_por_bairros_caracteristicas_domicilio1_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 1340156
+  sha256: a020c3d29761cb10838ce7db90018c049515eeab400468fdab7ecf73e2d2517d
+  last_modified: Tue, 12 Nov 2024 18:50:25 GMT
+  baixado_em: '2026-09-20T16:11:27+00:00'
+  descricao: agregados por BAIRRO, tema caracteristicas_domicilio1 (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_bairros_caracteristicas_domicilio1_BR.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Setor_csv/Agregados_por_setores_caracteristicas_domicilio2_BR_20250417.zip
+  arquivo: Agregados_por_setores_caracteristicas_domicilio2_BR_20250417.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 83971374
+  sha256: 513f8a0d9c84b1325487f651f6d5d90bbc6f5ad7af60460b53598555ac008759
+  last_modified: Thu, 17 Apr 2025 12:52:59 GMT
+  baixado_em: '2026-09-20T16:11:30+00:00'
+  descricao: agregados por setor censitário, tema caracteristicas_domicilio2 (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_setores_caracteristicas_domicilio2_BR_20250417.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Bairro_csv/Agregados_por_bairros_caracteristicas_domicilio2_BR_20250417.zip
+  arquivo: Agregados_por_bairros_caracteristicas_domicilio2_BR_20250417.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 4756303
+  sha256: 4a4f570003df6e9b549ca3c122713372b420cae251b5f7f0dfe8dacb5a7c186d
+  last_modified: Thu, 17 Apr 2025 19:59:23 GMT
+  baixado_em: '2026-09-20T16:11:31+00:00'
+  descricao: agregados por BAIRRO, tema caracteristicas_domicilio2 (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_bairros_caracteristicas_domicilio2_BR_20250417.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Setor_csv/Agregados_por_setores_caracteristicas_domicilio3_BR_20250417.zip
+  arquivo: Agregados_por_setores_caracteristicas_domicilio3_BR_20250417.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 52708037
+  sha256: f38010582b8329f4b3d63708f3e8aae3b8df1c1b471398b2c67f5ef3ad1ba5c7
+  last_modified: Thu, 17 Apr 2025 12:52:59 GMT
+  baixado_em: '2026-09-20T16:11:34+00:00'
+  descricao: agregados por setor censitário, tema caracteristicas_domicilio3 (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_setores_caracteristicas_domicilio3_BR_20250417.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Bairro_csv/Agregados_por_bairros_caracteristicas_domicilio3_BR_20250417.zip
+  arquivo: Agregados_por_bairros_caracteristicas_domicilio3_BR_20250417.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 3012313
+  sha256: f307f0ddda961db062a81f70334c82c342d48956f0219f2f8181544cf97122a2
+  last_modified: Thu, 17 Apr 2025 19:59:23 GMT
+  baixado_em: '2026-09-20T16:11:34+00:00'
+  descricao: agregados por BAIRRO, tema caracteristicas_domicilio3 (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_bairros_caracteristicas_domicilio3_BR_20250417.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Setor_csv/Agregados_por_setores_cor_ou_raca_BR.zip
+  arquivo: Agregados_por_setores_cor_ou_raca_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 43838759
+  sha256: cd4d628878f619b69c9e0d06e613011a05b67643edbb3cfc25735ae6b6941b1a
+  last_modified: Tue, 12 Nov 2024 18:50:39 GMT
+  baixado_em: '2026-09-20T16:11:36+00:00'
+  descricao: agregados por setor censitário, tema cor_ou_raca (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_setores_cor_ou_raca_BR.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Bairro_csv/Agregados_por_bairros_cor_ou_raca_BR.zip
+  arquivo: Agregados_por_bairros_cor_ou_raca_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 2281866
+  sha256: f4c1589bef59f80d3815d9fe8e2291ddce7887aa0ba7a62791eba36521e5631f
+  last_modified: Tue, 12 Nov 2024 18:50:25 GMT
+  baixado_em: '2026-09-20T16:11:37+00:00'
+  descricao: agregados por BAIRRO, tema cor_ou_raca (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_bairros_cor_ou_raca_BR.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Setor_csv/Agregados_por_setores_demografia_BR.zip
+  arquivo: Agregados_por_setores_demografia_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 22554090
+  sha256: f8486233ce2f6559de76299390577c58d05f35cad07c46098e6e565949c8b269
+  last_modified: Tue, 12 Nov 2024 18:50:40 GMT
+  baixado_em: '2026-09-20T16:11:39+00:00'
+  descricao: agregados por setor censitário, tema demografia (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_setores_demografia_BR.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Bairro_csv/Agregados_por_bairros_demografia_BR.zip
+  arquivo: Agregados_por_bairros_demografia_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 1315108
+  sha256: b2b405df497ee73edff15db569dc077861e4a46e9cee1e49acb70e23d03d81e1
+  last_modified: Tue, 12 Nov 2024 18:50:25 GMT
+  baixado_em: '2026-09-20T16:11:39+00:00'
+  descricao: agregados por BAIRRO, tema demografia (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_bairros_demografia_BR.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Setor_csv/Agregados_por_setores_domicilios_indigenas_BR.zip
+  arquivo: Agregados_por_setores_domicilios_indigenas_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 7603193
+  sha256: 26e5119a3d3a3d66c3c80f5aeb3d18b86dcb6d2c131696ad5fda39ee9231ba7b
+  last_modified: Tue, 12 Nov 2024 18:50:40 GMT
+  baixado_em: '2026-09-20T16:11:40+00:00'
+  descricao: agregados por setor censitário, tema domicilios_indigenas (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_setores_domicilios_indigenas_BR.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Bairro_csv/Agregados_por_bairros_domicilios_indigenas_BR.zip
+  arquivo: Agregados_por_bairros_domicilios_indigenas_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 594091
+  sha256: b920bd257bcd425b71d9db9944c354eb64a7111ac4b36f9c9fc162ebd77a5ca5
+  last_modified: Tue, 12 Nov 2024 18:50:25 GMT
+  baixado_em: '2026-09-20T16:11:41+00:00'
+  descricao: agregados por BAIRRO, tema domicilios_indigenas (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_bairros_domicilios_indigenas_BR.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Setor_csv/Agregados_por_setores_domicilios_quilombolas_BR.zip
+  arquivo: Agregados_por_setores_domicilios_quilombolas_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 4766321
+  sha256: 80d275a3821942163fb025e75faca4052c2303320669ead29fa0080ea49ab430
+  last_modified: Tue, 12 Nov 2024 18:50:40 GMT
+  baixado_em: '2026-09-20T16:11:42+00:00'
+  descricao: agregados por setor censitário, tema domicilios_quilombolas (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_setores_domicilios_quilombolas_BR.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Bairro_csv/Agregados_por_bairros_domicilios_quilombolas_BR.zip
+  arquivo: Agregados_por_bairros_domicilios_quilombolas_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 344717
+  sha256: d183f720781a683b9164f4cce9ff929edc0bf9e1cdcceda3cb99ba1f4bde188c
+  last_modified: Tue, 12 Nov 2024 18:50:25 GMT
+  baixado_em: '2026-09-20T16:11:43+00:00'
+  descricao: agregados por BAIRRO, tema domicilios_quilombolas (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_bairros_domicilios_quilombolas_BR.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Setor_csv/Agregados_por_setores_obitos_BR.zip
+  arquivo: Agregados_por_setores_obitos_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 20612331
+  sha256: c230b74335003f257aa0d3f0946545479ab57a68efd9cc1ba0220b755ae21f30
+  last_modified: Tue, 12 Nov 2024 18:50:41 GMT
+  baixado_em: '2026-09-20T16:11:45+00:00'
+  descricao: agregados por setor censitário, tema obitos (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_setores_obitos_BR.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Bairro_csv/Agregados_por_bairros_obitos_BR.zip
+  arquivo: Agregados_por_bairros_obitos_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 1119458
+  sha256: 8b38d2403b088692c42923dc50026f55709a93188604354c5c49ad6e89d7560b
+  last_modified: Tue, 12 Nov 2024 18:50:25 GMT
+  baixado_em: '2026-09-20T16:11:45+00:00'
+  descricao: agregados por BAIRRO, tema obitos (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_bairros_obitos_BR.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Setor_csv/Agregados_por_setores_parentesco_BR.zip
+  arquivo: Agregados_por_setores_parentesco_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 62934980
+  sha256: d2abcb832f1176c34d418c82a3eb33f83f53d378d7b1a1f6d3aac692a17897f0
+  last_modified: Tue, 12 Nov 2024 18:50:42 GMT
+  baixado_em: '2026-09-20T16:11:48+00:00'
+  descricao: agregados por setor censitário, tema parentesco (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_setores_parentesco_BR.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Bairro_csv/Agregados_por_bairros_parentesco_BR.zip
+  arquivo: Agregados_por_bairros_parentesco_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 3260584
+  sha256: 91919e1f6bf22e281f90df9fdde4e257429565c1ca3690334b7ae03c61c53489
+  last_modified: Tue, 12 Nov 2024 18:50:25 GMT
+  baixado_em: '2026-09-20T16:11:49+00:00'
+  descricao: agregados por BAIRRO, tema parentesco (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_bairros_parentesco_BR.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Setor_csv/Agregados_por_setores_pessoas_indigenas_BR.zip
+  arquivo: Agregados_por_setores_pessoas_indigenas_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 18077907
+  sha256: 31a1e1af798966ec75f62777f6366faee6ec7336631a2330abc85e82c6bfb13d
+  last_modified: Tue, 12 Nov 2024 18:50:41 GMT
+  baixado_em: '2026-09-20T16:11:51+00:00'
+  descricao: agregados por setor censitário, tema pessoas_indigenas (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_setores_pessoas_indigenas_BR.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Bairro_csv/Agregados_por_bairros_pessoas_indigenas_BR.zip
+  arquivo: Agregados_por_bairros_pessoas_indigenas_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 905069
+  sha256: b9d41e8c2af9394a0e8e04394793859222b0565a9028bb541de30e531f656156
+  last_modified: Tue, 12 Nov 2024 18:50:25 GMT
+  baixado_em: '2026-09-20T16:11:52+00:00'
+  descricao: agregados por BAIRRO, tema pessoas_indigenas (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_bairros_pessoas_indigenas_BR.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Setor_csv/Agregados_por_setores_pessoas_quilombolas_BR.zip
+  arquivo: Agregados_por_setores_pessoas_quilombolas_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 10360733
+  sha256: 0b6ee915a975f3eb8a8a918809478c9134a293b9a51f6c29ea50204138d28b75
+  last_modified: Tue, 12 Nov 2024 18:50:42 GMT
+  baixado_em: '2026-09-20T16:11:54+00:00'
+  descricao: agregados por setor censitário, tema pessoas_quilombolas (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_setores_pessoas_quilombolas_BR.zip
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/Agregados_por_Bairro_csv/Agregados_por_bairros_pessoas_quilombolas_BR.zip
+  arquivo: Agregados_por_bairros_pessoas_quilombolas_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 510748
+  sha256: 5a2d2b7fbe7ba9658efa71d49ef485225fc12528c676d2048c706925a10ef49c
+  last_modified: Tue, 12 Nov 2024 18:50:25 GMT
+  baixado_em: '2026-09-20T16:11:54+00:00'
+  descricao: agregados por BAIRRO, tema pessoas_quilombolas (só recorte BR)
+  caminho_revia_bg: 2022/tabelas/Agregados_por_bairros_pessoas_quilombolas_BR.zip
+- ano: '2022'
+  categoria: documentacao
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/dicionario_de_dados_agregados_por_setores_censitarios_20260520.xlsx
+  arquivo: dicionario_de_dados_agregados_por_setores_censitarios_20260520.xlsx
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022/doc
+  bytes: 118369
+  sha256: 0b8aedece57f6125d785b6aa2234cfd587e92dfb6ce5ca6ace8c67f140831344
+  last_modified: Tue, 12 May 2026 21:29:48 GMT
+  baixado_em: '2026-09-20T16:11:55+00:00'
+  descricao: dicionário de dados dos agregados por setores (versão 20/05/2026, a mais recente)
+  caminho_revia_bg: 2022/documentacao/dicionario_de_dados_agregados_por_setores_censitarios_20260520.xlsx
+- ano: '2022'
+  categoria: documentacao
+  fonte_id: ibge_censo2022_malha_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/malha_com_atributos/Dicionario_de_dados_malha_agregados.xlsx
+  arquivo: Dicionario_de_dados_malha_agregados.xlsx
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022/doc
+  bytes: 18860
+  sha256: 0dffb669ee90e1ffb86a7c8666cc066d5121d44b494013cc1149e50cc75073b1
+  last_modified: Wed, 13 Nov 2024 21:36:56 GMT
+  baixado_em: '2026-09-20T16:11:55+00:00'
+  descricao: dicionário de dados da malha com atributos
+  caminho_revia_bg: 2022/documentacao/Dicionario_de_dados_malha_agregados.xlsx
+- ano: '2022'
+  categoria: malha
+  fonte_id: ibge_censo2022_malha_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/malha_com_atributos/setores/gpkg/UF/RS/RS_setores_CD2022.gpkg
+  arquivo: RS_setores_CD2022.gpkg
+  destino:
+    base: raw_vetor
+    subdir: ibge/censo_2022/malha_com_atributos
+  bytes: 57962496
+  sha256: 8d6c46bbc8d0690d85dfc10041e0e89ea23615b1c20ffc3cb4ab677d9536a943
+  last_modified: Wed, 13 Nov 2024 18:23:47 GMT
+  baixado_em: '2026-09-20T16:11:58+00:00'
+  descricao: malha de setores 2022 COM os atributos do Censo, recorte RS
+  caminho_revia_bg: 2022/malha/ftp_com_atributos/RS_setores_CD2022.gpkg
+- ano: '2022'
+  categoria: malha
+  fonte_id: ibge_censo2022_malha_bairros
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/malha_com_atributos/bairros/gpkg/UF/RS/RS_bairros_CD2022.gpkg
+  arquivo: RS_bairros_CD2022.gpkg
+  destino:
+    base: raw_vetor
+    subdir: ibge/censo_2022/malha_com_atributos
+  bytes: 4214784
+  sha256: 048f32a11053936630e473bc5d7fd4d00187eb99b0795bd2f1a3b0d832a5f137
+  last_modified: Wed, 13 Nov 2024 18:23:10 GMT
+  baixado_em: '2026-09-20T16:11:59+00:00'
+  descricao: malha de BAIRROS 2022 com atributos, recorte RS
+  caminho_revia_bg: 2022/malha/ftp_com_atributos/RS_bairros_CD2022.gpkg
+- ano: '2022'
+  categoria: documentacao
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_de_setores_censitarios__divisoes_intramunicipais/censo_2022/Leia_me_Comparabilidade_2010_2022.pdf
+  arquivo: Leia_me_Comparabilidade_2010_2022.pdf
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022/doc
+  bytes: 401284
+  sha256: 06a2783458253b10a1b6623be66fb017a2958f0d7e1abcc8317107bdd65bd3a6
+  last_modified: Wed, 13 Nov 2024 21:34:53 GMT
+  baixado_em: '2026-09-20T16:12:03+00:00'
+  descricao: RESSALVA DE COMPARABILIDADE 2010 × 2022, do próprio IBGE
+  caminho_revia_bg: 2022/documentacao/Leia_me_Comparabilidade_2010_2022.pdf
+- ano: '2022'
+  categoria: documentacao
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_de_setores_censitarios__divisoes_intramunicipais/censo_2022/Leia_me_Area_efetivamente_ocupada.pdf
+  arquivo: Leia_me_Area_efetivamente_ocupada.pdf
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022/doc
+  bytes: 674327
+  sha256: 330499e9319826d8eff9191ae04305c2da55d0e524dd43f13a351a26b820e9a2
+  last_modified: Wed, 13 Nov 2024 21:34:53 GMT
+  baixado_em: '2026-09-20T16:12:04+00:00'
+  descricao: leia-me da área efetivamente ocupada e densidade ajustada
+  caminho_revia_bg: 2022/documentacao/Leia_me_Area_efetivamente_ocupada.pdf
+- ano: '2022'
+  categoria: documentacao
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_de_setores_censitarios__divisoes_intramunicipais/censo_2022/Historico_formacao_Setores_Censitarios_2010_2022.xlsx
+  arquivo: Historico_formacao_Setores_Censitarios_2010_2022.xlsx
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022/doc
+  bytes: 83684271
+  sha256: d70a9e6a46bbd73f82b4e12f47343b36affcdfa0568ceec86969d23376f09403
+  last_modified: Wed, 13 Nov 2024 21:35:07 GMT
+  baixado_em: '2026-09-20T16:12:09+00:00'
+  descricao: histórico de formação dos setores 2010→2022 (de/para), base da comparabilidade
+  caminho_revia_bg: 2022/documentacao/Historico_formacao_Setores_Censitarios_2010_2022.xlsx
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_de_setores_censitarios__divisoes_intramunicipais/censo_2022/tabelas_complementares/Populacao_residente_por_situacao_do_domicilio_municipios.xlsx
+  arquivo: Populacao_residente_por_situacao_do_domicilio_municipios.xlsx
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 273016
+  sha256: 5f8d434b2e181cb75590233aa2f43e3f81a32ba26e3536d0f2e991d9eef83c04
+  last_modified: Wed, 13 Nov 2024 18:53:32 GMT
+  baixado_em: '2026-09-20T16:12:09+00:00'
+  descricao: TOTAL OFICIAL por município, 2022 — usado para conferir a soma dos setores
+  caminho_revia_bg: 2022/tabelas/Populacao_residente_por_situacao_do_domicilio_municipios.xlsx
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_agregados_setores
+  url: https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_de_setores_censitarios__divisoes_intramunicipais/censo_2022/Area_efetivamente_domiciliada_e_densidade_ajustada_dos_Setores_Censitarios.xlsx
+  arquivo: Area_efetivamente_domiciliada_e_densidade_ajustada_dos_Setores_Censitarios.xlsx
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 40038220
+  sha256: 897caa7861bf0ccacd888630fe632541a042d40e3ee866fe71ec05261aca9ca6
+  last_modified: Wed, 13 Nov 2024 21:35:16 GMT
+  baixado_em: '2026-09-20T16:12:11+00:00'
+  descricao: área efetivamente domiciliada e densidade ajustada por setor
+  caminho_revia_bg: 2022/tabelas/Area_efetivamente_domiciliada_e_densidade_ajustada_dos_Setores_Censitarios.xlsx
+- ano: '2022'
+  categoria: cnefe
+  fonte_id: ibge_cnefe2022
+  url: https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2022/Arquivos_CNEFE/CSV/Municipio/43_RS/4301602_BAGE.zip
+  arquivo: 4301602_BAGE.zip
+  destino:
+    base: raw_vetor
+    subdir: ibge/censo_2022/cnefe
+  bytes: 1343601
+  sha256: 3cb40d650571397ae6b6ba13c44aa9d09302408c1c3283994f468572635f278d
+  last_modified: Mon, 20 May 2024 22:54:38 GMT
+  baixado_em: '2026-09-20T16:29:53+00:00'
+  descricao: CNEFE 2022, endereço a endereço, recorte MUNICÍPIO de Bagé
+  caminho_revia_bg: 2022/cnefe/4301602_BAGE.zip
+- ano: '2022'
+  categoria: cnefe
+  fonte_id: ibge_cnefe2022
+  url: https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2022/Arquivos_CNEFE/CSV/Dicionario_CNEFE_Censo_2022.xls
+  arquivo: Dicionario_CNEFE_Censo_2022.xls
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022/doc
+  bytes: 13312
+  sha256: 7b3684a709cd28a5787c42ba771c94bc364d5869b50334152dd445048a7c1744
+  last_modified: Mon, 20 May 2024 22:50:03 GMT
+  baixado_em: '2026-09-20T16:29:53+00:00'
+  descricao: dicionário do CNEFE 2022 (define ESPECIE e os demais campos)
+  caminho_revia_bg: 2022/cnefe/Dicionario_CNEFE_Censo_2022.xls
+- ano: '2022'
+  categoria: cnefe
+  fonte_id: ibge_cnefe2022_coordenadas
+  url: https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2022/Coordenadas_enderecos/Municipio/43_RS/4301602.zip
+  arquivo: 4301602.zip
+  destino:
+    base: raw_vetor
+    subdir: ibge/censo_2022/cnefe
+  bytes: 356062
+  sha256: 34d773bd6a6e65821825b9e278dc8d617fc5bcfc41e3bf4adbfe572d57c1500c
+  last_modified: Wed, 31 Jan 2024 19:30:38 GMT
+  baixado_em: '2026-09-20T16:29:53+00:00'
+  descricao: coordenadas dos endereços do Censo 2022, recorte MUNICÍPIO de Bagé
+  caminho_revia_bg: 2022/cnefe/4301602.zip
+- ano: '2022'
+  categoria: cnefe
+  fonte_id: ibge_cnefe2022_coordenadas
+  url: https://ftp.ibge.gov.br/Cadastro_Nacional_de_Enderecos_para_Fins_Estatisticos/Censo_Demografico_2022/Coordenadas_enderecos/Dicionario_Coordenadas_Censo2022.xls
+  arquivo: Dicionario_Coordenadas_Censo2022.xls
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022/doc
+  bytes: 9216
+  sha256: 65fdf7835ba9a0776500d97eb75a9905a5e0d2fe503cc5c6946ab090c8bd5371
+  last_modified: Wed, 31 Jan 2024 19:29:53 GMT
+  baixado_em: '2026-09-20T16:29:54+00:00'
+  descricao: dicionário das coordenadas dos endereços
+  caminho_revia_bg: 2022/cnefe/Dicionario_Coordenadas_Censo2022.xls

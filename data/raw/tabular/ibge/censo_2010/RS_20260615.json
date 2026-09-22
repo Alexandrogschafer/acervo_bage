@@ -1,0 +1,19 @@
+{
+  "arquivo": "data/raw/tabular/ibge/censo_2010/RS_20260615.zip",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-20T16:12:20+00:00",
+  "edicao": "censo_2010",
+  "fonte_id": "ibge_censo2010_agregados_setores",
+  "licenca": "dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "observacoes": "agregados por setores 2010, recorte RS, versão 15/06/2026 (inclui entorno dos domicílios). Arquivo bruto, exatamente como veio do IBGE. Last-Modified da origem: Mon, 15 Jun 2026 11:37:18 GMT. Baixado em 2026-09-20T16:12:20+00:00 (pelo REVIA_BG, cópia aposentada; procedência em docs/procedencia/revia_bg_censo/). Lista fixa em config/fontes_censo_ibge.yaml; rebaixável por scripts/download/baixar_censo_ibge.py.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "952d751b5441416b164cd9129818c7d7c56853a4bfe827b928671679ca6fd93b",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 137504353,
+  "tema": "censo",
+  "url_origem": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2010/Resultados_do_Universo/Agregados_por_Setores_Censitarios/RS_20260615.zip",
+  "versao": "censo_2010"
+}

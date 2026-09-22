@@ -1,0 +1,19 @@
+{
+  "arquivo": "data/raw/vetor/ibge/censo_2022/malha_com_atributos/RS_bairros_CD2022.gpkg",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "EPSG:4674",
+  "data_producao": "2026-09-20T16:11:59+00:00",
+  "edicao": "censo_2022",
+  "fonte_id": "ibge_censo2022_malha_bairros",
+  "licenca": "dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "observacoes": "malha de BAIRROS 2022 com atributos, recorte RS. Arquivo bruto, exatamente como veio do IBGE. Last-Modified da origem: Wed, 13 Nov 2024 18:23:10 GMT. Baixado em 2026-09-20T16:11:59+00:00 (pelo REVIA_BG, cópia aposentada; procedência em docs/procedencia/revia_bg_censo/). Lista fixa em config/fontes_censo_ibge.yaml; rebaixável por scripts/download/baixar_censo_ibge.py.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "048f32a11053936630e473bc5d7fd4d00187eb99b0795bd2f1a3b0d832a5f137",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 4214784,
+  "tema": "censo",
+  "url_origem": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/malha_com_atributos/bairros/gpkg/UF/RS/RS_bairros_CD2022.gpkg",
+  "versao": "censo_2022"
+}
