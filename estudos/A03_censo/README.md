@@ -12,6 +12,12 @@ dados de 2000, 2010, 2022 e do CNEFE permitem medir, o que não permitem e com q
 ressalvas (variáveis por censo, totais, geografia entre censos, sigilo, CNEFE ×
 setores), com os scripts que reproduzem cada número em [`scripts/`](scripts/).
 
+**Dimensionamento da pergunta: [`dimensionamento.md`](dimensionamento.md)** — o
+descompasso entre população estável (+0,98 %) e domicílios ocupados (+17,64 %) entre
+2010 e 2022, medido no município, comparado com o RS e o Brasil, localizado na grade
+estatística e cruzado com o entorno de 2022. Traz uma PROPOSTA de pergunta de pesquisa
+e três subordinadas, para o responsável decidir.
+
 **Antes de usar qualquer número, ler [`docs/ressalvas_censo_bage.md`](../../docs/ressalvas_censo_bage.md)**:
 a soma dos setores fecha em 2022 e não fecha em 2010; a malha de 2000 vem com
 CRS declarado errado; o geocódigo de setor não é estável entre censos.
@@ -37,4 +43,6 @@ manifesto não declarar camada nenhuma, nada daqui pode ser publicado.
 
 ## Pergunta
 
-**A DEFINIR** — depende do reconhecimento dos dados.
+**A DEFINIR** — o rumo está dado pelo responsável (dinâmica domiciliar 2010–2022) e a
+redação proposta está no § 5.3 de [`dimensionamento.md`](dimensionamento.md), junto com
+o que falta decidir. Nada foi decidido neste repositório.
