@@ -24,6 +24,7 @@ está dito explicitamente (§ 2).
 | `r05_cnefe.py` | § 5 — CNEFE × setores 2022 |
 | `r06_temas_2022.py` | § 1.4 — rendimento, entorno e favelas 2022: variáveis, cobertura, sigilo |
 | `r07_aglomerados_2010.py` | § 1.4 — aglomerados subnormais 2010 × FCU 2022; cobertura do entorno nas FCU |
+| `r08_entorno_universo.py` | § 1.4 — setores com entorno em 2010 e em 2022 e o universo comum, por área mínima comum |
 
 Intermediários e saídas brutas (`r0*.json`, a lista do CNEFE, as tabelas filtradas)
 ficam em `derivados/`, fora do git. As planilhas oficiais passaram a ser lidas com
@@ -176,7 +177,9 @@ cada item em sim / não / não declarado:
 de identificação do logradouro, iluminação pública, pavimentação, calçada, meio-fio/guia,
 bueiro/boca de lobo, rampa para cadeirante, arborização, esgoto a céu aberto e lixo
 acumulado, cruzados com a condição de ocupação. Em Bagé, respondido para 32.482 dos 32.641
-DPP urbanos (99,5 %) e 3.220 dos 5.844 rurais.
+DPP urbanos (99,5 %) e 3.220 dos 5.844 rurais — 35.702 DPP com resposta, em 139 setores
+que somam 36.068 DPP: os 366 restantes não entram porque as tabelas do entorno só cruzam
+três condições de ocupação (próprio, alugado, cedido).
 
 #### Comparabilidade 2010 × 2022: a classificação do próprio IBGE
 
@@ -208,17 +211,23 @@ da nova metodologia. Isso não reconstrói a série. O IBGE conclui: "o usuário
 encontrará uma comparabilidade direta para os itens Iluminação Pública e Bueiro/Boca de
 lobo" (p. 51).
 
-**A restrição da rampa não é aplicável com os agregados por setor.** As tabelas
-`Entorno01`–`Entorno05` de 2010 cruzam cada item só com condição de ocupação, água,
-esgoto e lixo. Não há cruzamento **rampa × calçada**, e ele exigiria dado por face, que
-não está no acervo. Com o que foi baixado, rampa 2010 → 2022 fica **sem série**. Ela
-volta a ser comparável se aparecer o dado de 2010 por face.
+**A restrição da rampa (A2) não é aplicável com os agregados por setor.** O IBGE manda
+comparar só as faces de 2010 que tinham rampa **e** calçada ao mesmo tempo (p. 52). As
+tabelas `Entorno01`–`Entorno05` de 2010 cruzam cada item com a condição de ocupação, a
+água, o esgoto e o lixo — **nunca rampa × calçada**. O cruzamento exigiria dado por face,
+que não existe na divulgação por setor de 2010 e não está no acervo. Portanto, com o dado
+que temos, **rampa fica sem série na prática**: entra na série só se aparecer o dado de
+2010 por face. Isso não contradiz o IBGE — ele classifica a rampa como comparável com
+restrição, e é a restrição que não se implementa aqui.
 
-**Incoerência no próprio documento.** Na descrição da crítica (p. 49), o IBGE diz ter
-comparado com 2010 "os quesitos que eram comparáveis entre as pesquisas, a saber,
-iluminação, bueiro, calçada e capacidade da via". Capacidade da via não existia em 2010,
-e calçada é classificada como não comparável na p. 50. Para uso, vale a seção de
-comparabilidade e a Tabela 2 (pp. 50–52).
+**A lista da p. 49 é de crítica interna, não de comparabilidade para análise.** Ao
+descrever a crítica da base, o IBGE diz ter comparado com 2010 "os quesitos que eram
+comparáveis entre as pesquisas, a saber, iluminação, bueiro, calçada e capacidade da
+via". É a descrição de um **procedimento interno de detecção de erro de coleta** — usado
+para achar valores suspeitos, não para sustentar análise —, e por isso inclui capacidade
+da via, que não existia em 2010, e calçada, classificada como não comparável na p. 50.
+Para uso analítico vale a seção de comparabilidade e a Tabela 2 (**pp. 50–52**), não essa
+frase.
 
 **Universo de 2022: por que 168 setores (documentado).** O universo foi de setores
 urbanos da Base Territorial, mais setores com áreas urbanizadas mapeadas e setores com
@@ -238,14 +247,35 @@ cobertura nas FCU registra com 0 %).
 são os mesmos. As cidades se expandiram, e 2022 coletou mais em áreas urbanizadas de
 setores rurais e em favelas e comunidades urbanas. Por isso "a quantidade de setores
 censitários e faces coletadas, geralmente, foi maior" (p. 52). A Tabela 3 (p. 53) dá
-223.666 → 340.965 setores no Brasil e **15.932 → 18.653 no RS**. Em Bagé (contagem
-*ad hoc* sobre `Entorno01` de 2010, setores com `V002`–`V007` > 0): **139 setores** com
-entorno em 2010 (126 de 129 urbanos e 13 rurais, todos de situação 4, "aglomerado rural
-de extensão urbana"), com 35.702 DPP. Em 2022 foram **168 setores** e 43.744 DPPO. As
-malhas também mudaram (164 → 199 setores), e os universos diferem (DPP com imputação
-dos fechados em 2010; DPPO em 2022, com "não declarado"). Por isso qualquer comparação
-de iluminação ou bueiro deve usar **proporções** num recorte estável, por área mínima
-comum (§ 3.1), e não contagens por setor.
+223.666 → 340.965 setores no Brasil e **15.932 → 18.653 no RS**.
+
+**Quantos setores de Bagé têm entorno, e qual é o universo da série** (medido por
+`scripts/r08_entorno_universo.py`):
+
+| ano | critério | setores com entorno |
+| --- | --- | --- |
+| 2010 | alguma variável de `Entorno01`–`Entorno05` diferente de zero, excluídos os dois totais do setor (`V001` do Entorno01, DPP; `V422` do Entorno03, moradores) — é o critério do próprio IBGE: "os setores onde não houve coleta […] apresentam valor zero para todas as informações" | **139** de 164 (126 de 129 urbanos; 13 de 35 rurais, todos de situação 4, "aglomerado rural de extensão urbana"), com 36.068 DPP |
+| 2022 | setor com linha na tabela do entorno por domicílios | **168** de 199 (167 de 173 urbanos; 1 de 26 rurais), com 43.744 DPPO |
+
+Os dois totais precisam ficar fora do critério de 2010: com eles, 21 setores rurais de
+situação 8 entrariam como "com entorno" tendo só o total de moradores preenchido.
+
+**O universo de qualquer série é o comum aos dois anos.** Como o geocódigo não é estável
+entre censos (§ 3.1), a interseção é por **área mínima comum** — os componentes conexos
+do de/para oficial. Das 165 AMCs de Bagé:
+
+| classe | AMCs | setores de 2010 | setores de 2022 |
+| --- | ---: | ---: | ---: |
+| **entorno nos dois anos — universo da série** | **139** | 139 (todos com entorno) | 155 (todos com entorno) |
+| só 2022 (área sem entorno em 2010) | 5 | 5 | 21, dos quais 13 com entorno |
+| sem entorno em nenhum dos dois anos | 21 | 24 | 23 |
+
+Nenhuma AMC tem entorno só em 2010. Ou seja: **139 AMCs sustentam a série** de
+iluminação e bueiro, e **13 setores de 2022 com entorno ficam fora dela** — área que em
+2010 não tinha coleta, coerente com o universo maior de 2022. Os universos também diferem
+por conceito (DPP com imputação dos fechados em 2010; DPPO em 2022, com "não declarado"),
+então a série deve comparar **proporções** dentro das 139 AMCs, nunca contagens por
+setor.
 
 **Favelas e comunidades urbanas (FCU) 2022.** **Bagé tem FCU registradas: 6
 comunidades, em 7 setores** — exatamente os 7 setores de tipo 1 (`CD_TIPO = 1`) da malha,
@@ -655,9 +685,9 @@ Pontos lidos como SIRGAS 2000 (`EPSG:4674`); o CSV não declara datum.
 - **Entorno 2010 × 2022**: pela classificação do IBGE (2025, pp. 50–52; § 1.4), só
   **iluminação pública** e **bueiro/boca de lobo** têm comparação direta. **Rampa** é
   comparável com restrição (2010 só nas faces com calçada e rampa), mas a restrição exige
-  dado por face e não se aplica aos agregados por setor. Comparar sempre proporções em
-  recorte estável (área mínima comum), porque o universo de 2022 é maior (139 → 168
-  setores em Bagé).
+  dado por face e não se aplica aos agregados por setor. O universo da série são as
+  **139 AMCs com entorno nos dois anos** (139 setores de 2010 e 155 dos 168 de 2022);
+  comparar sempre proporções dentro delas, porque o universo de 2022 é maior.
 - **Favelas 2022**: 6 FCU em 7 setores; Passo das Pedras sem entorno (0 % de
   cobertura). **Sem série com 2010**: Bagé não tinha aglomerado subnormal, e nenhum dos 7
   setores de 2022 descende de setor de aglomerado — a série "favela" começa em 2022.
@@ -682,7 +712,8 @@ Atualizadas em 2026-09-22 com os temas do § 1.4 (limite de cinco).
    - **(a) 2010 → 2022, restrita**: como mudou a proporção de domicílios urbanos com
      **iluminação pública** e com **bueiro/boca de lobo**, por área mínima comum?
      **Rampa** só entra se aparecer o dado de 2010 por face, para aplicar a restrição
-     do IBGE. **Calçada, pavimentação e arborização ficam fora da série.**
+     do IBGE. **Calçada, pavimentação e arborização ficam fora da série.** O recorte
+     são as 139 AMCs com entorno nos dois anos.
    - **(b) 2022, retrato transversal completo**: como se distribuem no território
      urbano de 2022 todos os itens do entorno (pavimentação, calçada, obstáculo, rampa,
      arborização em classes, iluminação, bueiro, ponto de ônibus, via para bicicleta,
