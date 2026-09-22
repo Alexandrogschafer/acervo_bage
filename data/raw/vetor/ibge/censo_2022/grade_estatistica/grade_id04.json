@@ -7,7 +7,7 @@
   "edicao": "censo_2022",
   "fonte_id": "ibge_grade_estatistica_2022",
   "licenca": "dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
-  "observacoes": "grade estatística 2022, quadrante ID_04 (células de 200 m urbano / 1 km rural, Albers SIRGAS 2000); cobre ~5,5 % (faixa rural sul) de Bagé. Arquivo bruto, exatamente como veio do IBGE. Last-Modified da origem: Thu, 12 Jun 2025 13:13:14 GMT. Baixado em 2026-09-22T14:22:28+00:00 (pelo REVIA_BG, cópia aposentada; procedência em docs/procedencia/revia_bg_censo/). Lista fixa em config/fontes_censo_ibge.yaml; rebaixável por scripts/download/baixar_censo_ibge.py.",
+  "observacoes": "grade estatística 2022, quadrante ID_04 (células de 200 m urbano / 1 km rural; shapefile em EPSG:4674, SIRGAS 2000 geográfico — a documentação diz Albers); cobre ~5,5 % (faixa rural sul) de Bagé. Arquivo bruto, exatamente como veio do IBGE. Last-Modified da origem: Thu, 12 Jun 2025 13:13:14 GMT. Baixado em 2026-09-22T14:22:28+00:00 direto do IBGE (URL obtida navegando as listagens do FTP). Lista fixa em config/fontes_censo_ibge.yaml; rebaixável por scripts/download/baixar_censo_ibge.py.",
   "pode_publicar": true,
   "referencias_bib": [],
   "sha256": "1fe7c663bb2633d7870cf4ea79c87ed5a1312c49f1fa7d6f2841532b67434fe0",

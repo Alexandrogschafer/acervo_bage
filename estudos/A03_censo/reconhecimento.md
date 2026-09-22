@@ -77,8 +77,28 @@ Diferenças que decidem comparação:
 - **Alfabetização.** A taxa comparável nos três é a de **15 anos ou mais**.
 - **Rendimento.** 2000 × 2010: mesmas classes em salários mínimos (nominais, sem
   deflação). 2022: só média e mediana — não há distribuição por classe. Em 2010,
-  `ResponsavelRenda V020` soma 38.513 contra 38.504 DPP (17 setores com V020 > V001):
-  universo não exatamente DPP, **a confirmar**.
+  `ResponsavelRenda` **não** tem universo DPP (explicação abaixo).
+
+**Universo do rendimento do responsável em 2010 (os +9).** `ResponsavelRenda V020`
+("pessoas responsáveis com ou sem rendimento") soma 38.513 contra 38.504 DPP
+(`Basico V001`). A documentação de 2010 define a pessoa responsável "pela unidade
+domiciliar (**domicílio particular ou unidade de habitação em domicílio coletivo**)", e o
+arquivo fala em "pessoas responsáveis", sem "por DPP". Medido setor a setor:
+
+| parcela | responsáveis |
+| --- | ---: |
+| DPP (`Basico V001`) | 38.504 |
+| − DPP dos 2 setores de Piraí com `V020` suprimido (`X`): `430160222000001` (1) e `430160222000003` (18) | −19 |
+| + domicílios particulares improvisados (`DomicilioRenda V001`), um responsável cada | +18 |
+| + unidades de habitação em domicílios coletivos, em 5 setores sem improvisado (`…002`, `…010`, `…033`, `…049`, `…076`) | +10 |
+| **= `V020`** | **38.513** |
+
+Conferências: `V020` é idêntico, setor a setor, a `Responsavel02 V001` ("Pessoas
+Responsáveis", 38.532 = 38.513 + os 19 suprimidos em `ResponsavelRenda`); a tabela
+oficial 4.23.1.3 dá 38.522 responsáveis em domicílios particulares = 38.504 DPP + 18
+improvisados. Consequência: para rendimento **por DPP**, usar `Basico V005–V008`
+(explicitamente DPP); as classes de `ResponsavelRenda` cobrem DPP + improvisados +
+unidades em coletivos (diferença de 0,07 % em Bagé).
 - **Água.** Só "rede geral" é comparável nos três; canalização só entre 2000 e 2022.
 - **Esgoto.** Para 2010 × 2022, somar as duas fossas sépticas de 2022; "rede geral +
   fossa ligada" de 2022 **não** equivale à "rede geral" de 2010.
@@ -97,12 +117,17 @@ sem baixar dados:
   - **rendimento do responsável** por setor (2026-05-08; ver tabela 1.2):
     `data/raw/tabular/ibge/censo_2022/Agregados_por_setores_renda_responsavel_BR_20260508_csv.zip`
     (9.370.011 B) e o dicionário em `…/censo_2022/doc/` (10.197 B); fonte
-    `ibge_censo2022_renda_responsavel_setores`.
-- **Divulgados e ausentes da cópia local:**
-  - **entorno urbanístico** (2025-04-17: domicílios, faces, moradores; e uma versão em
-    percentual já com geometria, `br_setores_entorno_cd2022.gpkg`, 2025-12-12);
-  - **registro de nascimento** por setor (2026-02-04);
-  - anexo de **favelas e comunidades urbanas** por setor.
+    `ibge_censo2022_renda_responsavel_setores`;
+  - **entorno urbanístico** por setor (2025-04-17): domicílios, faces e moradores
+    (`Agregados_por_setores_entorno_{domicílios,faces,moradores}_BR.zip`, 35,2 MB) e
+    `doc/dicionarios_de_dados_entorno.zip`; fonte `ibge_censo2022_entorno_setores`;
+  - **favelas e comunidades urbanas** por setor (2025-04-17):
+    `FavelaseComunidadesUrbanas2022Setores_20250417.xlsx` e a apresentação da divulgação
+    em `doc/` (não há dicionário próprio); fonte `ibge_censo2022_favelas_setores`.
+- **Divulgados e deixados de fora por decisão:** **registro de nascimento** por setor
+  (2026-02-04); a versão percentual do entorno com geometria
+  (`br_setores_entorno_cd2022.gpkg`, 363 MB, nacional); os polígonos das favelas
+  (`arquivos_vetoriais/`).
 - **Não existem por setor** (constatação de ausência): educação além de alfabetização,
   trabalho, migração, deslocamento, fecundidade, deficiência.
 - **O que ainda falta publicar: o servidor não diz.** Não há leia-me, nota ou
@@ -227,7 +252,12 @@ O declarado põe Bagé no hemisfério norte; qualquer leitura de UTM 21 **Sul** 
 inteira sobre a cidade. Entre as leituras sul, SAD69 sobrepõe um pouco mais, mas nenhuma
 elimina um deslocamento residual de ~90–105 m, e o IoU por setor fica em ~0,5 —
 diferença de traçado, de base cartográfica ou de desenho, que esta medição não separa.
-**Relatado, não decidido.** A malha rural de 2000 vem sem `.prj`, em graus; foi lida
+
+**Decisão do responsável (2026-09-22): SAD69 / UTM 21S (`EPSG:29191`).** Registrada no
+`.json` irmão de `4301602.zip` e em `docs/ressalvas_censo_bage.md` § 3, com o resíduo
+de ~90–105 m como limitação conhecida e a **regra de uso: dados de 2000 só por município
+e distrito, nunca por setor**. Nada foi reprojetado nem gravado como camada. O CRS da
+malha rural de 2000 não foi decidido. A malha rural de 2000 vem sem `.prj`, em graus; foi lida
 como SAD69 geográfico (`EPSG:4618`) — **suposição**.
 
 ### 3.3 2000 → 2010, por sobreposição de áreas
@@ -416,8 +446,9 @@ Pontos lidos como SIRGAS 2000 (`EPSG:4674`); o CSV não declara datum.
   inclui improvisados.
 - **Domicílios em 2022**: definir o universo (DPPO, DPO ou total) antes de somar; não há
   total municipal oficial local para conferir.
-- **Rendimento 2010**: o universo de `ResponsavelRenda` não é exatamente DPP (38.513 ×
-  38.504); a confirmar.
+- **Rendimento 2010**: as classes de `ResponsavelRenda` incluem responsáveis de
+  improvisados e de unidades em coletivos (+28 sobre DPP, −19 por supressão; § 1.2); para
+  universo DPP estrito, usar as médias do `Basico`.
 - **Setores rurais de 2022**: a supressão por célula é quase regra; resultados rurais
   por setor saem com lacunas grandes.
 - **Grade estatística 2010/2022**: baixada (quadrantes 14 e 04, conferidos contra a área

@@ -88,6 +88,10 @@ class Item:
     baixado_em: str
     descricao: str
     caminho_revia_bg: str = ""
+    # decisão do responsável sobre o CRS quando o declarado no arquivo está errado
+    # ou ausente; vai para o campo `crs` do .json irmão (o arquivo não é alterado)
+    crs_decidido: str = ""
+    nota: str = ""
 
     @property
     def destino(self) -> Path:
@@ -217,7 +221,7 @@ def escrever_metadado(item: Item, fontes: dict[str, dict]) -> bool:
         tema=TEMA,
         fonte_id=item.fonte_id,
         versao=f"censo_{item.ano}",
-        crs=_crs(item.destino),
+        crs=item.crs_decidido or _crs(item.destino),
         licenca=fonte["licenca"],
         autorizacao_fonte=verdadeiro("autorizacao_fonte"),
         pode_publicar=verdadeiro("pode_publicar"),
@@ -226,9 +230,13 @@ def escrever_metadado(item: Item, fontes: dict[str, dict]) -> bool:
         observacoes=(
             f"{item.descricao}. Arquivo bruto, exatamente como veio do IBGE. "
             f"Last-Modified da origem: {item.last_modified}. "
-            f"Baixado em {item.baixado_em} (pelo REVIA_BG, cópia aposentada; procedência "
-            "em docs/procedencia/revia_bg_censo/). Lista fixa em config/fontes_censo_ibge.yaml; "
+            + (f"Baixado em {item.baixado_em} (pelo REVIA_BG, cópia aposentada; procedência "
+               "em docs/procedencia/revia_bg_censo/). " if item.caminho_revia_bg else
+               f"Baixado em {item.baixado_em} direto do IBGE (URL obtida navegando as listagens "
+               "do FTP). ")
+            + "Lista fixa em config/fontes_censo_ibge.yaml; "
             "rebaixável por scripts/download/baixar_censo_ibge.py."
+            + (f" {item.nota}" if item.nota else "")
         ),
         data_producao=datetime.fromisoformat(item.baixado_em),
     )

@@ -112,6 +112,71 @@ def controles_de_conteudo(tmp: Path, campos: list[str], camadas: list[dict]) -> 
     return resultados
 
 
+def controles_de_manifesto(tmp: Path, campos: list[str], camadas: list[dict]) -> list[tuple]:
+    """manifesto.resolver() com a mesma lógica do validador (conteúdo antes de bytes).
+
+    Roda em processo, sobre cópias de `limite_municipal` numa raiz temporária
+    e um catálogo só com essa camada. Nenhum manifesto real é tocado.
+    """
+    import geopandas as gpd
+    import pyogrio
+    import yaml
+
+    sys.path.insert(0, str(RAIZ_PROJETO))
+    from scripts.utils import manifesto
+
+    linha = next(c for c in camadas if c["id_camada"] == "limite_municipal")
+    original = RAIZ_PROJETO / linha["arquivo"]
+    meta = json.loads(original.with_suffix(".json").read_text(encoding="utf-8"))
+    gdf = gpd.read_file(original)
+
+    def raiz_com(nome: str, gravar) -> tuple[Path, Path]:
+        raiz = tmp / f"man_{nome}"
+        destino = raiz / linha["arquivo"]
+        destino.parent.mkdir(parents=True)
+        gravar(destino)
+        destino.with_suffix(".json").write_text(json.dumps(meta), encoding="utf-8")
+        return raiz, escrever(tmp / f"man_{nome}.csv", campos, [linha])
+
+    def regravar(g):
+        def _gravar(destino: Path) -> None:
+            pyogrio.set_gdal_config_options({"OGR_CURRENT_DATE": "2001-01-01T00:00:00.000Z"})
+            try:
+                g.to_file(destino, driver="GPKG", layer="limite_municipal")
+            finally:
+                pyogrio.set_gdal_config_options({"OGR_CURRENT_DATE": None})
+        return _gravar
+
+    def resolver(nome: str, raiz: Path, cat: Path, entrada: dict) -> str:
+        m = tmp / f"man_{nome}.yaml"
+        m.write_text(yaml.safe_dump({"estudo": "teste", "pergunta": "-", "status": "reconhecimento",
+                                     "camadas": [{"id": "limite_municipal", **entrada}]}),
+                     encoding="utf-8")
+        c = manifesto.resolver(m, caminho_catalogo=cat, raiz=raiz).camadas[0]
+        return f"{c.situacao}: {c.detalhe}"
+
+    alterado = gdf.copy()
+    alterado.loc[0, "NM_MUN"] = "Outro"
+    copia = lambda d: shutil.copy2(original, d)  # noqa: E731
+    sha, conteudo = linha["sha256"], meta["sha256_conteudo"]
+    casos = [
+        ("POSITIVO M1: mesmo arquivo, sha256 fixado", copia, {"sha256": sha}, "ok"),
+        ("POSITIVO M2: regravado, mesmo conteúdo, sha256 do catálogo fixado",
+         regravar(gdf), {"sha256": sha}, "ok"),
+        ("NEGATIVO M3: regravado com o dado alterado", regravar(alterado), {"sha256": sha}, "divergente"),
+        ("POSITIVO M4: sha256_conteudo fixado, arquivo regravado",
+         regravar(gdf), {"sha256_conteudo": conteudo}, "ok"),
+        ("NEGATIVO M5: sha256_conteudo fixado não confere", copia, {"sha256_conteudo": "0" * 64},
+         "divergente"),
+    ]
+    resultados = []
+    for i, (rotulo, gravar, entrada, esperado) in enumerate(casos):
+        raiz, cat = raiz_com(str(i), gravar)
+        saida = resolver(str(i), raiz, cat, entrada)
+        resultados.append((rotulo, esperado, saida.startswith(esperado + ":"), 0, saida))
+    return resultados
+
+
 def main() -> None:
     campos_fontes, fontes = ler(CAMINHO_FONTES)
     campos_camadas, camadas = ler(CAMINHO_CAMADAS)
@@ -168,6 +233,7 @@ def main() -> None:
                            rc, saida))
 
         resultados += controles_de_conteudo(tmp, campos_camadas, camadas)
+        resultados += controles_de_manifesto(tmp, campos_camadas, camadas)
 
     print("=" * 78)
     print("CONTROLES DO VALIDADOR DE CATÁLOGOS")
@@ -176,7 +242,7 @@ def main() -> None:
         print(f"\n[{'OK' if ok else 'FALHOU'}] {nome}")
         print(f"        esperado: {esperado} | obtido: rc={rc}")
         for linha in saida.strip().splitlines():
-            if linha.startswith(("ERRO", "FALHOU", "OK —")):
+            if linha.startswith(("ERRO", "FALHOU", "OK —", "ok:", "divergente:")):
                 print(f"        {linha}")
 
     total_ok = sum(1 for _, _, ok, _, _ in resultados if ok)

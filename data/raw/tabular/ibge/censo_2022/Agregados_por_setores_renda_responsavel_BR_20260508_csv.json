@@ -7,7 +7,7 @@
   "edicao": "censo_2022",
   "fonte_id": "ibge_censo2022_renda_responsavel_setores",
   "licenca": "dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
-  "observacoes": "rendimento do responsável por setor censitário, recorte BR (6 variáveis: responsáveis, moradores, rendimento médio, mediano e variâncias). Arquivo bruto, exatamente como veio do IBGE. Last-Modified da origem: Fri, 08 May 2026 20:30:50 GMT. Baixado em 2026-09-22T14:22:25+00:00 (pelo REVIA_BG, cópia aposentada; procedência em docs/procedencia/revia_bg_censo/). Lista fixa em config/fontes_censo_ibge.yaml; rebaixável por scripts/download/baixar_censo_ibge.py.",
+  "observacoes": "rendimento do responsável por setor censitário, recorte BR (6 variáveis: responsáveis, moradores, rendimento médio, mediano e variâncias). Arquivo bruto, exatamente como veio do IBGE. Last-Modified da origem: Fri, 08 May 2026 20:30:50 GMT. Baixado em 2026-09-22T14:22:25+00:00 direto do IBGE (URL obtida navegando as listagens do FTP). Lista fixa em config/fontes_censo_ibge.yaml; rebaixável por scripts/download/baixar_censo_ibge.py.",
   "pode_publicar": true,
   "referencias_bib": [],
   "sha256": "141c83e7635674e7e2c941e55f98811e538fcbf2e1e1125b0aa7892c260f4a23",

@@ -1,0 +1,19 @@
+{
+  "arquivo": "data/raw/tabular/ibge/censo_2022/doc/dicionarios_de_dados_entorno.zip",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-22T14:57:58+00:00",
+  "edicao": "censo_2022",
+  "fonte_id": "ibge_censo2022_entorno_setores",
+  "licenca": "dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "observacoes": "dicionários de dados do entorno (domicílios, faces, pessoas). Arquivo bruto, exatamente como veio do IBGE. Last-Modified da origem: Wed, 07 May 2025 20:06:34 GMT. Baixado em 2026-09-22T14:57:58+00:00 direto do IBGE (URL obtida navegando as listagens do FTP). Lista fixa em config/fontes_censo_ibge.yaml; rebaixável por scripts/download/baixar_censo_ibge.py.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "eda4e2c9968e753fa2c158380ae537c284ccbddde5b74a6d5fec0b3c2250d1b4",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 27093,
+  "tema": "censo",
+  "url_origem": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios_Caracteristicas_urbanisticas_do_entorno_dos_domicilios/dicionarios_de_dados_entorno.zip",
+  "versao": "censo_2022"
+}

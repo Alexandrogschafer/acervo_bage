@@ -1,0 +1,19 @@
+{
+  "arquivo": "data/raw/tabular/ibge/censo_2022/Agregados_por_setores_entorno_moradores_BR.zip",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-22T14:57:58+00:00",
+  "edicao": "censo_2022",
+  "fonte_id": "ibge_censo2022_entorno_setores",
+  "licenca": "dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "observacoes": "características urbanísticas do entorno — moradores, por setor, recorte BR. Arquivo bruto, exatamente como veio do IBGE. Last-Modified da origem: Thu, 17 Apr 2025 13:02:39 GMT. Baixado em 2026-09-22T14:57:58+00:00 direto do IBGE (URL obtida navegando as listagens do FTP). Lista fixa em config/fontes_censo_ibge.yaml; rebaixável por scripts/download/baixar_censo_ibge.py.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "76979c0b020f4913d46336a53591cfaa219372b0076f4282e768da7d8abb774a",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 13000482,
+  "tema": "censo",
+  "url_origem": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios_Caracteristicas_urbanisticas_do_entorno_dos_domicilios/Agregados_por_Setor_csv/Agregados_por_setores_entorno_moradores_BR.zip",
+  "versao": "censo_2022"
+}

@@ -1,0 +1,19 @@
+{
+  "arquivo": "data/raw/tabular/ibge/censo_2022/doc/FavelasComunidadesUrbanas_Apresentacao_20250417.pdf",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-22T14:58:00+00:00",
+  "edicao": "censo_2022",
+  "fonte_id": "ibge_censo2022_favelas_setores",
+  "licenca": "dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "observacoes": "apresentação da divulgação de favelas e comunidades urbanas 2022 (documentação; não há dicionário próprio). Arquivo bruto, exatamente como veio do IBGE. Last-Modified da origem: Thu, 17 Apr 2025 12:53:28 GMT. Baixado em 2026-09-22T14:58:00+00:00 direto do IBGE (URL obtida navegando as listagens do FTP). Lista fixa em config/fontes_censo_ibge.yaml; rebaixável por scripts/download/baixar_censo_ibge.py.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "e2bc3188947381360e710671cf1d96f5108ea742314530c897d9b730510a67cc",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 19229542,
+  "tema": "censo",
+  "url_origem": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Favelas_e_comunidades_urbanas_Resultados_do_universo/Anexos/FavelasComunidadesUrbanas_Apresentacao_20250417.pdf",
+  "versao": "censo_2022"
+}

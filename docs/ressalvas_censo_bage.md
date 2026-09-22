@@ -67,7 +67,7 @@ divulgação; "setor sem domicílio não tem linha" é inferência coerente com 
 afirmação do IBGE. O setor `430160221000001` reaparece em 2022 só na tabela básica, com
 população 0.
 
-## 3. 2000: o território não é o de hoje; a malha tem CRS a resolver
+## 3. 2000: o território não é o de hoje; CRS da malha decidido, uso só agregado
 
 **Território.** A própria divulgação de 2000 traz `Compatibilização_2000-2001_RS.xls`:
 **11 setores** de Bagé (distritos `…10` e `…12`) passaram a **Aceguá**, instalado em
@@ -79,15 +79,20 @@ do município inteiro tem de descontar esses setores.
 Lado espacial:
 
 - a malha urbana de Bagé (`data/raw/vetor/ibge/censo_2000/4301602.zip`, 127 setores) vem
-  declarada em **EPSG:32621 — UTM 21 NORTE**, hemisfério errado para Bagé. Lida em UTM 21
-  Sul (WGS 84, SAD69 ou SIRGAS) ela cai inteira sobre a cidade, com deslocamento residual
-  de ~90–105 m em relação à malha de 2010; as hipóteses estão medidas em
-  `estudos/A03_censo/reconhecimento.md` § 3.2, **sem decisão**. **7 das 127 geometrias
-  são inválidas**;
+  declarada em **EPSG:32621 — UTM 21 NORTE**, hemisfério errado para Bagé (58,8° N).
+  **CRS DECIDIDO pelo responsável em 2026-09-22: SAD69 / UTM 21S (`EPSG:29191`)** —
+  registrado no `.json` irmão do arquivo (campo `crs`) e em
+  `config/fontes_censo_ibge.yaml`; o arquivo não foi alterado nem reprojetado.
+  **Limitação conhecida:** lida em `EPSG:29191`, a malha tem **deslocamento residual de
+  ~90–105 m** em relação à malha de 2010 e IoU por setor de ~0,5 (medido em
+  `estudos/A03_censo/reconhecimento.md` § 3.2). **7 das 127 geometrias são inválidas**;
 - a malha rural (`rs_setores_censitarios.zip`, 44 códigos em Bagé) vem **sem CRS
   declarado**, em graus; 6 dos seus polígonos são envoltórias de faixas de setores
-  urbanos (ex.: `…001-0114`), e não setores;
-- o CRS tem de ser decidido e registrado **antes** de qualquer medição métrica;
+  urbanos (ex.: `…001-0114`), e não setores; seu CRS **não** foi decidido (lida como
+  SAD69 geográfico, `EPSG:4618`, só como suposição de trabalho no reconhecimento);
+- **REGRA DE USO: dados de 2000 só por município e por distrito, nunca por setor.** O
+  resíduo de ~100 m e a ausência de de/para oficial 2000→2010 não sustentam comparação
+  nem mapeamento setor a setor;
 - as tabelas de 2000 (XLS BIFF8) **foram lidas** em 2026-09-22 com `xlrd`
   (`requirements.txt`); 127 setores urbanos + 38 rurais = 165, exatamente as linhas da
   tabela.

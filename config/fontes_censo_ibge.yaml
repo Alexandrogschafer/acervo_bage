@@ -18,6 +18,10 @@
 # NAVEGANDO as listagens do FTP; bytes e Last-Modified por HEAD; sha256 fixado
 # no primeiro download. O bloco `fontes:` descreve as linhas de catálogo novas.
 #
+# Acrescentados em 2026-09-22 (2ª leva, mesmo procedimento): entorno urbanístico
+# por setor 2022 (3 CSV + dicionários) e favelas e comunidades urbanas por setor
+# 2022 (planilha de setores + apresentação; não há dicionário próprio).
+#
 # Ficou de fora a malha territorial de setores 2022 do geoftp
 # (RS_setores_CD2022.gpkg, sha256 3816950f…): ela é baixada por
 # scripts/download/baixar_malhas_ibge.py (fonte ibge_malha_setores_2022).
@@ -93,6 +97,10 @@ arquivos:
   baixado_em: '2026-09-20T16:12:31+00:00'
   descricao: malha de setores URBANOS 2000, recorte MUNICÍPIO de Bagé (4301602)
   caminho_revia_bg: 2000/malha/4301602.zip
+  crs_decidido: EPSG:29191
+  nota: 'CRS DECIDIDO pelo responsável em 2026-09-22: SAD69 / UTM 21S (EPSG:29191). O .prj do arquivo declara EPSG:32621 (UTM 21 Norte, WGS 84), que põe Bagé a 58,8° N — erro de declaração; o arquivo não
+    foi alterado. LIMITAÇÃO CONHECIDA: lida em EPSG:29191, a malha tem deslocamento residual de ~90–105 m em relação à malha de 2010 (medido em estudos/A03_censo/reconhecimento.md § 3.2) e 7 das 127 geometrias
+    são inválidas. REGRA DE USO: dados de 2000 só por município e distrito, NUNCA por setor.'
 - ano: '2000'
   categoria: malha
   fonte_id: ibge_censo2000_malha_setores
@@ -761,7 +769,7 @@ arquivos:
   sha256: 69f42d066d152091fd72d3b43a5ecd37bb4347d91dcc954fd42c9c642b3d28e3
   last_modified: Thu, 12 Jun 2025 13:13:15 GMT
   baixado_em: '2026-09-22T14:22:27+00:00'
-  descricao: grade estatística 2022, quadrante ID_14 (células de 200 m urbano / 1 km rural, Albers SIRGAS 2000); cobre ~94,5 % de Bagé
+  descricao: grade estatística 2022, quadrante ID_14 (células de 200 m urbano / 1 km rural; shapefile em EPSG:4674, SIRGAS 2000 geográfico — a documentação diz Albers); cobre ~94,5 % de Bagé
 - ano: '2022'
   categoria: grade
   fonte_id: ibge_grade_estatistica_2022
@@ -774,7 +782,8 @@ arquivos:
   sha256: 1fe7c663bb2633d7870cf4ea79c87ed5a1312c49f1fa7d6f2841532b67434fe0
   last_modified: Thu, 12 Jun 2025 13:13:14 GMT
   baixado_em: '2026-09-22T14:22:28+00:00'
-  descricao: grade estatística 2022, quadrante ID_04 (células de 200 m urbano / 1 km rural, Albers SIRGAS 2000); cobre ~5,5 % (faixa rural sul) de Bagé
+  descricao: grade estatística 2022, quadrante ID_04 (células de 200 m urbano / 1 km rural; shapefile em EPSG:4674, SIRGAS 2000 geográfico — a documentação diz Albers); cobre ~5,5 % (faixa rural sul) de
+    Bagé
 - ano: '2010'
   categoria: grade
   fonte_id: ibge_grade_estatistica_2010
@@ -787,7 +796,7 @@ arquivos:
   sha256: 3db4fde1d77f740ca0c849a8b81492ef3b789cb86866030771caa656f51fa1d5
   last_modified: Thu, 06 Oct 2016 14:24:59 GMT
   baixado_em: '2026-09-22T14:22:32+00:00'
-  descricao: grade estatística 2010, quadrante ID_14 (células de 200 m urbano / 1 km rural, Albers SIRGAS 2000); cobre ~94,5 % de Bagé
+  descricao: grade estatística 2010, quadrante ID_14 (células de 200 m urbano / 1 km rural; shapefile em EPSG:4674, SIRGAS 2000 geográfico — a documentação diz Albers); cobre ~94,5 % de Bagé
 - ano: '2010'
   categoria: grade
   fonte_id: ibge_grade_estatistica_2010
@@ -800,7 +809,86 @@ arquivos:
   sha256: 4940e6b8aa0c7931e1b6acaa448994a66452b4eeb9b498358109a50051b5e319
   last_modified: Thu, 06 Oct 2016 14:24:58 GMT
   baixado_em: '2026-09-22T14:22:34+00:00'
-  descricao: grade estatística 2010, quadrante ID_04 (células de 200 m urbano / 1 km rural, Albers SIRGAS 2000); cobre ~5,5 % (faixa rural sul) de Bagé
+  descricao: grade estatística 2010, quadrante ID_04 (células de 200 m urbano / 1 km rural; shapefile em EPSG:4674, SIRGAS 2000 geográfico — a documentação diz Albers); cobre ~5,5 % (faixa rural sul) de
+    Bagé
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_entorno_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios_Caracteristicas_urbanisticas_do_entorno_dos_domicilios/Agregados_por_Setor_csv/Agregados_por_setores_entorno_domic%c3%adlios_BR.zip
+  arquivo: Agregados_por_setores_entorno_domicílios_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 11890606
+  sha256: 945ad03f2cca535c51b8956188ed9a7e3e017caa5ae2a79449e2202d359ffa60
+  last_modified: Thu, 17 Apr 2025 13:02:39 GMT
+  baixado_em: '2026-09-22T14:57:56+00:00'
+  descricao: características urbanísticas do entorno — domicílios, por setor, recorte BR
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_entorno_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios_Caracteristicas_urbanisticas_do_entorno_dos_domicilios/Agregados_por_Setor_csv/Agregados_por_setores_entorno_faces_BR.zip
+  arquivo: Agregados_por_setores_entorno_faces_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 10319175
+  sha256: ad654f2cc4680c6fbfbb0d9bf1b58fea3e690f3b0e873fcc9e2815c1f4212a4b
+  last_modified: Thu, 17 Apr 2025 13:02:39 GMT
+  baixado_em: '2026-09-22T14:57:57+00:00'
+  descricao: características urbanísticas do entorno — faces de quadra, por setor, recorte BR
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_entorno_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios_Caracteristicas_urbanisticas_do_entorno_dos_domicilios/Agregados_por_Setor_csv/Agregados_por_setores_entorno_moradores_BR.zip
+  arquivo: Agregados_por_setores_entorno_moradores_BR.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 13000482
+  sha256: 76979c0b020f4913d46336a53591cfaa219372b0076f4282e768da7d8abb774a
+  last_modified: Thu, 17 Apr 2025 13:02:39 GMT
+  baixado_em: '2026-09-22T14:57:58+00:00'
+  descricao: características urbanísticas do entorno — moradores, por setor, recorte BR
+- ano: '2022'
+  categoria: documentacao
+  fonte_id: ibge_censo2022_entorno_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios_Caracteristicas_urbanisticas_do_entorno_dos_domicilios/dicionarios_de_dados_entorno.zip
+  arquivo: dicionarios_de_dados_entorno.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022/doc
+  bytes: 27093
+  sha256: eda4e2c9968e753fa2c158380ae537c284ccbddde5b74a6d5fec0b3c2250d1b4
+  last_modified: Wed, 07 May 2025 20:06:34 GMT
+  baixado_em: '2026-09-22T14:57:58+00:00'
+  descricao: dicionários de dados do entorno (domicílios, faces, pessoas)
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_favelas_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Favelas_e_comunidades_urbanas_Resultados_do_universo/Anexos/FavelaseComunidadesUrbanas2022Setores_20250417.xlsx
+  arquivo: FavelaseComunidadesUrbanas2022Setores_20250417.xlsx
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 1356967
+  sha256: 209f5ef19ef7b85f9df5171790b650270cd1a3accef5afba6f74603c2b3cbf3c
+  last_modified: Thu, 17 Apr 2025 12:53:27 GMT
+  baixado_em: '2026-09-22T14:57:59+00:00'
+  descricao: favelas e comunidades urbanas 2022 — setores censitários que as compõem, recorte BR
+- ano: '2022'
+  categoria: documentacao
+  fonte_id: ibge_censo2022_favelas_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Favelas_e_comunidades_urbanas_Resultados_do_universo/Anexos/FavelasComunidadesUrbanas_Apresentacao_20250417.pdf
+  arquivo: FavelasComunidadesUrbanas_Apresentacao_20250417.pdf
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022/doc
+  bytes: 19229542
+  sha256: e2bc3188947381360e710671cf1d96f5108ea742314530c897d9b730510a67cc
+  last_modified: Thu, 17 Apr 2025 12:53:28 GMT
+  baixado_em: '2026-09-22T14:58:00+00:00'
+  descricao: apresentação da divulgação de favelas e comunidades urbanas 2022 (documentação; não há dicionário próprio)
 fontes:
 - id_fonte: ibge_censo2022_renda_responsavel_setores
   nome: Censo Demográfico 2022 — Agregados por Setores Censitários, Rendimento do Responsável (BR)
@@ -821,9 +909,9 @@ fontes:
     os arquivos aqui disponíveis são públicos."'
   autorizacao_fonte: 'true'
   pode_publicar: 'true'
-  observacoes: '[tema: territorio | resolução/escala: células de 200 m (urbano) e 1 km (rural), Albers SIRGAS 2000 | período: Censo 2022 (arquivos de 2025-06-12) | script: scripts/download/baixar_censo_ibge.py]
-    sha256 é o do quadrante ID_14 (~94,5 % de Bagé); ID_04 cobre a faixa rural sul (~5,5 %, 224 km²). Cobertura conferida contra config/area_estudo.geojson antes do download (regra de quadrantes inferida:
-    blocos de 500 km na Albers do IBGE). Variáveis: população total (TOTAL) e domicílios ocupados (TOTAL_DOM). Não processado.'
+  observacoes: '[tema: territorio | resolução/escala: células de 200 m (urbano) e 1 km (rural); shapefile em EPSG:4674 (a documentação diz Albers SIRGAS 2000) | período: Censo 2022 (arquivos de 2025-06-12)
+    | script: scripts/download/baixar_censo_ibge.py] sha256 é o do quadrante ID_14 (~94,5 % de Bagé); ID_04 cobre a faixa rural sul (~5,5 %, 224 km²). Cobertura conferida contra config/area_estudo.geojson
+    antes do download (regra de quadrantes inferida: blocos de 500 km na Albers do IBGE). Variáveis: população total (TOTAL) e domicílios ocupados (TOTAL_DOM). Não processado.'
 - id_fonte: ibge_grade_estatistica_2010
   nome: Grade Estatística — Censo 2010, quadrantes ID_14 e ID_04
   url: https://geoftp.ibge.gov.br/recortes_para_fins_estatisticos/grade_estatistica/censo_2010/grade_id14.zip
@@ -832,6 +920,28 @@ fontes:
     os arquivos aqui disponíveis são públicos."'
   autorizacao_fonte: 'true'
   pode_publicar: 'true'
-  observacoes: '[tema: territorio | resolução/escala: células de 200 m (urbano) e 1 km (rural), Albers SIRGAS 2000 | período: Censo 2010 (arquivos de 2016-10-06) | script: scripts/download/baixar_censo_ibge.py]
-    sha256 é o do quadrante ID_14 (~94,5 % de Bagé); ID_04 cobre a faixa rural sul (~5,5 %). Dados de 2010 obtidos pelo IBGE por agregação/desagregação (campo indica o método por célula); campos não listados
-    na documentação. Não processado.'
+  observacoes: '[tema: territorio | resolução/escala: células de 200 m (urbano) e 1 km (rural); shapefile em EPSG:4674 (a documentação diz Albers SIRGAS 2000) | período: Censo 2010 (arquivos de 2016-10-06)
+    | script: scripts/download/baixar_censo_ibge.py] sha256 é o do quadrante ID_14 (~94,5 % de Bagé); ID_04 cobre a faixa rural sul (~5,5 %). Dados de 2010 obtidos pelo IBGE por agregação/desagregação (campo
+    indica o método por célula); campos não listados na documentação. Não processado.'
+- id_fonte: ibge_censo2022_entorno_setores
+  nome: Censo Demográfico 2022 — Agregados por Setores Censitários, Características urbanísticas do entorno dos domicílios (BR)
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios_Caracteristicas_urbanisticas_do_entorno_dos_domicilios/Agregados_por_Setor_csv/Agregados_por_setores_entorno_domic%c3%adlios_BR.zip
+  instituicao: IBGE
+  licenca: 'dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): "Todos
+    os arquivos aqui disponíveis são públicos."'
+  autorizacao_fonte: 'true'
+  pode_publicar: 'true'
+  observacoes: '[tema: nao_espacial | resolução/escala: setor censitário, recorte BR | período: Censo 2022 (divulgado 2025-04-17; dicionários 2025-05-07) | script: scripts/download/baixar_censo_ibge.py]
+    Três arquivos por setor: domicílios, faces de quadra e moradores; dicionários em dicionarios_de_dados_entorno.zip. sha256 é o do arquivo de domicílios. Não inclui a versão percentual com geometria (Dados_percentuais_...,
+    gpkg nacional de 363 MB). URL obtida navegando as listagens do FTP. Não processado.'
+- id_fonte: ibge_censo2022_favelas_setores
+  nome: Censo Demográfico 2022 — Favelas e Comunidades Urbanas, setores censitários (BR)
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Favelas_e_comunidades_urbanas_Resultados_do_universo/Anexos/FavelaseComunidadesUrbanas2022Setores_20250417.xlsx
+  instituicao: IBGE
+  licenca: 'dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): "Todos
+    os arquivos aqui disponíveis são públicos."'
+  autorizacao_fonte: 'true'
+  pode_publicar: 'true'
+  observacoes: '[tema: nao_espacial | resolução/escala: setor censitário, recorte BR | período: Censo 2022 (divulgado 2025-04-17) | script: scripts/download/baixar_censo_ibge.py] Planilha dos setores que
+    compõem cada favela/comunidade urbana; não há dicionário próprio — a documentação é a apresentação da divulgação (PDF, mesmo diretório Anexos/). Polígonos das FCUs (arquivos_vetoriais/) não baixados.
+    URL obtida navegando as listagens do FTP. Não processado.'

@@ -193,9 +193,16 @@ disco, devolvendo:
 
 | situação | significado |
 | --- | --- |
-| `ok` | o sha256 fixado bate com o arquivo atual do acervo |
+| `ok` | o dado fixado é o dado atual do acervo (critério abaixo) |
 | `divergente` | a camada existe, mas mudou desde que o estudo a fixou |
 | `ausente` | o id não está no catálogo, ou o arquivo sumiu do disco |
+
+Cada camada do manifesto pode fixar `sha256` (do arquivo) e, opcionalmente,
+`sha256_conteudo` (§ 4). O critério é o mesmo do validador, **conteúdo antes de bytes**:
+se `sha256_conteudo` foi fixado, ele decide; senão, vale o `sha256` do arquivo; e um
+arquivo regravado com outros bytes continua `ok` quando o manifesto fixou o sha256 do
+catálogo e o `sha256_conteudo` do `.json` irmão confere com o recalculado. Controles em
+`scripts/utils/testar_validador.py` (M1–M5).
 
 **A resolução nunca atualiza o manifesto sozinha.** Divergência é aviso, não
 correção: se o acervo mudou, quem decide se o estudo continua válido é o

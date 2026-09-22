@@ -8,9 +8,21 @@ diz sobre qual estado do acervo aquele resultado foi produzido.
 Este módulo resolve esse contrato contra `data/catalogo_camadas.csv` e contra
 os arquivos em disco, e devolve, por camada:
 
-    "ok"          o sha256 fixado bate com o arquivo atual do acervo;
+    "ok"          o DADO fixado é o dado atual do acervo;
     "divergente"  a camada existe, mas mudou desde que o estudo a fixou;
     "ausente"     o id não está no catálogo, ou o arquivo sumiu do disco.
+
+"O dado fixado" é decidido pela mesma lógica do validador
+(`validar_catalogos.py`, conferência 5), por CONTEÚDO quando possível:
+
+    1. a entrada do manifesto fixou `sha256_conteudo` -> compara com o
+       sha256_conteudo recalculado do arquivo (scripts/utils/conteudo.py);
+    2. senão, o `sha256` do arquivo igual ao fixado -> ok;
+    3. senão (o arquivo foi regravado com outros bytes): ok só se o manifesto
+       fixou o sha256 registrado no catálogo E o `sha256_conteudo` do `.json`
+       irmão bate com o recalculado — o arquivo mudou de bytes, não de dado.
+    Em qualquer outro caso, "divergente". O sha256 do arquivo é o fallback,
+    não o critério: GeoPackage muda de bytes sem mudar de dado.
 
 **Nunca atualiza o manifesto sozinho.** Divergência é aviso, não correção: se
 o acervo mudou, quem decide se o estudo continua válido é o responsável, não
@@ -28,6 +40,8 @@ from typing import Any, Literal
 import yaml
 
 from scripts.utils import paths
+from scripts.utils.catalogo import conteudo_confere
+from scripts.utils.conteudo import sha256_conteudo
 from scripts.utils.hashes import sha256_arquivo
 
 Situacao = Literal["ok", "divergente", "ausente"]
@@ -127,20 +141,23 @@ def ler(caminho: Path | str) -> dict[str, Any]:
     return dados
 
 
-def _catalogo_camadas() -> dict[str, dict[str, str]]:
+def _catalogo_camadas(alvo: Path | None = None) -> dict[str, dict[str, str]]:
     """Índice `id_camada -> linha` de data/catalogo_camadas.csv."""
-    alvo = paths.caminho("catalogo_camadas")
+    alvo = alvo or paths.caminho("catalogo_camadas")
     if not alvo.exists():
         return {}
     with open(alvo, encoding="utf-8") as arquivo:
         return {linha["id_camada"]: linha for linha in csv.DictReader(arquivo)}
 
 
-def resolver(caminho: Path | str) -> RelatorioManifesto:
+def resolver(caminho: Path | str, caminho_catalogo: Path | None = None,
+             raiz: Path | None = None) -> RelatorioManifesto:
     """Confere todas as camadas de um manifesto contra o acervo.
 
     Args:
         caminho: arquivo `manifesto.yaml`.
+        caminho_catalogo: catálogo de camadas alternativo (para teste).
+        raiz: raiz alternativa para resolver os arquivos do catálogo (para teste).
 
     Returns:
         O relatório, uma entrada por camada declarada.
@@ -150,7 +167,8 @@ def resolver(caminho: Path | str) -> RelatorioManifesto:
     """
     alvo = Path(caminho)
     dados = ler(alvo)
-    catalogo = _catalogo_camadas()
+    catalogo = _catalogo_camadas(caminho_catalogo)
+    raiz = raiz or paths.RAIZ
     resultados: list[CamadaResolvida] = []
 
     for item in dados["camadas"]:
@@ -164,6 +182,7 @@ def resolver(caminho: Path | str) -> RelatorioManifesto:
         id_camada = str(item["id"])
         versao_manifesto = str(item.get("versao", ""))
         sha_manifesto = str(item.get("sha256", "")).strip().lower()
+        conteudo_manifesto = str(item.get("sha256_conteudo", "")).strip().lower()
 
         linha = catalogo.get(id_camada)
         if linha is None:
@@ -175,7 +194,7 @@ def resolver(caminho: Path | str) -> RelatorioManifesto:
             continue
 
         arquivo_rel = linha.get("arquivo", "")
-        arquivo_abs = paths.RAIZ / arquivo_rel
+        arquivo_abs = raiz / arquivo_rel
         comum = {
             "id_camada": id_camada,
             "versao_manifesto": versao_manifesto,
@@ -194,18 +213,33 @@ def resolver(caminho: Path | str) -> RelatorioManifesto:
             continue
 
         sha_atual = sha256_arquivo(arquivo_abs)
-        if not sha_manifesto:
+        sha_catalogo = str(linha.get("sha256", "")).strip().lower()
+        mesmo_dado, como = False, ""
+        if conteudo_manifesto:
+            atual = sha256_conteudo(arquivo_abs)
+            mesmo_dado = atual == conteudo_manifesto
+            como = ("por sha256_conteudo" if mesmo_dado else
+                    f"sha256_conteudo diverge (manifesto {conteudo_manifesto[:12]}…, "
+                    f"arquivo {atual[:12]}…) — o DADO mudou")
+        elif sha_manifesto and sha_atual == sha_manifesto:
+            mesmo_dado, como = True, "por sha256 do arquivo"
+        elif sha_manifesto and sha_manifesto == sha_catalogo and conteudo_confere(arquivo_abs):
+            mesmo_dado, como = True, ("arquivo regravado (sha256 mudou), mas o sha256_conteudo "
+                                      "do .json confere — mesmo dado")
+        elif sha_manifesto:
+            como = (f"o arquivo do acervo mudou desde que o estudo o fixou "
+                    f"(manifesto {sha_manifesto[:12]}…, disco {sha_atual[:12]}…)")
+
+        if not sha_manifesto and not conteudo_manifesto:
             resultados.append(CamadaResolvida(
                 situacao="divergente", sha256_atual=sha_atual,
-                detalhe="manifesto não fixou sha256 — sem isso o contrato não prova nada",
+                detalhe="manifesto não fixou sha256 nem sha256_conteudo — sem isso o "
+                        "contrato não prova nada",
                 **comum,
             ))
-        elif sha_atual != sha_manifesto:
+        elif not mesmo_dado:
             resultados.append(CamadaResolvida(
-                situacao="divergente", sha256_atual=sha_atual,
-                detalhe=(f"o arquivo do acervo mudou desde que o estudo o fixou "
-                         f"(manifesto {sha_manifesto[:12]}…, disco {sha_atual[:12]}…)"),
-                **comum,
+                situacao="divergente", sha256_atual=sha_atual, detalhe=como, **comum,
             ))
         elif versao_manifesto and versao_manifesto != linha.get("versao", ""):
             resultados.append(CamadaResolvida(
@@ -216,7 +250,7 @@ def resolver(caminho: Path | str) -> RelatorioManifesto:
             ))
         else:
             resultados.append(CamadaResolvida(
-                situacao="ok", sha256_atual=sha_atual, detalhe="confere", **comum,
+                situacao="ok", sha256_atual=sha_atual, detalhe=f"confere ({como})", **comum,
             ))
 
     return RelatorioManifesto(
