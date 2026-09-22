@@ -14,3 +14,9 @@ requests>=2.31
 pandas>=2.0
 PyYAML>=6.0
 shapely>=2.0
+
+# Leitores das planilhas oficiais do IBGE (XLS BIFF8 de 2000/2010, XLSX, ODS),
+# usados pelo reconhecimento do Censo (estudos/A03_censo/scripts/).
+xlrd>=2.0
+openpyxl>=3.1
+odfpy>=1.4

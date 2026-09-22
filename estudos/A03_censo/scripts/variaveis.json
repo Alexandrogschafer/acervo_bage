@@ -1,0 +1,1109 @@
+{
+  "populacao_total": {
+    "2000": {
+      "status": "existe",
+      "arquivo": "Pessoa1_RS__PESS1_RS.csv",
+      "variaveis": [
+        "V1330"
+      ],
+      "nota": "Pessoas (população residente no setor), inclui domicílios particulares e coletivos.",
+      "complementos": [
+        {
+          "arquivo": "Morador_RS__MORA_RS.csv",
+          "variaveis": [
+            "V0237"
+          ],
+          "papel": "alternativa idêntica (doc.: \"mesmos valores da variável V1330\")"
+        }
+      ]
+    },
+    "2010": {
+      "status": "existe",
+      "arquivo": "Pessoa13_RS.csv",
+      "variaveis": [
+        "V001"
+      ],
+      "nota": "Pessoas residentes em domicílios particulares e domicílios coletivos. Inclui moradores imputados em domicílios fechados (doc. 2010, seção 2.8).",
+      "complementos": [
+        {
+          "arquivo": "Domicilio02_RS.csv",
+          "variaveis": [
+            "V001"
+          ],
+          "papel": "alternativa idêntica (moradores em dom. particulares e coletivos)"
+        },
+        {
+          "arquivo": "Pessoa03_RS.csv",
+          "variaveis": [
+            "V001"
+          ],
+          "papel": "alternativa idêntica (Pessoas Residentes)"
+        }
+      ]
+    },
+    "2022": {
+      "status": "existe",
+      "arquivo": "Agregados_por_setores_basico.csv",
+      "variaveis": [
+        "v0001"
+      ],
+      "nota": "Total de pessoas (código em minúscula no cabeçalho). Inclui moradores de DPO imputados (v0006 = % de DPO imputados).",
+      "complementos": [
+        {
+          "arquivo": "Agregados_por_setores_demografia.csv",
+          "variaveis": [
+            "V01006"
+          ],
+          "papel": "alternativa (Quantidade de moradores), sujeita a supressão por X, ao contrário de v0001"
+        }
+      ]
+    }
+  },
+  "populacao_sexo": {
+    "2000": {
+      "status": "existe",
+      "arquivo": "Morador_RS__MORA_RS.csv",
+      "variaveis": [
+        "V0292",
+        "V0347"
+      ],
+      "nota": "Homens moradores / Mulheres moradoras (população residente no setor).",
+      "complementos": [
+        {
+          "arquivo": "Pessoa2_RS__PESS2_RS.csv",
+          "variaveis": [
+            "V1465"
+          ],
+          "papel": "alternativa idêntica (homens)"
+        },
+        {
+          "arquivo": "Pessoa3_RS__PESS3_RS.csv",
+          "variaveis": [
+            "V1600"
+          ],
+          "papel": "alternativa idêntica (mulheres)"
+        }
+      ]
+    },
+    "2010": {
+      "status": "existe",
+      "arquivo": "Domicilio02_RS.csv",
+      "variaveis": [
+        "V045",
+        "V089"
+      ],
+      "nota": "Homens / Mulheres moradores em domicílios particulares e domicílios coletivos.",
+      "complementos": [
+        {
+          "arquivo": "Pessoa11_RS.csv",
+          "variaveis": [
+            "V001"
+          ],
+          "papel": "alternativa idêntica (homens)"
+        },
+        {
+          "arquivo": "Pessoa12_RS.csv",
+          "variaveis": [
+            "V001"
+          ],
+          "papel": "alternativa idêntica (mulheres)"
+        }
+      ]
+    },
+    "2022": {
+      "status": "existe",
+      "arquivo": "Agregados_por_setores_demografia.csv",
+      "variaveis": [
+        "V01007",
+        "V01008"
+      ],
+      "nota": "Sexo masculino / Sexo feminino (moradores). O arquivo básico 2022 não traz sexo."
+    }
+  },
+  "populacao_idade": {
+    "2000": {
+      "status": "existe",
+      "arquivo": "Pessoa1_RS__PESS1_RS.csv",
+      "variaveis": [
+        "V1448",
+        "V1449",
+        "V1450",
+        "V1451",
+        "V1452",
+        "V1453",
+        "V1454",
+        "V1455",
+        "V1456",
+        "V1457",
+        "V1458",
+        "V1459",
+        "V1460",
+        "V1461",
+        "V1462",
+        "V1463",
+        "V1464"
+      ],
+      "nota": "17 grupos quinquenais: 0-4 ... 75-79, 80+. O mesmo arquivo tem idade simples V1347-V1447 (0 a 100+)."
+    },
+    "2010": {
+      "status": "existe",
+      "arquivo": "Pessoa13_RS.csv",
+      "variaveis": [
+        "V022",
+        "V035",
+        "V036",
+        "V037",
+        "V038",
+        "V039",
+        "V040",
+        "V041",
+        "V042",
+        "V043",
+        "V044",
+        "V045",
+        "V046",
+        "V047",
+        "V048",
+        "V049",
+        "V050",
+        "V051",
+        "V052",
+        "V053",
+        "V054",
+        "V055",
+        "V056",
+        "V057",
+        "V058",
+        "V059",
+        "V060",
+        "V061",
+        "V062",
+        "V063",
+        "V064",
+        "V065",
+        "V066",
+        "V067",
+        "V068",
+        "V069",
+        "V070",
+        "V071",
+        "V072",
+        "V073",
+        "V074",
+        "V075",
+        "V076",
+        "V077",
+        "V078",
+        "V079",
+        "V080",
+        "V081",
+        "V082",
+        "V083",
+        "V084",
+        "V085",
+        "V086",
+        "V087",
+        "V088",
+        "V089",
+        "V090",
+        "V091",
+        "V092",
+        "V093",
+        "V094",
+        "V095",
+        "V096",
+        "V097",
+        "V098",
+        "V099",
+        "V100",
+        "V101",
+        "V102",
+        "V103",
+        "V104",
+        "V105",
+        "V106",
+        "V107",
+        "V108",
+        "V109",
+        "V110",
+        "V111",
+        "V112",
+        "V113",
+        "V114",
+        "V115",
+        "V116",
+        "V117",
+        "V118",
+        "V119",
+        "V120",
+        "V121",
+        "V122",
+        "V123",
+        "V124",
+        "V125",
+        "V126",
+        "V127",
+        "V128",
+        "V129",
+        "V130",
+        "V131",
+        "V132",
+        "V133",
+        "V134"
+      ],
+      "nota": "Idade simples: V022 (<1 ano) e V035-V134 (1 a 100+ anos). Não há grupos quinquenais no Pessoa13 (agregar). V023-V034 são meses dentro de V022 e foram excluídos para não contar em dobro."
+    },
+    "2022": {
+      "status": "existe com definição diferente",
+      "arquivo": "Agregados_por_setores_demografia.csv",
+      "variaveis": [
+        "V01031",
+        "V01032",
+        "V01033",
+        "V01034",
+        "V01035",
+        "V01036",
+        "V01037",
+        "V01038",
+        "V01039",
+        "V01040",
+        "V01041"
+      ],
+      "nota": "11 grupos: 0-4, 5-9, 10-14, 15-19, 20-24, 25-29, 30-39, 40-49, 50-59, 60-69, 70+. Decenais a partir de 30 e topo aberto em 70+ (2000: quinquenal até 80+; 2010: idade simples). Por sexo: V01009-V01030."
+    }
+  },
+  "dpp": {
+    "2000": {
+      "status": "existe",
+      "arquivo": "Domicilio_RS__DOMICILIO_RS.csv",
+      "variaveis": [
+        "V0003"
+      ],
+      "nota": "Domicílios particulares permanentes. Doc.: mesmos valores de V0402/V0621 (responsáveis), logo são os DPP ocupados.",
+      "complementos": [
+        {
+          "arquivo": "Basico_RS__BASICO_RS.csv",
+          "variaveis": [
+            "Var01"
+          ],
+          "papel": "alternativa idêntica (DPP ou responsáveis por DPP)"
+        }
+      ]
+    },
+    "2010": {
+      "status": "existe",
+      "arquivo": "Domicilio01_RS.csv",
+      "variaveis": [
+        "V002"
+      ],
+      "nota": "Domicílios particulares permanentes (ocupados; inclui fechados imputados).",
+      "complementos": [
+        {
+          "arquivo": "Basico_RS.csv",
+          "variaveis": [
+            "V001"
+          ],
+          "papel": "alternativa (DPP ou pessoas responsáveis por DPP)"
+        }
+      ]
+    },
+    "2022": {
+      "status": "existe",
+      "arquivo": "Agregados_por_setores_caracteristicas_domicilio1.csv",
+      "variaveis": [
+        "V00001"
+      ],
+      "nota": "Domicílios Particulares Permanentes Ocupados (DPPO), explícito. Atenção: básico v0007 = DPPO + DPIO (inclui improvisados) e v0003 inclui vagos e de uso ocasional.",
+      "complementos": [
+        {
+          "arquivo": "Agregados_por_setores_basico.csv",
+          "variaveis": [
+            "v0007"
+          ],
+          "papel": "NÃO equivalente: DPO = DPPO + DPIO"
+        }
+      ]
+    }
+  },
+  "moradores_por_domicilio": {
+    "2000": {
+      "status": "existe",
+      "arquivo": "Basico_RS__BASICO_RS.csv",
+      "variaveis": [
+        "Var01",
+        "Var12",
+        "Var13"
+      ],
+      "nota": "Var01 = DPP; Var12 = moradores em DPP; Var13 = média de moradores em DPP (Var12/Var01).",
+      "complementos": [
+        {
+          "arquivo": "Morador_RS__MORA_RS.csv",
+          "variaveis": [
+            "V0239"
+          ],
+          "papel": "alternativa idêntica a Var12"
+        }
+      ]
+    },
+    "2010": {
+      "status": "existe",
+      "arquivo": "Basico_RS.csv",
+      "variaveis": [
+        "V001",
+        "V002",
+        "V003"
+      ],
+      "nota": "V001 = DPP; V002 = moradores em DPP; V003 = média (V002/V001). V004 = variância.",
+      "complementos": [
+        {
+          "arquivo": "Domicilio02_RS.csv",
+          "variaveis": [
+            "V002"
+          ],
+          "papel": "alternativa a V002 (moradores em DPP)"
+        }
+      ]
+    },
+    "2022": {
+      "status": "existe",
+      "arquivo": "Agregados_por_setores_caracteristicas_domicilio1.csv",
+      "variaveis": [
+        "V00001",
+        "V00005"
+      ],
+      "nota": "V00001 = DPPO; V00005 = moradores em DPPO; média DPPO = V00005/V00001 (calcular). A média publicada no básico (v0005) é sobre DPO = DPPO + DPIO, universo diferente.",
+      "complementos": [
+        {
+          "arquivo": "Agregados_por_setores_basico.csv",
+          "variaveis": [
+            "v0005",
+            "v0007"
+          ],
+          "papel": "média publicada em DPO (DPPO + DPIO) e o total de DPO — universo diferente"
+        }
+      ]
+    }
+  },
+  "alfabetizacao": {
+    "2000": {
+      "status": "existe",
+      "arquivo": "Instrucao1_RS__INST1_RS.csv",
+      "variaveis": [
+        "V2248",
+        "V2249",
+        "V2326",
+        "V2327",
+        "V2328",
+        "V2329",
+        "V2330",
+        "V2331",
+        "V2332",
+        "V2333",
+        "V2334",
+        "V2335",
+        "V2336",
+        "V2337",
+        "V2338",
+        "V2339",
+        "V2340",
+        "V2341",
+        "V2418",
+        "V2419",
+        "V2420",
+        "V2421",
+        "V2422",
+        "V2423",
+        "V2424",
+        "V2425",
+        "V2426",
+        "V2427",
+        "V2428",
+        "V2429",
+        "V2430",
+        "V2431",
+        "V2432",
+        "V2433"
+      ],
+      "nota": "Pessoas de 5+ anos alfabetizadas (V2248) e não alfabetizadas (V2249); por grupos quinquenais 5-9 ... 80+ (alfab. V2326-V2341; não alfab. V2418-V2433). Permite recortar 15+.",
+      "complementos": [
+        {
+          "arquivo": "Responsavel1_RS__RESP1_RS.csv",
+          "variaveis": [
+            "V0509",
+            "V0525"
+          ],
+          "papel": "responsáveis por DPP alfabetizados / não alfabetizados (10+)"
+        }
+      ]
+    },
+    "2010": {
+      "status": "existe",
+      "arquivo": "Pessoa01_RS.csv",
+      "variaveis": [
+        "V001",
+        "V002",
+        "V003",
+        "V004",
+        "V005",
+        "V006",
+        "V007",
+        "V008",
+        "V009",
+        "V010",
+        "V011",
+        "V012",
+        "V013",
+        "V014",
+        "V015",
+        "V016",
+        "V017",
+        "V018",
+        "V019",
+        "V020",
+        "V021",
+        "V022",
+        "V023",
+        "V024",
+        "V025",
+        "V026",
+        "V027",
+        "V028",
+        "V029",
+        "V030",
+        "V031",
+        "V032",
+        "V033",
+        "V034",
+        "V035",
+        "V036",
+        "V037",
+        "V038",
+        "V039",
+        "V040",
+        "V041",
+        "V042",
+        "V043",
+        "V044",
+        "V045",
+        "V046",
+        "V047",
+        "V048",
+        "V049",
+        "V050",
+        "V051",
+        "V052",
+        "V053",
+        "V054",
+        "V055",
+        "V056",
+        "V057",
+        "V058",
+        "V059",
+        "V060",
+        "V061",
+        "V062",
+        "V063",
+        "V064",
+        "V065",
+        "V066",
+        "V067",
+        "V068",
+        "V069",
+        "V070",
+        "V071",
+        "V072",
+        "V073",
+        "V074",
+        "V075",
+        "V076",
+        "V077"
+      ],
+      "nota": "Só pessoas ALFABETIZADAS: 5+ (V001) e por idade simples 5 a 80+ (V002-V077). Não há \"não alfabetizados\": o denominador vem de Pessoa13 (idade simples). 15+ = soma V012-V077.",
+      "complementos": [
+        {
+          "arquivo": "Pessoa13_RS.csv",
+          "variaveis": [
+            "V039",
+            "V040",
+            "V041",
+            "V042",
+            "V043",
+            "V044",
+            "V045",
+            "V046",
+            "V047",
+            "V048",
+            "V049",
+            "V050",
+            "V051",
+            "V052",
+            "V053",
+            "V054",
+            "V055",
+            "V056",
+            "V057",
+            "V058",
+            "V059",
+            "V060",
+            "V061",
+            "V062",
+            "V063",
+            "V064",
+            "V065",
+            "V066",
+            "V067",
+            "V068",
+            "V069",
+            "V070",
+            "V071",
+            "V072",
+            "V073",
+            "V074",
+            "V075",
+            "V076",
+            "V077",
+            "V078",
+            "V079",
+            "V080",
+            "V081",
+            "V082",
+            "V083",
+            "V084",
+            "V085",
+            "V086",
+            "V087",
+            "V088",
+            "V089",
+            "V090",
+            "V091",
+            "V092",
+            "V093",
+            "V094",
+            "V095",
+            "V096",
+            "V097",
+            "V098",
+            "V099",
+            "V100",
+            "V101",
+            "V102",
+            "V103",
+            "V104",
+            "V105",
+            "V106",
+            "V107",
+            "V108",
+            "V109",
+            "V110",
+            "V111",
+            "V112",
+            "V113",
+            "V114",
+            "V115",
+            "V116",
+            "V117",
+            "V118",
+            "V119",
+            "V120",
+            "V121",
+            "V122",
+            "V123",
+            "V124",
+            "V125",
+            "V126",
+            "V127",
+            "V128",
+            "V129",
+            "V130",
+            "V131",
+            "V132",
+            "V133",
+            "V134"
+          ],
+          "papel": "denominador: pessoas de 5 a 100+ anos (15+ = V049-V134)"
+        },
+        {
+          "arquivo": "Pessoa01_RS.csv",
+          "variaveis": [
+            "V078"
+          ],
+          "papel": "responsáveis alfabetizados 10+ em domicílios particulares"
+        }
+      ]
+    },
+    "2022": {
+      "status": "existe com definição diferente",
+      "arquivo": "Agregados_por_setores_alfabetizacao.csv",
+      "variaveis": [
+        "V00900",
+        "V00901",
+        "V00644",
+        "V00645",
+        "V00646",
+        "V00647",
+        "V00648",
+        "V00649",
+        "V00650",
+        "V00651",
+        "V00652",
+        "V00653",
+        "V00654",
+        "V00655",
+        "V00656",
+        "V00748",
+        "V00749",
+        "V00750",
+        "V00751",
+        "V00752",
+        "V00753",
+        "V00754",
+        "V00755",
+        "V00756",
+        "V00757",
+        "V00758",
+        "V00759",
+        "V00760"
+      ],
+      "nota": "Universo só 15+: V00900/V00901 = 15+ sabe / não sabe ler e escrever; V00644-V00656 = pessoas por grupo de idade (15-19 ... 80+); V00748-V00760 = alfabetizadas por grupo. Não há 5-14 anos. Grupos 15-19..65-69 quinquenais, depois 70-79 e 80+.",
+      "complementos": [
+        {
+          "arquivo": "Agregados_por_setores_alfabetizacao.csv",
+          "variaveis": [
+            "V00984",
+            "V00985"
+          ],
+          "papel": "pessoa responsável 15+ sabe / não sabe ler e escrever"
+        }
+      ]
+    }
+  },
+  "rendimento_responsavel": {
+    "2000": {
+      "status": "existe",
+      "arquivo": "Responsavel1_RS__RESP1_RS.csv",
+      "variaveis": [
+        "V0602",
+        "V0603",
+        "V0604",
+        "V0605",
+        "V0606",
+        "V0607",
+        "V0608",
+        "V0609",
+        "V0610",
+        "V0611",
+        "V0612",
+        "V0613",
+        "V0614",
+        "V0615",
+        "V0616",
+        "V0617",
+        "V0618",
+        "V0619",
+        "V0620",
+        "V0621",
+        "V0622",
+        "V0623"
+      ],
+      "nota": "Responsáveis por DPP: 9 classes de rendimento nominal mensal em salários mínimos (SM = R$ 151,00, jul/2000) + sem rendimento (V0602-V0611); total de rendimento por classe em R$ (V0612-V0620); V0621 = responsáveis com ou sem rendimento; V0622 = com rendimento positivo; V0623 = total do rendimento (R$).",
+      "complementos": [
+        {
+          "arquivo": "Basico_RS__BASICO_RS.csv",
+          "variaveis": [
+            "Var01",
+            "Var02",
+            "Var03",
+            "Var04",
+            "Var05",
+            "Var06",
+            "Var07"
+          ],
+          "papel": "rendimento por responsável (Var03, inclui zeros), média dos com rendimento (Var06) e variâncias"
+        }
+      ]
+    },
+    "2010": {
+      "status": "existe",
+      "arquivo": "ResponsavelRenda_RS.csv",
+      "variaveis": [
+        "V001",
+        "V002",
+        "V003",
+        "V004",
+        "V005",
+        "V006",
+        "V007",
+        "V008",
+        "V009",
+        "V010",
+        "V011",
+        "V012",
+        "V013",
+        "V014",
+        "V015",
+        "V016",
+        "V017",
+        "V018",
+        "V019",
+        "V020",
+        "V021",
+        "V022"
+      ],
+      "nota": "Pessoas responsáveis: mesmas 9 classes em SM (SM = R$ 510,00) + sem rendimento (V001-V010); total de rendimento por classe em R$ (V011-V019); V020 = com ou sem rendimento; V021 = com rendimento positivo; V022 = total do rendimento (R$). Em Bagé V020 soma 38.513 vs 38.504 DPP: o universo parece ser responsáveis por domicílios particulares (não só DPP) — a confirmar.",
+      "complementos": [
+        {
+          "arquivo": "Basico_RS.csv",
+          "variaveis": [
+            "V005",
+            "V006",
+            "V007",
+            "V008"
+          ],
+          "papel": "rendimento nominal médio dos responsáveis por DPP com e sem rendimento (V005) e com rendimento (V007), mais variâncias"
+        }
+      ]
+    },
+    "2022": {
+      "status": "não existe",
+      "arquivo": null,
+      "variaveis": [],
+      "nota": "Não há tema de rendimento no dicionário 2022 (versão 20260520) nem arquivo na pasta; temas presentes: basico, demografia, alfabetizacao, cor_ou_raca, parentesco, obitos, caracteristicas_domicilio1-3 e PCT (indígenas/quilombolas)."
+    }
+  },
+  "cor_raca": {
+    "2000": {
+      "status": "não existe",
+      "arquivo": null,
+      "variaveis": [],
+      "nota": "Cor ou raça não faz parte do agregado do universo 2000 (nenhuma variável na Documentação; em 2000 o quesito era da amostra)."
+    },
+    "2010": {
+      "status": "existe",
+      "arquivo": "Pessoa03_RS.csv",
+      "variaveis": [
+        "V002",
+        "V003",
+        "V004",
+        "V005",
+        "V006"
+      ],
+      "nota": "Pessoas residentes: branca, preta, amarela, parda, indígena.",
+      "complementos": [
+        {
+          "arquivo": "Pessoa03_RS.csv",
+          "variaveis": [
+            "V001"
+          ],
+          "papel": "denominador: pessoas residentes"
+        }
+      ]
+    },
+    "2022": {
+      "status": "existe",
+      "arquivo": "Agregados_por_setores_cor_ou_raca.csv",
+      "variaveis": [
+        "V01317",
+        "V01318",
+        "V01319",
+        "V01320",
+        "V01321"
+      ],
+      "nota": "Mesmas 5 categorias: branca, preta, amarela, parda, indígena (moradores). Responsável por cor: V01332-V01336.",
+      "complementos": [
+        {
+          "arquivo": "Agregados_por_setores_basico.csv",
+          "variaveis": [
+            "v0001"
+          ],
+          "papel": "denominador: total de pessoas"
+        }
+      ]
+    }
+  },
+  "agua": {
+    "2000": {
+      "status": "existe com definição diferente",
+      "arquivo": "Domicilio_RS__DOMICILIO_RS.csv",
+      "variaveis": [
+        "V0018",
+        "V0019",
+        "V0020",
+        "V0021",
+        "V0022",
+        "V0023",
+        "V0024",
+        "V0025",
+        "V0026",
+        "V0027",
+        "V0028"
+      ],
+      "nota": "DPP: 3 formas (rede geral V0018; poço ou nascente na propriedade V0021; outra V0025), cada uma aberta por canalização (em pelo menos um cômodo / só na propriedade / não canalizada). Chuva e carro-pipa estão em \"outra\".",
+      "complementos": [
+        {
+          "arquivo": "Domicilio_RS__DOMICILIO_RS.csv",
+          "variaveis": [
+            "V0003"
+          ],
+          "papel": "denominador: DPP"
+        }
+      ]
+    },
+    "2010": {
+      "status": "existe com definição diferente",
+      "arquivo": "Domicilio01_RS.csv",
+      "variaveis": [
+        "V012",
+        "V013",
+        "V014",
+        "V015"
+      ],
+      "nota": "DPP: 4 formas: rede geral (V012), poço ou nascente na propriedade (V013), água da chuva armazenada em cisterna (V014, nova), outra (V015). Sem canalização.",
+      "complementos": [
+        {
+          "arquivo": "Domicilio01_RS.csv",
+          "variaveis": [
+            "V002"
+          ],
+          "papel": "denominador: DPP"
+        }
+      ]
+    },
+    "2022": {
+      "status": "existe com definição diferente",
+      "arquivo": "Agregados_por_setores_caracteristicas_domicilio2.csv",
+      "variaveis": [
+        "V00111",
+        "V00112",
+        "V00113",
+        "V00114",
+        "V00115",
+        "V00116",
+        "V00117",
+        "V00118",
+        "V00199",
+        "V00200",
+        "V00201",
+        "V00463",
+        "V00464"
+      ],
+      "nota": "DPPO: forma PRINCIPAL em 8 categorias (V00111-V00118: rede geral; poço profundo/artesiano; poço raso/freático/cacimba; fonte/nascente/mina; carro-pipa; chuva armazenada; rios/açudes/lagos; outra); canalização (V00199-V00201: até dentro da casa / só no terreno / não chega); ligação à rede (V00463: ligado mas usa principalmente outra forma; V00464: sem ligação).",
+      "complementos": [
+        {
+          "arquivo": "Agregados_por_setores_caracteristicas_domicilio1.csv",
+          "variaveis": [
+            "V00001"
+          ],
+          "papel": "denominador: DPPO"
+        }
+      ]
+    }
+  },
+  "esgoto": {
+    "2000": {
+      "status": "existe",
+      "arquivo": "Domicilio_RS__DOMICILIO_RS.csv",
+      "variaveis": [
+        "V0029",
+        "V0030",
+        "V0031",
+        "V0032",
+        "V0033",
+        "V0034",
+        "V0035",
+        "V0036"
+      ],
+      "nota": "DPP: com banheiro ou sanitário (V0029) e esgotamento via rede geral ou pluvial, fossa séptica, fossa rudimentar, vala, rio/lago/mar, outro escoadouro (V0030-V0035); sem banheiro nem sanitário (V0036).",
+      "complementos": [
+        {
+          "arquivo": "Domicilio_RS__DOMICILIO_RS.csv",
+          "variaveis": [
+            "V0003"
+          ],
+          "papel": "denominador: DPP"
+        }
+      ]
+    },
+    "2010": {
+      "status": "existe",
+      "arquivo": "Domicilio01_RS.csv",
+      "variaveis": [
+        "V016",
+        "V017",
+        "V018",
+        "V019",
+        "V020",
+        "V021",
+        "V022",
+        "V023"
+      ],
+      "nota": "Mesmas categorias de 2000 (V017-V022 + V023 sem banheiro nem sanitário; V016 = com banheiro ou sanitário), com \"banheiro de uso exclusivo dos moradores ou sanitário\".",
+      "complementos": [
+        {
+          "arquivo": "Domicilio01_RS.csv",
+          "variaveis": [
+            "V002"
+          ],
+          "papel": "denominador: DPP"
+        }
+      ]
+    },
+    "2022": {
+      "status": "existe com definição diferente",
+      "arquivo": "Agregados_por_setores_caracteristicas_domicilio2.csv",
+      "variaveis": [
+        "V00309",
+        "V00310",
+        "V00311",
+        "V00312",
+        "V00313",
+        "V00314",
+        "V00315",
+        "V00316"
+      ],
+      "nota": "DPPO: rede geral ou pluvial; fossa séptica ou fossa filtro LIGADA à rede; fossa séptica ou filtro NÃO ligada à rede; fossa rudimentar ou buraco; vala; rio/lago/córrego/mar; outra forma; inexistente (sem banheiro nem sanitário). A fossa séptica se divide em ligada / não ligada à rede e não há subtotal \"com banheiro ou sanitário\". Banheiros/sanitário: V00232-V00238.",
+      "complementos": [
+        {
+          "arquivo": "Agregados_por_setores_caracteristicas_domicilio1.csv",
+          "variaveis": [
+            "V00001"
+          ],
+          "papel": "denominador: DPPO"
+        }
+      ]
+    }
+  },
+  "lixo": {
+    "2000": {
+      "status": "existe",
+      "arquivo": "Domicilio_RS__DOMICILIO_RS.csv",
+      "variaveis": [
+        "V0048",
+        "V0049",
+        "V0050",
+        "V0051",
+        "V0052",
+        "V0053",
+        "V0054",
+        "V0055"
+      ],
+      "nota": "DPP: coletado (V0048 = V0049 + V0050), por serviço de limpeza, em caçamba, queimado, enterrado, jogado em terreno baldio ou logradouro, jogado em rio/lago/mar, outro destino.",
+      "complementos": [
+        {
+          "arquivo": "Domicilio_RS__DOMICILIO_RS.csv",
+          "variaveis": [
+            "V0003"
+          ],
+          "papel": "denominador: DPP"
+        }
+      ]
+    },
+    "2010": {
+      "status": "existe",
+      "arquivo": "Domicilio01_RS.csv",
+      "variaveis": [
+        "V035",
+        "V036",
+        "V037",
+        "V038",
+        "V039",
+        "V040",
+        "V041",
+        "V042"
+      ],
+      "nota": "Mesmas 8 variáveis e categorias de 2000 (V035 coletado ... V042 outro).",
+      "complementos": [
+        {
+          "arquivo": "Domicilio01_RS.csv",
+          "variaveis": [
+            "V002"
+          ],
+          "papel": "denominador: DPP"
+        }
+      ]
+    },
+    "2022": {
+      "status": "existe com definição diferente",
+      "arquivo": "Agregados_por_setores_caracteristicas_domicilio2.csv",
+      "variaveis": [
+        "V00397",
+        "V00398",
+        "V00399",
+        "V00400",
+        "V00401",
+        "V00402"
+      ],
+      "nota": "DPPO: coletado no domicílio por serviço de limpeza; depositado em caçamba; queimado; enterrado; jogado em terreno baldio, encosta ou área pública; outro destino. Não há \"jogado em rio, lago ou mar\" nem subtotal \"coletado\" (somar V00397 + V00398).",
+      "complementos": [
+        {
+          "arquivo": "Agregados_por_setores_caracteristicas_domicilio1.csv",
+          "variaveis": [
+            "V00001"
+          ],
+          "papel": "denominador: DPPO"
+        }
+      ]
+    }
+  },
+  "tipo_domicilio": {
+    "2000": {
+      "status": "existe com definição diferente",
+      "arquivo": "Domicilio_RS__DOMICILIO_RS.csv",
+      "variaveis": [
+        "V0006",
+        "V0007",
+        "V0008"
+      ],
+      "nota": "DPP por tipo: casa, apartamento, cômodo (casa de cômodos, cortiço, cabeça-de-porco). Não há \"casa de vila ou em condomínio\" (entra em casa). Improvisados à parte: V0004.",
+      "complementos": [
+        {
+          "arquivo": "Domicilio_RS__DOMICILIO_RS.csv",
+          "variaveis": [
+            "V0003"
+          ],
+          "papel": "denominador: DPP"
+        }
+      ]
+    },
+    "2010": {
+      "status": "existe com definição diferente",
+      "arquivo": "Domicilio01_RS.csv",
+      "variaveis": [
+        "V003",
+        "V004",
+        "V005"
+      ],
+      "nota": "DPP por tipo: casa, casa de vila ou em condomínio, apartamento. Não existe variável de cômodo no arquivo por setor: resíduo = V002 - (V003 + V004 + V005).",
+      "complementos": [
+        {
+          "arquivo": "Domicilio01_RS.csv",
+          "variaveis": [
+            "V002"
+          ],
+          "papel": "denominador: DPP"
+        }
+      ]
+    },
+    "2022": {
+      "status": "existe com definição diferente",
+      "arquivo": "Agregados_por_setores_caracteristicas_domicilio1.csv",
+      "variaveis": [
+        "V00047",
+        "V00048",
+        "V00049",
+        "V00050",
+        "V00051",
+        "V00052"
+      ],
+      "nota": "DPPO por \"tipo de espécie\": casa; casa de vila ou em condomínio; apartamento; habitação em casa de cômodos ou cortiço; habitação indígena sem paredes ou maloca; estrutura residencial permanente degradada ou inacabada. Improvisados: V00053-V00058; coletivos: V00059-V00069.",
+      "complementos": [
+        {
+          "arquivo": "Agregados_por_setores_caracteristicas_domicilio1.csv",
+          "variaveis": [
+            "V00001"
+          ],
+          "papel": "denominador: DPPO"
+        }
+      ]
+    }
+  }
+}
