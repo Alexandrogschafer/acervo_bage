@@ -2,8 +2,12 @@
 Baixa as malhas-base do IBGE para a UF do acervo:
 
     a) malha municipal, na edição MAIS RECENTE listada no geoftp;
-    b) malha de setores censitários do Censo 2022 (malha territorial, sem os
-       atributos do Censo).
+    b) malha municipal na edição do ANO DO CENSO (municipio_2022), só para
+       verificar a cobertura dos setores contra o limite da mesma época — não
+       vira camada;
+    c) malha de setores censitários do Censo 2022 (malha territorial, sem os
+       atributos do Censo);
+    d) malha oficial de distritos do Censo 2022.
 
 Destino: data/raw/vetor/ibge/<edicao>/<arquivo>, onde <edicao> é o nome do
 diretório da edição no geoftp (`municipio_2025`, `censo_2022`). Cada edição tem
@@ -32,7 +36,9 @@ IDEMPOTÊNCIA
 
 CATÁLOGO DE FONTES
 ------------------
-Cada produto tem um `id_fonte`. Se a linha não existe, é criada. Se existe com
+Cada produto tem um `id_fonte`. A malha municipal da edição mais recente usa
+`ibge_malhas_municipais` (a fonte da camada conferida `limite_municipal`); as
+demais edições usam `ibge_malhas_municipais_<ano>`. Se a linha não existe, é criada. Se existe com
 o mesmo sha256, fica intacta. Se existe com OUTRO sha256 (edição nova), o
 script avisa e não mexe nela: trocar a fonte de uma camada conferida é decisão
 do responsável, não efeito colateral de download.
@@ -144,7 +150,8 @@ def resolver_municipal(uf: str, ano: str | None) -> Produto:
     )
     if not edicoes:
         raise RuntimeError(f"nenhuma edição 'municipio_AAAA/' listada em {url}")
-    edicao = f"municipio_{ano}" if ano else edicoes[-1]
+    mais_recente = edicoes[-1]
+    edicao = f"municipio_{ano}" if ano else mais_recente
     if edicao not in edicoes:
         raise RuntimeError(f"edição {edicao} não listada. Disponíveis: {edicoes}")
     logger.info("malha municipal: edição %s (disponíveis: %s … %s)",
@@ -154,25 +161,34 @@ def resolver_municipal(uf: str, ano: str | None) -> Produto:
     url = entrar(url, "UFs/")
     url = entrar(url, f"{uf}/")
     arquivo = unico(url, rf"{uf}_Municipios_\d{{4}}\.zip")
+    ano_edicao = edicao.rsplit("_", 1)[-1]
     return Produto(
-        id_fonte="ibge_malhas_municipais",
+        id_fonte=("ibge_malhas_municipais" if edicao == mais_recente
+                  else f"ibge_malhas_municipais_{ano_edicao}"),
         nome=f"Malhas Territoriais — malhas municipais ({arquivo})",
         edicao=edicao, url=url + arquivo, arquivo=arquivo,
     )
 
 
-def resolver_setores(uf: str, edicao: str) -> Produto:
-    """Malha territorial de setores censitários da UF (GeoPackage)."""
+DESCRICOES_INTRAMUNICIPAIS = {
+    "setores": "Malhas de setores censitários — {edicao} "
+               "(malha territorial, sem atributos do Censo) ({arquivo})",
+    "distritos": "Malhas de distritos — {edicao} (malha oficial do IBGE) ({arquivo})",
+}
+
+
+def resolver_intramunicipal(uf: str, edicao: str, tipo: str) -> Produto:
+    """Malha intramunicipal da UF (GeoPackage): `tipo` é 'setores' ou 'distritos'."""
     url = entrar(raiz_malhas(), DIR_SETORES)
     url = entrar(url, f"{edicao}/")
-    for nivel in ("setores/", "gpkg/", "UF/", f"{uf}/"):
+    for nivel in (f"{tipo}/", "gpkg/", "UF/", f"{uf}/"):
         url = entrar(url, nivel)
     ano = edicao.rsplit("_", 1)[-1]
-    arquivo = unico(url, rf"{uf}_setores_CD{ano}\.gpkg")
+    arquivo = unico(url, rf"{uf}_{tipo}_CD{ano}\.gpkg")
     return Produto(
-        id_fonte=f"ibge_malha_setores_{ano}",
-        nome=f"Malhas de setores censitários — {edicao.replace('_', ' ')} "
-             f"(malha territorial, sem atributos do Censo) ({arquivo})",
+        id_fonte=f"ibge_malha_{tipo}_{ano}",
+        nome=DESCRICOES_INTRAMUNICIPAIS[tipo].format(
+            edicao=edicao.replace("_", " "), arquivo=arquivo),
         edicao=edicao, url=url + arquivo, arquivo=arquivo,
     )
 
@@ -315,9 +331,13 @@ def main() -> None:
     args = parser.parse_args()
 
     uf = paths.uf()
-    produtos = [
-        resolver_municipal(uf, args.edicao_municipal),
-        resolver_setores(uf, args.edicao_setores),
+    ano_censo = args.edicao_setores.rsplit("_", 1)[-1]
+    produtos = [resolver_municipal(uf, args.edicao_municipal)]
+    if produtos[0].edicao != f"municipio_{ano_censo}":
+        produtos.append(resolver_municipal(uf, ano_censo))
+    produtos += [
+        resolver_intramunicipal(uf, args.edicao_setores, "setores"),
+        resolver_intramunicipal(uf, args.edicao_setores, "distritos"),
     ]
 
     print()

@@ -4,23 +4,37 @@ Produz as camadas-base de setores e distritos do Censo 2022 em data/acervo/limit
     setores_2022    setores_ibge-censo_2022_setor-censitario.gpkg
                     setores do município, com TODOS os atributos originais
     distritos_2022  distritos_ibge-censo_2022_distrito.gpkg
-                    dissolução dos setores pelo código de distrito (CD_DIST),
-                    com código e nome do distrito
+                    malha OFICIAL de distritos do IBGE, com os atributos
+                    originais — desde que coincida com a dissolução dos setores
+                    (ver "DISTRITOS")
 
-Entrada: a malha bruta baixada por `scripts/download/baixar_malhas_ibge.py`
-(data/raw/vetor/ibge/<edicao>/<UF>_setores_CD2022.gpkg), conferida contra o
-sha256 do seu `.json` irmão. Município, UF e CRS vêm de `config/config.yaml`.
+Entradas: as malhas brutas baixadas por `scripts/download/baixar_malhas_ibge.py`
+em data/raw/vetor/ibge/<edicao>/, cada uma conferida contra o sha256 do seu
+`.json` irmão. Município, UF e CRS vêm de `config/config.yaml`.
 
 O limite municipal NÃO é produzido aqui: a camada canônica é `limite_municipal`
-(conferida, produzida por `scripts/download/vetor_ibge.py`), e ela é usada
-apenas como REFERÊNCIA nas verificações.
+(conferida, produzida por `scripts/download/vetor_ibge.py`), usada apenas como
+REFERÊNCIA nas verificações.
 
-VERIFICAÇÕES (relatadas e gravadas no `.json` irmão, nunca corrigidas):
-  - nenhum setor com geometria inválida (se houver, o script PARA sem gravar);
-  - a união dos setores coincide com `limite_municipal`: área da diferença
-    simétrica em m² e em % da área do município, separada em "setores fora do
-    limite" e "limite não coberto por setor";
-  - a soma das áreas dos distritos é igual à área do município.
+DISTRITOS
+---------
+Dado oficial tem prioridade. A malha oficial de distritos 2022 é comparada à
+dissolução dos setores 2022 por CD_DIST: códigos, nomes, área e diferença
+simétrica de cada distrito.
+  - Mesmos códigos e nomes e diferença simétrica < TOLERANCIA_DISTRITO_M2 em
+    TODOS os distritos: `distritos_2022` é gravada a partir da malha OFICIAL; a
+    dissolução fica só como verificação (observacoes + `.json`).
+  - Qualquer outra coisa: `distritos_2022` NÃO é tocada, a comparação vai para
+    docs/comparacoes/distritos_ibge_oficial_x_dissolucao.md e o script sai com
+    código 2, à espera de decisão do responsável.
+
+COBERTURA POR EDIÇÃO (relatada, nunca corrigida)
+------------------------------------------------
+A união dos setores é comparada ao limite do município em duas edições da
+malha municipal: a do ano do Censo (municipio_2022, só em data/raw/, não vira
+camada) e a canônica (`limite_municipal`, municipio_2025). Os setores NÃO são
+recortados por nenhuma das duas.
+
 Toda medição é feita no CRS de produção.
 
 STATUS: as camadas entram com status_conferencia=pendente e pode_publicar=false.
@@ -29,9 +43,8 @@ publica o que foi conferido no mapa (validar_catalogos.py). pode_publicar
 vira true na promoção, junto com status_conferencia=conferido.
 
 GeoPackage determinístico: `OGR_CURRENT_DATE` é fixado no Last-Modified da
-malha de origem, então a mesma entrada gera os mesmos bytes e o mesmo sha256
-em qualquer execução. Se o arquivo gerado for idêntico ao existente, nada é
-regravado (nem o `.json`, nem o catálogo).
+malha de origem, então a mesma entrada gera os mesmos bytes. Se o arquivo e o
+metadado gerados forem iguais aos existentes, nada é regravado.
 
 Uso:
     python scripts/processamento/limites_ibge.py
@@ -54,47 +67,55 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from scripts.utils import catalogo, metadados, nomes, paths  # noqa: E402
 from scripts.utils.hashes import sha256_arquivo  # noqa: E402
 
-EDICAO_SETORES = "censo_2022"
+EDICAO_CENSO = "censo_2022"
+ANO_CENSO = EDICAO_CENSO.rsplit("_", 1)[-1]
+EDICAO_MUNICIPAL_CENSO = f"municipio_{ANO_CENSO}"
 ID_LIMITE = "limite_municipal"
 LICENCA = "IBGE — uso livre com citação da fonte"
 TEMA = "limites"
+TOLERANCIA_DISTRITO_M2 = 1.0
 
 COL_MUN, COL_DIST, COL_NM_DIST = "CD_MUN", "CD_DIST", "NM_DIST"
+CAMINHO_COMPARACAO = ("comparacoes", "distritos_ibge_oficial_x_dissolucao.md")
 
 
 # --------------------------------------------------------------------------
 # entrada
 # --------------------------------------------------------------------------
 
-def carregar_setores() -> tuple[gpd.GeoDataFrame, dict, Path]:
-    """Setores do município, no CRS de produção, com todos os atributos.
+def carregar_bruto(edicao: str, padrao: str) -> tuple[gpd.GeoDataFrame, dict, Path]:
+    """Feições do município numa malha bruta, no CRS de produção.
+
+    Args:
+        edicao: subdiretório de data/raw/vetor/ibge/ (ex.: "censo_2022").
+        padrao: regex do nome do arquivo; exige exatamente um.
 
     Returns:
-        (setores, .json irmão da malha bruta, caminho da malha bruta)
+        (feições do município, .json irmão da malha bruta, caminho da malha)
     """
-    ano = EDICAO_SETORES.rsplit("_", 1)[-1]
-    bruto = paths.caminho("raw_vetor", "ibge", EDICAO_SETORES,
-                          f"{paths.uf()}_setores_CD{ano}.gpkg")
-    if not bruto.exists():
+    pasta = paths.caminho("raw_vetor", "ibge", edicao)
+    candidatos = [a for a in sorted(pasta.glob("*"))
+                  if re.fullmatch(padrao, a.name) and a.suffix != ".json"]
+    if len(candidatos) != 1:
         raise FileNotFoundError(
-            f"{paths.relativo(bruto)} não existe. "
-            "Rode antes: python scripts/download/baixar_malhas_ibge.py"
+            f"esperava 1 arquivo '{padrao}' em {paths.relativo(pasta)}, achei "
+            f"{[c.name for c in candidatos]}. Rode: python scripts/download/baixar_malhas_ibge.py"
         )
+    bruto = candidatos[0]
     meta = metadados.ler(bruto)
     if sha256_arquivo(bruto) != meta["sha256"]:
         raise RuntimeError(f"{paths.relativo(bruto)} não bate com o sha256 do seu .json.")
 
-    codigo = paths.codigo_ibge()
-    setores = gpd.read_file(bruto)
-    if COL_MUN not in setores.columns:
-        raise RuntimeError(f"coluna {COL_MUN} ausente em {bruto.name}: {list(setores.columns)}")
-    setores = setores[setores[COL_MUN].astype(str).str.strip() == codigo].copy()
-    if setores.empty:
-        raise RuntimeError(f"nenhum setor com {COL_MUN}={codigo} em {bruto.name}")
-    if setores.crs is None:
+    gdf = gpd.read_file(f"zip://{bruto}" if bruto.suffix == ".zip" else bruto)
+    if COL_MUN not in gdf.columns:
+        raise RuntimeError(f"coluna {COL_MUN} ausente em {bruto.name}: {list(gdf.columns)}")
+    if gdf.crs is None:
         raise RuntimeError(f"{bruto.name} não declara CRS.")
-    setores = setores.to_crs(paths.crs_producao()).reset_index(drop=True)
-    return setores, meta, bruto
+    codigo = paths.codigo_ibge()
+    gdf = gdf[gdf[COL_MUN].astype(str).str.strip() == codigo].copy()
+    if gdf.empty:
+        raise RuntimeError(f"nenhuma feição com {COL_MUN}={codigo} em {bruto.name}")
+    return gdf.to_crs(paths.crs_producao()).reset_index(drop=True), meta, bruto
 
 
 def carregar_limite() -> tuple[gpd.GeoDataFrame, dict]:
@@ -106,65 +127,135 @@ def carregar_limite() -> tuple[gpd.GeoDataFrame, dict]:
     return limite, linha
 
 
+def last_modified(meta: dict) -> datetime:
+    """Last-Modified da origem, gravado nas observações do `.json` da malha bruta."""
+    achado = re.search(r"Last-Modified da origem: ([^.]+GMT)", meta["observacoes"])
+    if not achado:
+        raise RuntimeError(f"Last-Modified ausente no .json de {meta['arquivo']}.")
+    return parsedate_to_datetime(achado.group(1)).astimezone(timezone.utc)
+
+
 # --------------------------------------------------------------------------
-# produtos
+# verificações
 # --------------------------------------------------------------------------
 
 def dissolver_distritos(setores: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
-    """Distritos = setores dissolvidos por CD_DIST (um nome por código, exigido)."""
+    """Setores dissolvidos por CD_DIST (um nome por código, exigido)."""
     nomes_por_codigo = setores.groupby(COL_DIST)[COL_NM_DIST].nunique()
     ambiguos = nomes_por_codigo[nomes_por_codigo > 1]
     if not ambiguos.empty:
         raise RuntimeError(f"CD_DIST com mais de um NM_DIST: {list(ambiguos.index)}")
-
-    distritos = (
-        setores[[COL_DIST, COL_NM_DIST, "CD_MUN", "NM_MUN", "geometry"]]
-        .dissolve(by=[COL_DIST, COL_NM_DIST, "CD_MUN", "NM_MUN"], as_index=False)
+    distritos = setores[[COL_DIST, COL_NM_DIST, "geometry"]].dissolve(
+        by=[COL_DIST, COL_NM_DIST], as_index=False
     )
     contagem = setores.groupby(COL_DIST).size().rename("N_SETORES")
     distritos = distritos.merge(contagem, left_on=COL_DIST, right_index=True)
     return distritos.sort_values(COL_DIST).reset_index(drop=True)
 
 
-def verificar(setores: gpd.GeoDataFrame, distritos: gpd.GeoDataFrame,
-              limite: gpd.GeoDataFrame) -> dict:
-    """Mede, sem corrigir, a coerência dos produtos com o limite municipal."""
-    mun = limite.geometry.iloc[0]
-    area_mun = mun.area
-    uniao = setores.geometry.union_all()
+def comparar_distritos(oficiais: gpd.GeoDataFrame, dissolvidos: gpd.GeoDataFrame) -> dict:
+    """Compara distrito a distrito a malha oficial com a dissolução dos setores."""
+    of = oficiais.set_index(COL_DIST)
+    di = dissolvidos.set_index(COL_DIST)
+    linhas = []
+    for codigo in sorted(set(of.index) | set(di.index)):
+        linha = {"cd_dist": codigo,
+                 "nm_oficial": of[COL_NM_DIST].get(codigo),
+                 "nm_dissolucao": di[COL_NM_DIST].get(codigo)}
+        if codigo in of.index and codigo in di.index:
+            g_of, g_di = of.geometry[codigo], di.geometry[codigo]
+            dif = g_of.symmetric_difference(g_di).area
+            linha.update(
+                area_oficial_m2=round(g_of.area, 2),
+                area_dissolucao_m2=round(g_di.area, 2),
+                n_setores=int(di["N_SETORES"][codigo]),
+                dif_simetrica_m2=round(dif, 4),
+                dif_simetrica_pct=round(dif / g_of.area * 100, 8),
+            )
+        linhas.append(linha)
 
-    fora = uniao.difference(mun).area
-    descoberto = mun.difference(uniao).area
-    simetrica = uniao.symmetric_difference(mun).area
-    soma_setores = float(setores.geometry.area.sum())
-    soma_distritos = float(distritos.geometry.area.sum())
-
+    so_oficial = sorted(set(of.index) - set(di.index))
+    so_dissolucao = sorted(set(di.index) - set(of.index))
+    nomes_divergentes = [l["cd_dist"] for l in linhas
+                         if l["nm_oficial"] and l["nm_dissolucao"]
+                         and l["nm_oficial"] != l["nm_dissolucao"]]
+    acima = [l["cd_dist"] for l in linhas
+             if l.get("dif_simetrica_m2", float("inf")) >= TOLERANCIA_DISTRITO_M2]
     return {
-        "crs_medicao": paths.crs_producao(),
-        "referencia": ID_LIMITE,
-        "n_setores": int(len(setores)),
-        "n_distritos": int(len(distritos)),
-        "setores_invalidos": int((~setores.is_valid).sum()),
-        "distritos_invalidos": int((~distritos.is_valid).sum()),
-        "area_municipio_m2": round(area_mun, 2),
-        "area_uniao_setores_m2": round(uniao.area, 2),
-        "cobertura_diferenca_simetrica_m2": round(simetrica, 2),
-        "cobertura_diferenca_simetrica_pct": round(simetrica / area_mun * 100, 6),
-        "cobertura_setores_fora_do_limite_m2": round(fora, 2),
-        "cobertura_limite_nao_coberto_m2": round(descoberto, 2),
-        "sobreposicao_entre_setores_m2": round(soma_setores - uniao.area, 2),
-        "soma_areas_distritos_m2": round(soma_distritos, 2),
-        "soma_distritos_menos_municipio_m2": round(soma_distritos - area_mun, 2),
-        "soma_distritos_menos_municipio_pct": round((soma_distritos - area_mun) / area_mun * 100, 6),
+        "n_oficial": int(len(of)),
+        "n_dissolucao": int(len(di)),
+        "so_na_oficial": so_oficial,
+        "so_na_dissolucao": so_dissolucao,
+        "nomes_divergentes": nomes_divergentes,
+        "tolerancia_m2": TOLERANCIA_DISTRITO_M2,
+        "acima_da_tolerancia": acima,
+        "coincidem": not (so_oficial or so_dissolucao or nomes_divergentes or acima),
+        "distritos": linhas,
     }
+
+
+def cobertura(setores: gpd.GeoDataFrame, limite, rotulo: str) -> dict:
+    """União dos setores x um limite municipal: diferença simétrica e suas partes."""
+    uniao = setores.geometry.union_all()
+    area = limite.area
+    simetrica = uniao.symmetric_difference(limite).area
+    return {
+        "referencia": rotulo,
+        "area_municipio_m2": round(area, 2),
+        "area_uniao_setores_m2": round(uniao.area, 2),
+        "diferenca_simetrica_m2": round(simetrica, 2),
+        "diferenca_simetrica_pct": round(simetrica / area * 100, 6),
+        "setores_fora_do_limite_m2": round(uniao.difference(limite).area, 2),
+        "limite_nao_coberto_m2": round(limite.difference(uniao).area, 2),
+    }
+
+
+def escrever_comparacao(comp: dict) -> Path:
+    """Relatório markdown da comparação, para decisão do responsável."""
+    destino = paths.caminho("docs", *CAMINHO_COMPARACAO)
+    destino.parent.mkdir(parents=True, exist_ok=True)
+    linhas = [
+        "# Distritos 2022 — malha oficial do IBGE × dissolução dos setores",
+        "",
+        f"Gerado por `scripts/processamento/limites_ibge.py` em "
+        f"{datetime.now().astimezone().isoformat(timespec='seconds')}. Município "
+        f"{paths.nome_municipio()}/{paths.uf()} ({paths.codigo_ibge()}); medições em "
+        f"{paths.crs_producao()}.",
+        "",
+        f"**As camadas NÃO coincidem** (tolerância: < {TOLERANCIA_DISTRITO_M2} m² de "
+        "diferença simétrica por distrito). `distritos_2022` não foi alterada; a "
+        "escolha da camada canônica fica com o responsável.",
+        "",
+        f"- distritos na oficial: {comp['n_oficial']}; na dissolução: {comp['n_dissolucao']}",
+        f"- só na oficial: {comp['so_na_oficial'] or '—'}",
+        f"- só na dissolução: {comp['so_na_dissolucao'] or '—'}",
+        f"- nomes divergentes: {comp['nomes_divergentes'] or '—'}",
+        f"- acima da tolerância: {comp['acima_da_tolerancia'] or '—'}",
+        "",
+        "| CD_DIST | nome (oficial) | nome (dissolução) | área oficial (km²) | "
+        "área dissolução (km²) | dif. simétrica (m²) | dif. (%) |",
+        "| --- | --- | --- | ---: | ---: | ---: | ---: |",
+    ]
+    for l in comp["distritos"]:
+        km2 = lambda c: f"{l[c] / 1e6:,.4f}" if c in l else "—"  # noqa: E731
+        linhas.append(
+            f"| {l['cd_dist']} | {l['nm_oficial'] or '—'} | {l['nm_dissolucao'] or '—'} | "
+            f"{km2('area_oficial_m2')} | {km2('area_dissolucao_m2')} | "
+            f"{l.get('dif_simetrica_m2', '—')} | {l.get('dif_simetrica_pct', '—')} |"
+        )
+    destino.write_text("\n".join(linhas) + "\n", encoding="utf-8")
+    return destino
 
 
 # --------------------------------------------------------------------------
 # gravação idempotente + rastro
 # --------------------------------------------------------------------------
 
-def gravar(gdf: gpd.GeoDataFrame, destino: Path, camada: str) -> bool:
+def gravar(gdf: gpd.GeoDataFrame, destino: Path, camada: str, carimbo: datetime) -> bool:
     """Grava o GeoPackage; devolve False se o resultado é idêntico ao existente."""
+    pyogrio.set_gdal_config_options(
+        {"OGR_CURRENT_DATE": carimbo.strftime("%Y-%m-%dT%H:%M:%S.000Z")}
+    )
     destino.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=destino.parent) as tmp:
         novo = Path(tmp) / destino.name
@@ -175,30 +266,28 @@ def gravar(gdf: gpd.GeoDataFrame, destino: Path, camada: str) -> bool:
     return True
 
 
-def registrar(destino: Path, id_camada: str, descricao: str, meta_bruto: dict,
-              verificacoes: dict) -> None:
-    """`.json` irmão + linha no catálogo de camadas."""
-    resumo = (
-        f"cobertura vs {ID_LIMITE}: dif. simétrica "
-        f"{verificacoes['cobertura_diferenca_simetrica_m2']:,.0f} m² "
-        f"({verificacoes['cobertura_diferenca_simetrica_pct']:.4f}%); "
-        f"soma distritos - município {verificacoes['soma_distritos_menos_municipio_m2']:,.0f} m²"
-    )
-    observacoes = (
-        f"{descricao} Malha territorial de setores do IBGE ({EDICAO_SETORES}, "
-        f"{meta_bruto['url_origem']}), recorte {COL_MUN}={paths.codigo_ibge()}, reprojetada para {paths.crs_producao()}. {resumo}. "
-        "pode_publicar=false só até a conferência visual: a fonte autoriza "
+def registrar(destino: Path, id_camada: str, meta_bruto: dict, observacoes: str,
+              verificacoes: dict) -> bool:
+    """`.json` irmão + linha no catálogo. Devolve False se nada mudou."""
+    observacoes += (
+        " pode_publicar=false só até a conferência visual: a fonte autoriza "
         "(autorizacao_fonte=true); vira true na promoção. Citar: IBGE, Censo 2022. "
         "Script: scripts/processamento/limites_ibge.py."
     )
     dados = metadados.montar(
-        destino, tema=TEMA, fonte_id=meta_bruto["fonte_id"], versao=EDICAO_SETORES,
+        destino, tema=TEMA, fonte_id=meta_bruto["fonte_id"], versao=EDICAO_CENSO,
         crs=paths.crs_producao(), licenca=LICENCA, autorizacao_fonte=True,
         pode_publicar=False, status_conferencia="pendente", observacoes=observacoes,
     )
-    dados["edicao"] = EDICAO_SETORES
+    dados["edicao"] = EDICAO_CENSO
     dados["url_origem"] = meta_bruto["url_origem"]
     dados["verificacoes"] = verificacoes
+
+    if metadados.caminho_irmao(destino).exists():
+        atual = metadados.ler(destino)
+        if {k: v for k, v in atual.items() if k != "data_producao"} == \
+                {k: v for k, v in dados.items() if k != "data_producao"}:
+            return False
     metadados.escrever(destino, dados, sobrescrever=True)
 
     catalogo.upsert("catalogo_camadas", "id_camada", [{
@@ -206,7 +295,7 @@ def registrar(destino: Path, id_camada: str, descricao: str, meta_bruto: dict,
         "tema": TEMA,
         "arquivo": paths.relativo(destino),
         "fonte_id": meta_bruto["fonte_id"],
-        "versao": EDICAO_SETORES,
+        "versao": EDICAO_CENSO,
         "crs": paths.crs_producao(),
         "data_producao": datetime.now(timezone.utc).astimezone().date().isoformat(),
         "sha256": dados["sha256"],
@@ -216,11 +305,33 @@ def registrar(destino: Path, id_camada: str, descricao: str, meta_bruto: dict,
         "pode_publicar": "false",
         "observacoes": observacoes,
     }])
+    return True
+
+
+def destino_de(tema_nome: str, resolucao: str) -> Path:
+    return paths.caminho(
+        "acervo_limites", nomes.montar(tema_nome, "ibge-censo", ANO_CENSO, resolucao, "gpkg")
+    )
+
+
+def _cob_texto(c: dict) -> str:
+    return (f"{c['referencia']}: {c['diferenca_simetrica_m2']:,.0f} m² "
+            f"({c['diferenca_simetrica_pct']:.4f}%; setores fora "
+            f"{c['setores_fora_do_limite_m2']:,.0f} m², limite descoberto "
+            f"{c['limite_nao_coberto_m2']:,.0f} m²)")
 
 
 def main() -> None:
-    setores, meta_bruto, bruto = carregar_setores()
-    limite, _ = carregar_limite()
+    uf = paths.uf()
+    setores, meta_setores, bruto_setores = carregar_bruto(
+        EDICAO_CENSO, rf"{uf}_setores_CD{ANO_CENSO}\.gpkg")
+    oficiais, meta_distritos, bruto_distritos = carregar_bruto(
+        EDICAO_CENSO, rf"{uf}_distritos_CD{ANO_CENSO}\.gpkg")
+    mun_censo, meta_mun_censo, _ = carregar_bruto(
+        EDICAO_MUNICIPAL_CENSO, rf"{uf}_Municipios_{ANO_CENSO}\.zip")
+    limite, linha_limite = carregar_limite()
+    if len(mun_censo) != 1:
+        raise RuntimeError(f"malha {EDICAO_MUNICIPAL_CENSO}: esperava 1 feição, achei {len(mun_censo)}")
 
     invalidos = setores[~setores.is_valid]
     if not invalidos.empty:
@@ -228,57 +339,108 @@ def main() -> None:
             f"{len(invalidos)} setor(es) inválido(s): {list(invalidos['CD_SETOR'])}. "
             "Nada foi gravado — a correção é decisão do responsável."
         )
-    distritos = dissolver_distritos(setores)
-    verificacoes = verificar(setores, distritos, limite)
-    if verificacoes["distritos_invalidos"]:
-        raise SystemExit("dissolução gerou distrito inválido. Nada foi gravado.")
+    if not oficiais.is_valid.all():
+        raise SystemExit("malha oficial de distritos tem geometria inválida. Nada foi gravado.")
 
-    # GPKG determinístico: last_change fixado no Last-Modified da origem
-    lm = re.search(r"Last-Modified da origem: ([^.]+GMT)", meta_bruto["observacoes"])
-    if not lm:
-        raise RuntimeError("Last-Modified da origem ausente no .json da malha bruta.")
-    carimbo = parsedate_to_datetime(lm.group(1)).astimezone(timezone.utc)
-    pyogrio.set_gdal_config_options(
-        {"OGR_CURRENT_DATE": carimbo.strftime("%Y-%m-%dT%H:%M:%S.000Z")}
-    )
-
-    ano = EDICAO_SETORES.rsplit("_", 1)[-1]
-    produtos = [
-        ("setores_2022", "setores", "setor-censitario", setores,
-         f"Setores censitários de {paths.nome_municipio()}/{paths.uf()} com todos os "
-         "atributos originais."),
-        ("distritos_2022", "distritos", "distrito", distritos,
-         f"Distritos de {paths.nome_municipio()}/{paths.uf()}: dissolução dos setores "
-         f"por {COL_DIST}, com {COL_DIST}, {COL_NM_DIST} e N_SETORES."),
+    # ---- setores: cobertura por edição -------------------------------------
+    edicao_limite = re.search(r"/(municipio_\d{4})/", metadados.ler(
+        paths.RAIZ / linha_limite["arquivo"]).get("url_origem", ""))
+    rotulo_limite = f"{edicao_limite.group(1) if edicao_limite else '?'} ({ID_LIMITE})"
+    coberturas = [
+        cobertura(setores, mun_censo.geometry.iloc[0], f"{EDICAO_MUNICIPAL_CENSO} (data/raw)"),
+        cobertura(setores, limite.geometry.iloc[0], rotulo_limite),
     ]
-    print()
-    for id_camada, tema_nome, resolucao, gdf, descricao in produtos:
-        destino = paths.caminho(
-            "acervo_limites", nomes.montar(tema_nome, "ibge-censo", ano, resolucao, "gpkg")
-        )
-        mudou = gravar(gdf, destino, id_camada)
-        if mudou or not metadados.caminho_irmao(destino).exists():
-            registrar(destino, id_camada, descricao, meta_bruto, verificacoes)
-        print(f"{id_camada:<15} {paths.relativo(destino)} "
-              f"({len(gdf)} feições; {'gravado' if mudou else 'sem mudança'})")
+    uniao = setores.geometry.union_all()
+    verif_setores = {
+        "crs_medicao": paths.crs_producao(),
+        "n_setores": int(len(setores)),
+        "setores_invalidos": 0,
+        "sobreposicao_entre_setores_m2": round(float(setores.area.sum()) - uniao.area, 2),
+        "cobertura_por_edicao": coberturas,
+        "recorte_aplicado": "nenhum — setores não são recortados por limite algum",
+    }
+    obs_setores = (
+        f"Setores censitários de {paths.nome_municipio()}/{uf} com todos os atributos "
+        f"originais. Malha territorial de setores do IBGE ({EDICAO_CENSO}, "
+        f"{meta_setores['url_origem']}), recorte {COL_MUN}={paths.codigo_ibge()}, "
+        f"reprojetada para {paths.crs_producao()}. Cobertura da união dos setores "
+        f"(diferença simétrica, sem recorte) — {_cob_texto(coberturas[0])}; "
+        f"{_cob_texto(coberturas[1])}."
+    )
+    destino_setores = destino_de("setores", "setor-censitario")
+    gravou_setores = gravar(setores, destino_setores, "setores_2022", last_modified(meta_setores))
+    registrou_setores = registrar(destino_setores, "setores_2022", meta_setores,
+                                  obs_setores, verif_setores)
 
-    v = verificacoes
+    # ---- distritos: oficial x dissolução -----------------------------------
+    dissolvidos = dissolver_distritos(setores)
+    comp = comparar_distritos(oficiais, dissolvidos)
+
     print()
-    print(f"entrada ............... {paths.relativo(bruto)}")
-    print(f"setores ............... {v['n_setores']} (inválidos: {v['setores_invalidos']})")
-    print(f"distritos ............. {v['n_distritos']}")
-    for _, d in distritos.iterrows():
-        print(f"    {d[COL_DIST]}  {d[COL_NM_DIST]:<14} {d['N_SETORES']:>4} setores  "
-              f"{d.geometry.area / 1e6:>10,.3f} km²")
-    print(f"área do município ..... {v['area_municipio_m2'] / 1e6:,.3f} km² ({ID_LIMITE})")
-    print(f"união dos setores ..... {v['area_uniao_setores_m2'] / 1e6:,.3f} km²")
-    print(f"dif. simétrica ........ {v['cobertura_diferenca_simetrica_m2']:,.1f} m² "
-          f"({v['cobertura_diferenca_simetrica_pct']:.4f}%)")
-    print(f"  setores fora ........ {v['cobertura_setores_fora_do_limite_m2']:,.1f} m²")
-    print(f"  limite descoberto ... {v['cobertura_limite_nao_coberto_m2']:,.1f} m²")
-    print(f"sobreposição setores .. {v['sobreposicao_entre_setores_m2']:,.1f} m²")
-    print(f"Σ distritos − município {v['soma_distritos_menos_municipio_m2']:,.1f} m² "
-          f"({v['soma_distritos_menos_municipio_pct']:.4f}%)")
+    print(f"setores_2022    {paths.relativo(destino_setores)} ({len(setores)} feições; "
+          f"{'gravado' if gravou_setores or registrou_setores else 'sem mudança'})")
+
+    destino_distritos = destino_de("distritos", "distrito")
+    if not comp["coincidem"]:
+        relatorio = escrever_comparacao(comp)
+        _imprimir(comp, coberturas)
+        raise SystemExit(
+            f"\nDISTRITOS: malha oficial e dissolução NÃO coincidem. distritos_2022 não "
+            f"foi alterada. Comparação em {paths.relativo(relatorio)} — decisão do responsável."
+        )
+
+    oficiais = oficiais.sort_values(COL_DIST).reset_index(drop=True)
+    soma = float(oficiais.area.sum())
+    area_limite = limite.geometry.iloc[0].area
+    verif_distritos = {
+        "crs_medicao": paths.crs_producao(),
+        "n_distritos": int(len(oficiais)),
+        "origem": "malha oficial de distritos do IBGE",
+        "comparacao_com_dissolucao_dos_setores": comp,
+        "soma_areas_distritos_m2": round(soma, 2),
+        "soma_distritos_menos_limite_municipal_m2": round(soma - area_limite, 2),
+        "soma_distritos_menos_limite_municipal_pct": round((soma - area_limite) / area_limite * 100, 6),
+    }
+    max_dif = max(l["dif_simetrica_m2"] for l in comp["distritos"])
+    obs_distritos = (
+        f"Distritos de {paths.nome_municipio()}/{uf}: malha OFICIAL de distritos do IBGE "
+        f"({EDICAO_CENSO}, {meta_distritos['url_origem']}), recorte "
+        f"{COL_MUN}={paths.codigo_ibge()}, atributos originais, reprojetada para "
+        f"{paths.crs_producao()}. Verificação: a dissolução dos setores 2022 por "
+        f"{COL_DIST} tem os mesmos {comp['n_oficial']} códigos e nomes e diferença "
+        f"simétrica máxima de {max_dif:.4f} m² por distrito (tolerância "
+        f"< {TOLERANCIA_DISTRITO_M2} m²). Soma das áreas − {ID_LIMITE}: "
+        f"{soma - area_limite:,.0f} m²."
+    )
+    gravou_distritos = gravar(oficiais, destino_distritos, "distritos_2022",
+                              last_modified(meta_distritos))
+    registrou_distritos = registrar(destino_distritos, "distritos_2022", meta_distritos,
+                                    obs_distritos, verif_distritos)
+    print(f"distritos_2022  {paths.relativo(destino_distritos)} ({len(oficiais)} feições, "
+          f"OFICIAL; {'gravado' if gravou_distritos or registrou_distritos else 'sem mudança'})")
+    print(f"\nentradas: {paths.relativo(bruto_setores)}, {paths.relativo(bruto_distritos)}, "
+          f"{meta_mun_censo['arquivo']}")
+    _imprimir(comp, coberturas)
+
+
+def _imprimir(comp: dict, coberturas: list[dict]) -> None:
+    print("\nDistritos — oficial × dissolução dos setores")
+    print(f"  {'CD_DIST':<10} {'nome oficial':<14} {'nome dissol.':<14} {'setores':>7} "
+          f"{'km² oficial':>12} {'km² dissol.':>12} {'dif. m²':>9} {'dif. %':>10}")
+    for l in comp["distritos"]:
+        print(f"  {l['cd_dist']:<10} {str(l['nm_oficial']):<14} {str(l['nm_dissolucao']):<14} "
+              f"{l.get('n_setores', '—'):>7} "
+              f"{l.get('area_oficial_m2', float('nan')) / 1e6:>12,.4f} "
+              f"{l.get('area_dissolucao_m2', float('nan')) / 1e6:>12,.4f} "
+              f"{l.get('dif_simetrica_m2', float('nan')):>9,.4f} "
+              f"{l.get('dif_simetrica_pct', float('nan')):>10.6f}")
+    print(f"  coincidem: {comp['coincidem']}")
+    print("\nCobertura da união dos setores (sem recorte)")
+    for c in coberturas:
+        print(f"  {c['referencia']:<34} área mun. {c['area_municipio_m2'] / 1e6:>10,.3f} km²  "
+              f"dif. simétrica {c['diferenca_simetrica_m2']:>13,.1f} m² "
+              f"({c['diferenca_simetrica_pct']:.4f}%)  fora {c['setores_fora_do_limite_m2']:>12,.1f}  "
+              f"descoberto {c['limite_nao_coberto_m2']:>12,.1f}")
 
 
 if __name__ == "__main__":

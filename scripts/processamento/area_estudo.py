@@ -102,11 +102,13 @@ def main() -> None:
         )
         sha_novo = sha256_arquivo(novo)
 
-        origem_registrada = None
+        meta_atual = {}
         if destino.exists() and metadados.caminho_irmao(destino).exists():
-            origem_registrada = metadados.ler(destino).get("camada_origem", {}).get("sha256")
-        if (destino.exists() and sha256_arquivo(destino) == sha_novo
-                and origem_registrada == linha["sha256"]):
+            meta_atual = metadados.ler(destino)
+        coerente = not (meta_atual.get("pode_publicar")
+                        and meta_atual.get("status_conferencia") != "conferido")
+        if (destino.exists() and sha256_arquivo(destino) == sha_novo and coerente
+                and meta_atual.get("camada_origem", {}).get("sha256") == linha["sha256"]):
             print(f"sem mudança: {paths.relativo(destino)} já corresponde a "
                   f"{ID_CAMADA_ORIGEM} ({linha['sha256'][:12]}…)")
             return
@@ -126,15 +128,20 @@ def main() -> None:
         crs=paths.crs_publicacao(),
         licenca=linha["licenca"],
         autorizacao_fonte=True,
-        pode_publicar=linha["pode_publicar"].strip().lower() == "true",
+        # mesma regra do validador: nada pendente é publicável. Quando o
+        # responsável conferir no mapa, status vira "conferido" e pode_publicar
+        # passa a valer o da camada de origem.
+        pode_publicar=False,
         status_conferencia="pendente",
         observacoes=(
             f"Área de estudo do acervo = limite municipal exato de "
             f"{paths.nome_municipio()}/{paths.uf()}, sem buffer. Derivada de "
             f"'{ID_CAMADA_ORIGEM}' só por reprojeção {paths.crs_producao()} -> "
             f"{paths.crs_publicacao()} (RFC 7946). Não é camada do catálogo. "
-            "pode_publicar herdado da camada de origem; status 'pendente' porque "
-            "este arquivo reprojetado ainda não foi aberto no mapa."
+            "Status 'pendente' porque este arquivo reprojetado ainda não foi aberto "
+            "no mapa; por isso pode_publicar=false, embora a camada de origem seja "
+            f"pode_publicar={linha['pode_publicar'].strip().lower()}. Na conferência, "
+            "pode_publicar passa a valer o da origem."
         ),
     )
     dados["edicao"] = edicao

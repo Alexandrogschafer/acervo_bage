@@ -89,7 +89,7 @@ python scripts/utils/testar_validador.py  # controles do validador
 python scripts/utils/verificar_publicacao.py   # barreira, fora do hook
 
 python scripts/download/vetor_ibge.py     # limite municipal (IBGE, geoftp) — camada limite_municipal
-python scripts/download/baixar_malhas_ibge.py   # malhas brutas: municipal (mais recente) + setores 2022
+python scripts/download/baixar_malhas_ibge.py   # malhas brutas: municipal (mais recente e 2022) + setores e distritos 2022
 python scripts/processamento/area_estudo.py     # config/area_estudo.geojson a partir de limite_municipal
 python scripts/processamento/limites_ibge.py    # setores_2022 e distritos_2022 em data/acervo/limites/
 python scripts/geoportal/exportar_limite_municipal.py

@@ -17,6 +17,8 @@ Uso:
 from __future__ import annotations
 
 import csv
+import json
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -43,12 +45,12 @@ def escrever(caminho: Path, campos: list[str], linhas: list[dict]) -> Path:
     return caminho
 
 
-def rodar(fontes: Path, camadas: Path) -> tuple[int, str]:
-    processo = subprocess.run(
-        [sys.executable, str(VALIDADOR), "--fontes", str(fontes),
-         "--camadas", str(camadas), "--bib", str(CAMINHO_BIB), "--raiz", str(RAIZ_PROJETO)],
-        capture_output=True, text=True,
-    )
+def rodar(fontes: Path, camadas: Path, area_estudo: Path | None = None) -> tuple[int, str]:
+    comando = [sys.executable, str(VALIDADOR), "--fontes", str(fontes),
+               "--camadas", str(camadas), "--bib", str(CAMINHO_BIB), "--raiz", str(RAIZ_PROJETO)]
+    if area_estudo is not None:
+        comando += ["--area-estudo", str(area_estudo)]
+    processo = subprocess.run(comando, capture_output=True, text=True)
     return processo.returncode, processo.stdout + processo.stderr
 
 
@@ -94,6 +96,18 @@ def main() -> None:
         rc, saida = rodar(arquivo_c, CAMINHO_CAMADAS)
         resultados.append(("NEGATIVO C: camada publicada com fonte sem licença", "falhar (rc=1)",
                            rc == 1 and "não tem licença declarada" in saida, rc, saida))
+
+        # (D) área de estudo marcada publicável sem ter sido conferida
+        area = RAIZ_PROJETO / "config" / "area_estudo.geojson"
+        area_d = tmp / "area_estudo.geojson"
+        shutil.copy2(area, area_d)
+        meta_d = json.loads(area.with_suffix(".json").read_text(encoding="utf-8"))
+        meta_d.update(pode_publicar=True, status_conferencia="pendente")
+        area_d.with_suffix(".json").write_text(json.dumps(meta_d), encoding="utf-8")
+        rc, saida = rodar(CAMINHO_FONTES, CAMINHO_CAMADAS, area_d)
+        resultados.append(("NEGATIVO D: área de estudo publicável e pendente", "falhar (rc=1)",
+                           rc == 1 and "área de estudo" in saida and "pode_publicar=true" in saida,
+                           rc, saida))
 
     print("=" * 78)
     print("CONTROLES DO VALIDADOR DE CATÁLOGOS")

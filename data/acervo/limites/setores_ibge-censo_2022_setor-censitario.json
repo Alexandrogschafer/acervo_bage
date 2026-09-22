@@ -3,11 +3,11 @@
   "autorizacao_fonte": true,
   "campos_removidos": [],
   "crs": "EPSG:31981",
-  "data_producao": "2026-09-22T09:02:52.918990-03:00",
+  "data_producao": "2026-09-22T09:28:25.718160-03:00",
   "edicao": "censo_2022",
   "fonte_id": "ibge_malha_setores_2022",
   "licenca": "IBGE — uso livre com citação da fonte",
-  "observacoes": "Setores censitários de Bagé/RS com todos os atributos originais. Malha territorial de setores do IBGE (censo_2022, https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_de_setores_censitarios__divisoes_intramunicipais/censo_2022/setores/gpkg/UF/RS/RS_setores_CD2022.gpkg), recorte CD_MUN=4301602, reprojetada para EPSG:31981. cobertura vs limite_municipal: dif. simétrica 3,055,776 m² (0.0746%); soma distritos - município -1,196,834 m². pode_publicar=false só até a conferência visual: a fonte autoriza (autorizacao_fonte=true); vira true na promoção. Citar: IBGE, Censo 2022. Script: scripts/processamento/limites_ibge.py.",
+  "observacoes": "Setores censitários de Bagé/RS com todos os atributos originais. Malha territorial de setores do IBGE (censo_2022, https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_de_setores_censitarios__divisoes_intramunicipais/censo_2022/setores/gpkg/UF/RS/RS_setores_CD2022.gpkg), recorte CD_MUN=4301602, reprojetada para EPSG:31981. Cobertura da união dos setores (diferença simétrica, sem recorte) — municipio_2022 (data/raw): 1,188 m² (0.0000%; setores fora 571 m², limite descoberto 616 m²); municipio_2025 (limite_municipal): 3,055,776 m² (0.0746%; setores fora 929,471 m², limite descoberto 2,126,305 m²). pode_publicar=false só até a conferência visual: a fonte autoriza (autorizacao_fonte=true); vira true na promoção. Citar: IBGE, Censo 2022. Script: scripts/processamento/limites_ibge.py.",
   "pode_publicar": false,
   "referencias_bib": [],
   "sha256": "392674608e4cc37ab6526504b2bbf31ecaae35efa3bbc2b209e1a3c9dbf6d373",
@@ -16,22 +16,31 @@
   "tema": "limites",
   "url_origem": "https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_de_setores_censitarios__divisoes_intramunicipais/censo_2022/setores/gpkg/UF/RS/RS_setores_CD2022.gpkg",
   "verificacoes": {
-    "area_municipio_m2": 4096532800.2,
-    "area_uniao_setores_m2": 4095335966.04,
-    "cobertura_diferenca_simetrica_m2": 3055776.02,
-    "cobertura_diferenca_simetrica_pct": 0.074594,
-    "cobertura_limite_nao_coberto_m2": 2126305.09,
-    "cobertura_setores_fora_do_limite_m2": 929470.93,
+    "cobertura_por_edicao": [
+      {
+        "area_municipio_m2": 4095336011.23,
+        "area_uniao_setores_m2": 4095335966.04,
+        "diferenca_simetrica_m2": 1187.51,
+        "diferenca_simetrica_pct": 2.9e-05,
+        "limite_nao_coberto_m2": 616.35,
+        "referencia": "municipio_2022 (data/raw)",
+        "setores_fora_do_limite_m2": 571.16
+      },
+      {
+        "area_municipio_m2": 4096532800.2,
+        "area_uniao_setores_m2": 4095335966.04,
+        "diferenca_simetrica_m2": 3055776.02,
+        "diferenca_simetrica_pct": 0.074594,
+        "limite_nao_coberto_m2": 2126305.09,
+        "referencia": "municipio_2025 (limite_municipal)",
+        "setores_fora_do_limite_m2": 929470.93
+      }
+    ],
     "crs_medicao": "EPSG:31981",
-    "distritos_invalidos": 0,
-    "n_distritos": 5,
     "n_setores": 199,
-    "referencia": "limite_municipal",
+    "recorte_aplicado": "nenhum — setores não são recortados por limite algum",
     "setores_invalidos": 0,
-    "sobreposicao_entre_setores_m2": 0.0,
-    "soma_areas_distritos_m2": 4095335966.04,
-    "soma_distritos_menos_municipio_m2": -1196834.16,
-    "soma_distritos_menos_municipio_pct": -0.029216
+    "sobreposicao_entre_setores_m2": 0.0
   },
   "versao": "censo_2022"
 }

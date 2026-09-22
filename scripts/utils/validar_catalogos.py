@@ -14,7 +14,12 @@ Confere:
      `autorizacao_fonte=true` — restrição da fonte não se dilui na camada;
   5. o sha256 registrado da camada bate com o arquivo em disco (se o arquivo
      mudou depois de conferido, a conferência caducou);
-  6. `tema` é um dos temas de data/acervo/ e `status_conferencia` é válido.
+  6. `tema` é um dos temas de data/acervo/ e `status_conferencia` é válido;
+  7. a área de estudo (config/area_estudo.geojson), que é versionada mas não é
+     camada do catálogo, segue a MESMA regra de publicação pelo seu `.json`
+     irmão: `pode_publicar=true` só com `status_conferencia=conferido`; e o
+     sha256 do `.json` bate com o arquivo. Se a camada de origem mudou no
+     catálogo desde a derivação, é aviso (regerar com area_estudo.py).
 
 Complementa — não substitui — `verificar_publicacao.py`: aquele barra o
 commit, este confere a coerência interna dos catálogos.
@@ -30,6 +35,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import json
 import sys
 from pathlib import Path
 
@@ -225,6 +231,55 @@ def validar(
     return erros, avisos
 
 
+def validar_area_estudo(caminho: Path, caminho_camadas: Path) -> tuple[list[str], list[str]]:
+    """Confere a área de estudo pelo seu `.json` irmão (conferência 7).
+
+    Returns:
+        `(erros, avisos)`.
+    """
+    erros: list[str] = []
+    avisos: list[str] = []
+    rotulo = paths.relativo(caminho)
+    meta_caminho = caminho.with_suffix(".json")
+    if not caminho.is_file():
+        return [f"área de estudo não existe: {rotulo}"], avisos
+    if not meta_caminho.is_file():
+        return [f"área de estudo sem .json irmão: {paths.relativo(meta_caminho)}"], avisos
+
+    meta = json.loads(meta_caminho.read_text(encoding="utf-8"))
+    status = str(meta.get("status_conferencia", "")).strip()
+    if status not in STATUS_VALIDOS:
+        erros.append(f"área de estudo {rotulo}: status_conferencia '{status}' inválido")
+    if meta.get("pode_publicar") is True and status != "conferido":
+        erros.append(
+            f"área de estudo {rotulo}: pode_publicar=true com "
+            f"status_conferencia='{status}' — só se publica o que foi conferido no mapa"
+        )
+    if str(meta.get("sha256", "")).lower() != sha256_arquivo(caminho):
+        erros.append(
+            f"área de estudo {rotulo}: sha256 do .json não bate com o arquivo — "
+            "regerar com scripts/processamento/area_estudo.py"
+        )
+
+    origem = meta.get("camada_origem") or {}
+    if origem.get("id_camada") and caminho_camadas.exists():
+        with open(caminho_camadas, encoding="utf-8") as arquivo:
+            linhas = {l["id_camada"]: l for l in csv.DictReader(arquivo)}
+        linha = linhas.get(origem["id_camada"])
+        if linha is None:
+            avisos.append(
+                f"área de estudo {rotulo}: camada de origem '{origem['id_camada']}' "
+                "não está mais no catálogo"
+            )
+        elif linha["sha256"].strip().lower() != str(origem.get("sha256", "")).lower():
+            avisos.append(
+                f"área de estudo {rotulo}: derivada de '{origem['id_camada']}' com sha256 "
+                f"{str(origem.get('sha256'))[:12]}…, mas o catálogo agora tem "
+                f"{linha['sha256'][:12]}… — regerar com area_estudo.py"
+            )
+    return erros, avisos
+
+
 def main() -> None:
     """Executa a validação e define o código de saída."""
     parser = argparse.ArgumentParser(description="Valida os catálogos do acervo.")
@@ -233,9 +288,14 @@ def main() -> None:
     parser.add_argument("--bib", type=Path, default=paths.caminho("bibliografia_bib"))
     parser.add_argument("--raiz", type=Path, default=paths.RAIZ,
                         help="Raiz para resolver os caminhos relativos dos catálogos")
+    parser.add_argument("--area-estudo", type=Path, default=paths.area_estudo(),
+                        help="GeoJSON da área de estudo (default: o do config)")
     args = parser.parse_args()
 
     erros, avisos = validar(args.fontes, args.camadas, args.bib, args.raiz)
+    erros_area, avisos_area = validar_area_estudo(args.area_estudo, args.camadas)
+    erros += erros_area
+    avisos += avisos_area
 
     for aviso in avisos:
         print(f"AVISO: {aviso}")
