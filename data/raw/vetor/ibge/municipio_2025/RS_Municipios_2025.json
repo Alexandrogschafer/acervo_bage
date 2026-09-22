@@ -1,0 +1,19 @@
+{
+  "arquivo": "data/raw/vetor/ibge/municipio_2025/RS_Municipios_2025.zip",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "EPSG:4674",
+  "data_producao": "2026-09-22T12:00:21.427219+00:00",
+  "edicao": "municipio_2025",
+  "fonte_id": "ibge_malhas_municipais",
+  "licenca": "IBGE — uso livre com citação da fonte",
+  "observacoes": "Arquivo bruto, como veio do geoftp do IBGE (UF inteira). Last-Modified da origem: Thu, 26 Feb 2026 20:02:52 GMT. Obtido navegando as listagens a partir de organizacao_do_territorio/ (scripts/download/baixar_malhas_ibge.py).",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "d70d47ccd1c2722e78a6dcc7fa4a00715679684785aa137ed2bf11999de28513",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 10139778,
+  "tema": "limites",
+  "url_origem": "https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2025/UFs/RS/RS_Municipios_2025.zip",
+  "versao": "municipio_2025"
+}

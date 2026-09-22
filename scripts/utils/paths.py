@@ -14,9 +14,12 @@ from __future__ import annotations
 
 from functools import lru_cache
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import yaml
+
+if TYPE_CHECKING:
+    import geopandas as gpd
 
 # .../repo/scripts/utils/paths.py -> .../repo
 RAIZ: Path = Path(__file__).resolve().parents[2]
@@ -149,3 +152,35 @@ def crs_publicacao() -> str:
 def area_estudo() -> Path:
     """Caminho absoluto do recorte de referência do acervo."""
     return RAIZ / str(valor("area_estudo"))
+
+
+def carregar_area_estudo(alvo: Path | str | None = None) -> "gpd.GeoDataFrame":
+    """Carrega a área de estudo já reprojetada para o CRS de produção.
+
+    O arquivo é gravado em EPSG:4326 (a RFC 7946 exige WGS 84 em GeoJSON) por
+    `scripts/processamento/area_estudo.py`; toda medição, porém, acontece no
+    CRS de produção, então a reprojeção é feita aqui, na leitura, e nenhum
+    chamador precisa lembrar dela.
+
+    Args:
+        alvo: arquivo alternativo (para teste). Default: `area_estudo:` do config.
+
+    Returns:
+        GeoDataFrame com a feição única do município, no CRS de produção.
+
+    Raises:
+        FileNotFoundError: se o arquivo não existe (area_estudo.py não rodou).
+        ValueError: se o arquivo não declara CRS.
+    """
+    import geopandas as gpd  # import tardio: paths é importado por scripts sem geo
+
+    arquivo = Path(alvo) if alvo else area_estudo()
+    if not arquivo.exists():
+        raise FileNotFoundError(
+            f"área de estudo não encontrada em {relativo(arquivo)}. "
+            "Rode primeiro: python scripts/processamento/area_estudo.py"
+        )
+    gdf = gpd.read_file(arquivo)
+    if gdf.crs is None:
+        raise ValueError(f"{relativo(arquivo)} não declara CRS — verifique a geração.")
+    return gdf.to_crs(crs_producao())

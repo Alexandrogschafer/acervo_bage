@@ -22,7 +22,9 @@ crs:
   # sempre o último passo, depois de qualquer operação métrica.
   publicacao: "EPSG:4326"
 
-# Recorte de referência do acervo. Gerado por scripts/download/vetor_ibge.py.
+# Recorte de referência do acervo, em EPSG:4326 (RFC 7946). Gerado por
+# scripts/processamento/area_estudo.py a partir da camada `limite_municipal`;
+# lido já no CRS de produção por paths.carregar_area_estudo().
 area_estudo: "config/area_estudo.geojson"
 
 paths:

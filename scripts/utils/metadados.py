@@ -33,6 +33,15 @@ quando informados (um produto gerado aqui dentro não os tem):
     data_commit         data do commit de origem (ISO 8601)
     nome_original       nome do arquivo na origem, quando foi renomeado aqui
 
+Campos OPCIONAIS de derivação e medida, também gravados só quando informados
+(o chamador os acrescenta ao dicionário de `montar()` antes de `escrever()`):
+
+    edicao              edição da fonte (ex.: "municipio_2025", "censo_2022")
+    camada_origem       {id_camada, arquivo, sha256, versao} da camada do
+                        acervo de que o produto foi derivado
+    medidas             medidas geométricas, sempre no CRS de produção
+    verificacoes        resultado das conferências automáticas do produtor
+
 Existem porque cópia de terceiro só é rastreável se o arquivo disser de qual
 ponto exato da origem ele saiu: "veio do repositório X" não permite reencontrar
 nada se X mudou depois. O par (repo, commit) permite.
@@ -69,6 +78,7 @@ CAMPOS: tuple[str, ...] = (
 # Procedência: opcionais, só aparecem no .json quando informados.
 CAMPOS_OPCIONAIS: tuple[str, ...] = (
     "repo_origem", "commit", "url_origem", "data_commit", "nome_original",
+    "edicao", "camada_origem", "medidas", "verificacoes",
 )
 
 

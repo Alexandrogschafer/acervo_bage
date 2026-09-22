@@ -29,7 +29,8 @@ caminho literal fora do YAML, é bug.**
 
 | módulo | papel |
 | --- | --- |
-| `paths.py` | config, raiz, caminhos; erro legível se faltar chave |
+| `paths.py` | config, raiz, caminhos; erro legível se faltar chave; `carregar_area_estudo()` já no CRS de produção |
+| `catalogo.py` | lê/atualiza os catálogos; `camada_conferida()` confere o sha256 antes de derivar |
 | `hashes.py` | sha256 em blocos + tamanho |
 | `nomes.py` | `{tema}_{fonte}_{ano-ou-periodo}_{resolucao}.{ext}` |
 | `metadados.py` | o `.json` irmão de todo produto |
