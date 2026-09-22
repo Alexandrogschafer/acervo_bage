@@ -134,9 +134,8 @@ camadas:
     sha256: 392674608e4cc37ab6526504b2bbf31ecaae35efa3bbc2b209e1a3c9dbf6d373
     # geometria dos setores de 2022, para a junção célula -> setor; os
     # atributos do entorno vêm das tabelas brutas, pelo geocódigo
-    # ATENÇÃO: esta camada está com pode_publicar=false no catálogo, e pela
-    # regra do mais restritivo (scripts/utils/publicacao.py) a saída do estudo
-    # nasce NÃO publicável enquanto ela não for reconferida.
+    # conferida no mapa e promovida em 2026-09-22 (status_conferencia=conferido,
+    # pode_publicar=true); o sha256 fixado acima é o do arquivo conferido.
 
 # Dado bruto em data/raw/ (data/catalogo_fontes.csv), fixado por arquivo e
 # sha256 do `.json` irmão — conferido pelo indice.py como as camadas.

@@ -24,11 +24,11 @@
     "crs_medicao_distancia": "EPSG:31981",
     "perimetro_km": 580.259
   },
-  "observacoes": "Área de estudo do acervo = limite municipal exato de Bagé/RS, sem buffer. Derivada de 'limite_municipal' só por reprojeção EPSG:31981 -> EPSG:4326 (RFC 7946). Não é camada do catálogo. Enquanto status_conferencia=pendente, pode_publicar=false; conferido no mapa, pode_publicar passa a valer o da camada de origem (true). Área medida em ESRI:102033 (equivalente); perímetro em EPSG:31981.",
-  "pode_publicar": false,
+  "observacoes": "Área de estudo do acervo = limite municipal exato de Bagé/RS, sem buffer. Derivada de 'limite_municipal' só por reprojeção EPSG:31981 -> EPSG:4326 (RFC 7946). Não é camada do catálogo. Enquanto status_conferencia=pendente, pode_publicar=false; conferido no mapa, pode_publicar passa a valer o da camada de origem (true). Área medida em ESRI:102033 (equivalente); perímetro em EPSG:31981. CONFERÊNCIA VISUAL do responsável em 2026-09-22, no QGIS sobre imagem de satélite — cobertura do município sem vão nem sobreposição; limites urbanos seguindo eixos de via e quadras; setores de divisa são rurais, o que confirma que a diferença de 929.471 m² contra o limite de 2025 está nas bordas externas e vem da revisão de divisa entre edições (contra o limite de 2022 a diferença é de 1.188 m²). Os dois valores foram medidos em EPSG:31981 (plano, como no QGIS): 929.471 m² são os setores fora do limite de 2025 e 1.188 m² é a diferença simétrica contra o limite de 2022; em ESRI:102033 (CRS de área do acervo) valem 927.741 m² e 1.186 m². Promovida a status_conferencia=conferido e pode_publicar=true em 2026-09-22.",
+  "pode_publicar": true,
   "referencias_bib": [],
   "sha256": "b0144fc342531d615f0ad3448054e783d8fcf7718116af99cd6a67cf9e4c28e0",
-  "status_conferencia": "pendente",
+  "status_conferencia": "conferido",
   "tamanho_bytes": 122449,
   "tema": "limites",
   "verificacoes": {

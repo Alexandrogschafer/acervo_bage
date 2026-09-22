@@ -5,6 +5,52 @@ pendente. Entrada nova no topo.
 
 ---
 
+## 2026-09-22 — Limites: setores, distritos e área de estudo promovidos a conferido
+
+O responsável conferiu os produtos de limites no QGIS, sobre imagem de satélite,
+e aprovou. Promovidos a `status_conferencia=conferido` e `pode_publicar=true`
+(a fonte autoriza, `autorizacao_fonte=true`):
+
+| produto | onde está registrado | sha256 congelado | sha256_conteudo |
+| --- | --- | --- | --- |
+| `setores_2022` | `.json` irmão + `catalogo_camadas.csv` | `392674608e4c…` | `452fcc5f2426…` |
+| `distritos_2022` | `.json` irmão + `catalogo_camadas.csv` | `e49445a3f970…` | `84fe4b6792d6…` |
+| `config/area_estudo.geojson` | `config/area_estudo.json` (fora do catálogo) | `b0144fc34253…` | — (o `.json` não tem esse campo) |
+
+`limite_municipal` já estava conferido desde 2026-09-20 e não foi tocado.
+
+**Antes de gravar**, os hashes foram recalculados a partir dos arquivos: setores e
+distritos batem nos dois hashes (bytes e conteúdo) com o `.json` e o catálogo; a
+área de estudo bate no sha256 de bytes. O que foi conferido é o que está congelado.
+
+**O que foi conferido no mapa:**
+
+- cobertura do município sem vão nem sobreposição entre setores;
+- limites urbanos seguindo eixos de via e quadras;
+- setores de divisa são rurais: a diferença contra o limite de 2025 fica nas
+  bordas externas e vem da revisão de divisa entre as edições da malha, não de
+  erro de processamento.
+
+**Números:** o responsável citou 929.471 m² contra o limite de 2025 e
+1.188 m² contra o de 2022. São medidas em EPSG:31981 (plano, como mede o QGIS):
+a primeira é a área dos setores fora do limite de 2025, a segunda a diferença
+simétrica contra o limite de 2022. No CRS de área do acervo (ESRI:102033), as
+mesmas medidas valem 927.741 m² e 1.186 m², que são os valores já gravados em
+`verificacoes`. As observações registram os dois pares, cada um com seu CRS.
+
+**Efeito no A03:** `pode_publicar_estudo("A03_expansao_adensamento")` passou de
+`false` (bloqueio: `setores_2022: pode_publicar=false no catálogo`) para `true`:
+as 2 camadas declaradas conferem e são publicáveis. As 10 fontes brutas também
+estão ok e publicáveis. O comentário do manifesto que avisava do bloqueio foi
+atualizado; os sha256 fixados não mudaram.
+
+**Atenção:** `limites_ibge.py` e `area_estudo.py` mantêm o status conferido ao
+rodar de novo, desde que o dado seja o mesmo, mas **reescrevem `observacoes`**
+com o texto padrão de cada script. O registro da conferência nas observações se
+perderia e ficaria só neste diário e no histórico do git.
+
+---
+
 ## 2026-09-22 — Censo: bruto do IBGE em `data/raw/`, download direto
 
 Dado bruto oficial pertence a `data/raw/`, não ao acervo. Os 50 arquivos de dado
