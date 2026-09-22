@@ -5,15 +5,15 @@
 > é perdida na próxima execução. A fonte são os
 > `estudos/*/manifesto.yaml`, resolvidos contra `data/catalogo_camadas.csv`.
 
-- **Gerado em:** 2026-09-22 15:21:37 -0300
+- **Gerado em:** 2026-09-22 18:08:16 -0300
 - **Estudos encontrados:** 3
 
 ## Camada → estudos que a consomem
 
-Nenhuma camada é consumida por estudo nenhum: todos os manifestos estão
-com `camadas: []`. É o esperado enquanto os estudos estão em
-reconhecimento — a lista se preenche quando cada estudo declarar suas
-entradas.
+| Camada | Estudos | Situação |
+| --- | --- | --- |
+| `limite_municipal` | `ACERVO_BAGE-A03_expansao_adensamento` | ok |
+| `setores_2022` | `ACERVO_BAGE-A03_expansao_adensamento` | ok |
 
 ## Estudo → camadas que consome
 
@@ -35,12 +35,15 @@ Nenhuma camada declarada ainda.
 
 Nenhuma camada declarada ainda.
 
-### `ACERVO_BAGE-A03_censo`
+### `ACERVO_BAGE-A03_expansao_adensamento`
 
-- **Manifesto:** `estudos/A03_censo/manifesto.yaml`
-- **Status:** reconhecimento
-- **Pergunta:** A DEFINIR — depende do reconhecimento dos dados
+- **Manifesto:** `estudos/A03_expansao_adensamento/manifesto.yaml`
+- **Status:** planejado
+- **Pergunta:** Bagé ganhou 6.791 domicílios ocupados (+17,6 %) com a população praticamente estável (+1,0 %) entre 2010 e 2022. ONDE, no território do município, esse crescimento de domicílios se materializou — em ocupação de área nova ou em adensamento da área já ocupada —, e QUE INFRAESTRUTURA URBANA existe em 2022 nas áreas que cresceram, comparada à do restante da cidade?
 - **Referências:** —
 
-Nenhuma camada declarada ainda.
+| Camada | Versão (manifesto) | Situação | Detalhe |
+| --- | --- | --- | --- |
+| `limite_municipal` | 1.0 | ok | confere (por sha256 do arquivo) |
+| `setores_2022` | censo_2022 | ok | confere (por sha256 do arquivo) |
 

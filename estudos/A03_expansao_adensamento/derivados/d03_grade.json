@@ -1,0 +1,113 @@
+{
+  "conferencia_geografia": {
+    "celulas_2010": 5718,
+    "celulas_2022": 6702,
+    "celulas_comuns": 5677,
+    "so_em_2010": 41,
+    "so_em_2022": 1025,
+    "distancia_maxima_entre_centroides_m": 4.9e-05,
+    "diferenca_maxima_de_area_m2": 0.141214,
+    "tamanhos_de_celula_m2_2010": [
+      40000,
+      1000002
+    ],
+    "mesma_geografia": true
+  },
+  "conferencia_totais": {
+    "2010": {
+      "populacao": 114910,
+      "domicilios": 37908
+    },
+    "2022": {
+      "populacao": 117977,
+      "domicilios": 45383
+    },
+    "comparar_com": "d01_descompasso.json (município)",
+    "por_regra_de_borda": {
+      "2010": {
+        "centroide_no_municipio": {
+          "populacao": 114910,
+          "domicilios": 37908,
+          "celulas": 5718
+        },
+        "toca_o_municipio": {
+          "populacao": 115191,
+          "domicilios": 38008,
+          "celulas": 6003
+        }
+      },
+      "2022": {
+        "centroide_no_municipio": {
+          "populacao": 117977,
+          "domicilios": 45383,
+          "celulas": 6702
+        },
+        "toca_o_municipio": {
+          "populacao": 118198,
+          "domicilios": 45486,
+          "celulas": 6987
+        }
+      }
+    }
+  },
+  "celulas": {
+    "na_grade_de_bage": 6743,
+    "com_domicilio_em_algum_ano": 1925,
+    "so_com_domicilio_em_2022": 573,
+    "so_com_domicilio_em_2010": 261
+  },
+  "domicilios": {
+    "ganharam": {
+      "n": 1141,
+      "soma": 14170,
+      "mediana": 4.0,
+      "p90": 27.0,
+      "maximo": 293.0
+    },
+    "perderam": {
+      "n": 620,
+      "soma": 6695,
+      "mediana": 3.0,
+      "p90": 19.100000000000023,
+      "maximo": 700.0
+    },
+    "sem_mudanca": 164
+  },
+  "populacao": {
+    "ganharam": {
+      "n": 1023,
+      "soma": 31050,
+      "mediana": 7.0,
+      "p90": 66.80000000000007,
+      "maximo": 727.0
+    },
+    "perderam": {
+      "n": 837,
+      "soma": 27983,
+      "mediana": 10.0,
+      "p90": 70.0,
+      "maximo": 2270.0
+    },
+    "sem_mudanca": 65
+  },
+  "de_onde_vem_o_ganho_de_domicilios": {
+    "em_celulas_novas": 5709,
+    "em_celulas_que_ja_tinham_domicilio": 8461,
+    "saldo_liquido": 7475,
+    "celulas_novas": 573,
+    "celulas_ja_ocupadas_que_cresceram": 568,
+    "populacao_nas_celulas_novas": 15385
+  },
+  "divergencia_de_sinal": {
+    "ganham_domicilio_e_perdem_populacao": {
+      "celulas": 132,
+      "pct_das_ocupadas": 6.9,
+      "domicilios_ganhos": 804,
+      "populacao_perdida": -2044
+    },
+    "perdem_domicilio_e_ganham_populacao": {
+      "celulas": 7,
+      "pct_das_ocupadas": 0.4
+    }
+  }
+}

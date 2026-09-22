@@ -177,7 +177,7 @@ derivado que reidentifica endereço, por exemplo). Um nunca se deduz do outro.
 ## 5. O `manifesto.yaml` do estudo
 
 ```yaml
-estudo: ACERVO_BAGE-A03_censo
+estudo: ACERVO_BAGE-A03_expansao_adensamento
 pergunta: "A DEFINIR — depende do reconhecimento dos dados"
 camadas: []        # - {id:, versao:, sha256:}
 referencias_bib: []

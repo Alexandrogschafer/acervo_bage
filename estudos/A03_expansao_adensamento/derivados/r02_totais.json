@@ -1,0 +1,291 @@
+{
+  "2022": {
+    "soma_setores": {
+      "populacao_V0001": {
+        "total": 117938.0,
+        "urbana": 114883.0,
+        "rural": 3055.0,
+        "setores_sem_valor": 0
+      },
+      "domicilios_particulares_ocupados_V0007": {
+        "total": 45327.0,
+        "urbana": 44043.0,
+        "rural": 1284.0,
+        "setores_sem_valor": 0
+      },
+      "domicilios_total_V0002": {
+        "total": 53716.0,
+        "urbana": 51373.0,
+        "rural": 2343.0,
+        "setores_sem_valor": 0
+      },
+      "dppo_V00001": {
+        "total": 45295.0,
+        "urbana": 44018.0,
+        "rural": 1277.0,
+        "setores_sem_valor": 4
+      }
+    },
+    "linha_oficial_populacao": [
+      "Bagé",
+      "4301602",
+      "114883",
+      "3055",
+      "117938"
+    ],
+    "setores_no_basico": 199,
+    "setores_nos_demais_temas": 198,
+    "setores_so_no_basico": [
+      {
+        "cd_setor": "430160221000001",
+        "SITUACAO": "Urbana",
+        "CD_TIPO": "4",
+        "v0001": "0",
+        "v0002": "1",
+        "v0007": "0"
+      }
+    ]
+  },
+  "2010": {
+    "soma_setores": {
+      "dpp_V001": {
+        "total": 38504.0,
+        "urbana": 32642.0,
+        "rural": 5862.0,
+        "setores_sem_valor": 2
+      },
+      "moradores_dpp_V002": {
+        "total": 116318.0,
+        "urbana": 97304.0,
+        "rural": 19014.0,
+        "setores_sem_valor": 2
+      },
+      "moradores_particulares_e_coletivos_Domicilio02_V001": {
+        "total": 116794.0,
+        "urbana": 97765.0,
+        "rural": 19029.0,
+        "setores_sem_valor": 0
+      }
+    },
+    "oficial_municipio": {
+      "populacao": [
+        116794.0,
+        55804.0,
+        60990.0,
+        97765.0,
+        46097.0,
+        51668.0,
+        19029.0,
+        9707.0,
+        9322.0
+      ],
+      "dpp_e_moradores": [
+        38504.0,
+        32642.0,
+        5862.0,
+        116318.0,
+        97304.0,
+        19014.0,
+        3.02,
+        2.98,
+        3.24
+      ]
+    },
+    "por_distrito": {
+      "430160205": {
+        "nome": "BAGÉ",
+        "setores_na_tabela": 147,
+        "populacao_soma": 113658.0,
+        "populacao_oficial": 113658.0,
+        "dpp_soma": 37385.0,
+        "dpp_oficial": 37385.0,
+        "moradores_dpp_soma": 113196.0,
+        "moradores_dpp_oficial": 113196.0
+      },
+      "430160217": {
+        "nome": "JOCA TAVARES",
+        "setores_na_tabela": 5,
+        "populacao_soma": 761.0,
+        "populacao_oficial": 761.0,
+        "dpp_soma": 291.0,
+        "dpp_oficial": 291.0,
+        "moradores_dpp_soma": 761.0,
+        "moradores_dpp_oficial": 761.0
+      },
+      "430160220": {
+        "nome": "JOSÉ OTÁVIO",
+        "setores_na_tabela": 4,
+        "populacao_soma": 1262.0,
+        "populacao_oficial": 1262.0,
+        "dpp_soma": 396.0,
+        "dpp_oficial": 396.0,
+        "moradores_dpp_soma": 1250.0,
+        "moradores_dpp_oficial": 1250.0
+      },
+      "430160221": {
+        "nome": "PALMAS",
+        "setores_na_tabela": 5,
+        "populacao_soma": 884.0,
+        "populacao_oficial": 884.0,
+        "dpp_soma": 345.0,
+        "dpp_oficial": 345.0,
+        "moradores_dpp_soma": 882.0,
+        "moradores_dpp_oficial": 882.0
+      },
+      "430160222": {
+        "nome": "PIRAÍ",
+        "setores_na_tabela": 3,
+        "populacao_soma": 229.0,
+        "populacao_oficial": 229.0,
+        "dpp_soma": 87.0,
+        "dpp_oficial": 87.0,
+        "moradores_dpp_soma": 229.0,
+        "moradores_dpp_oficial": 229.0
+      }
+    },
+    "setores_na_tabela": 164
+  },
+  "2000": {
+    "soma_setores": {
+      "dpp_Var01": {
+        "total": 35119.0,
+        "urbana": 28964.0,
+        "rural": 6155.0,
+        "setores_sem_valor": 7
+      },
+      "moradores_dpp_Var12": {
+        "total": 117893.0,
+        "urbana": 96638.0,
+        "rural": 21255.0,
+        "setores_sem_valor": 7
+      },
+      "populacao_V1330": {
+        "total": 118767.0,
+        "urbana": 97290.0,
+        "rural": 21477.0,
+        "setores_sem_valor": 0
+      },
+      "pessoas_dom_particulares_V1331": {
+        "total": 118228.0,
+        "urbana": 96766.0,
+        "rural": 21462.0,
+        "setores_sem_valor": 0
+      },
+      "pessoas_dpp_V1332": {
+        "total": 117893.0,
+        "urbana": 96638.0,
+        "rural": 21255.0,
+        "setores_sem_valor": 0
+      },
+      "pessoas_dom_improvisados_V1333": {
+        "total": 335.0,
+        "urbana": 128.0,
+        "rural": 207.0,
+        "setores_sem_valor": 0
+      },
+      "pessoas_dom_coletivos_V1334": {
+        "total": 539.0,
+        "urbana": 524.0,
+        "rural": 15.0,
+        "setores_sem_valor": 0
+      }
+    },
+    "oficial": {
+      "populacao_sexo_situacao": [
+        "Bagé",
+        "118767",
+        "57042",
+        "61725",
+        "97290",
+        "21477",
+        "97875",
+        "90925",
+        "6950",
+        "92.9",
+        "4301602"
+      ],
+      "dpp_saneamento": [
+        "Bagé",
+        "35119",
+        "32342",
+        "31722",
+        "620",
+        "2203",
+        "1514",
+        "105",
+        "584",
+        "574",
+        "227",
+        "23",
+        "324",
+        "34445",
+        "15322",
+        "13151",
+        "3706",
+        "1715",
+        "336",
+        "215",
+        "674",
+        "32347",
+        "31696",
+        "651",
+        "2772",
+        "1905",
+        "448",
+        "279",
+        "25",
+        "115",
+        "4301602"
+      ]
+    },
+    "setores_na_tabela": 165
+  },
+  "lacuna_2010": {
+    "setores_malha": 168,
+    "setores_tabela": 164,
+    "faltam": [
+      {
+        "CD_GEOCODI": "430160205000142",
+        "TIPO": "RURAL",
+        "NM_DISTRIT": "BAGÉ",
+        "CD_GEOCODD": "430160205"
+      },
+      {
+        "CD_GEOCODI": "430160217000001",
+        "TIPO": "URBANO",
+        "NM_DISTRIT": "JOCA TAVARES",
+        "CD_GEOCODD": "430160217"
+      },
+      {
+        "CD_GEOCODI": "430160220000001",
+        "TIPO": "URBANO",
+        "NM_DISTRIT": "JOSÉ OTÁVIO",
+        "CD_GEOCODD": "430160220"
+      },
+      {
+        "CD_GEOCODI": "430160221000001",
+        "TIPO": "URBANO",
+        "NM_DISTRIT": "PALMAS",
+        "CD_GEOCODD": "430160221"
+      }
+    ],
+    "ocorrencias": {
+      "430160205000142": [
+        "Documentacao:Descrição_RS__Descrição_RS.csv",
+        "Historico_formacao_2010_2022:Historico_formacao_Setores_Censitarios_2010_2022__Exportar_Planilha.csv"
+      ],
+      "430160217000001": [
+        "Documentacao:Descrição_RS__Descrição_RS.csv",
+        "Historico_formacao_2010_2022:Historico_formacao_Setores_Censitarios_2010_2022__Exportar_Planilha.csv"
+      ],
+      "430160220000001": [
+        "Documentacao:Descrição_RS__Descrição_RS.csv",
+        "Historico_formacao_2010_2022:Historico_formacao_Setores_Censitarios_2010_2022__Exportar_Planilha.csv"
+      ],
+      "430160221000001": [
+        "Documentacao:Descrição_RS__Descrição_RS.csv",
+        "Historico_formacao_2010_2022:Historico_formacao_Setores_Censitarios_2010_2022__Exportar_Planilha.csv"
+      ]
+    }
+  }
+}

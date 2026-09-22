@@ -1,0 +1,690 @@
+{
+  "domicilios": {
+    "variavel_do_universo": "V05000",
+    "setores": 168,
+    "universo_total": 43744,
+    "itens": {
+      "CIRCULAÇÃO DA VIA": {
+        "variaveis": {
+          "CAMINHÃO, ÔNIBUS": "V05001",
+          "CARROS DE PASSEIO OU VAN": "V05002",
+          "PEDESTRES, BICICLETAS E MOTOCICLETAS": "V05003",
+          "AQUAVIA": "V05004",
+          "SALTADO": "V05005"
+        },
+        "total_no_municipio": 43744,
+        "pct_no_municipio": {
+          "CAMINHÃO, ÔNIBUS": 93.1,
+          "CARROS DE PASSEIO OU VAN": 6.0,
+          "PEDESTRES, BICICLETAS E MOTOCICLETAS": 0.9,
+          "AQUAVIA": 0.0
+        },
+        "entre_setores_pct": {
+          "CAMINHÃO, ÔNIBUS": {
+            "minimo": 0.0,
+            "p10": 73.0,
+            "q1": 96.6,
+            "mediana": 100.0,
+            "q3": 100.0,
+            "p90": 100.0,
+            "maximo": 100.0,
+            "iqr": 3.4,
+            "desvio_padrao": 17.4
+          },
+          "CARROS DE PASSEIO OU VAN": {
+            "minimo": 0.0,
+            "p10": 0.0,
+            "q1": 0.0,
+            "mediana": 0.0,
+            "q3": 2.8,
+            "p90": 25.7,
+            "maximo": 100.0,
+            "iqr": 2.8,
+            "desvio_padrao": 15.7
+          },
+          "PEDESTRES, BICICLETAS E MOTOCICLETAS": {
+            "minimo": 0.0,
+            "p10": 0.0,
+            "q1": 0.0,
+            "mediana": 0.0,
+            "q3": 0.0,
+            "p90": 0.3,
+            "maximo": 100.0,
+            "iqr": 0.0,
+            "desvio_padrao": 7.7
+          },
+          "AQUAVIA": {
+            "minimo": 0.0,
+            "p10": 0.0,
+            "q1": 0.0,
+            "mediana": 0.0,
+            "q3": 0.0,
+            "p90": 0.0,
+            "maximo": 0.0,
+            "iqr": 0.0,
+            "desvio_padrao": 0.0
+          }
+        },
+        "setores_com_o_item_medido": 168,
+        "pct_saltado_no_municipio": 0.0
+      },
+      "VIA PAVIMENTADA": {
+        "variaveis": {
+          "SIM": "V05006",
+          "NÃO": "V05007",
+          "NÃO DECLARADO": "V05008"
+        },
+        "total_no_municipio": 43744,
+        "pct_no_municipio": {
+          "SIM": 45.8
+        },
+        "entre_setores_pct": {
+          "SIM": {
+            "minimo": 0.0,
+            "p10": 1.2,
+            "q1": 13.6,
+            "mediana": 34.7,
+            "q3": 90.2,
+            "p90": 100.0,
+            "maximo": 100.0,
+            "iqr": 76.6,
+            "desvio_padrao": 37.4
+          }
+        },
+        "setores_com_o_item_medido": 168,
+        "pct_nao_declarado_no_municipio": 0.0
+      },
+      "BUEIRO": {
+        "variaveis": {
+          "SIM": "V05009",
+          "NÃO": "V05010",
+          "NÃO DECLARADO": "V05011"
+        },
+        "total_no_municipio": 43744,
+        "pct_no_municipio": {
+          "SIM": 65.1
+        },
+        "entre_setores_pct": {
+          "SIM": {
+            "minimo": 0.0,
+            "p10": 18.0,
+            "q1": 51.3,
+            "mediana": 69.1,
+            "q3": 86.9,
+            "p90": 100.0,
+            "maximo": 100.0,
+            "iqr": 35.6,
+            "desvio_padrao": 28.4
+          }
+        },
+        "setores_com_o_item_medido": 168,
+        "pct_nao_declarado_no_municipio": 0.0
+      },
+      "ILUMINAÇÃO PÚBLICA": {
+        "variaveis": {
+          "SIM": "V05012",
+          "NÃO": "V05013",
+          "NÃO DECLARADO": "V05014"
+        },
+        "total_no_municipio": 43744,
+        "pct_no_municipio": {
+          "SIM": 99.3
+        },
+        "entre_setores_pct": {
+          "SIM": {
+            "minimo": 45.2,
+            "p10": 97.3,
+            "q1": 99.7,
+            "mediana": 100.0,
+            "q3": 100.0,
+            "p90": 100.0,
+            "maximo": 100.0,
+            "iqr": 0.3,
+            "desvio_padrao": 4.4
+          }
+        },
+        "setores_com_o_item_medido": 168,
+        "pct_nao_declarado_no_municipio": 0.0
+      },
+      "PONTO DE ÔNIBUS": {
+        "variaveis": {
+          "SIM": "V05015",
+          "NÃO": "V05016",
+          "NÃO DECLARADO": "V05017"
+        },
+        "total_no_municipio": 43744,
+        "pct_no_municipio": {
+          "SIM": 12.5
+        },
+        "entre_setores_pct": {
+          "SIM": {
+            "minimo": 0.0,
+            "p10": 0.0,
+            "q1": 2.9,
+            "mediana": 9.1,
+            "q3": 14.9,
+            "p90": 26.9,
+            "maximo": 100.0,
+            "iqr": 12.0,
+            "desvio_padrao": 16.6
+          }
+        },
+        "setores_com_o_item_medido": 168,
+        "pct_nao_declarado_no_municipio": 0.0
+      },
+      "VIA SINALIZADA PARA BICICLETA": {
+        "variaveis": {
+          "SIM": "V05018",
+          "NÃO": "V05019",
+          "NÃO DECLARADO": "V05020"
+        },
+        "total_no_municipio": 43744,
+        "pct_no_municipio": {
+          "SIM": 1.4
+        },
+        "entre_setores_pct": {
+          "SIM": {
+            "minimo": 0.0,
+            "p10": 0.0,
+            "q1": 0.0,
+            "mediana": 0.0,
+            "q3": 0.0,
+            "p90": 2.8,
+            "maximo": 95.2,
+            "iqr": 0.0,
+            "desvio_padrao": 7.9
+          }
+        },
+        "setores_com_o_item_medido": 168,
+        "pct_nao_declarado_no_municipio": 0.0
+      },
+      "CALÇADA": {
+        "variaveis": {
+          "SIM": "V05021",
+          "NÃO": "V05022",
+          "NÃO DECLARADO": "V05023"
+        },
+        "total_no_municipio": 43744,
+        "pct_no_municipio": {
+          "SIM": 89.3
+        },
+        "entre_setores_pct": {
+          "SIM": {
+            "minimo": 0.0,
+            "p10": 63.5,
+            "q1": 88.8,
+            "mediana": 97.8,
+            "q3": 100.0,
+            "p90": 100.0,
+            "maximo": 100.0,
+            "iqr": 11.2,
+            "desvio_padrao": 21.9
+          }
+        },
+        "setores_com_o_item_medido": 168,
+        "pct_nao_declarado_no_municipio": 0.0
+      },
+      "OBSTÁCULO NA CALÇADA": {
+        "variaveis": {
+          "SIM": "V05024",
+          "NÃO": "V05025",
+          "NÃO DECLARADO": "V05026"
+        },
+        "total_no_municipio": 43744,
+        "pct_no_municipio": {
+          "SIM": 64.4
+        },
+        "entre_setores_pct": {
+          "SIM": {
+            "minimo": 0.0,
+            "p10": 0.0,
+            "q1": 38.7,
+            "mediana": 72.0,
+            "q3": 91.8,
+            "p90": 96.8,
+            "maximo": 100.0,
+            "iqr": 53.2,
+            "desvio_padrao": 33.6
+          }
+        },
+        "setores_com_o_item_medido": 168,
+        "pct_nao_declarado_no_municipio": 10.7
+      },
+      "RAMPA PARA CADEIRANTE": {
+        "variaveis": {
+          "SIM": "V05027",
+          "NÃO": "V05028",
+          "NÃO DECLARADO": "V05029"
+        },
+        "total_no_municipio": 43744,
+        "pct_no_municipio": {
+          "SIM": 17.6
+        },
+        "entre_setores_pct": {
+          "SIM": {
+            "minimo": 0.0,
+            "p10": 0.0,
+            "q1": 0.0,
+            "mediana": 4.8,
+            "q3": 22.8,
+            "p90": 67.4,
+            "maximo": 100.0,
+            "iqr": 22.8,
+            "desvio_padrao": 28.2
+          }
+        },
+        "setores_com_o_item_medido": 168,
+        "pct_nao_declarado_no_municipio": 10.7
+      },
+      "ARBORIZAÇÃO": {
+        "variaveis": {
+          "SEM ÁRVORES": "V05030",
+          "DE 1 A 2 ÁRVORES": "V05031",
+          "DE 3 A 4 ÁRVORES": "V05032",
+          "5 OU MAIS ÁRVORES": "V05033",
+          "SALTADO": "V05034"
+        },
+        "total_no_municipio": 43744,
+        "pct_no_municipio": {
+          "SEM ÁRVORES": 20.8,
+          "DE 1 A 2 ÁRVORES": 17.1,
+          "DE 3 A 4 ÁRVORES": 13.2,
+          "5 OU MAIS ÁRVORES": 48.9
+        },
+        "entre_setores_pct": {
+          "SEM ÁRVORES": {
+            "minimo": 0.0,
+            "p10": 0.0,
+            "q1": 4.7,
+            "mediana": 13.5,
+            "q3": 29.3,
+            "p90": 49.2,
+            "maximo": 100.0,
+            "iqr": 24.6,
+            "desvio_padrao": 23.4
+          },
+          "DE 1 A 2 ÁRVORES": {
+            "minimo": 0.0,
+            "p10": 0.0,
+            "q1": 6.4,
+            "mediana": 14.0,
+            "q3": 24.4,
+            "p90": 33.3,
+            "maximo": 91.7,
+            "iqr": 18.0,
+            "desvio_padrao": 14.2
+          },
+          "DE 3 A 4 ÁRVORES": {
+            "minimo": 0.0,
+            "p10": 0.0,
+            "q1": 4.1,
+            "mediana": 11.3,
+            "q3": 17.4,
+            "p90": 25.9,
+            "maximo": 74.3,
+            "iqr": 13.3,
+            "desvio_padrao": 10.5
+          },
+          "5 OU MAIS ÁRVORES": {
+            "minimo": 0.0,
+            "p10": 13.5,
+            "q1": 28.3,
+            "mediana": 50.7,
+            "q3": 73.6,
+            "p90": 87.3,
+            "maximo": 100.0,
+            "iqr": 45.3,
+            "desvio_padrao": 27.8
+          }
+        },
+        "setores_com_o_item_medido": 168,
+        "pct_saltado_no_municipio": 0.0
+      }
+    },
+    "setor_coluna": "CD_setor"
+  },
+  "faces": {
+    "variavel_do_universo": "V05400",
+    "setores": 171,
+    "universo_total": 7573,
+    "itens": {
+      "CIRCULAÇÃO DA VIA": {
+        "variaveis": {
+          "CAMINHÃO, ÔNIBUS": "V05401",
+          "CARROS DE PASSEIO OU VAN": "V05402",
+          "PEDESTRES, BICICLETAS E MOTOCICLETAS": "V05403",
+          "AQUAVIA": "V05404",
+          "SALTADO": "V05405"
+        },
+        "total_no_municipio": 7573,
+        "pct_no_municipio": {
+          "CAMINHÃO, ÔNIBUS": 91.1,
+          "CARROS DE PASSEIO OU VAN": 7.5,
+          "PEDESTRES, BICICLETAS E MOTOCICLETAS": 0.9,
+          "AQUAVIA": 0.0
+        },
+        "entre_setores_pct": {
+          "CAMINHÃO, ÔNIBUS": {
+            "minimo": 0.0,
+            "p10": 72.5,
+            "q1": 92.8,
+            "mediana": 98.4,
+            "q3": 100.0,
+            "p90": 100.0,
+            "maximo": 100.0,
+            "iqr": 7.2,
+            "desvio_padrao": 20.6
+          },
+          "CARROS DE PASSEIO OU VAN": {
+            "minimo": 0.0,
+            "p10": 0.0,
+            "q1": 0.0,
+            "mediana": 0.0,
+            "q3": 4.3,
+            "p90": 26.6,
+            "maximo": 100.0,
+            "iqr": 4.3,
+            "desvio_padrao": 17.9
+          },
+          "PEDESTRES, BICICLETAS E MOTOCICLETAS": {
+            "minimo": 0.0,
+            "p10": 0.0,
+            "q1": 0.0,
+            "mediana": 0.0,
+            "q3": 0.0,
+            "p90": 2.8,
+            "maximo": 100.0,
+            "iqr": 0.0,
+            "desvio_padrao": 10.9
+          },
+          "AQUAVIA": {
+            "minimo": 0.0,
+            "p10": 0.0,
+            "q1": 0.0,
+            "mediana": 0.0,
+            "q3": 0.0,
+            "p90": 0.0,
+            "maximo": 0.0,
+            "iqr": 0.0,
+            "desvio_padrao": 0.0
+          }
+        },
+        "setores_com_o_item_medido": 171,
+        "pct_saltado_no_municipio": 0.5
+      },
+      "VIA PAVIMENTADA": {
+        "variaveis": {
+          "SIM": "V05406",
+          "NÃO": "V05407",
+          "NÃO DECLARADO": "V05408"
+        },
+        "total_no_municipio": 7573,
+        "pct_no_municipio": {
+          "SIM": 35.1
+        },
+        "entre_setores_pct": {
+          "SIM": {
+            "minimo": 0.0,
+            "p10": 2.5,
+            "q1": 13.3,
+            "mediana": 34.5,
+            "q3": 88.8,
+            "p90": 100.0,
+            "maximo": 100.0,
+            "iqr": 75.5,
+            "desvio_padrao": 37.0
+          }
+        },
+        "setores_com_o_item_medido": 171,
+        "pct_nao_declarado_no_municipio": 0.5
+      },
+      "BUEIRO": {
+        "variaveis": {
+          "SIM": "V05409",
+          "NÃO": "V05410",
+          "NÃO DECLARADO": "V05411"
+        },
+        "total_no_municipio": 7573,
+        "pct_no_municipio": {
+          "SIM": 56.9
+        },
+        "entre_setores_pct": {
+          "SIM": {
+            "minimo": 0.0,
+            "p10": 12.5,
+            "q1": 47.0,
+            "mediana": 63.5,
+            "q3": 80.0,
+            "p90": 97.1,
+            "maximo": 100.0,
+            "iqr": 33.0,
+            "desvio_padrao": 28.0
+          }
+        },
+        "setores_com_o_item_medido": 171,
+        "pct_nao_declarado_no_municipio": 0.5
+      },
+      "ILUMINAÇÃO PÚBLICA": {
+        "variaveis": {
+          "SIM": "V05412",
+          "NÃO": "V05413",
+          "NÃO DECLARADO": "V05414"
+        },
+        "total_no_municipio": 7573,
+        "pct_no_municipio": {
+          "SIM": 96.2
+        },
+        "entre_setores_pct": {
+          "SIM": {
+            "minimo": 28.6,
+            "p10": 91.7,
+            "q1": 96.6,
+            "mediana": 100.0,
+            "q3": 100.0,
+            "p90": 100.0,
+            "maximo": 100.0,
+            "iqr": 3.4,
+            "desvio_padrao": 8.3
+          }
+        },
+        "setores_com_o_item_medido": 171,
+        "pct_nao_declarado_no_municipio": 0.5
+      },
+      "PONTO DE ÔNIBUS": {
+        "variaveis": {
+          "SIM": "V05415",
+          "NÃO": "V05416",
+          "NÃO DECLARADO": "V05417"
+        },
+        "total_no_municipio": 7573,
+        "pct_no_municipio": {
+          "SIM": 7.9
+        },
+        "entre_setores_pct": {
+          "SIM": {
+            "minimo": 0.0,
+            "p10": 0.0,
+            "q1": 3.7,
+            "mediana": 7.1,
+            "q3": 12.5,
+            "p90": 20.0,
+            "maximo": 100.0,
+            "iqr": 8.8,
+            "desvio_padrao": 14.7
+          }
+        },
+        "setores_com_o_item_medido": 171,
+        "pct_nao_declarado_no_municipio": 0.5
+      },
+      "VIA SINALIZADA PARA BICICLETA": {
+        "variaveis": {
+          "SIM": "V05418",
+          "NÃO": "V05419",
+          "NÃO DECLARADO": "V05420"
+        },
+        "total_no_municipio": 7573,
+        "pct_no_municipio": {
+          "SIM": 1.2
+        },
+        "entre_setores_pct": {
+          "SIM": {
+            "minimo": 0.0,
+            "p10": 0.0,
+            "q1": 0.0,
+            "mediana": 0.0,
+            "q3": 0.5,
+            "p90": 5.0,
+            "maximo": 50.0,
+            "iqr": 0.5,
+            "desvio_padrao": 5.7
+          }
+        },
+        "setores_com_o_item_medido": 171,
+        "pct_nao_declarado_no_municipio": 0.5
+      },
+      "CALÇADA": {
+        "variaveis": {
+          "SIM": "V05421",
+          "NÃO": "V05422",
+          "NÃO DECLARADO": "V05423"
+        },
+        "total_no_municipio": 7573,
+        "pct_no_municipio": {
+          "SIM": 78.2
+        },
+        "entre_setores_pct": {
+          "SIM": {
+            "minimo": 0.0,
+            "p10": 50.0,
+            "q1": 74.7,
+            "mediana": 90.1,
+            "q3": 100.0,
+            "p90": 100.0,
+            "maximo": 100.0,
+            "iqr": 25.3,
+            "desvio_padrao": 24.1
+          }
+        },
+        "setores_com_o_item_medido": 171,
+        "pct_nao_declarado_no_municipio": 0.5
+      },
+      "OBSTÁCULO NA CALÇADA": {
+        "variaveis": {
+          "SIM": "V05424",
+          "NÃO": "V05425",
+          "NÃO DECLARADO": "V05426"
+        },
+        "total_no_municipio": 7573,
+        "pct_no_municipio": {
+          "SIM": 54.8
+        },
+        "entre_setores_pct": {
+          "SIM": {
+            "minimo": 0.0,
+            "p10": 0.0,
+            "q1": 30.4,
+            "mediana": 56.8,
+            "q3": 81.0,
+            "p90": 91.4,
+            "maximo": 100.0,
+            "iqr": 50.6,
+            "desvio_padrao": 31.0
+          }
+        },
+        "setores_com_o_item_medido": 171,
+        "pct_nao_declarado_no_municipio": 21.8
+      },
+      "RAMPA PARA CADEIRANTE": {
+        "variaveis": {
+          "SIM": "V05427",
+          "NÃO": "V05428",
+          "NÃO DECLARADO": "V05429"
+        },
+        "total_no_municipio": 7573,
+        "pct_no_municipio": {
+          "SIM": 11.9
+        },
+        "entre_setores_pct": {
+          "SIM": {
+            "minimo": 0.0,
+            "p10": 0.0,
+            "q1": 0.0,
+            "mediana": 5.3,
+            "q3": 23.9,
+            "p90": 54.8,
+            "maximo": 100.0,
+            "iqr": 23.9,
+            "desvio_padrao": 25.7
+          }
+        },
+        "setores_com_o_item_medido": 171,
+        "pct_nao_declarado_no_municipio": 21.8
+      },
+      "ARBORIZAÇÃO": {
+        "variaveis": {
+          "SEM ÁRVORES": "V05430",
+          "DE 1 A 2 ÁRVORES": "V05431",
+          "DE 3 A 4 ÁRVORES": "V05432",
+          "5 OU MAIS ÁRVORES": "V05433",
+          "SALTADO": "V05434"
+        },
+        "total_no_municipio": 7573,
+        "pct_no_municipio": {
+          "SEM ÁRVORES": 27.5,
+          "DE 1 A 2 ÁRVORES": 19.8,
+          "DE 3 A 4 ÁRVORES": 13.3,
+          "5 OU MAIS ÁRVORES": 38.8
+        },
+        "entre_setores_pct": {
+          "SEM ÁRVORES": {
+            "minimo": 0.0,
+            "p10": 2.3,
+            "q1": 11.2,
+            "mediana": 19.4,
+            "q3": 38.1,
+            "p90": 63.0,
+            "maximo": 100.0,
+            "iqr": 26.9,
+            "desvio_padrao": 24.6
+          },
+          "DE 1 A 2 ÁRVORES": {
+            "minimo": 0.0,
+            "p10": 0.0,
+            "q1": 10.0,
+            "mediana": 17.3,
+            "q3": 25.2,
+            "p90": 30.4,
+            "maximo": 66.7,
+            "iqr": 15.2,
+            "desvio_padrao": 11.6
+          },
+          "DE 3 A 4 ÁRVORES": {
+            "minimo": 0.0,
+            "p10": 0.0,
+            "q1": 6.1,
+            "mediana": 11.5,
+            "q3": 17.0,
+            "p90": 22.1,
+            "maximo": 34.8,
+            "iqr": 11.0,
+            "desvio_padrao": 8.0
+          },
+          "5 OU MAIS ÁRVORES": {
+            "minimo": 0.0,
+            "p10": 8.0,
+            "q1": 23.1,
+            "mediana": 42.5,
+            "q3": 58.7,
+            "p90": 79.1,
+            "maximo": 100.0,
+            "iqr": 35.6,
+            "desvio_padrao": 26.2
+          }
+        },
+        "setores_com_o_item_medido": 171,
+        "pct_saltado_no_municipio": 0.5
+      }
+    },
+    "setor_coluna": "COD_SETOR_M22FINAL"
+  }
+}

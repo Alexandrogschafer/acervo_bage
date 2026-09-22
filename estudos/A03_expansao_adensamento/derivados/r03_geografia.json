@@ -1,0 +1,518 @@
+{
+  "a_2010_2022": {
+    "linhas_de_para": 202,
+    "setores_2010_no_de_para": 168,
+    "setores_2022_no_de_para": 199,
+    "setores_2010_na_malha_fora_do_de_para": [],
+    "setores_2022_na_malha_fora_do_de_para": [],
+    "fora_do_municipio": [],
+    "classes": {
+      "1:1": {
+        "componentes": 141,
+        "setores_2010": 141,
+        "setores_2022": 141
+      },
+      "divisao": {
+        "componentes": 21,
+        "setores_2010": 21,
+        "setores_2022": 55
+      },
+      "fusao": {
+        "componentes": 3,
+        "setores_2010": 6,
+        "setores_2022": 3
+      }
+    },
+    "detalhe_1a1": {
+      "limpo (toda a cadeia 111)": 99,
+      "ajuste vetorial (x6x)": 39,
+      "mudança de situação ou distrito (xx2..xx6)": 3
+    },
+    "setores_2022_serie_limpa": 99,
+    "iou_serie_limpa": {
+      "n": 99,
+      "min": 0.16032544740677956,
+      "mediana": 0.8486155944960299
+    },
+    "codigos_frm_encontrados": {
+      "111": 2701,
+      "161": 44,
+      "241": 26,
+      "221": 20,
+      "242": 17,
+      "112": 7,
+      "162": 6,
+      "371": 3,
+      "372": 2,
+      "222": 1,
+      "392": 1
+    }
+  },
+  "calibracao_metodo_geometrico_2010_2022": {
+    "grade": [
+      {
+        "limiar": 0.05,
+        "erosao_m": 0,
+        "concordancia": 0.2161
+      },
+      {
+        "limiar": 0.05,
+        "erosao_m": 20,
+        "concordancia": 0.4221
+      },
+      {
+        "limiar": 0.05,
+        "erosao_m": 40,
+        "concordancia": 0.5578
+      },
+      {
+        "limiar": 0.1,
+        "erosao_m": 0,
+        "concordancia": 0.392
+      },
+      {
+        "limiar": 0.1,
+        "erosao_m": 20,
+        "concordancia": 0.5678
+      },
+      {
+        "limiar": 0.1,
+        "erosao_m": 40,
+        "concordancia": 0.6784
+      },
+      {
+        "limiar": 0.25,
+        "erosao_m": 0,
+        "concordancia": 0.7085
+      },
+      {
+        "limiar": 0.25,
+        "erosao_m": 20,
+        "concordancia": 0.7739
+      },
+      {
+        "limiar": 0.25,
+        "erosao_m": 40,
+        "concordancia": 0.7889
+      },
+      {
+        "limiar": 0.5,
+        "erosao_m": 0,
+        "concordancia": 0.8492
+      },
+      {
+        "limiar": 0.5,
+        "erosao_m": 20,
+        "concordancia": 0.8191
+      },
+      {
+        "limiar": 0.5,
+        "erosao_m": 40,
+        "concordancia": 0.7889
+      }
+    ],
+    "melhor": {
+      "limiar": 0.5,
+      "erosao_m": 0,
+      "concordancia": 0.8492
+    }
+  },
+  "b_hipoteses_crs_2000": {
+    "EPSG:32621 (declarado: WGS 84 / UTM 21N)": {
+      "centroide_lon_lat": [
+        -52.2286,
+        58.8262
+      ],
+      "area_malha_urbana_km2": 45.006,
+      "fracao_dentro_da_malha_2010": 0.0,
+      "fracao_dentro_da_envoltoria_urbana_rural_2000": 0.0,
+      "iou_setor_melhor_par_2010_mediana": 0.0,
+      "setores_com_iou_ge_0_9": 0,
+      "deslocamento_medio_para_2010_m": null,
+      "pares_usados_no_deslocamento": 0,
+      "crs_medicao_area": "ESRI:102033"
+    },
+    "EPSG:32721 (WGS 84 / UTM 21S)": {
+      "centroide_lon_lat": [
+        -54.1063,
+        -31.3272
+      ],
+      "area_malha_urbana_km2": 45.005,
+      "fracao_dentro_da_malha_2010": 1.0,
+      "fracao_dentro_da_envoltoria_urbana_rural_2000": 0.9169,
+      "iou_setor_melhor_par_2010_mediana": 0.4874,
+      "setores_com_iou_ge_0_9": 0,
+      "deslocamento_medio_para_2010_m": [
+        -95.3,
+        43.5
+      ],
+      "pares_usados_no_deslocamento": 113,
+      "crs_medicao_area": "ESRI:102033"
+    },
+    "EPSG:29191 (SAD69 / UTM 21S)": {
+      "centroide_lon_lat": [
+        -54.1069,
+        -31.3276
+      ],
+      "area_malha_urbana_km2": 45.004,
+      "fracao_dentro_da_malha_2010": 1.0,
+      "fracao_dentro_da_envoltoria_urbana_rural_2000": 0.9296,
+      "iou_setor_melhor_par_2010_mediana": 0.5037,
+      "setores_com_iou_ge_0_9": 0,
+      "deslocamento_medio_para_2010_m": [
+        -41.2,
+        82.5
+      ],
+      "pares_usados_no_deslocamento": 112,
+      "crs_medicao_area": "ESRI:102033"
+    },
+    "EPSG:31981 (SIRGAS 2000 / UTM 21S)": {
+      "centroide_lon_lat": [
+        -54.1063,
+        -31.3272
+      ],
+      "area_malha_urbana_km2": 45.005,
+      "fracao_dentro_da_malha_2010": 1.0,
+      "fracao_dentro_da_envoltoria_urbana_rural_2000": 0.9169,
+      "iou_setor_melhor_par_2010_mediana": 0.4874,
+      "setores_com_iou_ge_0_9": 0,
+      "deslocamento_medio_para_2010_m": [
+        -95.3,
+        43.5
+      ],
+      "pares_usados_no_deslocamento": 113,
+      "crs_medicao_area": "ESRI:102033"
+    }
+  },
+  "c_2000_2010": {
+    "condicionado_a": "malha urbana de 2000 lida como EPSG:29191 (SAD69 / UTM 21S); rural como EPSG:4618 (suposição)",
+    "metodo": "interseção >= 50% de um dos setores, antigos erodidos 0 m (calibrado em 2010->2022: concordância 84.9%)",
+    "setores_2000": 165,
+    "setores_2010": 168,
+    "setores_2000_que_foram_para_outro_municipio_em_2001": [
+      "430160210000001",
+      "430160210000002",
+      "430160210000003",
+      "430160210000004",
+      "430160212000001",
+      "430160212000002",
+      "430160212000003",
+      "430160212000004",
+      "430160212000005",
+      "430160212000006",
+      "430160212000007"
+    ],
+    "classes": {
+      "fusao": {
+        "componentes": 1,
+        "setores_antigos": 2,
+        "setores_novos": 1
+      },
+      "1:1": {
+        "componentes": 118,
+        "setores_antigos": 118,
+        "setores_novos": 118
+      },
+      "redesenho": {
+        "componentes": 5,
+        "setores_antigos": 11,
+        "setores_novos": 10
+      },
+      "divisao": {
+        "componentes": 12,
+        "setores_antigos": 12,
+        "setores_novos": 24
+      }
+    },
+    "setores_2000_sem_par_em_bage_2010": [
+      "430160205000005",
+      "430160205000018",
+      "430160205000020",
+      "430160205000028",
+      "430160205000055",
+      "430160205000060",
+      "430160205000073",
+      "430160205000090",
+      "430160205000100",
+      "430160205000104",
+      "430160205000122",
+      "430160210000001",
+      "430160210000002",
+      "430160210000003",
+      "430160210000004",
+      "430160212000001",
+      "430160212000002",
+      "430160212000003",
+      "430160212000004",
+      "430160212000005",
+      "430160212000006",
+      "430160212000007"
+    ],
+    "setores_2010_sem_par": [
+      "430160205000005",
+      "430160205000009",
+      "430160205000018",
+      "430160205000020",
+      "430160205000055",
+      "430160205000057",
+      "430160205000060",
+      "430160205000077",
+      "430160205000083",
+      "430160205000090",
+      "430160205000104",
+      "430160205000116",
+      "430160205000130",
+      "430160205000145",
+      "430160205000148"
+    ],
+    "sensibilidade": [
+      {
+        "limiar": 0.05,
+        "erosao_m": 0,
+        "classes": {
+          "redesenho": {
+            "componentes": 5,
+            "setores_antigos": 142,
+            "setores_novos": 156
+          },
+          "1:1": {
+            "componentes": 12,
+            "setores_antigos": 12,
+            "setores_novos": 12
+          }
+        }
+      },
+      {
+        "limiar": 0.05,
+        "erosao_m": 20,
+        "classes": {
+          "redesenho": {
+            "componentes": 4,
+            "setores_antigos": 139,
+            "setores_novos": 153
+          },
+          "1:1": {
+            "componentes": 15,
+            "setores_antigos": 15,
+            "setores_novos": 15
+          }
+        }
+      },
+      {
+        "limiar": 0.05,
+        "erosao_m": 40,
+        "classes": {
+          "redesenho": {
+            "componentes": 4,
+            "setores_antigos": 138,
+            "setores_novos": 152
+          },
+          "1:1": {
+            "componentes": 16,
+            "setores_antigos": 16,
+            "setores_novos": 16
+          }
+        }
+      },
+      {
+        "limiar": 0.1,
+        "erosao_m": 0,
+        "classes": {
+          "redesenho": {
+            "componentes": 5,
+            "setores_antigos": 140,
+            "setores_novos": 154
+          },
+          "1:1": {
+            "componentes": 14,
+            "setores_antigos": 14,
+            "setores_novos": 14
+          }
+        }
+      },
+      {
+        "limiar": 0.1,
+        "erosao_m": 20,
+        "classes": {
+          "redesenho": {
+            "componentes": 5,
+            "setores_antigos": 133,
+            "setores_novos": 147
+          },
+          "1:1": {
+            "componentes": 21,
+            "setores_antigos": 21,
+            "setores_novos": 21
+          }
+        }
+      },
+      {
+        "limiar": 0.1,
+        "erosao_m": 40,
+        "classes": {
+          "redesenho": {
+            "componentes": 15,
+            "setores_antigos": 119,
+            "setores_novos": 130
+          },
+          "1:1": {
+            "componentes": 33,
+            "setores_antigos": 33,
+            "setores_novos": 33
+          },
+          "divisao": {
+            "componentes": 2,
+            "setores_antigos": 2,
+            "setores_novos": 4
+          }
+        }
+      },
+      {
+        "limiar": 0.25,
+        "erosao_m": 0,
+        "classes": {
+          "redesenho": {
+            "componentes": 23,
+            "setores_antigos": 93,
+            "setores_novos": 103
+          },
+          "1:1": {
+            "componentes": 57,
+            "setores_antigos": 57,
+            "setores_novos": 57
+          },
+          "divisao": {
+            "componentes": 4,
+            "setores_antigos": 4,
+            "setores_novos": 8
+          }
+        }
+      },
+      {
+        "limiar": 0.25,
+        "erosao_m": 20,
+        "classes": {
+          "redesenho": {
+            "componentes": 22,
+            "setores_antigos": 69,
+            "setores_novos": 74
+          },
+          "1:1": {
+            "componentes": 76,
+            "setores_antigos": 76,
+            "setores_novos": 76
+          },
+          "divisao": {
+            "componentes": 9,
+            "setores_antigos": 9,
+            "setores_novos": 18
+          }
+        }
+      },
+      {
+        "limiar": 0.25,
+        "erosao_m": 40,
+        "classes": {
+          "redesenho": {
+            "componentes": 16,
+            "setores_antigos": 45,
+            "setores_novos": 45
+          },
+          "1:1": {
+            "componentes": 94,
+            "setores_antigos": 94,
+            "setores_novos": 94
+          },
+          "fusao": {
+            "componentes": 2,
+            "setores_antigos": 4,
+            "setores_novos": 2
+          },
+          "divisao": {
+            "componentes": 11,
+            "setores_antigos": 11,
+            "setores_novos": 22
+          }
+        }
+      },
+      {
+        "limiar": 0.5,
+        "erosao_m": 0,
+        "classes": {
+          "fusao": {
+            "componentes": 1,
+            "setores_antigos": 2,
+            "setores_novos": 1
+          },
+          "1:1": {
+            "componentes": 118,
+            "setores_antigos": 118,
+            "setores_novos": 118
+          },
+          "redesenho": {
+            "componentes": 5,
+            "setores_antigos": 11,
+            "setores_novos": 10
+          },
+          "divisao": {
+            "componentes": 12,
+            "setores_antigos": 12,
+            "setores_novos": 24
+          }
+        }
+      },
+      {
+        "limiar": 0.5,
+        "erosao_m": 20,
+        "classes": {
+          "fusao": {
+            "componentes": 4,
+            "setores_antigos": 8,
+            "setores_novos": 4
+          },
+          "1:1": {
+            "componentes": 122,
+            "setores_antigos": 122,
+            "setores_novos": 122
+          },
+          "redesenho": {
+            "componentes": 5,
+            "setores_antigos": 11,
+            "setores_novos": 10
+          },
+          "divisao": {
+            "componentes": 7,
+            "setores_antigos": 7,
+            "setores_novos": 14
+          }
+        }
+      },
+      {
+        "limiar": 0.5,
+        "erosao_m": 40,
+        "classes": {
+          "fusao": {
+            "componentes": 4,
+            "setores_antigos": 9,
+            "setores_novos": 4
+          },
+          "1:1": {
+            "componentes": 125,
+            "setores_antigos": 125,
+            "setores_novos": 125
+          },
+          "redesenho": {
+            "componentes": 4,
+            "setores_antigos": 8,
+            "setores_novos": 8
+          },
+          "divisao": {
+            "componentes": 6,
+            "setores_antigos": 6,
+            "setores_novos": 12
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,666 @@
+{
+  "populacao_total": {
+    "2000": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Pessoa1_RS__PESS1_RS.csv",
+      "n_variaveis": 1,
+      "setores": 165,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 0,
+      "urbanos_com_supressao": "0/120",
+      "rurais_com_supressao": "0/45",
+      "setores_com_todas_suprimidas": 0,
+      "celulas_suprimidas_pct": 0.0,
+      "por_marcador": {
+        "X": 0,
+        "vazio": 0,
+        ".": 0
+      }
+    },
+    "2010": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Pessoa13_RS.csv",
+      "n_variaveis": 1,
+      "setores": 164,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 0,
+      "urbanos_com_supressao": "0/129",
+      "rurais_com_supressao": "0/35",
+      "setores_com_todas_suprimidas": 0,
+      "celulas_suprimidas_pct": 0.0,
+      "por_marcador": {
+        "X": 0,
+        "vazio": 0,
+        ".": 0
+      }
+    },
+    "2022": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Agregados_por_setores_basico.csv",
+      "n_variaveis": 1,
+      "setores": 199,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 0,
+      "urbanos_com_supressao": "0/173",
+      "rurais_com_supressao": "0/26",
+      "setores_com_todas_suprimidas": 0,
+      "celulas_suprimidas_pct": 0.0,
+      "por_marcador": {
+        "X": 0,
+        "vazio": 0,
+        ".": 0
+      }
+    }
+  },
+  "populacao_sexo": {
+    "2000": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Morador_RS__MORA_RS.csv",
+      "n_variaveis": 2,
+      "setores": 165,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 0,
+      "urbanos_com_supressao": "0/120",
+      "rurais_com_supressao": "0/45",
+      "setores_com_todas_suprimidas": 0,
+      "celulas_suprimidas_pct": 0.0,
+      "por_marcador": {
+        "X": 0,
+        "vazio": 0,
+        ".": 0
+      }
+    },
+    "2010": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Domicilio02_RS.csv",
+      "n_variaveis": 2,
+      "setores": 164,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 0,
+      "urbanos_com_supressao": "0/129",
+      "rurais_com_supressao": "0/35",
+      "setores_com_todas_suprimidas": 0,
+      "celulas_suprimidas_pct": 0.0,
+      "por_marcador": {
+        "X": 0,
+        "vazio": 0,
+        ".": 0
+      }
+    },
+    "2022": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Agregados_por_setores_demografia.csv",
+      "n_variaveis": 2,
+      "setores": 199,
+      "setores_sem_linha_no_tema": [
+        "430160221000001"
+      ],
+      "setores_com_supressao": 4,
+      "urbanos_com_supressao": "2/173",
+      "rurais_com_supressao": "2/26",
+      "setores_com_todas_suprimidas": 4,
+      "celulas_suprimidas_pct": 2.01,
+      "por_marcador": {
+        "X": 8,
+        "vazio": 0,
+        ".": 0
+      }
+    }
+  },
+  "populacao_idade": {
+    "2000": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Pessoa1_RS__PESS1_RS.csv",
+      "n_variaveis": 17,
+      "setores": 165,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 8,
+      "urbanos_com_supressao": "6/120",
+      "rurais_com_supressao": "2/45",
+      "setores_com_todas_suprimidas": 8,
+      "celulas_suprimidas_pct": 4.85,
+      "por_marcador": {
+        "X": 0,
+        "vazio": 136,
+        ".": 0
+      }
+    },
+    "2010": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Pessoa13_RS.csv",
+      "n_variaveis": 101,
+      "setores": 164,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 2,
+      "urbanos_com_supressao": "1/129",
+      "rurais_com_supressao": "1/35",
+      "setores_com_todas_suprimidas": 2,
+      "celulas_suprimidas_pct": 1.22,
+      "por_marcador": {
+        "X": 202,
+        "vazio": 0,
+        ".": 0
+      }
+    },
+    "2022": {
+      "status": "existe com definição diferente",
+      "avaliado": true,
+      "arquivo": "Agregados_por_setores_demografia.csv",
+      "n_variaveis": 11,
+      "setores": 199,
+      "setores_sem_linha_no_tema": [
+        "430160221000001"
+      ],
+      "setores_com_supressao": 24,
+      "urbanos_com_supressao": "7/173",
+      "rurais_com_supressao": "17/26",
+      "setores_com_todas_suprimidas": 4,
+      "celulas_suprimidas_pct": 4.02,
+      "por_marcador": {
+        "X": 88,
+        "vazio": 0,
+        ".": 0
+      }
+    }
+  },
+  "dpp": {
+    "2000": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Domicilio_RS__DOMICILIO_RS.csv",
+      "n_variaveis": 1,
+      "setores": 165,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 0,
+      "urbanos_com_supressao": "0/120",
+      "rurais_com_supressao": "0/45",
+      "setores_com_todas_suprimidas": 0,
+      "celulas_suprimidas_pct": 0.0,
+      "por_marcador": {
+        "X": 0,
+        "vazio": 0,
+        ".": 0
+      }
+    },
+    "2010": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Domicilio01_RS.csv",
+      "n_variaveis": 1,
+      "setores": 164,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 0,
+      "urbanos_com_supressao": "0/129",
+      "rurais_com_supressao": "0/35",
+      "setores_com_todas_suprimidas": 0,
+      "celulas_suprimidas_pct": 0.0,
+      "por_marcador": {
+        "X": 0,
+        "vazio": 0,
+        ".": 0
+      }
+    },
+    "2022": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Agregados_por_setores_caracteristicas_domicilio1.csv",
+      "n_variaveis": 1,
+      "setores": 199,
+      "setores_sem_linha_no_tema": [
+        "430160221000001"
+      ],
+      "setores_com_supressao": 4,
+      "urbanos_com_supressao": "2/173",
+      "rurais_com_supressao": "2/26",
+      "setores_com_todas_suprimidas": 4,
+      "celulas_suprimidas_pct": 2.01,
+      "por_marcador": {
+        "X": 4,
+        "vazio": 0,
+        ".": 0
+      }
+    }
+  },
+  "moradores_por_domicilio": {
+    "2000": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Basico_RS__BASICO_RS.csv",
+      "n_variaveis": 3,
+      "setores": 165,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 7,
+      "urbanos_com_supressao": "6/120",
+      "rurais_com_supressao": "1/45",
+      "setores_com_todas_suprimidas": 7,
+      "celulas_suprimidas_pct": 4.24,
+      "por_marcador": {
+        "X": 0,
+        "vazio": 21,
+        ".": 0
+      }
+    },
+    "2010": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Basico_RS.csv",
+      "n_variaveis": 3,
+      "setores": 164,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 2,
+      "urbanos_com_supressao": "2/129",
+      "rurais_com_supressao": "0/35",
+      "setores_com_todas_suprimidas": 2,
+      "celulas_suprimidas_pct": 1.22,
+      "por_marcador": {
+        "X": 0,
+        "vazio": 6,
+        ".": 0
+      }
+    },
+    "2022": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Agregados_por_setores_caracteristicas_domicilio1.csv",
+      "n_variaveis": 2,
+      "setores": 199,
+      "setores_sem_linha_no_tema": [
+        "430160221000001"
+      ],
+      "setores_com_supressao": 4,
+      "urbanos_com_supressao": "2/173",
+      "rurais_com_supressao": "2/26",
+      "setores_com_todas_suprimidas": 4,
+      "celulas_suprimidas_pct": 2.01,
+      "por_marcador": {
+        "X": 8,
+        "vazio": 0,
+        ".": 0
+      }
+    }
+  },
+  "alfabetizacao": {
+    "2000": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Instrucao1_RS__INST1_RS.csv",
+      "n_variaveis": 34,
+      "setores": 165,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 8,
+      "urbanos_com_supressao": "6/120",
+      "rurais_com_supressao": "2/45",
+      "setores_com_todas_suprimidas": 8,
+      "celulas_suprimidas_pct": 4.85,
+      "por_marcador": {
+        "X": 0,
+        "vazio": 272,
+        ".": 0
+      }
+    },
+    "2010": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Pessoa01_RS.csv",
+      "n_variaveis": 77,
+      "setores": 164,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 2,
+      "urbanos_com_supressao": "1/129",
+      "rurais_com_supressao": "1/35",
+      "setores_com_todas_suprimidas": 0,
+      "celulas_suprimidas_pct": 1.2,
+      "por_marcador": {
+        "X": 152,
+        "vazio": 0,
+        ".": 0
+      }
+    },
+    "2022": {
+      "status": "existe com definição diferente",
+      "avaliado": true,
+      "arquivo": "Agregados_por_setores_alfabetizacao.csv",
+      "n_variaveis": 28,
+      "setores": 199,
+      "setores_sem_linha_no_tema": [
+        "430160221000001"
+      ],
+      "setores_com_supressao": 49,
+      "urbanos_com_supressao": "28/173",
+      "rurais_com_supressao": "21/26",
+      "setores_com_todas_suprimidas": 4,
+      "celulas_suprimidas_pct": 5.22,
+      "por_marcador": {
+        "X": 291,
+        "vazio": 0,
+        ".": 0
+      }
+    }
+  },
+  "rendimento_responsavel": {
+    "2000": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Responsavel1_RS__RESP1_RS.csv",
+      "n_variaveis": 22,
+      "setores": 165,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 131,
+      "urbanos_com_supressao": "95/120",
+      "rurais_com_supressao": "36/45",
+      "setores_com_todas_suprimidas": 0,
+      "celulas_suprimidas_pct": 12.56,
+      "por_marcador": {
+        "X": 0,
+        "vazio": 456,
+        ".": 0
+      }
+    },
+    "2010": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "ResponsavelRenda_RS.csv",
+      "n_variaveis": 22,
+      "setores": 164,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 2,
+      "urbanos_com_supressao": "1/129",
+      "rurais_com_supressao": "1/35",
+      "setores_com_todas_suprimidas": 2,
+      "celulas_suprimidas_pct": 1.22,
+      "por_marcador": {
+        "X": 44,
+        "vazio": 0,
+        ".": 0
+      }
+    },
+    "2022": {
+      "status": "não existe",
+      "avaliado": false
+    }
+  },
+  "cor_raca": {
+    "2000": {
+      "status": "não existe",
+      "avaliado": false
+    },
+    "2010": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Pessoa03_RS.csv",
+      "n_variaveis": 5,
+      "setores": 164,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 2,
+      "urbanos_com_supressao": "1/129",
+      "rurais_com_supressao": "1/35",
+      "setores_com_todas_suprimidas": 2,
+      "celulas_suprimidas_pct": 1.22,
+      "por_marcador": {
+        "X": 10,
+        "vazio": 0,
+        ".": 0
+      }
+    },
+    "2022": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Agregados_por_setores_cor_ou_raca.csv",
+      "n_variaveis": 5,
+      "setores": 199,
+      "setores_sem_linha_no_tema": [
+        "430160221000001"
+      ],
+      "setores_com_supressao": 65,
+      "urbanos_com_supressao": "58/173",
+      "rurais_com_supressao": "7/26",
+      "setores_com_todas_suprimidas": 4,
+      "celulas_suprimidas_pct": 8.84,
+      "por_marcador": {
+        "X": 88,
+        "vazio": 0,
+        ".": 0
+      }
+    }
+  },
+  "agua": {
+    "2000": {
+      "status": "existe com definição diferente",
+      "avaliado": true,
+      "arquivo": "Domicilio_RS__DOMICILIO_RS.csv",
+      "n_variaveis": 11,
+      "setores": 165,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 8,
+      "urbanos_com_supressao": "6/120",
+      "rurais_com_supressao": "2/45",
+      "setores_com_todas_suprimidas": 8,
+      "celulas_suprimidas_pct": 4.85,
+      "por_marcador": {
+        "X": 0,
+        "vazio": 88,
+        ".": 0
+      }
+    },
+    "2010": {
+      "status": "existe com definição diferente",
+      "avaliado": true,
+      "arquivo": "Domicilio01_RS.csv",
+      "n_variaveis": 4,
+      "setores": 164,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 2,
+      "urbanos_com_supressao": "1/129",
+      "rurais_com_supressao": "1/35",
+      "setores_com_todas_suprimidas": 2,
+      "celulas_suprimidas_pct": 1.22,
+      "por_marcador": {
+        "X": 8,
+        "vazio": 0,
+        ".": 0
+      }
+    },
+    "2022": {
+      "status": "existe com definição diferente",
+      "avaliado": true,
+      "arquivo": "Agregados_por_setores_caracteristicas_domicilio2.csv",
+      "n_variaveis": 13,
+      "setores": 199,
+      "setores_sem_linha_no_tema": [
+        "430160221000001"
+      ],
+      "setores_com_supressao": 146,
+      "urbanos_com_supressao": "123/173",
+      "rurais_com_supressao": "23/26",
+      "setores_com_todas_suprimidas": 4,
+      "celulas_suprimidas_pct": 17.86,
+      "por_marcador": {
+        "X": 462,
+        "vazio": 0,
+        ".": 0
+      }
+    }
+  },
+  "esgoto": {
+    "2000": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Domicilio_RS__DOMICILIO_RS.csv",
+      "n_variaveis": 8,
+      "setores": 165,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 8,
+      "urbanos_com_supressao": "6/120",
+      "rurais_com_supressao": "2/45",
+      "setores_com_todas_suprimidas": 8,
+      "celulas_suprimidas_pct": 4.85,
+      "por_marcador": {
+        "X": 0,
+        "vazio": 64,
+        ".": 0
+      }
+    },
+    "2010": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Domicilio01_RS.csv",
+      "n_variaveis": 8,
+      "setores": 164,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 2,
+      "urbanos_com_supressao": "1/129",
+      "rurais_com_supressao": "1/35",
+      "setores_com_todas_suprimidas": 2,
+      "celulas_suprimidas_pct": 1.22,
+      "por_marcador": {
+        "X": 16,
+        "vazio": 0,
+        ".": 0
+      }
+    },
+    "2022": {
+      "status": "existe com definição diferente",
+      "avaliado": true,
+      "arquivo": "Agregados_por_setores_caracteristicas_domicilio2.csv",
+      "n_variaveis": 8,
+      "setores": 199,
+      "setores_sem_linha_no_tema": [
+        "430160221000001"
+      ],
+      "setores_com_supressao": 148,
+      "urbanos_com_supressao": "127/173",
+      "rurais_com_supressao": "21/26",
+      "setores_com_todas_suprimidas": 4,
+      "celulas_suprimidas_pct": 16.96,
+      "por_marcador": {
+        "X": 270,
+        "vazio": 0,
+        ".": 0
+      }
+    }
+  },
+  "lixo": {
+    "2000": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Domicilio_RS__DOMICILIO_RS.csv",
+      "n_variaveis": 8,
+      "setores": 165,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 8,
+      "urbanos_com_supressao": "6/120",
+      "rurais_com_supressao": "2/45",
+      "setores_com_todas_suprimidas": 8,
+      "celulas_suprimidas_pct": 4.85,
+      "por_marcador": {
+        "X": 0,
+        "vazio": 64,
+        ".": 0
+      }
+    },
+    "2010": {
+      "status": "existe",
+      "avaliado": true,
+      "arquivo": "Domicilio01_RS.csv",
+      "n_variaveis": 8,
+      "setores": 164,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 2,
+      "urbanos_com_supressao": "1/129",
+      "rurais_com_supressao": "1/35",
+      "setores_com_todas_suprimidas": 2,
+      "celulas_suprimidas_pct": 1.22,
+      "por_marcador": {
+        "X": 16,
+        "vazio": 0,
+        ".": 0
+      }
+    },
+    "2022": {
+      "status": "existe com definição diferente",
+      "avaliado": true,
+      "arquivo": "Agregados_por_setores_caracteristicas_domicilio2.csv",
+      "n_variaveis": 6,
+      "setores": 199,
+      "setores_sem_linha_no_tema": [
+        "430160221000001"
+      ],
+      "setores_com_supressao": 71,
+      "urbanos_com_supressao": "54/173",
+      "rurais_com_supressao": "17/26",
+      "setores_com_todas_suprimidas": 4,
+      "celulas_suprimidas_pct": 9.63,
+      "por_marcador": {
+        "X": 115,
+        "vazio": 0,
+        ".": 0
+      }
+    }
+  },
+  "tipo_domicilio": {
+    "2000": {
+      "status": "existe com definição diferente",
+      "avaliado": true,
+      "arquivo": "Domicilio_RS__DOMICILIO_RS.csv",
+      "n_variaveis": 3,
+      "setores": 165,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 8,
+      "urbanos_com_supressao": "6/120",
+      "rurais_com_supressao": "2/45",
+      "setores_com_todas_suprimidas": 8,
+      "celulas_suprimidas_pct": 4.85,
+      "por_marcador": {
+        "X": 0,
+        "vazio": 24,
+        ".": 0
+      }
+    },
+    "2010": {
+      "status": "existe com definição diferente",
+      "avaliado": true,
+      "arquivo": "Domicilio01_RS.csv",
+      "n_variaveis": 3,
+      "setores": 164,
+      "setores_sem_linha_no_tema": [],
+      "setores_com_supressao": 2,
+      "urbanos_com_supressao": "1/129",
+      "rurais_com_supressao": "1/35",
+      "setores_com_todas_suprimidas": 2,
+      "celulas_suprimidas_pct": 1.22,
+      "por_marcador": {
+        "X": 6,
+        "vazio": 0,
+        ".": 0
+      }
+    },
+    "2022": {
+      "status": "existe com definição diferente",
+      "avaliado": true,
+      "arquivo": "Agregados_por_setores_caracteristicas_domicilio1.csv",
+      "n_variaveis": 6,
+      "setores": 199,
+      "setores_sem_linha_no_tema": [
+        "430160221000001"
+      ],
+      "setores_com_supressao": 54,
+      "urbanos_com_supressao": "48/173",
+      "rurais_com_supressao": "6/26",
+      "setores_com_todas_suprimidas": 4,
+      "celulas_suprimidas_pct": 6.62,
+      "por_marcador": {
+        "X": 79,
+        "vazio": 0,
+        ".": 0
+      }
+    }
+  }
+}

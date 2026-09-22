@@ -110,7 +110,7 @@ arquivos:
   caminho_revia_bg: 2000/malha/4301602.zip
   crs_decidido: EPSG:29191
   nota: 'CRS DECIDIDO pelo responsável em 2026-09-22: SAD69 / UTM 21S (EPSG:29191). O .prj do arquivo declara EPSG:32621 (UTM 21 Norte, WGS 84), que põe Bagé a 58,8° N — erro de declaração; o arquivo não
-    foi alterado. LIMITAÇÃO CONHECIDA: lida em EPSG:29191, a malha tem deslocamento residual de ~90–105 m em relação à malha de 2010 (medido em estudos/A03_censo/reconhecimento.md § 3.2) e 7 das 127 geometrias
+    foi alterado. LIMITAÇÃO CONHECIDA: lida em EPSG:29191, a malha tem deslocamento residual de ~90–105 m em relação à malha de 2010 (medido em estudos/A03_expansao_adensamento/reconhecimento.md § 3.2) e 7 das 127 geometrias
     são inválidas. REGRA DE USO: dados de 2000 só por município e distrito, NUNCA por setor.'
 - ano: '2000'
   categoria: malha
@@ -993,7 +993,7 @@ fontes:
   autorizacao_fonte: 'true'
   pode_publicar: 'true'
   observacoes: '[tema: nao_espacial | resolução/escala: setor censitário, recorte BR | período: Censo 2022 (divulgado 2026-05-08) | script: scripts/download/baixar_censo_ibge.py] Só 6 variáveis por setor:
-    responsáveis, moradores, rendimento nominal médio e mediano dos responsáveis e variâncias — SEM classes de rendimento (não comparável às classes de salário mínimo de 2000/2010; ver estudos/A03_censo/reconhecimento.md
+    responsáveis, moradores, rendimento nominal médio e mediano dos responsáveis e variâncias — SEM classes de rendimento (não comparável às classes de salário mínimo de 2000/2010; ver estudos/A03_expansao_adensamento/reconhecimento.md
     § 1). Dicionário: dicionario_de_dados_renda_responsavel_20260508.xlsx. URL obtida navegando as listagens do FTP.'
 - id_fonte: ibge_grade_estatistica_2022
   nome: Grade Estatística — Censo 2022, quadrantes ID_14 e ID_04
@@ -1067,4 +1067,4 @@ fontes:
   licenca: IBGE — uso livre com citação da fonte
   autorizacao_fonte: 'true'
   pode_publicar: 'true'
-  observacoes: '[tema: documentação | período: Censo 2022 (publicação de 2025; PDF gerado em 2025-04-15) | script: scripts/download/baixar_censo_ibge.py, item de obtenção MANUAL] Publicação oficial do IBGE. A declaração literal de que os arquivos são públicos é do ftp.ibge.gov.br e do geoftp.ibge.gov.br, e a página de termos de uso não pôde ser lida (HTTP 403); a licença acima é DECISÃO DO RESPONSÁVEL, registrada em 2026-09-22. Obtido manualmente pelo responsável em 2026-09-22, pelo navegador (o site bloqueia acesso automatizado); sha256 e tamanho calculados do arquivo local. O arquivo continua em data/raw/ e fora do git, como todo bruto. Documento metodológico do entorno 2022: universo (p. 13), retirada dos setores sem morfologia urbana (p. 50), comparabilidade com 2010 (pp. 50-52, Tabela 2 p. 51), setores do universo 2010 × 2022 (Tabela 3, p. 53). Usado em estudos/A03_censo/reconhecimento.md § 1.4.'
+  observacoes: '[tema: documentação | período: Censo 2022 (publicação de 2025; PDF gerado em 2025-04-15) | script: scripts/download/baixar_censo_ibge.py, item de obtenção MANUAL] Publicação oficial do IBGE. A declaração literal de que os arquivos são públicos é do ftp.ibge.gov.br e do geoftp.ibge.gov.br, e a página de termos de uso não pôde ser lida (HTTP 403); a licença acima é DECISÃO DO RESPONSÁVEL, registrada em 2026-09-22. Obtido manualmente pelo responsável em 2026-09-22, pelo navegador (o site bloqueia acesso automatizado); sha256 e tamanho calculados do arquivo local. O arquivo continua em data/raw/ e fora do git, como todo bruto. Documento metodológico do entorno 2022: universo (p. 13), retirada dos setores sem morfologia urbana (p. 50), comparabilidade com 2010 (pp. 50-52, Tabela 2 p. 51), setores do universo 2010 × 2022 (Tabela 3, p. 53). Usado em estudos/A03_expansao_adensamento/reconhecimento.md § 1.4.'

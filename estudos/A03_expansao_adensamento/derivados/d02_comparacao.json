@@ -1,0 +1,147 @@
+{
+  "recortes": {
+    "bage": {
+      "2010": {
+        "populacao": 116794,
+        "domicilios_particulares_ocupados": 38504,
+        "pessoas_por_domicilio_ocupado": 3.033
+      },
+      "2022": {
+        "populacao": 117938,
+        "domicilios_particulares_ocupados": 45327,
+        "pessoas_por_domicilio_ocupado": 2.602,
+        "domicilios_particulares": 53629,
+        "nao_ocupados": 8302,
+        "nao_ocupados_pct": 15.48
+      },
+      "variacao": {
+        "populacao_pct": 0.98,
+        "ocupados_pct": 17.72,
+        "diferenca_pp": 16.74,
+        "razao_ocupados_sobre_populacao": 18.08,
+        "pessoas_por_domicilio": {
+          "2010": 3.033,
+          "2022": 2.602
+        }
+      }
+    },
+    "rs": {
+      "2010": {
+        "populacao": 10693929,
+        "domicilios_particulares_ocupados": 3599604,
+        "pessoas_por_domicilio_ocupado": 2.971
+      },
+      "2022": {
+        "populacao": 10882965,
+        "domicilios_particulares_ocupados": 4258637,
+        "pessoas_por_domicilio_ocupado": 2.556,
+        "domicilios_particulares": 5321610,
+        "nao_ocupados": 1062973,
+        "nao_ocupados_pct": 19.97
+      },
+      "variacao": {
+        "populacao_pct": 1.77,
+        "ocupados_pct": 18.31,
+        "diferenca_pp": 16.54,
+        "razao_ocupados_sobre_populacao": 10.34,
+        "pessoas_por_domicilio": {
+          "2010": 2.971,
+          "2022": 2.556
+        }
+      }
+    },
+    "brasil": {
+      "2010": "AUSENTE em data/raw/: 2010 só tem o recorte RS",
+      "2022": {
+        "populacao": 203080756,
+        "domicilios_particulares_ocupados": 72522372,
+        "pessoas_por_domicilio_ocupado": 2.8,
+        "domicilios_particulares": 90600065,
+        "nao_ocupados": 18077693,
+        "nao_ocupados_pct": 19.95
+      }
+    }
+  },
+  "posicao_de_bage": {
+    "rs_todos": {
+      "rotulo": "todos os municípios do RS com dado nos dois censos",
+      "municipios": 496,
+      "bage": {
+        "var_pop_pct": 0.98,
+        "var_dom_pct": 17.72,
+        "diferenca_pp": 16.74,
+        "nao_ocupados_pct": 15.48
+      },
+      "percentil_de_bage": {
+        "diferenca_pp": 62.3,
+        "var_dom_pct": 64.3,
+        "var_pop_pct": 62.5,
+        "nao_ocupados_pct": 34.7
+      },
+      "mediana": {
+        "diferenca_pp": 15.87,
+        "var_dom_pct": 13.01,
+        "var_pop_pct": -2.65,
+        "nao_ocupados_pct": 17.53
+      },
+      "quartis_diferenca_pp": [
+        14.12,
+        15.87,
+        17.72
+      ],
+      "acima_de_bage": {
+        "diferenca_pp": 186,
+        "nao_ocupados_pct": 323
+      }
+    },
+    "rs_porte_semelhante": {
+      "rotulo": "municípios do RS com população 2022 entre 50.000 e 200.000",
+      "municipios": 33,
+      "bage": {
+        "var_pop_pct": 0.98,
+        "var_dom_pct": 17.72,
+        "diferenca_pp": 16.74,
+        "nao_ocupados_pct": 15.48
+      },
+      "percentil_de_bage": {
+        "diferenca_pp": 60.6,
+        "var_dom_pct": 48.5,
+        "var_pop_pct": 45.5,
+        "nao_ocupados_pct": 69.7
+      },
+      "mediana": {
+        "diferenca_pp": 16.31,
+        "var_dom_pct": 17.72,
+        "var_pop_pct": 1.08,
+        "nao_ocupados_pct": 14.33
+      },
+      "quartis_diferenca_pp": [
+        14.9,
+        16.31,
+        18.53
+      ],
+      "acima_de_bage": {
+        "diferenca_pp": 12,
+        "nao_ocupados_pct": 9
+      }
+    },
+    "rs_divergentes": {
+      "municipios_com_dom_sobe_e_pop_cai": 258,
+      "municipios_com_dom_sobe": 464,
+      "municipios_com_pop_cai": 290,
+      "total": 496
+    }
+  },
+  "conferencia_populacao_2022": {
+    "municipios_conferidos": 5570,
+    "municipios_com_diferenca": 0,
+    "diferenca_total": 0,
+    "bage_soma_setores": 117938,
+    "bage_tabela_oficial": 117938
+  },
+  "faixa_de_porte": {
+    "minimo": 50000,
+    "maximo": 200000,
+    "municipios_no_rs": 33
+  }
+}

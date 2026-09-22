@@ -1,0 +1,160 @@
+{
+  "censo_2010": {
+    "suprimidos": {
+      "basico_V001": 2,
+      "domicilio02_V001": 0
+    },
+    "setores": 164,
+    "total": {
+      "populacao": 116794,
+      "dpp_ocupados": 38504,
+      "moradores_em_dpp": 116318,
+      "moradores_por_domicilio": 3.021
+    },
+    "urbano": {
+      "populacao": 97765,
+      "dpp_ocupados": 32642,
+      "moradores_em_dpp": 97304,
+      "moradores_por_domicilio": 2.981
+    },
+    "rural": {
+      "populacao": 19029,
+      "dpp_ocupados": 5862,
+      "moradores_em_dpp": 19014,
+      "moradores_por_domicilio": 3.244
+    },
+    "nao_ocupados": "NÃO PUBLICADO por setor em 2010: os agregados por setor só trazem DPP ocupados (com os fechados imputados). Vagos e de uso ocasional não estão em data/raw/ para 2010, nem por setor nem nas tabelas municipais 4.23.x do RS."
+  },
+  "censo_2022": {
+    "suprimidos": {
+      "basico_v0001": 0,
+      "cd1_V00001": 5,
+      "cd1_V00005": 5
+    },
+    "setores_sem_dppo_publicado": [
+      "430160205000047",
+      "430160205000079",
+      "430160205000142",
+      "430160221000001",
+      "430160221000009"
+    ],
+    "teto_do_dppo_que_falta_v0007_desses_setores": 4,
+    "setores": 199,
+    "total": {
+      "populacao": 117938,
+      "domicilios_total": 53716,
+      "domicilios_particulares": 53629,
+      "domicilios_coletivos": 87,
+      "dp_ocupados_dppo_mais_dpio": 45327,
+      "dpp_ocupados": 45295,
+      "dp_improvisados_ocupados": 14,
+      "moradores_em_dppo": 117160,
+      "moradores_por_domicilio": 2.587,
+      "uso_ocasional": 1891,
+      "vagos": 6411,
+      "nao_ocupados": 8302,
+      "nao_ocupados_pct_dos_particulares": 15.48
+    },
+    "urbano": {
+      "populacao": 114883,
+      "domicilios_total": 51373,
+      "domicilios_particulares": 51314,
+      "domicilios_coletivos": 59,
+      "dp_ocupados_dppo_mais_dpio": 44043,
+      "dpp_ocupados": 44018,
+      "dp_improvisados_ocupados": 14,
+      "moradores_em_dppo": 114199,
+      "moradores_por_domicilio": 2.594,
+      "uso_ocasional": 1155,
+      "vagos": 6116,
+      "nao_ocupados": 7271,
+      "nao_ocupados_pct_dos_particulares": 14.17
+    },
+    "rural": {
+      "populacao": 3055,
+      "domicilios_total": 2343,
+      "domicilios_particulares": 2315,
+      "domicilios_coletivos": 28,
+      "dp_ocupados_dppo_mais_dpio": 1284,
+      "dpp_ocupados": 1277,
+      "dp_improvisados_ocupados": 0,
+      "moradores_em_dppo": 2961,
+      "moradores_por_domicilio": 2.319,
+      "uso_ocasional": 736,
+      "vagos": 295,
+      "nao_ocupados": 1031,
+      "nao_ocupados_pct_dos_particulares": 44.54
+    }
+  },
+  "variacao_2010_2022": {
+    "total": {
+      "populacao": {
+        "2010": 116794,
+        "2022": 117938,
+        "abs": 1144,
+        "pct": 0.98
+      },
+      "dpp_ocupados": {
+        "2010": 38504,
+        "2022": 45295,
+        "abs": 6791,
+        "pct": 17.64
+      },
+      "moradores_por_domicilio": {
+        "2010": 3.021,
+        "2022": 2.587,
+        "abs": -0.434,
+        "pct": -14.37
+      },
+      "razao_variacao_domicilios_sobre_populacao": 18.0
+    },
+    "urbano": {
+      "populacao": {
+        "2010": 97765,
+        "2022": 114883,
+        "abs": 17118,
+        "pct": 17.51
+      },
+      "dpp_ocupados": {
+        "2010": 32642,
+        "2022": 44018,
+        "abs": 11376,
+        "pct": 34.85
+      },
+      "moradores_por_domicilio": {
+        "2010": 2.981,
+        "2022": 2.594,
+        "abs": -0.387,
+        "pct": -12.98
+      },
+      "razao_variacao_domicilios_sobre_populacao": 1.99
+    },
+    "rural": {
+      "populacao": {
+        "2010": 19029,
+        "2022": 3055,
+        "abs": -15974,
+        "pct": -83.95
+      },
+      "dpp_ocupados": {
+        "2010": 5862,
+        "2022": 1277,
+        "abs": -4585,
+        "pct": -78.22
+      },
+      "moradores_por_domicilio": {
+        "2010": 3.244,
+        "2022": 2.319,
+        "abs": -0.925,
+        "pct": -28.51
+      },
+      "razao_variacao_domicilios_sobre_populacao": 0.93
+    }
+  },
+  "reclassificacao_urbano_rural": {
+    "populacao_2010": 11476,
+    "dpp_2010": 3427,
+    "setores_2010": 13,
+    "amcs": 13
+  }
+}

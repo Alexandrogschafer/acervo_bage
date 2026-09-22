@@ -99,7 +99,7 @@ e nenhum commit passaria. Estão isentos por não carregarem dado.
 
 ### Estudos
 
-`A01_base-cartografica`, `A02_portal`, `A03_censo`, cada um com
+`A01_base-cartografica`, `A02_portal`, `A03_expansao_adensamento`, cada um com
 `manifesto.yaml` (esquema comentado, `camadas: []`), `scripts/`, `derivados/`,
 `saidas/` e `README.md`. Todos em `status: reconhecimento`.
 

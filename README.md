@@ -54,7 +54,7 @@ scripts/
 estudos/
   A01_base-cartografica/      cada estudo com:
   A02_portal/                   manifesto.yaml  contrato com o acervo
-  A03_censo/                    scripts/        código próprio
+  A03_expansao_adensamento/                    scripts/        código próprio
                                 derivados/      intermediários (fora do git)
                                 saidas/         resultados (fora do git)
                                 README.md

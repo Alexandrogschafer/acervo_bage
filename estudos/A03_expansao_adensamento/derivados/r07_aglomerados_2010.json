@@ -1,0 +1,312 @@
+{
+  "aglomerados_2010_setores_de_bage": 0,
+  "aglomerados_2010_setores_no_pais": 15868,
+  "tab01_bage_listado": false,
+  "tab01_rs_total": [
+    "448",
+    "86478",
+    "297540"
+  ],
+  "tab01_rs_municipios": [
+    {
+      "municipio": "Alvorada",
+      "aglomerados": 1,
+      "domicilios": 243,
+      "moradores": 1006
+    },
+    {
+      "municipio": "Bento Gonçalves",
+      "aglomerados": 11,
+      "domicilios": 2167,
+      "moradores": 7099
+    },
+    {
+      "municipio": "Cachoeirinha",
+      "aglomerados": 1,
+      "domicilios": 65,
+      "moradores": 251
+    },
+    {
+      "municipio": "Camaquã",
+      "aglomerados": 3,
+      "domicilios": 733,
+      "moradores": 2595
+    },
+    {
+      "municipio": "Canoas",
+      "aglomerados": 12,
+      "domicilios": 1896,
+      "moradores": 6865
+    },
+    {
+      "municipio": "Caxias do Sul",
+      "aglomerados": 56,
+      "domicilios": 8317,
+      "moradores": 28167
+    },
+    {
+      "municipio": "Cristal",
+      "aglomerados": 1,
+      "domicilios": 186,
+      "moradores": 645
+    },
+    {
+      "municipio": "Eldorado do Sul",
+      "aglomerados": 2,
+      "domicilios": 458,
+      "moradores": 1651
+    },
+    {
+      "municipio": "Estância Velha",
+      "aglomerados": 1,
+      "domicilios": 86,
+      "moradores": 275
+    },
+    {
+      "municipio": "Gravataí",
+      "aglomerados": 3,
+      "domicilios": 413,
+      "moradores": 1252
+    },
+    {
+      "municipio": "Guaíba",
+      "aglomerados": 4,
+      "domicilios": 858,
+      "moradores": 2880
+    },
+    {
+      "municipio": "Montenegro",
+      "aglomerados": 3,
+      "domicilios": 483,
+      "moradores": 1591
+    },
+    {
+      "municipio": "Novo Hamburgo",
+      "aglomerados": 35,
+      "domicilios": 6361,
+      "moradores": 22047
+    },
+    {
+      "municipio": "Palmares do Sul",
+      "aglomerados": 1,
+      "domicilios": 64,
+      "moradores": 209
+    },
+    {
+      "municipio": "Passo Fundo",
+      "aglomerados": 5,
+      "domicilios": 700,
+      "moradores": 2428
+    },
+    {
+      "municipio": "Pelotas",
+      "aglomerados": 6,
+      "domicilios": 959,
+      "moradores": 3217
+    },
+    {
+      "municipio": "Portão",
+      "aglomerados": 3,
+      "domicilios": 482,
+      "moradores": 1637
+    },
+    {
+      "municipio": "Porto Alegre",
+      "aglomerados": 267,
+      "domicilios": 56024,
+      "moradores": 192843
+    },
+    {
+      "municipio": "Rio Grande",
+      "aglomerados": 8,
+      "domicilios": 1422,
+      "moradores": 4884
+    },
+    {
+      "municipio": "São Leopoldo",
+      "aglomerados": 12,
+      "domicilios": 1923,
+      "moradores": 6697
+    },
+    {
+      "municipio": "Tapes",
+      "aglomerados": 4,
+      "domicilios": 182,
+      "moradores": 625
+    },
+    {
+      "municipio": "Tramandaí",
+      "aglomerados": 4,
+      "domicilios": 1375,
+      "moradores": 4887
+    },
+    {
+      "municipio": "Viamão",
+      "aglomerados": 5,
+      "domicilios": 1081,
+      "moradores": 3789
+    }
+  ],
+  "fcu_2022_setores_de_bage": [
+    {
+      "setor_2022": "430160205000184",
+      "fcu": "Balança Municipal",
+      "cd_fcu": "43016020004",
+      "setores_2010": [
+        "430160205000125"
+      ],
+      "frm_2022_divulgacao": [
+        "241"
+      ],
+      "setor_2010_era_aglomerado": false,
+      "irmaos_2022_do_setor_2010": [
+        "430160205000183",
+        "430160205000184"
+      ]
+    },
+    {
+      "setor_2022": "430160205000186",
+      "fcu": "Beco dos Coqueiros",
+      "cd_fcu": "43016020007",
+      "setores_2010": [
+        "430160205000051"
+      ],
+      "frm_2022_divulgacao": [
+        "241"
+      ],
+      "setor_2010_era_aglomerado": false,
+      "irmaos_2022_do_setor_2010": [
+        "430160205000185",
+        "430160205000186"
+      ]
+    },
+    {
+      "setor_2022": "430160205000188",
+      "fcu": "Vila Miséria",
+      "cd_fcu": "43016020003",
+      "setores_2010": [
+        "430160205000049"
+      ],
+      "frm_2022_divulgacao": [
+        "241"
+      ],
+      "setor_2010_era_aglomerado": false,
+      "irmaos_2022_do_setor_2010": [
+        "430160205000187",
+        "430160205000188"
+      ]
+    },
+    {
+      "setor_2022": "430160205000190",
+      "fcu": "Stand",
+      "cd_fcu": "43016020002",
+      "setores_2010": [
+        "430160205000045"
+      ],
+      "frm_2022_divulgacao": [
+        "241"
+      ],
+      "setor_2010_era_aglomerado": false,
+      "irmaos_2022_do_setor_2010": [
+        "430160205000189",
+        "430160205000190"
+      ]
+    },
+    {
+      "setor_2022": "430160205000192",
+      "fcu": "Stand",
+      "cd_fcu": "43016020002",
+      "setores_2010": [
+        "430160205000114"
+      ],
+      "frm_2022_divulgacao": [
+        "241"
+      ],
+      "setor_2010_era_aglomerado": false,
+      "irmaos_2022_do_setor_2010": [
+        "430160205000191",
+        "430160205000192"
+      ]
+    },
+    {
+      "setor_2022": "430160205000195",
+      "fcu": "Passo das Pedras",
+      "cd_fcu": "43016020001",
+      "setores_2010": [
+        "430160205000138"
+      ],
+      "frm_2022_divulgacao": [
+        "242"
+      ],
+      "setor_2010_era_aglomerado": false,
+      "irmaos_2022_do_setor_2010": [
+        "430160205000164",
+        "430160205000165",
+        "430160205000166",
+        "430160205000193",
+        "430160205000194",
+        "430160205000195"
+      ]
+    },
+    {
+      "setor_2022": "430160205000199",
+      "fcu": "Beco do Juruna",
+      "cd_fcu": "43016020005",
+      "setores_2010": [
+        "430160205000087"
+      ],
+      "frm_2022_divulgacao": [
+        "241"
+      ],
+      "setor_2010_era_aglomerado": false,
+      "irmaos_2022_do_setor_2010": [
+        "430160205000198",
+        "430160205000199"
+      ]
+    }
+  ],
+  "cobertura_entorno_fcu_bage": [
+    [
+      "43016020001",
+      "Passo das Pedras - Bagé (RS)",
+      "149",
+      "0",
+      "0"
+    ],
+    [
+      "43016020002",
+      "Stand - Bagé (RS)",
+      "190",
+      "190",
+      "100"
+    ],
+    [
+      "43016020003",
+      "Vila Miséria - Bagé (RS)",
+      "296",
+      "296",
+      "100"
+    ],
+    [
+      "43016020004",
+      "Balança Municipal - Bagé (RS)",
+      "74",
+      "74",
+      "100"
+    ],
+    [
+      "43016020005",
+      "Beco do Juruna - Bagé (RS)",
+      "289",
+      "289",
+      "100"
+    ],
+    [
+      "43016020007",
+      "Beco dos Coqueiros - Bagé (RS)",
+      "129",
+      "129",
+      "100"
+    ]
+  ]
+}

@@ -84,7 +84,7 @@ def pode_publicar_estudo(estudo: str) -> Decisao:
     """Aplica a regra do mais restritivo sobre o manifesto de um estudo.
 
     Args:
-        estudo: id do diretório em `estudos/` (ex.: "A03_censo").
+        estudo: id do diretório em `estudos/` (ex.: "A03_expansao_adensamento").
 
     Returns:
         `Decisao` com todos os bloqueios encontrados — não só o primeiro, para

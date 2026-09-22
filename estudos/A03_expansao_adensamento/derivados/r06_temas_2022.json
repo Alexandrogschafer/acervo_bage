@@ -1,0 +1,857 @@
+{
+  "setores_na_tabela_basica": 199,
+  "temas": {
+    "renda_responsavel": {
+      "arquivo": "Agregados_por_setores_renda_responsavel_BR_20260508_csv.zip",
+      "coluna_setor": "CD_SETOR",
+      "n_variaveis": 6,
+      "setores_com_linha": 198,
+      "setores_sem_linha": [
+        "430160221000001"
+      ],
+      "setores_com_supressao": 4,
+      "urbanos_com_supressao": "2/172",
+      "rurais_com_supressao": "2/26",
+      "setores_com_todas_suprimidas": 4,
+      "celulas_suprimidas_pct": 2.02,
+      "por_marcador": {
+        "X": 24,
+        "vazio": 0,
+        ".": 0
+      },
+      "variaveis_mais_suprimidas": {
+        "V06001": 4,
+        "V06002": 4,
+        "V06003": 4,
+        "V06004": 4,
+        "V06005": 4,
+        "V06006": 4
+      }
+    },
+    "entorno_domicilios": {
+      "arquivo": "Agregados_por_setores_entorno_domicílios_BR.zip",
+      "coluna_setor": "CD_setor",
+      "n_variaveis": 35,
+      "setores_com_linha": 168,
+      "setores_sem_linha": [
+        "430160205000047",
+        "430160205000079",
+        "430160205000137",
+        "430160205000141",
+        "430160205000142",
+        "430160205000160",
+        "430160205000182",
+        "430160205000193",
+        "430160205000195",
+        "430160205000196",
+        "430160205000197",
+        "430160217000003",
+        "430160217000004",
+        "430160217000005",
+        "430160217000006",
+        "430160217000007",
+        "430160220000002",
+        "430160220000004",
+        "430160220000009",
+        "430160220000010",
+        "430160220000011",
+        "430160221000001",
+        "430160221000003",
+        "430160221000004",
+        "430160221000005",
+        "430160221000006",
+        "430160221000007",
+        "430160221000008",
+        "430160221000009",
+        "430160222000003",
+        "430160222000004"
+      ],
+      "setores_com_supressao": 0,
+      "urbanos_com_supressao": "0/167",
+      "rurais_com_supressao": "0/1",
+      "setores_com_todas_suprimidas": 0,
+      "celulas_suprimidas_pct": 0.0,
+      "por_marcador": {
+        "X": 0,
+        "vazio": 0,
+        ".": 0
+      },
+      "variaveis_mais_suprimidas": {
+        "V05000": 0,
+        "V05001": 0,
+        "V05002": 0,
+        "V05003": 0,
+        "V05004": 0,
+        "V05005": 0,
+        "V05006": 0,
+        "V05007": 0
+      }
+    },
+    "entorno_moradores": {
+      "arquivo": "Agregados_por_setores_entorno_moradores_BR.zip",
+      "coluna_setor": "CD_setor",
+      "n_variaveis": 35,
+      "setores_com_linha": 168,
+      "setores_sem_linha": [
+        "430160205000047",
+        "430160205000079",
+        "430160205000137",
+        "430160205000141",
+        "430160205000142",
+        "430160205000160",
+        "430160205000182",
+        "430160205000193",
+        "430160205000195",
+        "430160205000196",
+        "430160205000197",
+        "430160217000003",
+        "430160217000004",
+        "430160217000005",
+        "430160217000006",
+        "430160217000007",
+        "430160220000002",
+        "430160220000004",
+        "430160220000009",
+        "430160220000010",
+        "430160220000011",
+        "430160221000001",
+        "430160221000003",
+        "430160221000004",
+        "430160221000005",
+        "430160221000006",
+        "430160221000007",
+        "430160221000008",
+        "430160221000009",
+        "430160222000003",
+        "430160222000004"
+      ],
+      "setores_com_supressao": 0,
+      "urbanos_com_supressao": "0/167",
+      "rurais_com_supressao": "0/1",
+      "setores_com_todas_suprimidas": 0,
+      "celulas_suprimidas_pct": 0.0,
+      "por_marcador": {
+        "X": 0,
+        "vazio": 0,
+        ".": 0
+      },
+      "variaveis_mais_suprimidas": {
+        "V05200": 0,
+        "V05201": 0,
+        "V05202": 0,
+        "V05203": 0,
+        "V05204": 0,
+        "V05205": 0,
+        "V05206": 0,
+        "V05207": 0
+      }
+    },
+    "entorno_faces": {
+      "arquivo": "Agregados_por_setores_entorno_faces_BR.zip",
+      "coluna_setor": "COD_SETOR_M22FINAL",
+      "n_variaveis": 35,
+      "setores_com_linha": 171,
+      "setores_sem_linha": [
+        "430160205000137",
+        "430160205000141",
+        "430160205000142",
+        "430160205000182",
+        "430160205000193",
+        "430160205000195",
+        "430160205000196",
+        "430160205000197",
+        "430160217000003",
+        "430160217000004",
+        "430160217000005",
+        "430160217000006",
+        "430160217000007",
+        "430160220000002",
+        "430160220000004",
+        "430160220000009",
+        "430160220000010",
+        "430160220000011",
+        "430160221000001",
+        "430160221000003",
+        "430160221000004",
+        "430160221000005",
+        "430160221000006",
+        "430160221000007",
+        "430160221000008",
+        "430160221000009",
+        "430160222000003",
+        "430160222000004"
+      ],
+      "setores_com_supressao": 0,
+      "urbanos_com_supressao": "0/169",
+      "rurais_com_supressao": "0/2",
+      "setores_com_todas_suprimidas": 0,
+      "celulas_suprimidas_pct": 0.0,
+      "por_marcador": {
+        "X": 0,
+        "vazio": 0,
+        ".": 0
+      },
+      "variaveis_mais_suprimidas": {
+        "V05400": 0,
+        "V05401": 0,
+        "V05402": 0,
+        "V05403": 0,
+        "V05404": 0,
+        "V05405": 0,
+        "V05406": 0,
+        "V05407": 0
+      }
+    }
+  },
+  "dicionarios": {
+    "dicionario_de_dados_renda_responsavel_20260508/Dicionário Renda Responsável": [
+      [
+        "Tema",
+        "Variável",
+        "Descrição"
+      ],
+      [
+        "Renda do Responsável",
+        "V06001",
+        "Pessoas responsáveis em domicílios particulares permanentes ocupados"
+      ],
+      [
+        "Renda do Responsável",
+        "V06002",
+        "Moradores em domicílios particulares permanentes ocupados"
+      ],
+      [
+        "Renda do Responsável",
+        "V06003",
+        "Variância do número de moradores em domicílios particulares permanentes ocupados"
+      ],
+      [
+        "Renda do Responsável",
+        "V06004",
+        "Valor do rendimento nominal médio mensal das pessoas responsáveis com rendimentos por domicílios particulares permanentes ocupados"
+      ],
+      [
+        "Renda do Responsável",
+        "V06005",
+        "Variância do rendimento nominal mensal das pessoas responsáveis com rendimentos por domicílios particulares permanentes ocupados"
+      ],
+      [
+        "Renda do Responsável",
+        "V06006",
+        "Valor do rendimento nominal mediano mensal das pessoas responsáveis com rendimentos por domicílios particulares permanentes ocupados"
+      ]
+    ],
+    "dicionario_entorno_domicilios/dicionario_entorno_domicilios_v": [
+      [
+        "Variável",
+        "Descrição"
+      ],
+      [
+        "V05000",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO]"
+      ],
+      [
+        "V05001",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM CIRCULAÇÃO DA VIA - CAMINHÃO, ÔNIBUS]"
+      ],
+      [
+        "V05002",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM CIRCULAÇÃO DA VIA - CARROS DE PASSEIO OU VAN]"
+      ],
+      [
+        "V05003",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM CIRCULAÇÃO DA VIA - PEDESTRES, BICICLETAS E MOTOCICLETAS]"
+      ],
+      [
+        "V05004",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM CIRCULAÇÃO DA VIA - AQUAVIA]"
+      ],
+      [
+        "V05005",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM CIRCULAÇÃO DA VIA - SALTADO]"
+      ],
+      [
+        "V05006",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM VIA PAVIMENTADA - SIM]"
+      ],
+      [
+        "V05007",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM VIA PAVIMENTADA - NÃO]"
+      ],
+      [
+        "V05008",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM VIA PAVIMENTADA - NÃO DECLARADO]"
+      ],
+      [
+        "V05009",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM BUEIRO - SIM]"
+      ],
+      [
+        "V05010",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM BUEIRO - NÃO]"
+      ],
+      [
+        "V05011",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM BUEIRO - NÃO DECLARADO]"
+      ],
+      [
+        "V05012",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM ILUMINAÇÃO PÚBLICA - SIM]"
+      ],
+      [
+        "V05013",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM ILUMINAÇÃO PÚBLICA - NÃO]"
+      ],
+      [
+        "V05014",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM ILUMINAÇÃO PÚBLICA - NÃO DECLARADO]"
+      ],
+      [
+        "V05015",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM PONTO DE ÔNIBUS - SIM]"
+      ],
+      [
+        "V05016",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM PONTO DE ÔNIBUS - NÃO]"
+      ],
+      [
+        "V05017",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM PONTO DE ÔNIBUS - NÃO DECLARADO]"
+      ],
+      [
+        "V05018",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM VIA SINALIZADA PARA BICICLETA - SIM]"
+      ],
+      [
+        "V05019",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM VIA SINALIZADA PARA BICICLETA - NÃO]"
+      ],
+      [
+        "V05020",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM VIA SINALIZADA PARA BICICLETA - NÃO DECLARADO]"
+      ],
+      [
+        "V05021",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM CALÇADA - SIM]"
+      ],
+      [
+        "V05022",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM CALÇADA - NÃO]"
+      ],
+      [
+        "V05023",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM CALÇADA - NÃO DECLARADO]"
+      ],
+      [
+        "V05024",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM OBSTÁCULO NA CALÇADA - SIM]"
+      ],
+      [
+        "V05025",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM OBSTÁCULO NA CALÇADA - NÃO]"
+      ],
+      [
+        "V05026",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM OBSTÁCULO NA CALÇADA - NÃO DECLARADO]"
+      ],
+      [
+        "V05027",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM RAMPA PARA CADEIRANTE - SIM]"
+      ],
+      [
+        "V05028",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM RAMPA PARA CADEIRANTE - NÃO]"
+      ],
+      [
+        "V05029",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM RAMPA PARA CADEIRANTE - NÃO DECLARADO]"
+      ],
+      [
+        "V05030",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM ARBORIZAÇÃO - SEM ÁRVORES]"
+      ],
+      [
+        "V05031",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM ARBORIZAÇÃO - DE 1 A 2 ÁRVORES]"
+      ],
+      [
+        "V05032",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM ARBORIZAÇÃO - DE 3 A 4 ÁRVORES]"
+      ],
+      [
+        "V05033",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM ARBORIZAÇÃO - 5 OU MAIS ÁRVORES]"
+      ],
+      [
+        "V05034",
+        "[Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM ARBORIZAÇÃO - SALTADO]"
+      ]
+    ],
+    "dicionario_entorno_faces/Planilha1": [
+      [
+        "Variável",
+        "Descrição"
+      ],
+      [
+        "V05400",
+        "[FACES NO SETOR]"
+      ],
+      [
+        "V05401",
+        "[FACE COM CIRCULAÇÃO DA VIA - CAMINHÃO, ÔNIBUS]"
+      ],
+      [
+        "V05402",
+        "[FACE COM CIRCULAÇÃO DA VIA - CARROS DE PASSEIO OU VAN]"
+      ],
+      [
+        "V05403",
+        "[FACE COM CIRCULAÇÃO DA VIA - PEDESTRES, BICICLETAS E MOTOCICLETAS]"
+      ],
+      [
+        "V05404",
+        "[FACE COM CIRCULAÇÃO DA VIA - AQUAVIA]"
+      ],
+      [
+        "V05405",
+        "[FACE COM CIRCULAÇÃO DA VIA - SALTADO]"
+      ],
+      [
+        "V05406",
+        "[FACE COM VIA PAVIMENTADA - SIM]"
+      ],
+      [
+        "V05407",
+        "[FACE COM VIA PAVIMENTADA - NÃO]"
+      ],
+      [
+        "V05408",
+        "[FACE COM VIA PAVIMENTADA - NÃO DECLARADO]"
+      ],
+      [
+        "V05409",
+        "[FACE COM BUEIRO - SIM]"
+      ],
+      [
+        "V05410",
+        "[FACE COM BUEIRO - NÃO]"
+      ],
+      [
+        "V05411",
+        "[FACE COM BUEIRO - NÃO DECLARADO]"
+      ],
+      [
+        "V05412",
+        "[FACE COM ILUMINAÇÃO PÚBLICA - SIM]"
+      ],
+      [
+        "V05413",
+        "[FACE COM ILUMINAÇÃO PÚBLICA - NÃO]"
+      ],
+      [
+        "V05414",
+        "[FACE COM ILUMINAÇÃO PÚBLICA - NÃO DECLARADO]"
+      ],
+      [
+        "V05415",
+        "[FACE COM PONTO DE ÔNIBUS - SIM]"
+      ],
+      [
+        "V05416",
+        "[FACE COM PONTO DE ÔNIBUS - NÃO]"
+      ],
+      [
+        "V05417",
+        "[FACE COM PONTO DE ÔNIBUS - NÃO DECLARADO]"
+      ],
+      [
+        "V05418",
+        "[FACE COM VIA SINALIZADA PARA BICICLETA - SIM]"
+      ],
+      [
+        "V05419",
+        "[FACE COM VIA SINALIZADA PARA BICICLETA - NÃO]"
+      ],
+      [
+        "V05420",
+        "[FACE COM VIA SINALIZADA PARA BICICLETA - NÃO DECLARADO]"
+      ],
+      [
+        "V05421",
+        "[FACE COM CALÇADA - SIM]"
+      ],
+      [
+        "V05422",
+        "[FACE COM CALÇADA - NÃO]"
+      ],
+      [
+        "V05423",
+        "[FACE COM CALÇADA - NÃO DECLARADO]"
+      ],
+      [
+        "V05424",
+        "[FACE COM OBSTÁCULO NA CALÇADA - SIM]"
+      ],
+      [
+        "V05425",
+        "[FACE COM OBSTÁCULO NA CALÇADA - NÃO]"
+      ],
+      [
+        "V05426",
+        "[FACE COM OBSTÁCULO NA CALÇADA - NÃO DECLARADO]"
+      ],
+      [
+        "V05427",
+        "[FACE COM RAMPA PARA CADEIRANTE - SIM]"
+      ],
+      [
+        "V05428",
+        "[FACE COM RAMPA PARA CADEIRANTE - NÃO]"
+      ],
+      [
+        "V05429",
+        "[FACE COM RAMPA PARA CADEIRANTE - NÃO DECLARADO]"
+      ],
+      [
+        "V05430",
+        "[FACE COM ARBORIZAÇÃO - SEM ÁRVORES]"
+      ],
+      [
+        "V05431",
+        "[FACE COM ARBORIZAÇÃO - DE 1 A 2 ÁRVORES]"
+      ],
+      [
+        "V05432",
+        "[FACE COM ARBORIZAÇÃO - DE 3 A 4 ÁRVORES]"
+      ],
+      [
+        "V05433",
+        "[FACE COM ARBORIZAÇÃO - 5 OU MAIS ÁRVORES]"
+      ],
+      [
+        "V05434",
+        "[FACE COM ARBORIZAÇÃO - SALTADO]"
+      ]
+    ],
+    "dicionario_entorno_pessoas/dicionario_entorno_domicilios_v": [
+      [
+        "Variável",
+        "Descrição"
+      ],
+      [
+        "V05200",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO]"
+      ],
+      [
+        "V05201",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM CIRCULAÇÃO DA VIA - CAMINHÃO, ÔNIBUS]"
+      ],
+      [
+        "V05202",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM CIRCULAÇÃO DA VIA - CARROS DE PASSEIO OU VAN]"
+      ],
+      [
+        "V05203",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM CIRCULAÇÃO DA VIA - PEDESTRES, BICICLETAS E MOTOCICLETAS]"
+      ],
+      [
+        "V05204",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM CIRCULAÇÃO DA VIA - AQUAVIA]"
+      ],
+      [
+        "V05205",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM CIRCULAÇÃO DA VIA - SALTADO]"
+      ],
+      [
+        "V05206",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM VIA PAVIMENTADA - SIM]"
+      ],
+      [
+        "V05207",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM VIA PAVIMENTADA - NÃO]"
+      ],
+      [
+        "V05208",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM VIA PAVIMENTADA - NÃO DECLARADO]"
+      ],
+      [
+        "V05209",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM BUEIRO - SIM]"
+      ],
+      [
+        "V05210",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM BUEIRO - NÃO]"
+      ],
+      [
+        "V05211",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM BUEIRO - NÃO DECLARADO]"
+      ],
+      [
+        "V05212",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM ILUMINAÇÃO PÚBLICA - SIM]"
+      ],
+      [
+        "V05213",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM ILUMINAÇÃO PÚBLICA - NÃO]"
+      ],
+      [
+        "V05214",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM ILUMINAÇÃO PÚBLICA - NÃO DECLARADO]"
+      ],
+      [
+        "V05215",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM PONTO DE ÔNIBUS - SIM]"
+      ],
+      [
+        "V05216",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM PONTO DE ÔNIBUS - NÃO]"
+      ],
+      [
+        "V05217",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM PONTO DE ÔNIBUS - NÃO DECLARADO]"
+      ],
+      [
+        "V05218",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM VIA SINALIZADA PARA BICICLETA - SIM]"
+      ],
+      [
+        "V05219",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM VIA SINALIZADA PARA BICICLETA - NÃO]"
+      ],
+      [
+        "V05220",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM VIA SINALIZADA PARA BICICLETA - NÃO DECLARADO]"
+      ],
+      [
+        "V05221",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM CALÇADA - SIM]"
+      ],
+      [
+        "V05222",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM CALÇADA - NÃO]"
+      ],
+      [
+        "V05223",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM CALÇADA - NÃO DECLARADO]"
+      ],
+      [
+        "V05224",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM OBSTÁCULO NA CALÇADA - SIM]"
+      ],
+      [
+        "V05225",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM OBSTÁCULO NA CALÇADA - NÃO]"
+      ],
+      [
+        "V05226",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM OBSTÁCULO NA CALÇADA - NÃO DECLARADO]"
+      ],
+      [
+        "V05227",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM RAMPA PARA CADEIRANTE - SIM]"
+      ],
+      [
+        "V05228",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM RAMPA PARA CADEIRANTE - NÃO]"
+      ],
+      [
+        "V05229",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM RAMPA PARA CADEIRANTE - NÃO DECLARADO]"
+      ],
+      [
+        "V05230",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM ARBORIZAÇÃO - SEM ÁRVORES]"
+      ],
+      [
+        "V05231",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM ARBORIZAÇÃO - DE 1 A 2 ÁRVORES]"
+      ],
+      [
+        "V05232",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM ARBORIZAÇÃO - DE 3 A 4 ÁRVORES]"
+      ],
+      [
+        "V05233",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM ARBORIZAÇÃO - 5 OU MAIS ÁRVORES]"
+      ],
+      [
+        "V05234",
+        "[QUANTIDADE DE MORADORES][Domicílios particulares permanentes ocupados][DOMICÍLIO EM SETOR ESCOLHIDO PARA APLICAÇÃO DO ENTORNO][DOMICÍLIOS EM FACE COM ARBORIZAÇÃO - SALTADO]"
+      ]
+    ]
+  },
+  "favelas": {
+    "abas": {
+      "Dicionário": {
+        "linhas": 8,
+        "cabecalho_provavel": [
+          [
+            "Nome do campo",
+            "Descrição do campo"
+          ],
+          [
+            "CD_SETOR",
+            "Geocódigo do Setor Censitário"
+          ],
+          [
+            "CD_FCU",
+            "Código da Favela ou Comunidade Urbana"
+          ],
+          [
+            "NM_FCU",
+            "Nome da Favela ou Comunidade Urbana"
+          ],
+          [
+            "CD_MUN",
+            "Código do Município"
+          ],
+          [
+            "NM_MUN",
+            "Nome do Município"
+          ]
+        ],
+        "linhas_com_codigo_do_municipio": 0,
+        "linhas_com_nome_bage": 0,
+        "setores_de_bage_citados": [],
+        "setores_citados_fora_da_malha_2022": [],
+        "amostra_linhas_bage": []
+      },
+      "Setores_FCUs": {
+        "linhas": 33273,
+        "cabecalho_provavel": [
+          [
+            "CD_SETOR",
+            "CD_FCU",
+            "NM_FCU",
+            "CD_MUN",
+            "NM_MUN",
+            "CD_UF",
+            "NM_UF"
+          ],
+          [
+            "110004905000107",
+            "11000490006",
+            "Vitória",
+            "1100049",
+            "Cacoal",
+            "11",
+            "Rondônia"
+          ],
+          [
+            "110004905000175",
+            "11000490002",
+            "Avenida 07 de Setembro",
+            "1100049",
+            "Cacoal",
+            "11",
+            "Rondônia"
+          ],
+          [
+            "110010605000025",
+            "11001060006",
+            "Triângulo Novo",
+            "1100106",
+            "Guajará-Mirim",
+            "11",
+            "Rondônia"
+          ],
+          [
+            "110010605000071",
+            "11001060005",
+            "Jardim das Esmeraldas",
+            "1100106",
+            "Guajará-Mirim",
+            "11",
+            "Rondônia"
+          ],
+          [
+            "110010605000102",
+            "11001060003",
+            "Santa Luzia",
+            "1100106",
+            "Guajará-Mirim",
+            "11",
+            "Rondônia"
+          ]
+        ],
+        "linhas_com_codigo_do_municipio": 7,
+        "linhas_com_nome_bage": 7,
+        "setores_de_bage_citados": [
+          "430160205000184",
+          "430160205000186",
+          "430160205000188",
+          "430160205000190",
+          "430160205000192",
+          "430160205000195",
+          "430160205000199"
+        ],
+        "setores_citados_fora_da_malha_2022": [],
+        "amostra_linhas_bage": [
+          [
+            "430160205000184",
+            "43016020004",
+            "Balança Municipal",
+            "4301602",
+            "Bagé",
+            "43",
+            "Rio Grande do Sul"
+          ],
+          [
+            "430160205000186",
+            "43016020007",
+            "Beco dos Coqueiros",
+            "4301602",
+            "Bagé",
+            "43",
+            "Rio Grande do Sul"
+          ],
+          [
+            "430160205000188",
+            "43016020003",
+            "Vila Miséria",
+            "4301602",
+            "Bagé",
+            "43",
+            "Rio Grande do Sul"
+          ],
+          [
+            "430160205000190",
+            "43016020002",
+            "Stand",
+            "4301602",
+            "Bagé",
+            "43",
+            "Rio Grande do Sul"
+          ],
+          [
+            "430160205000192",
+            "43016020002",
+            "Stand",
+            "4301602",
+            "Bagé",
+            "43",
+            "Rio Grande do Sul"
+          ],
+          [
+            "430160205000195",
+            "43016020001",
+            "Passo das Pedras",
+            "4301602",
+            "Bagé",
+            "43",
+            "Rio Grande do Sul"
+          ],
+          [
+            "430160205000199",
+            "43016020005",
+            "Beco do Juruna",
+            "4301602",
+            "Bagé",
+            "43",
+            "Rio Grande do Sul"
+          ]
+        ]
+      }
+    }
+  }
+}

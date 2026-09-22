@@ -1,6 +1,6 @@
 """
 A03 — reconhecimento, passo 0: extrai do bruto do Censo o que o reconhecimento
-lê, filtrado para o município do config, em estudos/A03_censo/derivados/.
+lê, filtrado para o município do config, em estudos/A03_expansao_adensamento/derivados/.
 
 LÊ só data/raw/ (o bruto do IBGE; nada é alterado lá) e ESCREVE só em
 derivados/ (fora do git). Idempotente: o que já foi extraído não é refeito.
@@ -18,7 +18,7 @@ Saídas:
     derivados/texto/...                   documentação em texto (pdftotext)
 
 Uso:
-    python estudos/A03_censo/scripts/r00_extrair.py
+    python estudos/A03_expansao_adensamento/scripts/r00_extrair.py
 """
 
 from __future__ import annotations

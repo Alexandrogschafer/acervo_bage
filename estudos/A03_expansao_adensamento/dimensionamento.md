@@ -1,6 +1,6 @@
 # A03 — Dimensionamento: dinâmica domiciliar de Bagé, 2010 × 2022
 
-**Município:** Bagé/RS (`4301602`) · **Data:** 2026-09-22 · **Status do estudo:** reconhecimento
+**Município:** Bagé/RS (`4301602`) · **Data:** 2026-09-22 · **Status do estudo:** planejado
 
 Este documento **mede** o rumo definido pelo responsável — população estável e
 domicílios crescendo, onde isso ocorre no território e com que infraestrutura urbana —
@@ -296,14 +296,22 @@ havia calçada (§ 1.4 do reconhecimento, restrição A2 da rampa).
 ### 5.1 O descompasso é excepcional ou comum?
 
 **Comum, e é isso que muda o artigo.** Bagé cresceu 17,64 % em domicílios ocupados com
-0,98 % de população, uma diferença de **+16,74 pp** — que está no **percentil 62 dos
-496 municípios do RS**, contra uma mediana estadual de +15,87 pp, e no percentil 60,6
-entre os 33 municípios do seu porte. **52 % dos municípios do RS fizeram mais do que
-Bagé**: ganharam domicílios *perdendo* população. O próprio RS tem +16,54 pp.
+0,98 % de população: diferença de **+16,74 pp**. Duas medidas diferentes situam Bagé, e
+elas **não são a mesma coisa nem se somam**:
+
+- **Posição de Bagé na distribuição da diferença.** +16,74 pp é o **percentil 62** dos
+  496 municípios do RS (mediana estadual +15,87 pp; o RS inteiro, +16,54 pp) e o
+  percentil 60,6 entre os 33 do seu porte. Ou seja, **186 municípios (38 %) têm
+  diferença maior que a de Bagé** — 12, entre os do mesmo porte.
+- **Quantos municípios estão no caso mais extremo.** **258 dos 496 (52 %) ganharam
+  domicílios ocupados *perdendo* população.** Esse é **outro conjunto**, não "os que
+  fizeram mais que Bagé": um município entra nele por perder população, mesmo com
+  diferença menor que a de Bagé. **Bagé não está nesse grupo** — ganhou domicílios e
+  ganhou população.
 
 O que **não** é comum em Bagé é a combinação: a maioria dos municípios do estado perdeu
-população, e Bagé ficou estável. E a vacância de Bagé (15,48 %) é baixa para o estado
-(percentil 35) mas **alta para o seu porte** (percentil 70).
+população (290 de 496), e Bagé ficou estável. E a vacância de Bagé (15,48 %) é baixa
+para o estado (percentil 35) mas **alta para o seu porte** (percentil 70).
 
 Conclusão para a redação do artigo: **tratar o descompasso como contexto regional
 medido, não como anomalia local**. A pergunta que sobra é sobre território e
@@ -327,6 +335,11 @@ infraestrutura, não sobre a existência do fenômeno.
    fenômeno e situa Bagé, e é o que o § 2 mostrou ser regra no RS.
 
 ### 5.3 Redação proposta da pergunta (PROPOSTA — não decidida)
+
+> **Decidida pelo responsável em 2026-09-22.** A pergunta, as três subordinadas (com
+> a 3 reescrita: iluminação entra como controle e ciclovia como ausência), o recorte
+> espacial e o que fica fora estão em [`manifesto.yaml`](manifesto.yaml), que é o
+> registro válido. O texto abaixo é a proposta como foi feita, mantida como está.
 
 **Pergunta de pesquisa.**
 
@@ -362,7 +375,13 @@ infraestrutura, não sobre a existência do fenômeno.
 - **leitura urbano × rural entre censos** — 67 % do salto urbano é reclassificação de
   13 setores (§ 1.3).
 
-### 5.4 O que falta decidir (do responsável)
+### 5.4 O que falta decidir (do responsável) — RESOLVIDO em 2026-09-22
+
+> Os quatro pontos abaixo foram decididos e estão no `manifesto.yaml`: o
+> enquadramento regional foi aceito; as três subordinadas entraram juntas; **os não
+> ocupados de 2010 NÃO serão obtidos** (a vacância não é eixo do artigo e o dado de
+> 2010 só existe por município); e o recorte é grade + setor de 2022, com junção
+> célula → setor e incerteza declarada.
 
 1. Aceitar ou não o enquadramento do § 5.1 (descompasso como contexto regional).
 2. Escolher entre as três subordinadas ou pedir outro recorte.

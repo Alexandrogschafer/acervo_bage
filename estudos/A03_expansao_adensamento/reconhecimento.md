@@ -1,6 +1,6 @@
 # A03 — Reconhecimento dos dados do Censo (2000, 2010, 2022) e do CNEFE 2022
 
-**Município:** Bagé/RS (`4301602`) · **Data:** 2026-09-22 · **Status do estudo:** reconhecimento
+**Município:** Bagé/RS (`4301602`) · **Data:** 2026-09-22 · **Status do estudo:** planejado
 
 Este documento diz **o que os dados permitem**, não analisa Bagé. Nenhuma camada
 foi gerada, nada foi para `data/acervo/` nem para o geoportal, e o `manifesto.yaml`

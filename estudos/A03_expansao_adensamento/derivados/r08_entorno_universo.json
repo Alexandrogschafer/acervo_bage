@@ -1,0 +1,47 @@
+{
+  "entorno_2010": {
+    "criterio": "alguma variável de Entorno01–Entorno05 diferente de zero, excluídos os totais do setor: V001 do Entorno01 (DPP) e V422 do Entorno03 (moradores em DPP)",
+    "setores_na_tabela": 164,
+    "com_entorno": 139,
+    "com_entorno_urbanos": "126/129",
+    "com_entorno_rurais": "13/35",
+    "situacao_dos_rurais_com_entorno": {
+      "4": 13
+    },
+    "dpp_nos_setores_com_entorno": 36068,
+    "dpp_no_municipio": 38485
+  },
+  "entorno_2022": {
+    "criterio": "setor com linha na tabela do entorno por domicílios",
+    "setores_na_malha": 199,
+    "com_entorno": 168,
+    "com_entorno_urbanos": "167/173",
+    "com_entorno_rurais": "1/26"
+  },
+  "universo_comum": {
+    "amcs": 165,
+    "por_classe": {
+      "com entorno nos dois anos (universo da série)": {
+        "amcs": 139,
+        "setores_2010": 139,
+        "setores_2022": 155,
+        "setores_2010_com_entorno": 139,
+        "setores_2022_com_entorno": 155
+      },
+      "só 2022": {
+        "amcs": 5,
+        "setores_2010": 5,
+        "setores_2022": 21,
+        "setores_2010_com_entorno": 0,
+        "setores_2022_com_entorno": 13
+      },
+      "sem entorno em nenhum dos dois anos": {
+        "amcs": 21,
+        "setores_2010": 24,
+        "setores_2022": 23,
+        "setores_2010_com_entorno": 0,
+        "setores_2022_com_entorno": 0
+      }
+    }
+  }
+}

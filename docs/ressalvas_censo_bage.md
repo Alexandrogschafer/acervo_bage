@@ -26,7 +26,7 @@ arquivo. O que não foi medido está dito como não medido.
 
 *Corrigido em 2026-09-22 (texto anterior preservado na seção
 [Corrigido em 2026-09-22](#corrigido-em-2026-09-22)). Medição:
-`estudos/A03_censo/reconhecimento.md` § 2, script `estudos/A03_censo/scripts/r02_totais.py`.*
+`estudos/A03_expansao_adensamento/reconhecimento.md` § 2, script `estudos/A03_expansao_adensamento/scripts/r02_totais.py`.*
 
 Cada soma de setores confrontada com o total oficial **da mesma grandeza**:
 
@@ -85,7 +85,7 @@ Lado espacial:
   `config/fontes_censo_ibge.yaml`; o arquivo não foi alterado nem reprojetado.
   **Limitação conhecida:** lida em `EPSG:29191`, a malha tem **deslocamento residual de
   ~90–105 m** em relação à malha de 2010 e IoU por setor de ~0,5 (medido em
-  `estudos/A03_censo/reconhecimento.md` § 3.2). **7 das 127 geometrias são inválidas**;
+  `estudos/A03_expansao_adensamento/reconhecimento.md` § 3.2). **7 das 127 geometrias são inválidas**;
 - a malha rural (`rs_setores_censitarios.zip`, 44 códigos em Bagé) vem **sem CRS
   declarado**, em graus; 6 dos seus polígonos são envoltórias de faixas de setores
   urbanos (ex.: `…001-0114`), e não setores. **CRS DECIDIDO pelo responsável em
@@ -162,7 +162,7 @@ moradores em domicílios particulares permanentes com população total (diferen
 −476 em 2010 e −874 em 2000, que desaparecem quando se compara a mesma grandeza), não
 considerava a transferência de 11 setores de 2000 para Aceguá e deixava em aberto o
 efeito dos 4 setores de 2010 sem linha. Medição que motivou a correção:
-`estudos/A03_censo/reconhecimento.md` § 2.
+`estudos/A03_expansao_adensamento/reconhecimento.md` § 2.
 
 <details>
 <summary>Texto anterior (até 2026-09-22)</summary>

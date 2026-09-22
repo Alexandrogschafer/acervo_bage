@@ -16,7 +16,7 @@ PyYAML>=6.0
 shapely>=2.0
 
 # Leitores das planilhas oficiais do IBGE (XLS BIFF8 de 2000/2010, XLSX, ODS),
-# usados pelo reconhecimento do Censo (estudos/A03_censo/scripts/).
+# usados pelo reconhecimento do Censo (estudos/A03_expansao_adensamento/scripts/).
 xlrd>=2.0
 openpyxl>=3.1
 odfpy>=1.4

@@ -1,0 +1,182 @@
+# ---------------------------------------------------------------------------
+# manifesto.yaml — CONTRATO do estudo com o acervo
+#
+# Declara exatamente quais camadas do acervo este estudo consome e em que
+# estado elas estavam. É o que permite, meses depois, saber sobre qual dado um
+# resultado foi produzido.
+#
+# Esquema:
+#   estudo:           <REPO>-<id do diretório>
+#   pergunta:         a pergunta que o estudo responde (uma frase)
+#   camadas:          lista de entradas do acervo, cada uma:
+#                       - id: <id_camada em data/catalogo_camadas.csv>
+#                         versao: <versão fixada>
+#                         sha256: <sha256 do arquivo no momento em que foi fixado>
+#   referencias_bib:  chaves de bibliografia/bage.bib
+#   status:           planejado | reconhecimento | em-andamento | concluido
+#
+# Conferir com:
+#   python scripts/utils/indice.py      (gera docs/indice_camadas_estudos.md)
+#
+# Se o acervo mudar, a conferência acusa "divergente" — e NÃO corrige sozinha.
+# Atualizar o sha256 aqui é decisão do responsável, nunca automática: ela
+# declara que o resultado foi revisto sobre o dado novo.
+#
+# O estudo LÊ o acervo e nunca escreve nele. Saídas ficam em saidas/,
+# intermediários em derivados/ — os dois fora do git (ver .gitignore).
+#
+# NESTE ESTUDO, além de `camadas:`, há `fontes_brutas:`. O motivo: a maior
+# parte do que este estudo consome (grade estatística, agregados por setor,
+# entorno, de/para) é DADO BRUTO em data/raw/, registrado em
+# data/catalogo_fontes.csv, e não camada do acervo — `camadas:` só aceita id
+# de data/catalogo_camadas.csv, e declarar um id inexistente ali resolveria
+# como "ausente". `fontes_brutas:` fixa esses arquivos com o mesmo rigor
+# (arquivo + sha256 do `.json` irmão), mas é bloco DESTE estudo: o
+# scripts/utils/manifesto.py não o confere. Se o bruto virar camada do acervo
+# por promoção, a entrada muda de bloco.
+# ---------------------------------------------------------------------------
+
+estudo: ACERVO_BAGE-A03_expansao_adensamento
+status: "planejado"
+
+pergunta: >-
+  Bagé ganhou 6.791 domicílios ocupados (+17,6 %) com a população praticamente
+  estável (+1,0 %) entre 2010 e 2022. ONDE, no território do município, esse
+  crescimento de domicílios se materializou — em ocupação de área nova ou em
+  adensamento da área já ocupada —, e QUE INFRAESTRUTURA URBANA existe em 2022
+  nas áreas que cresceram, comparada à do restante da cidade?
+
+# Decidida pelo responsável em 2026-09-22, sobre estudos/A03_expansao_adensamento/
+# dimensionamento.md § 5.3.
+subordinadas:
+  - >-
+    1. Quanto do crescimento é expansão e quanto é adensamento? Pela grade
+    estatística, já se sabe o tamanho: 5.709 domicílios em 573 células novas e
+    8.461 em 568 células que já tinham domicílio. Falta caracterizar essas duas
+    geografias — onde estão, que densidade têm e quanto de população acompanhou
+    (15.385 pessoas nas células novas).
+  - >-
+    2. Onde domicílio e população andam em direções opostas? As 132 células que
+    ganham domicílio e perdem população (+804 domicílios, −2.044 pessoas) são o
+    retrato do encolhimento domiciliar no território — moradores por domicílio
+    caiu de 3,02 para 2,59 no município. Verificar se essas células formam área
+    contígua (centro? bairros antigos?) ou estão dispersas.
+  - >-
+    3. A infraestrutura do entorno acompanha onde a cidade cresceu? Cruzar as
+    áreas de crescimento com pavimentação, bueiro, obstáculo na calçada,
+    arborização e rampa, lendo 2022 como retrato transversal. Iluminação entra
+    como controle (universal em Bagé) e ciclovia como ausência.
+
+# Decidido pelo responsável em 2026-09-22.
+recorte_espacial:
+  - >-
+    Grade estatística para a mudança 2010 → 2022: é a única geografia fixa
+    entre os dois censos, e a coincidência das células está conferida
+    (dimensionamento.md § 3.1: 5.677 células comuns, centroides a 4,9e-5 m,
+    área a 0,14 m²).
+  - >-
+    Setor censitário de 2022 para o entorno: é o único recorte em que o entorno
+    existe (168 setores por domicílio, 171 por face).
+  - >-
+    Junção espacial célula → setor, com a incerteza da atribuição MEDIDA e
+    DECLARADA (célula que cai em mais de um setor, e quanto do dado isso
+    envolve). Sem a medida da incerteza, o cruzamento não entra no artigo.
+  - >-
+    Área mínima comum só se surgir necessidade de atributo do censo em série
+    (§ 3.1 do reconhecimento).
+  - >-
+    Urbano e rural, quando usados, definidos GEOGRAFICAMENTE (área urbanizada
+    ou a própria grade), NUNCA pelo rótulo de situação do setor — ver
+    metodo_previsto.
+
+# Não é pergunta subordinada: é resultado metodológico do artigo.
+metodo_previsto:
+  - >-
+    A reclassificação de 13 setores rurais de 2010 em setores urbanos de 2022
+    (11.476 pessoas e 3.427 DPP; 67 % do ganho urbano de população e 72 % da
+    perda rural) entra como SEÇÃO DE MÉTODO: mostra por que a série urbano ×
+    rural pelo rótulo de situação do setor produz um falso êxodo rural, e por
+    que o artigo usa definição geográfica. Medido em dimensionamento.md § 1.3,
+    por scripts/d01_descompasso.py.
+
+# Decisões, não pendências.
+fora_do_escopo:
+  - >-
+    Série de vagos e uso ocasional 2010 → 2022: 2010 não está no acervo
+    (dimensionamento.md § 1.2). Com o dado de 2022 sozinho dá para descrever o
+    estoque (8.302 domicílios não ocupados, 44,5 % dos particulares no rural),
+    não a mudança.
+  - >-
+    Obter os não ocupados de 2010: DECIDIDO NÃO OBTER, em 2026-09-22. A
+    vacância não é eixo deste artigo e o dado de 2010 só existe em nível
+    municipal — não serviria ao recorte territorial do estudo. Fica registrado
+    como decisão, não como pendência.
+  - >-
+    Série de entorno 2010 → 2022: pela classificação do próprio IBGE só
+    iluminação e bueiro são comparáveis, e iluminação é universal em Bagé
+    (99,3 %, IQR de 0,3 ponto entre setores) — não diferencia área nenhuma.
+  - >-
+    Leitura urbano × rural entre censos pelo rótulo de situação do setor: 67 %
+    do salto urbano é reclassificação (ver metodo_previsto).
+
+# Camadas do acervo (data/catalogo_camadas.csv), com versão e sha256 fixados.
+camadas:
+  - id: limite_municipal
+    versao: "1.0"
+    sha256: a5618d27fbe6c72ac4ec4bf2976898a479fe4af83bf45052148cea82306cba20
+    # recorte do município; é dela que config/area_estudo.geojson é derivado
+    # (scripts/processamento/area_estudo.py), usado para selecionar as células
+  - id: setores_2022
+    versao: "censo_2022"
+    sha256: 392674608e4cc37ab6526504b2bbf31ecaae35efa3bbc2b209e1a3c9dbf6d373
+    # geometria dos setores de 2022, para a junção célula -> setor; os
+    # atributos do entorno vêm das tabelas brutas, pelo geocódigo
+    # ATENÇÃO: esta camada está com pode_publicar=false no catálogo, e pela
+    # regra do mais restritivo (scripts/utils/publicacao.py) a saída do estudo
+    # nasce NÃO publicável enquanto ela não for reconferida.
+
+# Dado bruto em data/raw/ (data/catalogo_fontes.csv), fixado por sha256 do
+# `.json` irmão. Ver o comentário do cabeçalho: bloco deste estudo.
+fontes_brutas:
+  - fonte_id: ibge_grade_estatistica_2010
+    arquivo: data/raw/vetor/ibge/censo_2010/grade_estatistica/grade_id14.zip
+    versao: censo_2010
+    sha256: 3db4fde1d77f740ca0c849a8b81492ef3b789cb86866030771caa656f51fa1d5
+  - fonte_id: ibge_grade_estatistica_2010
+    arquivo: data/raw/vetor/ibge/censo_2010/grade_estatistica/grade_id04.zip
+    versao: censo_2010
+    sha256: 4940e6b8aa0c7931e1b6acaa448994a66452b4eeb9b498358109a50051b5e319
+  - fonte_id: ibge_grade_estatistica_2022
+    arquivo: data/raw/vetor/ibge/censo_2022/grade_estatistica/grade_id14.zip
+    versao: censo_2022
+    sha256: 69f42d066d152091fd72d3b43a5ecd37bb4347d91dcc954fd42c9c642b3d28e3
+  - fonte_id: ibge_grade_estatistica_2022
+    arquivo: data/raw/vetor/ibge/censo_2022/grade_estatistica/grade_id04.zip
+    versao: censo_2022
+    sha256: 1fe7c663bb2633d7870cf4ea79c87ed5a1312c49f1fa7d6f2841532b67434fe0
+  - fonte_id: ibge_censo2010_agregados_setores
+    arquivo: data/raw/tabular/ibge/censo_2010/RS_20260615.zip
+    versao: censo_2010
+    sha256: 952d751b5441416b164cd9129818c7d7c56853a4bfe827b928671679ca6fd93b
+  - fonte_id: ibge_censo2022_agregados_setores
+    arquivo: data/raw/tabular/ibge/censo_2022/Agregados_por_setores_basico_BR_20260520.zip
+    versao: censo_2022
+    sha256: ec04624286233d699ebe69c7b9625744a1cfdfc8352126f30245bdef5e9bdc63
+  - fonte_id: ibge_censo2022_agregados_setores
+    arquivo: data/raw/tabular/ibge/censo_2022/Agregados_por_setores_caracteristicas_domicilio1_BR.zip
+    versao: censo_2022
+    sha256: 8e0a27fc90912acba17586077ab83c0fd58b92975d90f19a600c0110d0cf72ca
+  - fonte_id: ibge_censo2022_entorno_setores
+    arquivo: data/raw/tabular/ibge/censo_2022/Agregados_por_setores_entorno_domicílios_BR.zip
+    versao: censo_2022
+    sha256: 945ad03f2cca535c51b8956188ed9a7e3e017caa5ae2a79449e2202d359ffa60
+  - fonte_id: ibge_censo2022_entorno_setores
+    arquivo: data/raw/tabular/ibge/censo_2022/Agregados_por_setores_entorno_faces_BR.zip
+    versao: censo_2022
+    sha256: ad654f2cc4680c6fbfbb0d9bf1b58fea3e690f3b0e873fcc9e2815c1f4212a4b
+  - fonte_id: ibge_censo2022_agregados_setores
+    arquivo: data/raw/tabular/ibge/censo_2022/doc/Historico_formacao_Setores_Censitarios_2010_2022.xlsx
+    versao: censo_2022
+    sha256: d70a9e6a46bbd73f82b4e12f47343b36affcdfa0568ceec86969d23376f09403
+
+referencias_bib: []
