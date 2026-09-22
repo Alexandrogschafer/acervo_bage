@@ -8,10 +8,14 @@
 # Esquema:
 #   estudo:           <REPO>-<id do diretório>
 #   pergunta:         a pergunta que o estudo responde (uma frase)
-#   camadas:          lista de entradas do acervo, cada uma:
+#   camadas:          produto CURADO do acervo, cada entrada:
 #                       - id: <id_camada em data/catalogo_camadas.csv>
 #                         versao: <versão fixada>
 #                         sha256: <sha256 do arquivo no momento em que foi fixado>
+#   fontes_brutas:    DADO BRUTO em data/raw/, cada entrada:
+#                       - fonte_id: <id_fonte em data/catalogo_fontes.csv>
+#                         arquivo: <caminho sob data/raw/>
+#                         versao: / sha256: <como no .json irmão do arquivo>
 #   referencias_bib:  chaves de bibliografia/bage.bib
 #   status:           planejado | reconhecimento | em-andamento | concluido
 #
@@ -25,15 +29,14 @@
 # O estudo LÊ o acervo e nunca escreve nele. Saídas ficam em saidas/,
 # intermediários em derivados/ — os dois fora do git (ver .gitignore).
 #
-# NESTE ESTUDO, além de `camadas:`, há `fontes_brutas:`. O motivo: a maior
-# parte do que este estudo consome (grade estatística, agregados por setor,
-# entorno, de/para) é DADO BRUTO em data/raw/, registrado em
-# data/catalogo_fontes.csv, e não camada do acervo — `camadas:` só aceita id
-# de data/catalogo_camadas.csv, e declarar um id inexistente ali resolveria
-# como "ausente". `fontes_brutas:` fixa esses arquivos com o mesmo rigor
-# (arquivo + sha256 do `.json` irmão), mas é bloco DESTE estudo: o
-# scripts/utils/manifesto.py não o confere. Se o bruto virar camada do acervo
-# por promoção, a entrada muda de bloco.
+# A maior parte do que este estudo consome (grade estatística, agregados por
+# setor, entorno, de/para) é DADO BRUTO em data/raw/, registrado em
+# data/catalogo_fontes.csv, e não camada do acervo: vai em `fontes_brutas:`,
+# conferido por scripts/utils/manifesto.py contra o catálogo de fontes e o
+# `.json` irmão de cada arquivo, com os mesmos estados das camadas. A
+# diferença entre os dois blocos está em docs/convencoes.md § 5, junto com a
+# decisão de NÃO promover bruto a camada: o que virará camada é o produto
+# deste estudo, depois de conferido.
 # ---------------------------------------------------------------------------
 
 estudo: ACERVO_BAGE-A03_expansao_adensamento
@@ -135,8 +138,8 @@ camadas:
     # regra do mais restritivo (scripts/utils/publicacao.py) a saída do estudo
     # nasce NÃO publicável enquanto ela não for reconferida.
 
-# Dado bruto em data/raw/ (data/catalogo_fontes.csv), fixado por sha256 do
-# `.json` irmão. Ver o comentário do cabeçalho: bloco deste estudo.
+# Dado bruto em data/raw/ (data/catalogo_fontes.csv), fixado por arquivo e
+# sha256 do `.json` irmão — conferido pelo indice.py como as camadas.
 fontes_brutas:
   - fonte_id: ibge_grade_estatistica_2010
     arquivo: data/raw/vetor/ibge/censo_2010/grade_estatistica/grade_id14.zip

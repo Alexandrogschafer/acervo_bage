@@ -166,7 +166,8 @@ Nenhuma coordenada é arredondada: é igualdade exata de dado.
   `sha256_conteudo`, ele é sempre recalculado e tem de bater.
 - Produtores gravam GeoPackage com `last_change` fixo (Last-Modified da origem,
   via `OGR_CURRENT_DATE`), para que a mesma entrada dê os mesmos bytes.
-- `manifesto.py` (contrato dos estudos) ainda compara o sha256 do arquivo.
+- `manifesto.py` (contrato dos estudos) segue o mesmo critério, tanto para
+  `camadas:` quanto para `fontes_brutas:` (§ 5).
 
 `pode_publicar` é separado de `autorizacao_fonte` de propósito: a fonte pode
 autorizar redistribuição e mesmo assim o produto não poder ser publicado (um
@@ -180,22 +181,46 @@ derivado que reidentifica endereço, por exemplo). Um nunca se deduz do outro.
 estudo: ACERVO_BAGE-A03_expansao_adensamento
 pergunta: "A DEFINIR — depende do reconhecimento dos dados"
 camadas: []        # - {id:, versao:, sha256:}
+fontes_brutas: []  # - {fonte_id:, arquivo:, versao:, sha256:}
 referencias_bib: []
 status: "reconhecimento"
 ```
 
-`status`: `reconhecimento` | `em-andamento` | `concluido`.
+`status`: `planejado` | `reconhecimento` | `em-andamento` | `concluido`.
+
+### Os dois blocos: `camadas:` e `fontes_brutas:`
+
+Um estudo consome coisas de duas naturezas, e o manifesto não as mistura:
+
+| bloco | o que é | catálogo | chave |
+| --- | --- | --- | --- |
+| `camadas:` | **produto curado do acervo** — passou por conferência e tem linha própria | `data/catalogo_camadas.csv` | `id` |
+| `fontes_brutas:` | **dado bruto em `data/raw/`**, exatamente como veio da origem | `data/catalogo_fontes.csv` | `fonte_id` + `arquivo` |
+
+A fonte bruta precisa de `arquivo` além do `fonte_id` porque uma fonte serve
+muitos arquivos: uma divulgação do IBGE tem dezenas, cada um com seu `.json`
+irmão e seu sha256. O rastro conferido de uma fonte bruta é esse `.json`
+irmão, e o arquivo tem de estar sob `data/raw/` — **bruto que saiu de lá não é
+mais bruto**; se virou produto curado, é camada.
+
+**Decisão (2026-09-22): dado bruto NÃO é promovido a camada.** Copiar o bruto
+do IBGE para `data/acervo/` só para caber em `camadas:` criaria uma segunda
+cópia do mesmo dado, sem nada acrescentado, e duas verdades sobre o mesmo
+arquivo. O bruto fica em `data/raw/`, declarado em `fontes_brutas:`. **O que
+virará camada é o PRODUTO do A03** — setores com os agregados anexados, grade
+recortada ao município, junção célula → setor —, e só depois de conferido,
+pela promoção descrita no § 3.
 
 O manifesto é um **contrato**: diz sobre qual estado do acervo aquele
 resultado foi produzido. [`scripts/utils/manifesto.py`](../scripts/utils/manifesto.py)
-resolve cada camada contra `data/catalogo_camadas.csv` e contra o arquivo em
-disco, devolvendo:
+resolve cada camada contra `data/catalogo_camadas.csv`, e cada fonte bruta
+contra `data/catalogo_fontes.csv` e o `.json` irmão do arquivo, devolvendo:
 
 | situação | significado |
 | --- | --- |
 | `ok` | o dado fixado é o dado atual do acervo (critério abaixo) |
-| `divergente` | a camada existe, mas mudou desde que o estudo a fixou |
-| `ausente` | o id não está no catálogo, ou o arquivo sumiu do disco |
+| `divergente` | a entrada existe, mas mudou desde que o estudo a fixou (ou não fixou sha256, ou a fonte bruta está fora de `data/raw/`) |
+| `ausente` | o id não está no catálogo, ou o arquivo sumiu do disco, ou a fonte bruta está sem `.json` irmão |
 
 Cada camada do manifesto pode fixar `sha256` (do arquivo) e, opcionalmente,
 `sha256_conteudo` (§ 4). O critério é o mesmo do validador, **conteúdo antes de bytes**:
@@ -203,6 +228,16 @@ se `sha256_conteudo` foi fixado, ele decide; senão, vale o `sha256` do arquivo;
 arquivo regravado com outros bytes continua `ok` quando o manifesto fixou o sha256 do
 catálogo e o `sha256_conteudo` do `.json` irmão confere com o recalculado. Controles em
 `scripts/utils/testar_validador.py` (M1–M5).
+
+Para `fontes_brutas:` vale o mesmo critério, com o `.json` irmão no lugar da
+linha do catálogo: `sha256_conteudo` decide quando fixado (e o arquivo que não
+for dado legível por conteúdo — um zip tabular, um xlsx — é acusado em vez de
+passar em silêncio); senão vale o `sha256` dos bytes; a `versao` fixada tem de
+bater com a do `.json`. Controles: `testar_validador.py` (B1–B5).
+
+[`scripts/utils/indice.py`](../scripts/utils/indice.py) publica as duas listas
+separadas em `docs/indice_camadas_estudos.md`, com os dois índices reversos:
+camada → estudos e fonte bruta → estudos.
 
 **A resolução nunca atualiza o manifesto sozinha.** Divergência é aviso, não
 correção: se o acervo mudou, quem decide se o estudo continua válido é o

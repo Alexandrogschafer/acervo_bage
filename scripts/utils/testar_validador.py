@@ -177,6 +177,65 @@ def controles_de_manifesto(tmp: Path, campos: list[str], camadas: list[dict]) ->
     return resultados
 
 
+def controles_de_fontes_brutas(tmp: Path) -> list[tuple]:
+    """`fontes_brutas:` — o bloco novo do manifesto (§ 5 das convenções).
+
+    Roda em processo, contra o catálogo de fontes REAL e a raiz real (para o
+    controle positivo) ou uma raiz temporária vazia (para o arquivo ausente).
+    Nenhum manifesto real é tocado.
+    """
+    import yaml
+
+    sys.path.insert(0, str(RAIZ_PROJETO))
+    from scripts.utils import manifesto
+
+    # um arquivo bruto real, com o sha256 que o .json irmão registrou
+    arquivo = "data/raw/vetor/ibge/censo_2022/grade_estatistica/grade_id04.zip"
+    rastro = json.loads((RAIZ_PROJETO / arquivo).with_suffix(".json").read_text(encoding="utf-8"))
+    boa = {"fonte_id": rastro["fonte_id"], "arquivo": arquivo,
+           "versao": rastro["versao"], "sha256": rastro["sha256"]}
+
+    def resolver(nome: str, entradas: list[dict], raiz: Path = RAIZ_PROJETO):
+        m = tmp / f"bruta_{nome}.yaml"
+        m.write_text(yaml.safe_dump({"estudo": "teste", "pergunta": "-", "status": "planejado",
+                                     "camadas": [], "fontes_brutas": entradas}),
+                     encoding="utf-8")
+        return manifesto.resolver(m, raiz=raiz)
+
+    vazio = tmp / "raiz_vazia"
+    vazio.mkdir()
+    casos = [
+        ("POSITIVO B1: fonte bruta real, sha256 do .json irmão", [boa], RAIZ_PROJETO, "ok"),
+        ("NEGATIVO B2: fonte bruta com id fora do catálogo de fontes",
+         [{**boa, "fonte_id": "fonte_que_nao_existe"}], RAIZ_PROJETO, "ausente"),
+        ("NEGATIVO B3: fonte bruta com sha256 divergente",
+         [{**boa, "sha256": "0" * 64}], RAIZ_PROJETO, "divergente"),
+        ("NEGATIVO B4: arquivo bruto fora do disco", [boa], vazio, "ausente"),
+        ("NEGATIVO B5: fonte bruta sem sha256 fixado",
+         [{k: v for k, v in boa.items() if k != "sha256"}], RAIZ_PROJETO, "divergente"),
+    ]
+    resultados = []
+    for i, (rotulo, entradas, raiz, esperado) in enumerate(casos):
+        fonte = resolver(str(i), entradas, raiz).fontes_brutas[0]
+        obtido = f"{fonte.situacao}: {fonte.detalhe}"
+        resultados.append((rotulo, esperado, fonte.situacao == esperado, 0, obtido))
+
+    # bloco vazio e bloco ausente: legítimos, resolvem sem erro e sem entrada
+    relatorio = resolver("vazio", [])
+    resultados.append(("POSITIVO B6: fontes_brutas vazio é legítimo", "0 entradas, relatório ok",
+                       relatorio.fontes_brutas == [] and relatorio.ok, 0,
+                       f"entradas={len(relatorio.fontes_brutas)} ok={relatorio.ok}"))
+    sem_bloco = tmp / "bruta_sem_bloco.yaml"
+    sem_bloco.write_text(yaml.safe_dump({"estudo": "teste", "pergunta": "-",
+                                         "status": "planejado", "camadas": []}),
+                         encoding="utf-8")
+    r = manifesto.resolver(sem_bloco, raiz=RAIZ_PROJETO)
+    resultados.append(("POSITIVO B7: manifesto sem o bloco continua válido",
+                       "0 entradas, relatório ok", r.fontes_brutas == [] and r.ok, 0,
+                       f"entradas={len(r.fontes_brutas)} ok={r.ok}"))
+    return resultados
+
+
 def main() -> None:
     campos_fontes, fontes = ler(CAMINHO_FONTES)
     campos_camadas, camadas = ler(CAMINHO_CAMADAS)
@@ -234,6 +293,7 @@ def main() -> None:
 
         resultados += controles_de_conteudo(tmp, campos_camadas, camadas)
         resultados += controles_de_manifesto(tmp, campos_camadas, camadas)
+        resultados += controles_de_fontes_brutas(tmp)
 
     print("=" * 78)
     print("CONTROLES DO VALIDADOR DE CATÁLOGOS")

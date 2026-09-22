@@ -5,8 +5,15 @@ Cada estudo declara, em `estudos/<id>/manifesto.yaml`, exatamente quais
 camadas do acervo consome e em que versão/sha256. O manifesto é um CONTRATO:
 diz sobre qual estado do acervo aquele resultado foi produzido.
 
-Este módulo resolve esse contrato contra `data/catalogo_camadas.csv` e contra
-os arquivos em disco, e devolve, por camada:
+O manifesto tem DOIS blocos, com naturezas diferentes:
+
+    camadas:         produto CURADO do acervo — id de `data/catalogo_camadas.csv`;
+    fontes_brutas:   DADO BRUTO em `data/raw/` — id de `data/catalogo_fontes.csv`,
+                     mais o caminho do arquivo, porque uma fonte serve muitos
+                     arquivos (uma divulgação do IBGE tem dezenas).
+
+Este módulo resolve esse contrato contra os dois catálogos e contra os
+arquivos em disco, e devolve, por entrada:
 
     "ok"          o DADO fixado é o dado atual do acervo;
     "divergente"  a camada existe, mas mudou desde que o estudo a fixou;
@@ -24,6 +31,12 @@ os arquivos em disco, e devolve, por camada:
     Em qualquer outro caso, "divergente". O sha256 do arquivo é o fallback,
     não o critério: GeoPackage muda de bytes sem mudar de dado.
 
+Para `fontes_brutas:`, a conferência é a mesma em espírito, com duas
+diferenças: o rastro do dado bruto está no `.json` irmão do arquivo
+(`scripts/utils/metadados.py`), de onde saem a versão e o sha256 registrados
+no download; e o arquivo tem de estar sob `data/raw/` — bruto que saiu de lá
+não é mais bruto.
+
 **Nunca atualiza o manifesto sozinho.** Divergência é aviso, não correção: se
 o acervo mudou, quem decide se o estudo continua válido é o responsável, não
 um script. Reescrever o sha256 automaticamente apagaria justamente a
@@ -39,7 +52,7 @@ from typing import Any, Literal
 
 import yaml
 
-from scripts.utils import paths
+from scripts.utils import metadados, paths
 from scripts.utils.catalogo import conteudo_confere
 from scripts.utils.conteudo import sha256_conteudo
 from scripts.utils.hashes import sha256_arquivo
@@ -69,6 +82,21 @@ class CamadaResolvida:
 
 
 @dataclass(frozen=True)
+class FonteBrutaResolvida:
+    """Resultado da conferência de uma fonte bruta declarada no manifesto."""
+
+    fonte_id: str
+    arquivo: str
+    situacao: Situacao
+    detalhe: str
+    versao_manifesto: str = ""
+    sha256_manifesto: str = ""
+    versao_json: str = ""
+    sha256_atual: str = ""
+    pode_publicar: bool = False
+
+
+@dataclass(frozen=True)
 class RelatorioManifesto:
     """Conferência completa do manifesto de um estudo."""
 
@@ -78,16 +106,22 @@ class RelatorioManifesto:
     status: str
     referencias_bib: list[str] = field(default_factory=list)
     camadas: list[CamadaResolvida] = field(default_factory=list)
+    fontes_brutas: list[FonteBrutaResolvida] = field(default_factory=list)
 
     @property
     def ok(self) -> bool:
-        """`True` se nenhuma camada está divergente ou ausente."""
-        return all(c.situacao == "ok" for c in self.camadas)
+        """`True` se nenhuma camada NEM fonte bruta está divergente ou ausente."""
+        return not self.problemas and not self.problemas_fontes
 
     @property
     def problemas(self) -> list[CamadaResolvida]:
         """Só as camadas que não estão "ok"."""
         return [c for c in self.camadas if c.situacao != "ok"]
+
+    @property
+    def problemas_fontes(self) -> list[FonteBrutaResolvida]:
+        """Só as fontes brutas que não estão "ok"."""
+        return [f for f in self.fontes_brutas if f.situacao != "ok"]
 
 
 def caminho_manifesto(estudo: str) -> Path:
@@ -135,9 +169,11 @@ def ler(caminho: Path | str) -> dict[str, Any]:
         )
 
     dados["camadas"] = dados.get("camadas") or []
+    dados["fontes_brutas"] = dados.get("fontes_brutas") or []
     dados["referencias_bib"] = dados.get("referencias_bib") or []
-    if not isinstance(dados["camadas"], list):
-        raise ManifestoInvalido(f"{paths.relativo(alvo)}: 'camadas' deve ser uma lista.")
+    for chave in ("camadas", "fontes_brutas"):
+        if not isinstance(dados[chave], list):
+            raise ManifestoInvalido(f"{paths.relativo(alvo)}: '{chave}' deve ser uma lista.")
     return dados
 
 
@@ -150,17 +186,120 @@ def _catalogo_camadas(alvo: Path | None = None) -> dict[str, dict[str, str]]:
         return {linha["id_camada"]: linha for linha in csv.DictReader(arquivo)}
 
 
+def _catalogo_fontes(alvo: Path | None = None) -> dict[str, dict[str, str]]:
+    """Índice `id_fonte -> linha` de data/catalogo_fontes.csv."""
+    alvo = alvo or paths.caminho("catalogo_fontes")
+    if not alvo.exists():
+        return {}
+    with open(alvo, encoding="utf-8") as arquivo:
+        return {linha["id_fonte"]: linha for linha in csv.DictReader(arquivo)}
+
+
+def resolver_fonte_bruta(item: Any, catalogo: dict[str, dict[str, str]],
+                         raiz: Path) -> FonteBrutaResolvida:
+    """Confere UMA entrada de `fontes_brutas:` contra o catálogo e o disco.
+
+    A entrada é `{fonte_id:, arquivo:, versao:, sha256:}` (ou
+    `sha256_conteudo:`). O rastro conferido é o `.json` irmão do arquivo, que o
+    script de download grava com a versão e o sha256 do momento da obtenção.
+    """
+    if not isinstance(item, dict) or "fonte_id" not in item or "arquivo" not in item:
+        return FonteBrutaResolvida(
+            fonte_id=str(item), arquivo="", situacao="ausente",
+            detalhe="entrada malformada: esperado {fonte_id:, arquivo:, versao:, sha256:}")
+
+    fonte_id = str(item["fonte_id"])
+    arquivo_rel = str(item["arquivo"])
+    versao_manifesto = str(item.get("versao", ""))
+    sha_manifesto = str(item.get("sha256", "")).strip().lower()
+    conteudo_manifesto = str(item.get("sha256_conteudo", "")).strip().lower()
+    comum = {"fonte_id": fonte_id, "arquivo": arquivo_rel,
+             "versao_manifesto": versao_manifesto, "sha256_manifesto": sha_manifesto}
+
+    linha = catalogo.get(fonte_id)
+    if linha is None:
+        return FonteBrutaResolvida(situacao="ausente",
+                                   detalhe="id não existe em data/catalogo_fontes.csv", **comum)
+    comum["pode_publicar"] = str(linha.get("pode_publicar", "")).strip().lower() == "true"
+
+    caminho_raw = raiz / paths.valor("paths")["raw"]
+    arquivo_abs = raiz / arquivo_rel
+    if not arquivo_abs.is_file():
+        return FonteBrutaResolvida(situacao="ausente",
+                                   detalhe=f"{arquivo_rel} não está em disco", **comum)
+    if caminho_raw not in arquivo_abs.parents:
+        return FonteBrutaResolvida(
+            situacao="divergente",
+            detalhe=f"fonte bruta fora de {paths.valor('paths')['raw']}/ — bruto que saiu "
+                    "de lá não é mais bruto; se virou produto curado, é camada",
+            **comum)
+
+    irmao = metadados.caminho_irmao(arquivo_abs)
+    if not irmao.is_file():
+        return FonteBrutaResolvida(
+            situacao="ausente",
+            detalhe="sem .json irmão — o dado bruto não é versionado, o rastro é",
+            **comum)
+    rastro = metadados.ler(arquivo_abs)
+    versao_json = str(rastro.get("versao", ""))
+    sha_json = str(rastro.get("sha256", "")).strip().lower()
+    conteudo_json = str(rastro.get("sha256_conteudo", "")).strip().lower()
+    sha_atual = sha256_arquivo(arquivo_abs)
+    comum.update(versao_json=versao_json, sha256_atual=sha_atual)
+
+    if not sha_manifesto and not conteudo_manifesto:
+        return FonteBrutaResolvida(
+            situacao="divergente",
+            detalhe="manifesto não fixou sha256 nem sha256_conteudo — sem isso o "
+                    "contrato não prova nada", **comum)
+
+    if conteudo_manifesto:
+        try:
+            atual = sha256_conteudo(arquivo_abs)
+        except Exception as erro:  # noqa: BLE001 — zip tabular, xlsx: não é vetor legível
+            return FonteBrutaResolvida(
+                situacao="divergente",
+                detalhe=f"sha256_conteudo fixado, mas o arquivo não é dado legível por "
+                        f"conteúdo ({type(erro).__name__}) — fixar o sha256 dos bytes",
+                **comum)
+        if atual != conteudo_manifesto:
+            return FonteBrutaResolvida(
+                situacao="divergente",
+                detalhe=f"sha256_conteudo diverge (manifesto {conteudo_manifesto[:12]}…, "
+                        f"arquivo {atual[:12]}…) — o DADO mudou", **comum)
+        como = "por sha256_conteudo"
+    elif sha_atual == sha_manifesto:
+        como = "por sha256 do arquivo"
+    elif conteudo_json and sha_manifesto == sha_json and conteudo_confere(arquivo_abs):
+        como = ("arquivo regravado (sha256 mudou), mas o sha256_conteudo do .json "
+                "confere — mesmo dado")
+    else:
+        return FonteBrutaResolvida(
+            situacao="divergente",
+            detalhe=f"o arquivo bruto mudou desde que o estudo o fixou (manifesto "
+                    f"{sha_manifesto[:12]}…, disco {sha_atual[:12]}…)", **comum)
+
+    if versao_manifesto and versao_json and versao_manifesto != versao_json:
+        return FonteBrutaResolvida(
+            situacao="divergente",
+            detalhe=f"sha256 bate, mas a versão não: manifesto {versao_manifesto}, "
+                    f".json irmão {versao_json}", **comum)
+    return FonteBrutaResolvida(situacao="ok", detalhe=f"confere ({como})", **comum)
+
+
 def resolver(caminho: Path | str, caminho_catalogo: Path | None = None,
-             raiz: Path | None = None) -> RelatorioManifesto:
+             raiz: Path | None = None, caminho_catalogo_fontes: Path | None = None
+             ) -> RelatorioManifesto:
     """Confere todas as camadas de um manifesto contra o acervo.
 
     Args:
         caminho: arquivo `manifesto.yaml`.
         caminho_catalogo: catálogo de camadas alternativo (para teste).
         raiz: raiz alternativa para resolver os arquivos do catálogo (para teste).
+        caminho_catalogo_fontes: catálogo de fontes alternativo (para teste).
 
     Returns:
-        O relatório, uma entrada por camada declarada.
+        O relatório, uma entrada por camada e por fonte bruta declarada.
 
     Raises:
         ManifestoInvalido: repassado de `ler()`.
@@ -260,6 +399,8 @@ def resolver(caminho: Path | str, caminho_catalogo: Path | None = None,
         status=str(dados.get("status", "")),
         referencias_bib=[str(r) for r in dados["referencias_bib"]],
         camadas=resultados,
+        fontes_brutas=[resolver_fonte_bruta(item, _catalogo_fontes(caminho_catalogo_fontes), raiz)
+                       for item in dados["fontes_brutas"]],
     )
 
 
