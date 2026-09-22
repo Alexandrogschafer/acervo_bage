@@ -1,3 +1,5 @@
+codigo_projeto: ACERVO_BAGE
+
 # CLAUDE.md — contexto do ACERVO_BAGE
 
 Lido pelo Claude Code no início de cada sessão.
