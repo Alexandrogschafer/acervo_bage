@@ -22,6 +22,11 @@
 # por setor 2022 (3 CSV + dicionários) e favelas e comunidades urbanas por setor
 # 2022 (planilha de setores + apresentação; não há dicionário próprio).
 #
+# Acrescentados em 2026-09-22 (3ª leva): metodologia do Censo 2010 (entorno),
+# aglomerados subnormais 2010 (setores, notas técnicas, tabelas municipais) e a
+# cobertura do entorno nas FCU 2022. A metodologia do entorno 2022 e a nota
+# metodológica de 2024 sobre a mudança para FCU NÃO estão no FTP.
+#
 # Ficou de fora a malha territorial de setores 2022 do geoftp
 # (RS_setores_CD2022.gpkg, sha256 3816950f…): ela é baixada por
 # scripts/download/baixar_malhas_ibge.py (fonte ibge_malha_setores_2022).
@@ -116,7 +121,8 @@ arquivos:
   descricao: malha de setores RURAIS 2000 (projeção geográfica, e500), recorte RS
   caminho_revia_bg: 2000/malha/rs_setores_censitarios.zip
   crs_decidido: EPSG:4618
-  nota: 'CRS DECIDIDO pelo responsável em 2026-09-22: SAD69 geográfico (EPSG:4618). O arquivo vem SEM .prj, com coordenadas em graus; o arquivo não foi alterado. Em Bagé, 6 dos 44 códigos são envoltórias de faixas de setores urbanos (ex.: 430160205000001-0114), não setores. REGRA DE USO: dados de 2000 só por município e distrito, NUNCA por setor.'
+  nota: 'CRS DECIDIDO pelo responsável em 2026-09-22: SAD69 geográfico (EPSG:4618). O arquivo vem SEM .prj, com coordenadas em graus; o arquivo não foi alterado. Em Bagé, 6 dos 44 códigos são envoltórias
+    de faixas de setores urbanos (ex.: 430160205000001-0114), não setores. REGRA DE USO: dados de 2000 só por município e distrito, NUNCA por setor.'
 - ano: '2000'
   categoria: documentacao
   fonte_id: ibge_censo2000_malha_setores
@@ -891,6 +897,71 @@ arquivos:
   last_modified: Thu, 17 Apr 2025 12:53:28 GMT
   baixado_em: '2026-09-22T14:58:00+00:00'
   descricao: apresentação da divulgação de favelas e comunidades urbanas 2022 (documentação; não há dicionário próprio)
+- ano: '2010'
+  categoria: documentacao
+  fonte_id: ibge_censo2010_metodologia
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2010/metodologia/metodologia_censo_dem_2010.pdf
+  arquivo: metodologia_censo_dem_2010.pdf
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2010/doc
+  bytes: 20012258
+  sha256: a6243c8a1f3c5ac54c54431d07148feb163fb2563b225c29bdfb026d7627ad84
+  last_modified: Wed, 17 Aug 2016 13:54:47 GMT
+  baixado_em: '2026-09-22T16:12:21+00:00'
+  descricao: 'Metodologia do Censo Demográfico 2010 (IBGE, Série Relatórios Metodológicos v. 41); entorno: seção 7.2.3 (pp. 305-307) e 10.5 (pp. 432-433)'
+- ano: '2010'
+  categoria: tabelas
+  fonte_id: ibge_censo2010_aglomerados_subnormais
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2010/Aglomerados_subnormais/Primeiros_resultados/Setores_Censitarios_agsn_2010.zip
+  arquivo: Setores_Censitarios_agsn_2010.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2010
+  bytes: 456978
+  sha256: 8736e6168a1e80da1dd402b69fc7daf6b6da4c28de46ab1d2722230896a87e7a
+  last_modified: Wed, 17 Aug 2016 14:02:03 GMT
+  baixado_em: '2026-09-22T16:12:22+00:00'
+  descricao: aglomerados subnormais 2010 — setores censitários que os compõem (AGSN2010Setores.xls), recorte BR
+- ano: '2010'
+  categoria: documentacao
+  fonte_id: ibge_censo2010_aglomerados_subnormais
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2010/Aglomerados_subnormais/Aglomerados_subnormais_informacoes_territoriais/notas_tecnicas.pdf
+  arquivo: notas_tecnicas.pdf
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2010/doc
+  bytes: 351348
+  sha256: fb6b937438b66ed93f2faa5923980164ab5e559c8e5ee50bd4624a3bf18ce7ee
+  last_modified: Wed, 17 Aug 2016 14:02:03 GMT
+  baixado_em: '2026-09-22T16:12:22+00:00'
+  descricao: notas técnicas de Aglomerados subnormais — informações territoriais (2010); definição na p. 8
+- ano: '2010'
+  categoria: tabelas
+  fonte_id: ibge_censo2010_aglomerados_subnormais
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2010/Aglomerados_subnormais/Aglomerados_subnormais_informacoes_territoriais/tabelas_xls/UFs_Municipios.zip
+  arquivo: UFs_Municipios.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2010
+  bytes: 393472
+  sha256: 52a2fe3aa624167e9d6eb89d336856e0938d7285351e5e447a04433b7163a652
+  last_modified: Wed, 17 Aug 2016 14:02:03 GMT
+  baixado_em: '2026-09-22T16:12:23+00:00'
+  descricao: aglomerados subnormais 2010 — tabelas por UF e município (tab01–tab09)
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_favelas_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Favelas_e_comunidades_urbanas_Caracteristicas_do_entorno/FCU_Entorno_Cobertura_das_FCUs_moradores_em_DPPO.xlsx
+  arquivo: FCU_Entorno_Cobertura_das_FCUs_moradores_em_DPPO.xlsx
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 562710
+  sha256: d89bdf0d6d5f372ed250559d52d03268109a21dc2f0e0325144a2515ff6b645b
+  last_modified: Tue, 09 Dec 2025 13:00:02 GMT
+  baixado_em: '2026-09-22T16:12:23+00:00'
+  descricao: cobertura da pesquisa do entorno nas favelas e comunidades urbanas 2022 (moradores em DPPO com resposta), por FCU
 fontes:
 - id_fonte: ibge_censo2022_renda_responsavel_setores
   nome: Censo Demográfico 2022 — Agregados por Setores Censitários, Rendimento do Responsável (BR)
@@ -947,3 +1018,24 @@ fontes:
   observacoes: '[tema: nao_espacial | resolução/escala: setor censitário, recorte BR | período: Censo 2022 (divulgado 2025-04-17) | script: scripts/download/baixar_censo_ibge.py] Planilha dos setores que
     compõem cada favela/comunidade urbana; não há dicionário próprio — a documentação é a apresentação da divulgação (PDF, mesmo diretório Anexos/). Polígonos das FCUs (arquivos_vetoriais/) não baixados.
     URL obtida navegando as listagens do FTP. Não processado.'
+- id_fonte: ibge_censo2010_metodologia
+  nome: Metodologia do Censo Demográfico 2010 (Relatórios Metodológicos v. 41)
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2010/metodologia/metodologia_censo_dem_2010.pdf
+  instituicao: IBGE
+  licenca: 'dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): "Todos
+    os arquivos aqui disponíveis são públicos."'
+  autorizacao_fonte: 'true'
+  pode_publicar: 'true'
+  observacoes: '[tema: documentação | período: Censo 2010 (arquivo de 2016-08-17) | script: scripts/download/baixar_censo_ibge.py] Fonte das definições operacionais do entorno de 2010: seção 7.2.3 Entorno
+    do domicílio (pp. 305-307) e 10.5 Entorno (pp. 432-433), numeração impressa. URL obtida navegando as listagens do FTP.'
+- id_fonte: ibge_censo2010_aglomerados_subnormais
+  nome: 'Censo Demográfico 2010 — Aglomerados subnormais: setores censitários e informações territoriais'
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2010/Aglomerados_subnormais/Primeiros_resultados/Setores_Censitarios_agsn_2010.zip
+  instituicao: IBGE
+  licenca: 'dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): "Todos
+    os arquivos aqui disponíveis são públicos."'
+  autorizacao_fonte: 'true'
+  pode_publicar: 'true'
+  observacoes: '[tema: nao_espacial | resolução/escala: setor censitário e município, recorte BR | período: Censo 2010 | script: scripts/download/baixar_censo_ibge.py] sha256 é o da tabela de setores (AGSN2010Setores.xls).
+    Acompanham as notas técnicas (definição: mínimo de 51 unidades habitacionais, p. 8) e as tabelas por UF/município (UFs_Municipios.zip). Bagé NÃO tem aglomerado subnormal em 2010 (conferido nas duas
+    tabelas; controle: 448 AGSN em 23 municípios do RS). URL obtida navegando as listagens do FTP.'

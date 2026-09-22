@@ -1,0 +1,19 @@
+{
+  "arquivo": "data/raw/tabular/ibge/censo_2010/UFs_Municipios.zip",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-22T16:12:23+00:00",
+  "edicao": "censo_2010",
+  "fonte_id": "ibge_censo2010_aglomerados_subnormais",
+  "licenca": "dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "observacoes": "aglomerados subnormais 2010 — tabelas por UF e município (tab01–tab09). Arquivo bruto, exatamente como veio do IBGE. Last-Modified da origem: Wed, 17 Aug 2016 14:02:03 GMT. Baixado em 2026-09-22T16:12:23+00:00 direto do IBGE (URL obtida navegando as listagens do FTP). Lista fixa em config/fontes_censo_ibge.yaml; rebaixável por scripts/download/baixar_censo_ibge.py.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "52a2fe3aa624167e9d6eb89d336856e0938d7285351e5e447a04433b7163a652",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 393472,
+  "tema": "censo",
+  "url_origem": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2010/Aglomerados_subnormais/Aglomerados_subnormais_informacoes_territoriais/tabelas_xls/UFs_Municipios.zip",
+  "versao": "censo_2010"
+}

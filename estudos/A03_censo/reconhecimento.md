@@ -23,6 +23,7 @@ está dito explicitamente (§ 2).
 | `r04_sigilo.py` | § 4 — supressão por conceito, censo, urbano/rural |
 | `r05_cnefe.py` | § 5 — CNEFE × setores 2022 |
 | `r06_temas_2022.py` | § 1.4 — rendimento, entorno e favelas 2022: variáveis, cobertura, sigilo |
+| `r07_aglomerados_2010.py` | § 1.4 — aglomerados subnormais 2010 × FCU 2022; cobertura do entorno nas FCU |
 
 Intermediários e saídas brutas (`r0*.json`, a lista do CNEFE, as tabelas filtradas)
 ficam em `derivados/`, fora do git. As planilhas oficiais passaram a ser lidas com
@@ -189,10 +190,57 @@ DPP urbanos (99,5 %) e 3.220 dos 5.844 rurais.
 | circulação da via, ponto de ônibus, via para bicicleta, obstáculo na calçada | **não** | sim | não |
 | unidade "face de quadra" | não | sim | não |
 
-Ressalvas da comparação: universo DPP (2010, com imputação dos fechados) × DPPO (2022);
-2022 tem a categoria "não declarado"; a definição operacional de "existe na face" e a
-seleção dos setores de 2022 não estão nos dicionários — conferir na metodologia antes de
-medir variação.
+#### Metodologia do entorno: definições 2010 × 2022
+
+**Fontes.** 2010: *Metodologia do Censo Demográfico 2010* (IBGE, Relatórios
+Metodológicos v. 41), `data/raw/tabular/ibge/censo_2010/doc/metodologia_censo_dem_2010.pdf`,
+seção 7.2.3 "Entorno do domicílio" (**pp. 305–307**) e seção 10.5 "Entorno" (**pp.
+432–433**), numeração impressa. **2022: documento metodológico do entorno NÃO
+localizado.** O FTP (`ftp.ibge.gov.br/Censos/Censo_Demografico_2022/`, varrido inteiro, e
+`geoftp`) tem só os dados, os dicionários e a planilha de cobertura nas FCU; as páginas do
+Censo 2022 em `www.ibge.gov.br` e a biblioteca do IBGE respondem **HTTP 403** (desafio
+Cloudflare) em 2026-09-22. Do lado de 2022, o que segue vem **só dos dicionários**
+(`doc/dicionarios_de_dados_entorno.zip`): nome do item e categorias de resposta.
+
+**Unidade e levantamento.**
+
+- **2010:** a **face de quadra**, observada **pelo supervisor** na pré-coleta, antes da
+  coleta domiciliar, "apenas para os setores censitários urbanos faceados" (p. 305;
+  p. 432: "sua existência [da face] definiu os setores onde se processaria a operação").
+  Sete itens valem se existirem **na face ou na sua face confrontante**; meio-fio,
+  calçada e rampa, **só na face em trabalho** (pp. 305–306, 433). Se a característica
+  cobre só parte da face, vale a que ocupa **a maior extensão** (p. 433).
+- **2022:** os dicionários falam em "domicílio em **setor escolhido para aplicação do
+  entorno**" e em "face com …" (sim / não / não declarado); a unidade publicada é
+  domicílio, morador ou **face**. Quem observa, se conta a face confrontante e a regra
+  de extensão **não estão documentados** nas fontes acessíveis.
+
+**Seleção dos setores.** 2010: setores urbanos faceados (pp. 305, 432). 2022: critério
+não documentado nas fontes acessíveis. **Observado em Bagé** (inferência, não afirmação
+do IBGE): 167 dos 173 setores urbanos e 1 de 26 rurais têm entorno; os 6 urbanos sem
+entorno são dois setores especiais (tipos 6 e 7), a sede de Palmas (população 0), a sede
+de José Otávio, `…205000197` e a favela Passo das Pedras — que a própria planilha do IBGE
+de cobertura nas FCU registra com **0 %** de moradores com resposta ao entorno. O padrão
+é compatível com o critério de 2010 (setores urbanos com estrutura de quadra-face), mas
+isso não está escrito em documento de 2022 consultado.
+
+| item | 2010 — o que conta como "existe" (página) | 2022 — dicionário | comparável? |
+| --- | --- | --- | --- |
+| pavimentação | cobertura da via com asfalto, cimento, paralelepípedo, pedras etc. na face percorrida (p. 306) | "face com via pavimentada" sim/não/n.d. | **não decidível** sem a definição de 2022; nome e categoria compatíveis |
+| iluminação pública | ≥ 1 poste de iluminação pública na face **ou na confrontante** (p. 306) | "face com iluminação pública" sim/não/n.d. | **não decidível** (2022 não diz se conta a confrontante) |
+| arborização | árvores ao longo da calçada ou em canteiro, na face, na confrontante ou no canteiro central, mesmo em parte (p. 306) | "face com arborização": sem árvores / 1–2 / 3–4 / 5+ | **não decidível**; mesmo assim, 2022 mede **quantidade**, 2010 só existência — só "tem árvore" poderia ser comparado |
+| bueiro / boca de lobo | abertura de captação de chuva na face **ou na confrontante**; não conta tampão de galeria (p. 306) | "face com bueiro" sim/não/n.d. | **não decidível** |
+| calçada | caminho calçado para pedestres, **só na face em trabalho** (p. 307) | "face com calçada" sim/não/n.d. | **não decidível** |
+| rampa para cadeirante | rebaixamento de calçada/meio-fio para cadeira de rodas, **só na face em trabalho**; não conta acesso de veículo (p. 307) | "face com rampa para cadeirante" sim/não/n.d. | **não decidível** |
+| identificação do logradouro | placa ou outro sinal com nome/número em qualquer lado (p. 306) | — | **não** (não existe em 2022) |
+| meio-fio/guia | borda ao longo do logradouro, só na face em trabalho (p. 307) | — | **não** |
+| esgoto a céu aberto ou vala | vala/córrego com esgoto, ou valeta, na face ou confrontante (p. 306) | — | **não** |
+| lixo acumulado | lixão/depósito/acúmulo, na face ou confrontante; caçamba não conta (p. 306) | — | **não** |
+| circulação da via, ponto de ônibus, via para bicicleta, obstáculo na calçada | — | sim/não/n.d. (circulação em 4 classes) | **não** (não existem em 2010) |
+
+Além da definição: universo DPP (2010, com imputação dos fechados) × DPPO (2022); 2022
+tem "não declarado". **Conclusão: nenhum item do entorno está confirmado como comparável
+2010 × 2022** até se obter a metodologia de 2022; seis são candidatos por nome.
 
 **Favelas e comunidades urbanas (FCU) 2022.** **Bagé tem FCU registradas: 6
 comunidades, em 7 setores** — exatamente os 7 setores de tipo 1 (`CD_TIPO = 1`) da malha,
@@ -211,7 +259,50 @@ todos urbanos, no distrito-sede.
 Nomes e códigos como na planilha oficial `FavelaseComunidadesUrbanas2022Setores_20250417`;
 moradores = `basico v0001`, domicílios = `basico v0007`, somados pelos setores (a FCU é
 composta por setores inteiros). Não há o código `…0006` em Bagé. Das 7, só Passo das
-Pedras fica sem dado de entorno.
+Pedras fica sem dado de entorno (0 % de cobertura na planilha do IBGE
+`FCU_Entorno_Cobertura_das_FCUs_moradores_em_DPPO.xlsx`; as outras 5 FCU, 100 %).
+
+**Aglomerados subnormais 2010 — Bagé não tinha nenhum.** Medido por
+`scripts/r07_aglomerados_2010.py`:
+
+- a tabela oficial de setores de aglomerado subnormal de 2010 (`AGSN2010Setores.xls`,
+  15.868 setores no país) **não tem nenhum setor de Bagé**;
+- conferência independente na tabela municipal das *Informações territoriais* (tab01):
+  o RS tinha **448 aglomerados em 23 municípios** (Porto Alegre, Pelotas, Rio Grande,
+  Caxias do Sul, …) — Bagé **não** está entre eles;
+- portanto **zero aglomerados, zero setores, zero moradores** em 2010.
+
+**Correspondência dos 7 setores de FCU de 2022 com 2010**, pelo de/para oficial:
+
+| setor 2022 (FCU) | setor de 2010 de origem | formação na divulgação 2022 | era aglomerado em 2010? |
+| --- | --- | --- | --- |
+| `…184` Balança Municipal | `…125` | 241 (divisão) | não |
+| `…186` Beco dos Coqueiros | `…051` | 241 | não |
+| `…188` Vila Miséria | `…049` | 241 | não |
+| `…190` Stand | `…045` | 241 | não |
+| `…192` Stand | `…114` | 241 | não |
+| `…195` Passo das Pedras | `…138` (via intermediário `…163`) | 242 (divisão, situação alterada) | não |
+| `…199` Beco do Juruna | `…087` | 241 | não |
+
+Cada favela de 2022 foi **isolada como setor próprio na última etapa**, por divisão de um
+setor maior (segundo dígito 4 = "subdivisão por critério de limite de estrutura
+territorial"); os códigos anteriores à divisão são os mesmos que o CNEFE ainda usa (§ 5).
+**Nenhuma tem antecedente em aglomerado de 2010.**
+
+**Mudança de conceito.** 2010: aglomerado subnormal = conjunto de **no mínimo 51 unidades
+habitacionais** carentes de serviços públicos essenciais, em terreno de propriedade
+alheia (atual ou recente) e com urbanização fora dos padrões ou precariedade de serviços
+(*Aglomerados subnormais — informações territoriais*, notas técnicas, **p. 8**, em
+`censo_2010/doc/notas_tecnicas.pdf`). 2022: FCU = territórios populares
+autoproduzidos, com **predominância de insegurança jurídica da posse** e ao menos um de:
+serviços públicos ausentes ou precários; edificações/arruamento autoproduzidos fora dos
+parâmetros oficiais; localização em área com restrição legal ou de risco (apresentação
+da divulgação, **pp. 10–11**, em `censo_2022/doc/`); o critério de 51 unidades não
+aparece nesses slides. A **Nota Metodológica sobre a mudança de Aglomerados Subnormais
+para Favelas e Comunidades Urbanas (IBGE, 2024)** é citada na apresentação (p. 12) mas
+**não está no FTP** e o site do IBGE responde 403 — não foi baixada. Por isso **não é
+possível afirmar** se a ausência de aglomerados em Bagé em 2010 se deve ao limite de 51
+unidades, a mudança de critério ou mudança no território.
 
 ---
 
@@ -515,6 +606,8 @@ Pontos lidos como SIRGAS 2000 (`EPSG:4674`); o CSV não declara datum.
   de Aceguá.
 - **Distribuição de rendimento em 2022** (só média e mediana foram publicadas).
 - **Entorno rural em 2022** (2 domicílios rurais levantados em Bagé).
+- **Série de favelas/aglomerados 2010 → 2022** (zero aglomerados em 2010; a mudança de
+  conceito impede tratar a ausência de 2010 como "não havia favela").
 - **Meio-fio, identificação do logradouro, esgoto a céu aberto e lixo acumulado em
   2022** (existiam no entorno de 2010, não no de 2022).
 - **Cor ou raça em 2000** (não está no universo).
@@ -544,11 +637,13 @@ Pontos lidos como SIRGAS 2000 (`EPSG:4674`); o CSV não declara datum.
   por setor saem com lacunas grandes.
 - **Rendimento do responsável 2010 × 2022**: só a média dos que têm rendimento
   (`Basico V007` × `V06004`), nominal — deflacionar; universos DPP × DPPO.
-- **Entorno 2010 × 2022**: iluminação, pavimentação, calçada, bueiro, rampa e
-  arborização (reduzida a "tem árvore"), em domicílios; conferir antes a definição
-  operacional de 2022 e a seleção dos setores.
-- **Favelas 2022**: a favela Passo das Pedras não tem entorno; FCU não tem série em 2010
-  neste acervo (a divulgação de 2010 usava "aglomerado subnormal", não levantado aqui).
+- **Entorno 2010 × 2022**: seis itens candidatos por nome (pavimentação, iluminação,
+  arborização como "tem árvore", bueiro, calçada, rampa), mas **nenhum confirmado**: a
+  metodologia de 2022 não foi localizada (FTP não tem; site 403), e em 2010 iluminação,
+  arborização e bueiro contam a face confrontante e calçada e rampa não (§ 1.4).
+- **Favelas 2022**: 6 FCU em 7 setores; Passo das Pedras sem entorno (0 % de
+  cobertura). **Sem série com 2010**: Bagé não tinha aglomerado subnormal, e nenhum dos 7
+  setores de 2022 descende de setor de aglomerado — a série "favela" começa em 2022.
 - **Grade estatística 2010/2022**: baixada (quadrantes 14 e 04, conferidos contra a área
   de estudo), mas só com população e domicílios; em 2010 os valores por célula vêm de
   agregação/desagregação do IBGE, não de contagem direta.
@@ -565,9 +660,10 @@ Atualizadas em 2026-09-22 com os temas do § 1.4 (limite de cinco).
    oficial?
 2. **SUGESTÃO** (mantida) — O envelhecimento entre 2010 e 2022 é homogêneo no município
    ou se concentra em áreas específicas (esquema etário comum, 70+)?
-3. **SUGESTÃO** (nova) — Como mudou a infraestrutura do entorno dos domicílios urbanos
-   entre 2010 e 2022 — pavimentação, calçada, iluminação, bueiro, rampa, arborização —
-   por área mínima comum?
+3. **SUGESTÃO** (nova; **condicionada** à obtenção da metodologia do entorno de 2022,
+   § 1.4) — Como mudou a infraestrutura do entorno dos domicílios urbanos entre 2010 e
+   2022 — pavimentação, calçada, iluminação, bueiro, rampa, arborização — por área mínima
+   comum? Sem a metodologia, só o retrato de 2022 é sustentado.
 4. **SUGESTÃO** (nova) — Como o rendimento médio do responsável (com rendimento,
    deflacionado) variou entre 2010 e 2022 por área mínima comum, e em que medida
    acompanha as mudanças do entorno?

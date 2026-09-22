@@ -1,0 +1,19 @@
+{
+  "arquivo": "data/raw/tabular/ibge/censo_2022/FCU_Entorno_Cobertura_das_FCUs_moradores_em_DPPO.xlsx",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-22T16:12:23+00:00",
+  "edicao": "censo_2022",
+  "fonte_id": "ibge_censo2022_favelas_setores",
+  "licenca": "dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "observacoes": "cobertura da pesquisa do entorno nas favelas e comunidades urbanas 2022 (moradores em DPPO com resposta), por FCU. Arquivo bruto, exatamente como veio do IBGE. Last-Modified da origem: Tue, 09 Dec 2025 13:00:02 GMT. Baixado em 2026-09-22T16:12:23+00:00 direto do IBGE (URL obtida navegando as listagens do FTP). Lista fixa em config/fontes_censo_ibge.yaml; rebaixável por scripts/download/baixar_censo_ibge.py.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "d89bdf0d6d5f372ed250559d52d03268109a21dc2f0e0325144a2515ff6b645b",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 562710,
+  "tema": "censo",
+  "url_origem": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Favelas_e_comunidades_urbanas_Caracteristicas_do_entorno/FCU_Entorno_Cobertura_das_FCUs_moradores_em_DPPO.xlsx",
+  "versao": "censo_2022"
+}

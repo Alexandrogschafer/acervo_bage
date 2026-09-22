@@ -1,0 +1,19 @@
+{
+  "arquivo": "data/raw/tabular/ibge/censo_2010/doc/metodologia_censo_dem_2010.pdf",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-22T16:12:21+00:00",
+  "edicao": "censo_2010",
+  "fonte_id": "ibge_censo2010_metodologia",
+  "licenca": "dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "observacoes": "Metodologia do Censo Demográfico 2010 (IBGE, Série Relatórios Metodológicos v. 41); entorno: seção 7.2.3 (pp. 305-307) e 10.5 (pp. 432-433). Arquivo bruto, exatamente como veio do IBGE. Last-Modified da origem: Wed, 17 Aug 2016 13:54:47 GMT. Baixado em 2026-09-22T16:12:21+00:00 direto do IBGE (URL obtida navegando as listagens do FTP). Lista fixa em config/fontes_censo_ibge.yaml; rebaixável por scripts/download/baixar_censo_ibge.py.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "a6243c8a1f3c5ac54c54431d07148feb163fb2563b225c29bdfb026d7627ad84",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 20012258,
+  "tema": "censo",
+  "url_origem": "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2010/metodologia/metodologia_censo_dem_2010.pdf",
+  "versao": "censo_2010"
+}
