@@ -58,7 +58,7 @@ O setor que só está no básico de 2022 é `430160221000001` (Palmas): populaç
 | domicílios particulares permanentes | existe · `Domicilio V0003` (= `Basico Var01`) | existe · `Domicilio01 V002` (= `Basico V001`) | existe · DPPO em `caracteristicas_domicilio1 V00001` |
 | moradores por domicílio | existe · `Basico Var01, Var12, Var13` | existe · `Basico V001–V003` | **diferente** · a média publicada (`basico v0005`) inclui improvisados; a comparável é `V00005 / V00001` |
 | alfabetização | existe · 5+, alfabetizados e não (`Instrucao1`) | existe · 5+, só alfabetizados (`Pessoa01`; denominador em `Pessoa13`) | **diferente** · só **15+** (`alfabetizacao V00900, V00901, …`) |
-| rendimento do responsável | existe · 9 classes de SM (SM = R$ 151) + totais em R$ (`Responsavel1 V0602–V0623`) | existe · as mesmas 9 classes (SM = R$ 510) + totais (`ResponsavelRenda V001–V022`) | **diferente — e fora da cópia local** · publicado em 2026-05-08, em diretório próprio (`Agregados_por_Setores_Censitarios_Rendimento_do_Responsavel/`), com **6 variáveis**: responsáveis, moradores, rendimento médio, mediano e variâncias; **sem classes** |
+| rendimento do responsável | existe · 9 classes de SM (SM = R$ 151) + totais em R$ (`Responsavel1 V0602–V0623`) | existe · as mesmas 9 classes (SM = R$ 510) + totais (`ResponsavelRenda V001–V022`) | **diferente** · publicado em 2026-05-08, em diretório próprio (`Agregados_por_Setores_Censitarios_Rendimento_do_Responsavel/`), com **6 variáveis**: responsáveis, moradores, rendimento médio, mediano e variâncias; **sem classes** — baixado em 2026-09-22 (§ 1.3) |
 | cor ou raça | **não existe** (fora do universo de 2000) | existe · 5 categorias (`Pessoa03 V002–V006`) | existe · as mesmas 5 (`cor_ou_raca V01317–V01321`) |
 | abastecimento de água | **diferente** · 3 formas × canalização | **diferente** · 4 formas (cisterna à parte), sem canalização | **diferente** · forma *principal* em 8 categorias + canalização + ligação à rede |
 | esgotamento | existe · `Domicilio V0029–V0036` | existe · mesmas categorias (`Domicilio01 V016–V023`) | **diferente** · fossa séptica dividida em ligada / não ligada à rede |
@@ -93,8 +93,12 @@ sem baixar dados:
 
 - **Divulgados e presentes na cópia local:** os 13 temas da tabela 1.1, nas mesmas
   versões (básico `20260520`; características do domicílio 2 e 3 `20250417`).
+- **Divulgados e baixados em 2026-09-22** (depois do reconhecimento; não processados):
+  - **rendimento do responsável** por setor (2026-05-08; ver tabela 1.2):
+    `data/raw/tabular/ibge/censo_2022/Agregados_por_setores_renda_responsavel_BR_20260508_csv.zip`
+    (9.370.011 B) e o dicionário em `…/censo_2022/doc/` (10.197 B); fonte
+    `ibge_censo2022_renda_responsavel_setores`.
 - **Divulgados e ausentes da cópia local:**
-  - **rendimento do responsável** (2026-05-08; ver tabela 1.2);
   - **entorno urbanístico** (2025-04-17: domicílios, faces, moradores; e uma versão em
     percentual já com geometria, `br_setores_entorno_cd2022.gpkg`, 2025-12-12);
   - **registro de nascimento** por setor (2026-02-04);
@@ -262,20 +266,25 @@ Existe para **2010 e 2022**, em
   grades agregadas nacionais de 1 a 500 km;
 - a documentação de 2010 não lista os campos da grade daquele ano.
 
-Arquivos que cobrem Bagé (não baixados):
+Arquivos que cobrem Bagé — **baixados em 2026-09-22** (não processados), em
+`data/raw/vetor/ibge/censo_<ano>/grade_estatistica/`, fontes
+`ibge_grade_estatistica_2010` e `ibge_grade_estatistica_2022`:
 
-| arquivo | bytes | Last-Modified |
-| --- | ---: | --- |
-| `censo_2022/grade_estatistica/grade_id14.zip` | 26.890.770 | 2025-06-12 |
-| `censo_2022/grade_estatistica/grade_id04.zip` | 3.031.479 | 2025-06-12 |
-| `censo_2010/grade_id14.zip` | 32.648.454 | 2016-10-06 |
-| `censo_2010/grade_id04.zip` | 3.830.448 | 2016-10-06 |
+| arquivo | bytes | Last-Modified | feições |
+| --- | ---: | --- | ---: |
+| `censo_2022/grade_estatistica/grade_id14.zip` | 26.890.770 | 2025-06-12 | 582.324 |
+| `censo_2022/grade_estatistica/grade_id04.zip` | 3.031.479 | 2025-06-12 | 68.071 |
+| `censo_2010/grade_id14.zip` | 32.648.454 | 2016-10-06 | 537.732 |
+| `censo_2010/grade_id04.zip` | 3.830.448 | 2016-10-06 | 66.031 |
 
-`ID_14` cobre ~94,5 % do município (a cidade e 198 dos 199 setores); `ID_04`, uma faixa
-rural no extremo sul (~224 km²). A atribuição é **inferida**: nenhum documento dá as
-coordenadas dos quadrantes; a regra (blocos de 500 km a partir da origem da projeção)
-foi deduzida e conferida em 7 pontos do mapa oficial. Confirma-se pelo campo
-`QUADRANTE` depois de baixar.
+Total: 66.401.151 B. `ID_14` cobre ~94,5 % do município (a cidade e 198 dos 199
+setores); `ID_04`, uma faixa rural no extremo sul (~224 km²). A atribuição foi
+**inferida** (blocos de 500 km na Albers do IBGE, conferida em 7 pontos do mapa oficial)
+e **conferida antes do download** contra `config/area_estudo.geojson`: só ID_14
+(3.867 km²) e ID_04 (224 km²) tocam o município. **Depois do download**, só pelos
+metadados: os quatro arquivos têm o campo `QUADRANTE` e a extensão do ID_14 contém
+94,5 % de Bagé. Correção à documentação: os shapefiles vêm em **EPSG:4674 (SIRGAS 2000
+geográfico)**, não em Albers.
 
 ---
 
@@ -298,7 +307,7 @@ Setores com ao menos uma célula suprimida nas variáveis do conceito (urbanos /
 | DPP | 0 | 0 | 4 (2 / 2) |
 | moradores por domicílio | 7 (6 / 1) | 2 (2 / 0) | 4 (2 / 2) |
 | alfabetização | 8 (6 / 2) | 2 (1 / 1) | 49 (28 / **21**) |
-| rendimento do responsável | **131 (95 / 36)** | 2 (1 / 1) | — (fora da cópia local) |
+| rendimento do responsável | **131 (95 / 36)** | 2 (1 / 1) | não medido (baixado depois do reconhecimento) |
 | cor ou raça | — | 2 (1 / 1) | 65 (58 / 7) |
 | água | 8 (6 / 2) | 2 (1 / 1) | **146 (123 / 23)** |
 | esgoto | 8 (6 / 2) | 2 (1 / 1) | **148 (127 / 21)** |
@@ -385,8 +394,8 @@ Pontos lidos como SIRGAS 2000 (`EPSG:4674`); o CSV não declara datum.
 
 - **Soma dos setores de 2000 como "Bagé de hoje"**: 11 setores (3.927 pessoas) são hoje
   de Aceguá.
-- **Distribuição de rendimento em 2022** (só média e mediana foram publicadas — e fora
-  da cópia local).
+- **Distribuição de rendimento em 2022** (só média e mediana foram publicadas; o arquivo
+  foi baixado em 2026-09-22).
 - **Cor ou raça em 2000** (não está no universo).
 - **Série 2000–2010 por setor**: sem de/para oficial, CRS de 2000 não resolvido, IoU ~0,5.
 - **Água e esgoto por setor em 2022 com todas as categorias**: supressão em ~75 % dos
@@ -411,8 +420,9 @@ Pontos lidos como SIRGAS 2000 (`EPSG:4674`); o CSV não declara datum.
   38.504); a confirmar.
 - **Setores rurais de 2022**: a supressão por célula é quase regra; resultados rurais
   por setor saem com lacunas grandes.
-- **Grade estatística 2010/2022**: disponível (quadrantes 14 e 04), mas só com população e
-  domicílios, e a atribuição dos quadrantes é inferida até o download.
+- **Grade estatística 2010/2022**: baixada (quadrantes 14 e 04, conferidos contra a área
+  de estudo), mas só com população e domicílios; em 2010 os valores por célula vêm de
+  agregação/desagregação do IBGE, não de contagem direta.
 - **CNEFE × setores**: usar o de/para para os 10 códigos da malha intermediária; 3,9 %
   dos pontos caem fora do setor indicado, quase todos na fronteira.
 

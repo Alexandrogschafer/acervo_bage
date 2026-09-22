@@ -35,8 +35,14 @@ MODOS
 Em todos os modos que gravam, cada arquivo ganha `.json` irmão
 (`scripts/utils/metadados.py`) e a fonte é conferida em
 data/catalogo_fontes.csv pelo mesmo padrão de `baixar_malhas_ibge.py`: linha
-ausente é criada; existente com o mesmo sha256 fica intacta; com outro
-sha256, só aviso.
+ausente é criada a partir do bloco `fontes:` da lista fixa; existente com o
+mesmo sha256 fica intacta; com outro sha256, só aviso.
+
+ITEM NOVO (sha256 ainda não fixado): entra na lista com `sha256: ''`, depois
+de a URL ter sido obtida NAVEGANDO as listagens do FTP (nunca montada), com o
+tamanho e o Last-Modified lidos por HEAD. O download confere o tamanho,
+instala e imprime o sha256 obtido, que o responsável grava na lista — a partir
+daí o item é tratado como os demais (sha256 esperado, recusa se mudar).
 
 Uso:
     python scripts/download/baixar_censo_ibge.py --semear data/acervo/censo
@@ -81,11 +87,17 @@ class Item:
     last_modified: str
     baixado_em: str
     descricao: str
-    caminho_revia_bg: str
+    caminho_revia_bg: str = ""
 
     @property
     def destino(self) -> Path:
         return paths.caminho(self.base, *self.subdir.split("/"), self.arquivo)
+
+
+def carregar_fontes_novas() -> dict[str, dict]:
+    """Bloco `fontes:` da lista fixa: linhas a criar no catálogo, se ausentes."""
+    dados = yaml.safe_load(paths.caminho("fontes_censo_ibge").read_text(encoding="utf-8"))
+    return {f["id_fonte"]: f for f in dados.get("fontes", [])}
 
 
 def carregar_lista() -> list[Item]:
@@ -94,7 +106,7 @@ def carregar_lista() -> list[Item]:
     for bruto in dados["arquivos"]:
         destino = bruto.pop("destino")
         item = Item(base=destino["base"], subdir=destino["subdir"],
-                    **{k: (str(v) if k != "bytes" else int(v)) for k, v in bruto.items()})
+                    **{k: (str(v or "") if k != "bytes" else int(v)) for k, v in bruto.items()})
         if not item.url.startswith(HOSTS_AUTORIZADOS):
             raise RuntimeError(f"URL fora dos hosts do IBGE: {item.url}")
         itens.append(item)
@@ -109,13 +121,15 @@ def carregar_lista() -> list[Item]:
 # --------------------------------------------------------------------------
 
 def ja_instalado(item: Item) -> bool:
-    return item.destino.is_file() and sha256_arquivo(item.destino) == item.sha256
+    return bool(item.sha256) and item.destino.is_file() and sha256_arquivo(item.destino) == item.sha256
 
 
 def semear(item: Item, origem: Path) -> str:
     """Move o arquivo de uma cópia local, conferindo o sha256 antes e depois."""
     if ja_instalado(item):
         return "já no destino"
+    if not item.caminho_revia_bg:
+        return "sem cópia local (item novo)"
     fonte = origem / item.caminho_revia_bg
     if not fonte.is_file():
         return "AUSENTE na cópia local"
@@ -135,8 +149,10 @@ def baixar(item: Item) -> str:
     """Baixa se preciso; instala só com o sha256 esperado."""
     if ja_instalado(item):
         return "já no destino"
-    if item.destino.exists():
+    if item.destino.exists() and item.sha256:
         return "destino ocupado por arquivo com outro sha256 — não baixado"
+    if item.destino.exists():
+        return f"já no destino, sha256 A FIXAR {sha256_arquivo(item.destino)}"
     item.destino.parent.mkdir(parents=True, exist_ok=True)
     parcial = item.destino.with_name(item.destino.name + ".part")
     with requests.get(item.url, stream=True, timeout=TIMEOUT) as resposta:
@@ -145,6 +161,12 @@ def baixar(item: Item) -> str:
             for bloco in resposta.iter_content(chunk_size=1024 * 1024):
                 saida.write(bloco)
     sha = sha256_arquivo(parcial)
+    if not item.sha256:
+        if parcial.stat().st_size != item.bytes:
+            parcial.unlink()
+            return f"TAMANHO diferente do listado ({item.bytes:,}) — não instalado"
+        parcial.replace(item.destino)
+        return f"baixado — FIXAR sha256 {sha}"
     if sha != item.sha256:
         parcial.unlink()
         return (f"ORIGEM MUDOU: baixado sha256 {sha[:12]}…, esperado {item.sha256[:12]}… "
@@ -221,8 +243,24 @@ def escrever_metadado(item: Item, fontes: dict[str, dict]) -> bool:
 def conferir_fontes(itens: list[Item], fontes: dict[str, dict]) -> list[str]:
     """Mesmo padrão de baixar_malhas_ibge.py: nunca troca o sha256 de uma fonte."""
     relatos = []
+    novas = carregar_fontes_novas()
     for id_fonte in sorted({i.fonte_id for i in itens}):
         linha = fontes.get(id_fonte)
+        if linha is None and id_fonte in novas:
+            principal = next(i for i in itens if i.url == novas[id_fonte]["url"])
+            if not ja_instalado(principal):
+                relatos.append(f"{id_fonte}: ausente — criada quando o sha256 do arquivo "
+                               "principal estiver fixado e o arquivo instalado")
+                continue
+            catalogo.upsert("catalogo_fontes", "id_fonte", [{
+                **{k: str(v) for k, v in novas[id_fonte].items()},
+                "data_acesso": principal.baixado_em[:10],
+                "formato": principal.destino.suffix.lstrip("."),
+                "tamanho_bytes": str(principal.bytes),
+                "sha256": principal.sha256,
+            }])
+            relatos.append(f"{id_fonte}: acrescentada ao catálogo")
+            continue
         if linha is None:
             relatos.append(f"{id_fonte}: AUSENTE no catálogo — criar a linha à mão, "
                            "com licença e ressalvas")
@@ -257,21 +295,29 @@ def main() -> None:
         print(f"\n{len(itens)} arquivos verificados na origem; {mudaram} com diferença.")
         return
 
-    fontes = {l["id_fonte"]: l for l in catalogo.ler("catalogo_fontes")}
     origem = args.semear.resolve() if args.semear else None
     contagem: dict[str, int] = {}
+    situacoes = []
     for item in itens:
         situacao = semear(item, origem) if origem else baixar(item)
-        contagem[situacao] = contagem.get(situacao, 0) + 1
-        gravou = escrever_metadado(item, fontes) if ja_instalado(item) else False
-        print(f"{situacao:<16} {'json' if gravou else '    '}  "
-              f"{paths.relativo(item.destino)}")
+        rotulo = situacao if "FIXAR" not in situacao else "sha256 a fixar na lista"
+        contagem[rotulo] = contagem.get(rotulo, 0) + 1
+        situacoes.append((item, situacao))
+
+    # fontes antes dos .json: o .json irmão lê licença e autorização da linha da fonte
+    relatos = conferir_fontes(itens, {l["id_fonte"]: l for l in catalogo.ler("catalogo_fontes")})
+    fontes = {l["id_fonte"]: l for l in catalogo.ler("catalogo_fontes")}
+    for item, situacao in situacoes:
+        gravou = (escrever_metadado(item, fontes)
+                  if ja_instalado(item) and item.fonte_id in fontes else False)
+        if situacao not in ("já no destino", "movido") or gravou:
+            print(f"{situacao:<16} {'json' if gravou else '    '}  {paths.relativo(item.destino)}")
 
     print()
     for situacao, n in sorted(contagem.items()):
         print(f"{n:>3}  {situacao}")
     print()
-    for relato in conferir_fontes(itens, fontes):
+    for relato in relatos:
         print(f"fonte {relato}")
 
 

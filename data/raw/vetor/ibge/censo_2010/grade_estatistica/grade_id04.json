@@ -1,0 +1,19 @@
+{
+  "arquivo": "data/raw/vetor/ibge/censo_2010/grade_estatistica/grade_id04.zip",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "EPSG:4674",
+  "data_producao": "2026-09-22T14:22:34+00:00",
+  "edicao": "censo_2010",
+  "fonte_id": "ibge_grade_estatistica_2010",
+  "licenca": "dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "observacoes": "grade estatística 2010, quadrante ID_04 (células de 200 m urbano / 1 km rural, Albers SIRGAS 2000); cobre ~5,5 % (faixa rural sul) de Bagé. Arquivo bruto, exatamente como veio do IBGE. Last-Modified da origem: Thu, 06 Oct 2016 14:24:58 GMT. Baixado em 2026-09-22T14:22:34+00:00 (pelo REVIA_BG, cópia aposentada; procedência em docs/procedencia/revia_bg_censo/). Lista fixa em config/fontes_censo_ibge.yaml; rebaixável por scripts/download/baixar_censo_ibge.py.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "4940e6b8aa0c7931e1b6acaa448994a66452b4eeb9b498358109a50051b5e319",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 3830448,
+  "tema": "censo",
+  "url_origem": "https://geoftp.ibge.gov.br/recortes_para_fins_estatisticos/grade_estatistica/censo_2010/grade_id04.zip",
+  "versao": "censo_2010"
+}

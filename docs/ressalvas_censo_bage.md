@@ -22,47 +22,75 @@ arquivo. O que não foi medido está dito como não medido.
 
 ---
 
-## 1. A soma dos setores fecha em 2022, e não fecha em 2010
+## 1. A soma dos setores fecha nos três censos — comparando a mesma grandeza
 
-| censo | soma dos setores | total oficial do município | diferença | serve como total municipal? |
-| --- | ---: | ---: | ---: | --- |
-| 2022 | **117.938** | 117.938 | **0** | **sim** |
-| 2010 | 116.318 (`V002`) | 116.794 | **−476** (−0,408 %) | **não** |
-| 2000 | 117.893 (`Var12`) | 118.767 | −874 | não, mas por outro motivo (§ 4) |
+*Corrigido em 2026-09-22 (texto anterior preservado na seção
+[Corrigido em 2026-09-22](#corrigido-em-2026-09-22)). Medição:
+`estudos/A03_censo/reconhecimento.md` § 2, script `estudos/A03_censo/scripts/r02_totais.py`.*
 
-Em 2022 a soma dos **199 setores** de Bagé fecha **exatamente** com o total oficial
-(urbana 114.883 + rural 3.055). A tabela e a malha têm os mesmos 199 códigos:
-0 só na tabela, 0 só na malha.
+Cada soma de setores confrontada com o total oficial **da mesma grandeza**:
 
-## 2. 2010: quatro setores sem linha na tabela — causa em aberto
+| censo | grandeza | soma dos setores (urbana / rural) | total oficial | diferença |
+| --- | --- | --- | --- | ---: |
+| 2022 | população (`v0001`) | 117.938 (114.883 / 3.055) | 117.938 (114.883 / 3.055) | **0** |
+| 2010 | população (`Domicilio02 V001`) | 116.794 (97.765 / 19.029) | 116.794 (97.765 / 19.029) | **0** |
+| 2010 | DPP (`Basico V001`) | 38.504 (32.642 / 5.862) | 38.504 | **0** |
+| 2010 | moradores em DPP (`Basico V002`) | 116.318 (97.304 / 19.014) | 116.318 | **0** |
+| 2000 | população (`Pessoa1 V1330`) | 118.767 (97.290 / 21.477) | 118.767 (97.290 / 21.477) | **0** |
+| 2000 | DPP (`Basico Var01`) | 35.119 | 35.119 | **0** |
 
-A malha de 2010 tem **168 setores** em Bagé; a tabela de agregados tem **164**.
-**Quatro setores existem na malha e não têm linha na tabela** — três sedes de distrito
-e um rural — e **não aparecem em nenhuma das 26 planilhas** do pacote.
+Em 2010 a igualdade vale também **distrito a distrito**, nas três grandezas.
 
-A causa **não foi determinada**; fica declarada em aberto. A consequência é operacional
-e não depende de descobrir a causa:
+**A soma dos setores serve como total municipal nos três censos.** O que não se pode é
+comparar grandezas diferentes: `V002` de 2010 e `Var12` de 2000 são **moradores em
+domicílios particulares permanentes**, e ficam abaixo da população total porque ela
+inclui domicílios improvisados e coletivos (2010: 116.318 × 116.794; 2000: 117.893 ×
+118.767). Era essa a origem das diferenças de −476 (2010) e −874 (2000) registradas
+antes.
 
-> **A soma dos setores de 2010 NÃO serve como total municipal.** Para o total de 2010,
-> usar a tabela oficial por município (`2010/tabelas/rio_grande_do_sul.zip`), não a soma.
+## 2. 2010: quatro setores sem linha na tabela — contribuem zero
 
-## 3. 2000: a diferença é de recorte, não erro
+A malha de 2010 tem **168 setores** em Bagé; as tabelas, **164**. Os 4 sem linha:
+`430160205000142` (rural, entre a Estrada dos Vieiras, o rio Negro e a BR-153) e as
+sedes das vilas de Joca Tavares (`430160217000001`), José Otávio (`430160220000001`) e
+Palmas (`430160221000001`), desenhadas como quadrados de ~100 m em torno de escola ou
+subprefeitura.
 
-`Var12` (moradores em domicílios particulares permanentes) soma **117.893** contra
-**118.767** oficiais, −874. **Não é erro de soma nem de junção:** as duas quantidades
-medem coisas diferentes — o total oficial inclui **domicílios improvisados e coletivos**,
-que `Var12` por definição não conta. Comparar as duas como se fossem a mesma grandeza
-produz uma discrepância que não existe.
+Procurados em **todos** os arquivos de dados da divulgação de 2010 (26 CSV e 26 XLS), na
+documentação, nas 21 tabelas por município/distrito e no de/para 2010→2022: aparecem
+**só** na descrição dos setores (`Descrição_RS.xls`) e no de/para, **em nenhum arquivo
+de dados**.
 
-Ressalva adicional de 2000, do lado espacial:
+Como os totais fecham exatamente sem eles — no município e em cada distrito (§ 1) —, os
+4 **contribuem zero pessoas e zero domicílios**. A razão da omissão não está escrita na
+divulgação; "setor sem domicílio não tem linha" é inferência coerente com os totais, não
+afirmação do IBGE. O setor `430160221000001` reaparece em 2022 só na tabela básica, com
+população 0.
 
-- a malha urbana de Bagé (`2000/malha/4301602.zip`, 127 setores) vem declarada em
-  **EPSG:32621 — UTM 21 NORTE**, hemisfério errado para Bagé: é erro de declaração no
-  `.prj`, não dado do sul projetado. **7 das 127 geometrias são inválidas**;
-- a malha rural (`rs_setores_censitarios.zip`, 47 setores em Bagé) vem **sem CRS declarado**;
+## 3. 2000: o território não é o de hoje; a malha tem CRS a resolver
+
+**Território.** A própria divulgação de 2000 traz `Compatibilização_2000-2001_RS.xls`:
+**11 setores** de Bagé (distritos `…10` e `…12`) passaram a **Aceguá**, instalado em
+2001 — **3.927 pessoas** e 1.147 DPP. Bagé de 2000 no território de 2001 = **114.840**
+habitantes, o mesmo número da planilha oficial "Municípios instalados em 2001". Na
+geometria, 1.545 km² desses setores estão hoje em Aceguá. Comparação 2000 × 2010/2022
+do município inteiro tem de descontar esses setores.
+
+Lado espacial:
+
+- a malha urbana de Bagé (`data/raw/vetor/ibge/censo_2000/4301602.zip`, 127 setores) vem
+  declarada em **EPSG:32621 — UTM 21 NORTE**, hemisfério errado para Bagé. Lida em UTM 21
+  Sul (WGS 84, SAD69 ou SIRGAS) ela cai inteira sobre a cidade, com deslocamento residual
+  de ~90–105 m em relação à malha de 2010; as hipóteses estão medidas em
+  `estudos/A03_censo/reconhecimento.md` § 3.2, **sem decisão**. **7 das 127 geometrias
+  são inválidas**;
+- a malha rural (`rs_setores_censitarios.zip`, 44 códigos em Bagé) vem **sem CRS
+  declarado**, em graus; 6 dos seus polígonos são envoltórias de faixas de setores
+  urbanos (ex.: `…001-0114`), e não setores;
 - o CRS tem de ser decidido e registrado **antes** de qualquer medição métrica;
-- as **tabelas de 2000 não foram lidas** no REVIA_BG: vêm só em `.XLS` legado (BIFF8) e
-  aquele ambiente não tinha leitor. Os arquivos estão guardados intactos; falta o leitor.
+- as tabelas de 2000 (XLS BIFF8) **foram lidas** em 2026-09-22 com `xlrd`
+  (`requirements.txt`); 127 setores urbanos + 38 rurais = 165, exatamente as linhas da
+  tabela.
 
 ## 4. Comparabilidade 2010 → 2022: o geocódigo não é identificador estável
 
@@ -117,6 +145,65 @@ setores. São arquivos diferentes, diretórios diferentes e datas de divulgaçã
 
 **Dado de endereço.** Publicar qualquer derivado do CNEFE no geoportal exige decidir
 antes o nível de agregação; o arquivo bruto não vai para `data/geoportal/`.
+
+---
+
+## Corrigido em 2026-09-22
+
+Texto anterior dos §§ 1 a 3, mantido como registro. Foi substituído porque comparava
+moradores em domicílios particulares permanentes com população total (diferenças de
+−476 em 2010 e −874 em 2000, que desaparecem quando se compara a mesma grandeza), não
+considerava a transferência de 11 setores de 2000 para Aceguá e deixava em aberto o
+efeito dos 4 setores de 2010 sem linha. Medição que motivou a correção:
+`estudos/A03_censo/reconhecimento.md` § 2.
+
+<details>
+<summary>Texto anterior (até 2026-09-22)</summary>
+
+> ## 1. A soma dos setores fecha em 2022, e não fecha em 2010
+>
+> | censo | soma dos setores | total oficial do município | diferença | serve como total municipal? |
+> | --- | ---: | ---: | ---: | --- |
+> | 2022 | **117.938** | 117.938 | **0** | **sim** |
+> | 2010 | 116.318 (`V002`) | 116.794 | **−476** (−0,408 %) | **não** |
+> | 2000 | 117.893 (`Var12`) | 118.767 | −874 | não, mas por outro motivo (§ 4) |
+>
+> Em 2022 a soma dos **199 setores** de Bagé fecha **exatamente** com o total oficial
+> (urbana 114.883 + rural 3.055). A tabela e a malha têm os mesmos 199 códigos:
+> 0 só na tabela, 0 só na malha.
+>
+> ## 2. 2010: quatro setores sem linha na tabela — causa em aberto
+>
+> A malha de 2010 tem **168 setores** em Bagé; a tabela de agregados tem **164**.
+> **Quatro setores existem na malha e não têm linha na tabela** — três sedes de distrito
+> e um rural — e **não aparecem em nenhuma das 26 planilhas** do pacote.
+>
+> A causa **não foi determinada**; fica declarada em aberto. A consequência é operacional
+> e não depende de descobrir a causa:
+>
+> > **A soma dos setores de 2010 NÃO serve como total municipal.** Para o total de 2010,
+> > usar a tabela oficial por município (`2010/tabelas/rio_grande_do_sul.zip`), não a soma.
+>
+> ## 3. 2000: a diferença é de recorte, não erro
+>
+> `Var12` (moradores em domicílios particulares permanentes) soma **117.893** contra
+> **118.767** oficiais, −874. **Não é erro de soma nem de junção:** as duas quantidades
+> medem coisas diferentes — o total oficial inclui **domicílios improvisados e coletivos**,
+> que `Var12` por definição não conta. Comparar as duas como se fossem a mesma grandeza
+> produz uma discrepância que não existe.
+>
+> Ressalva adicional de 2000, do lado espacial:
+>
+> - a malha urbana de Bagé (`2000/malha/4301602.zip`, 127 setores) vem declarada em
+>   **EPSG:32621 — UTM 21 NORTE**, hemisfério errado para Bagé: é erro de declaração no
+>   `.prj`, não dado do sul projetado. **7 das 127 geometrias são inválidas**;
+> - a malha rural (`rs_setores_censitarios.zip`, 47 setores em Bagé) vem **sem CRS declarado**;
+> - o CRS tem de ser decidido e registrado **antes** de qualquer medição métrica;
+> - as **tabelas de 2000 não foram lidas** no REVIA_BG: vêm só em `.XLS` legado (BIFF8) e
+>   aquele ambiente não tinha leitor. Os arquivos estão guardados intactos; falta o leitor.
+>
+
+</details>
 
 ---
 

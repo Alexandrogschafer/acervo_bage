@@ -12,6 +12,12 @@
 # relativo a ela. `caminho_revia_bg` só serve à semeadura (--semear) e ao
 # rastro: é onde o arquivo estava na cópia do REVIA_BG.
 #
+# Acrescentados em 2026-09-22 (itens sem `caminho_revia_bg`): rendimento do
+# responsável por setor 2022 e grade estatística 2010/2022 (quadrantes 14 e 04,
+# que cobrem Bagé — conferido contra config/area_estudo.geojson). URLs obtidas
+# NAVEGANDO as listagens do FTP; bytes e Last-Modified por HEAD; sha256 fixado
+# no primeiro download. O bloco `fontes:` descreve as linhas de catálogo novas.
+#
 # Ficou de fora a malha territorial de setores 2022 do geoftp
 # (RS_setores_CD2022.gpkg, sha256 3816950f…): ela é baixada por
 # scripts/download/baixar_malhas_ibge.py (fonte ibge_malha_setores_2022).
@@ -717,3 +723,115 @@ arquivos:
   baixado_em: '2026-09-20T16:29:54+00:00'
   descricao: dicionário das coordenadas dos endereços
   caminho_revia_bg: 2022/cnefe/Dicionario_Coordenadas_Censo2022.xls
+- ano: '2022'
+  categoria: tabelas
+  fonte_id: ibge_censo2022_renda_responsavel_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios_Rendimento_do_Responsavel/Agregados_por_setores_renda_responsavel_BR_20260508_csv.zip
+  arquivo: Agregados_por_setores_renda_responsavel_BR_20260508_csv.zip
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022
+  bytes: 9370011
+  sha256: 141c83e7635674e7e2c941e55f98811e538fcbf2e1e1125b0aa7892c260f4a23
+  last_modified: Fri, 08 May 2026 20:30:50 GMT
+  baixado_em: '2026-09-22T14:22:25+00:00'
+  descricao: 'rendimento do responsável por setor censitário, recorte BR (6 variáveis: responsáveis, moradores, rendimento médio, mediano e variâncias)'
+- ano: '2022'
+  categoria: documentacao
+  fonte_id: ibge_censo2022_renda_responsavel_setores
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios_Rendimento_do_Responsavel/dicionario_de_dados_renda_responsavel_20260508.xlsx
+  arquivo: dicionario_de_dados_renda_responsavel_20260508.xlsx
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022/doc
+  bytes: 10197
+  sha256: fea6e2b2439eeb167c6fa9c136ed7cb13ebcb06f4c875d634e3e2578c668a48d
+  last_modified: Fri, 08 May 2026 20:31:03 GMT
+  baixado_em: '2026-09-22T14:22:25+00:00'
+  descricao: dicionário de dados do rendimento do responsável
+- ano: '2022'
+  categoria: grade
+  fonte_id: ibge_grade_estatistica_2022
+  url: https://geoftp.ibge.gov.br/recortes_para_fins_estatisticos/grade_estatistica/censo_2022/grade_estatistica/grade_id14.zip
+  arquivo: grade_id14.zip
+  destino:
+    base: raw_vetor
+    subdir: ibge/censo_2022/grade_estatistica
+  bytes: 26890770
+  sha256: 69f42d066d152091fd72d3b43a5ecd37bb4347d91dcc954fd42c9c642b3d28e3
+  last_modified: Thu, 12 Jun 2025 13:13:15 GMT
+  baixado_em: '2026-09-22T14:22:27+00:00'
+  descricao: grade estatística 2022, quadrante ID_14 (células de 200 m urbano / 1 km rural, Albers SIRGAS 2000); cobre ~94,5 % de Bagé
+- ano: '2022'
+  categoria: grade
+  fonte_id: ibge_grade_estatistica_2022
+  url: https://geoftp.ibge.gov.br/recortes_para_fins_estatisticos/grade_estatistica/censo_2022/grade_estatistica/grade_id04.zip
+  arquivo: grade_id04.zip
+  destino:
+    base: raw_vetor
+    subdir: ibge/censo_2022/grade_estatistica
+  bytes: 3031479
+  sha256: 1fe7c663bb2633d7870cf4ea79c87ed5a1312c49f1fa7d6f2841532b67434fe0
+  last_modified: Thu, 12 Jun 2025 13:13:14 GMT
+  baixado_em: '2026-09-22T14:22:28+00:00'
+  descricao: grade estatística 2022, quadrante ID_04 (células de 200 m urbano / 1 km rural, Albers SIRGAS 2000); cobre ~5,5 % (faixa rural sul) de Bagé
+- ano: '2010'
+  categoria: grade
+  fonte_id: ibge_grade_estatistica_2010
+  url: https://geoftp.ibge.gov.br/recortes_para_fins_estatisticos/grade_estatistica/censo_2010/grade_id14.zip
+  arquivo: grade_id14.zip
+  destino:
+    base: raw_vetor
+    subdir: ibge/censo_2010/grade_estatistica
+  bytes: 32648454
+  sha256: 3db4fde1d77f740ca0c849a8b81492ef3b789cb86866030771caa656f51fa1d5
+  last_modified: Thu, 06 Oct 2016 14:24:59 GMT
+  baixado_em: '2026-09-22T14:22:32+00:00'
+  descricao: grade estatística 2010, quadrante ID_14 (células de 200 m urbano / 1 km rural, Albers SIRGAS 2000); cobre ~94,5 % de Bagé
+- ano: '2010'
+  categoria: grade
+  fonte_id: ibge_grade_estatistica_2010
+  url: https://geoftp.ibge.gov.br/recortes_para_fins_estatisticos/grade_estatistica/censo_2010/grade_id04.zip
+  arquivo: grade_id04.zip
+  destino:
+    base: raw_vetor
+    subdir: ibge/censo_2010/grade_estatistica
+  bytes: 3830448
+  sha256: 4940e6b8aa0c7931e1b6acaa448994a66452b4eeb9b498358109a50051b5e319
+  last_modified: Thu, 06 Oct 2016 14:24:58 GMT
+  baixado_em: '2026-09-22T14:22:34+00:00'
+  descricao: grade estatística 2010, quadrante ID_04 (células de 200 m urbano / 1 km rural, Albers SIRGAS 2000); cobre ~5,5 % (faixa rural sul) de Bagé
+fontes:
+- id_fonte: ibge_censo2022_renda_responsavel_setores
+  nome: Censo Demográfico 2022 — Agregados por Setores Censitários, Rendimento do Responsável (BR)
+  url: https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios_Rendimento_do_Responsavel/Agregados_por_setores_renda_responsavel_BR_20260508_csv.zip
+  instituicao: IBGE
+  licenca: 'dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): "Todos
+    os arquivos aqui disponíveis são públicos."'
+  autorizacao_fonte: 'true'
+  pode_publicar: 'true'
+  observacoes: '[tema: nao_espacial | resolução/escala: setor censitário, recorte BR | período: Censo 2022 (divulgado 2026-05-08) | script: scripts/download/baixar_censo_ibge.py] Só 6 variáveis por setor:
+    responsáveis, moradores, rendimento nominal médio e mediano dos responsáveis e variâncias — SEM classes de rendimento (não comparável às classes de salário mínimo de 2000/2010; ver estudos/A03_censo/reconhecimento.md
+    § 1). Dicionário: dicionario_de_dados_renda_responsavel_20260508.xlsx. URL obtida navegando as listagens do FTP.'
+- id_fonte: ibge_grade_estatistica_2022
+  nome: Grade Estatística — Censo 2022, quadrantes ID_14 e ID_04
+  url: https://geoftp.ibge.gov.br/recortes_para_fins_estatisticos/grade_estatistica/censo_2022/grade_estatistica/grade_id14.zip
+  instituicao: IBGE
+  licenca: 'dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): "Todos
+    os arquivos aqui disponíveis são públicos."'
+  autorizacao_fonte: 'true'
+  pode_publicar: 'true'
+  observacoes: '[tema: territorio | resolução/escala: células de 200 m (urbano) e 1 km (rural), Albers SIRGAS 2000 | período: Censo 2022 (arquivos de 2025-06-12) | script: scripts/download/baixar_censo_ibge.py]
+    sha256 é o do quadrante ID_14 (~94,5 % de Bagé); ID_04 cobre a faixa rural sul (~5,5 %, 224 km²). Cobertura conferida contra config/area_estudo.geojson antes do download (regra de quadrantes inferida:
+    blocos de 500 km na Albers do IBGE). Variáveis: população total (TOTAL) e domicílios ocupados (TOTAL_DOM). Não processado.'
+- id_fonte: ibge_grade_estatistica_2010
+  nome: Grade Estatística — Censo 2010, quadrantes ID_14 e ID_04
+  url: https://geoftp.ibge.gov.br/recortes_para_fins_estatisticos/grade_estatistica/censo_2010/grade_id14.zip
+  instituicao: IBGE
+  licenca: 'dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): "Todos
+    os arquivos aqui disponíveis são públicos."'
+  autorizacao_fonte: 'true'
+  pode_publicar: 'true'
+  observacoes: '[tema: territorio | resolução/escala: células de 200 m (urbano) e 1 km (rural), Albers SIRGAS 2000 | período: Censo 2010 (arquivos de 2016-10-06) | script: scripts/download/baixar_censo_ibge.py]
+    sha256 é o do quadrante ID_14 (~94,5 % de Bagé); ID_04 cobre a faixa rural sul (~5,5 %). Dados de 2010 obtidos pelo IBGE por agregação/desagregação (campo indica o método por célula); campos não listados
+    na documentação. Não processado.'
