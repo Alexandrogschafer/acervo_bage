@@ -58,9 +58,10 @@ HIPOTESES_2000 = {
     "EPSG:29191 (SAD69 / UTM 21S)": "EPSG:29191",
     "EPSG:31981 (SIRGAS 2000 / UTM 21S)": "EPSG:31981",
 }
-# A malha rural de 2000 vem sem .prj, em graus. Datum não declarado; o da
-# época era o SAD69 — adotado aqui como SUPOSIÇÃO (diferença ~60 m, irrelevante
-# na escala dos setores rurais de Bagé, de dezenas de km²).
+# A malha rural de 2000 vem sem .prj, em graus. CRS decidido pelo responsável em
+# 2026-09-22: SAD69 geográfico (registrado no .json irmão do arquivo); a malha
+# urbana, SAD69 / UTM 21S (EPSG:29191). As hipóteses abaixo continuam medidas
+# como registro da decisão.
 CRS_RURAL_2000 = "EPSG:4618"
 
 

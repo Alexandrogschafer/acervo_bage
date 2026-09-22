@@ -88,8 +88,10 @@ Lado espacial:
   `estudos/A03_censo/reconhecimento.md` § 3.2). **7 das 127 geometrias são inválidas**;
 - a malha rural (`rs_setores_censitarios.zip`, 44 códigos em Bagé) vem **sem CRS
   declarado**, em graus; 6 dos seus polígonos são envoltórias de faixas de setores
-  urbanos (ex.: `…001-0114`), e não setores; seu CRS **não** foi decidido (lida como
-  SAD69 geográfico, `EPSG:4618`, só como suposição de trabalho no reconhecimento);
+  urbanos (ex.: `…001-0114`), e não setores. **CRS DECIDIDO pelo responsável em
+  2026-09-22: SAD69 geográfico (`EPSG:4618`)** — registrado no `.json` irmão do arquivo
+  (campo `crs`) e em `config/fontes_censo_ibge.yaml`; o arquivo não foi alterado nem
+  reprojetado. Vale a mesma regra de uso abaixo;
 - **REGRA DE USO: dados de 2000 só por município e por distrito, nunca por setor.** O
   resíduo de ~100 m e a ausência de de/para oficial 2000→2010 não sustentam comparação
   nem mapeamento setor a setor;

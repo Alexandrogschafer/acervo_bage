@@ -115,6 +115,8 @@ arquivos:
   baixado_em: '2026-09-20T16:12:32+00:00'
   descricao: malha de setores RURAIS 2000 (projeção geográfica, e500), recorte RS
   caminho_revia_bg: 2000/malha/rs_setores_censitarios.zip
+  crs_decidido: EPSG:4618
+  nota: 'CRS DECIDIDO pelo responsável em 2026-09-22: SAD69 geográfico (EPSG:4618). O arquivo vem SEM .prj, com coordenadas em graus; o arquivo não foi alterado. Em Bagé, 6 dos 44 códigos são envoltórias de faixas de setores urbanos (ex.: 430160205000001-0114), não setores. REGRA DE USO: dados de 2000 só por município e distrito, NUNCA por setor.'
 - ano: '2000'
   categoria: documentacao
   fonte_id: ibge_censo2000_malha_setores

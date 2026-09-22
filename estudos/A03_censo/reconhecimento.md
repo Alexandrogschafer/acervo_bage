@@ -22,6 +22,7 @@ está dito explicitamente (§ 2).
 | `r03_geografia.py` | § 3 — de/para 2010→2022, hipóteses de CRS de 2000, 2000→2010 por sobreposição |
 | `r04_sigilo.py` | § 4 — supressão por conceito, censo, urbano/rural |
 | `r05_cnefe.py` | § 5 — CNEFE × setores 2022 |
+| `r06_temas_2022.py` | § 1.4 — rendimento, entorno e favelas 2022: variáveis, cobertura, sigilo |
 
 Intermediários e saídas brutas (`r0*.json`, a lista do CNEFE, as tabelas filtradas)
 ficam em `derivados/`, fora do git. As planilhas oficiais passaram a ser lidas com
@@ -132,6 +133,85 @@ sem baixar dados:
   trabalho, migração, deslocamento, fecundidade, deficiência.
 - **O que ainda falta publicar: o servidor não diz.** Não há leia-me, nota ou
   diretório anunciando temas futuros; nenhuma lista de pendências foi assumida.
+
+### 1.4 Temas de 2022 baixados depois: rendimento, entorno, favelas
+
+Medido em 2026-09-22 por `scripts/r06_temas_2022.py` (intermediários em `derivados/`).
+
+| tema | variáveis (dicionário) | setores de Bagé com linha (de 199) | supressão |
+| --- | --- | ---: | --- |
+| rendimento do responsável | 6 | 198 | 4 setores (2 u / 2 r), todas as 6 variáveis; 2,0 % das células |
+| entorno — domicílios | 35 | 168 (167 de 173 urbanos; 1 de 26 rurais) | nenhuma |
+| entorno — moradores | 35 | 168 (idem) | nenhuma |
+| entorno — faces de quadra | 35 | 171 (169 urbanos; 2 rurais) | nenhuma |
+| favelas e comunidades urbanas | planilha setor → FCU | 7 setores citados | não se aplica |
+
+O setor sem linha no rendimento é `430160221000001` (população 0).
+
+**Rendimento do responsável 2022.** Por setor: pessoas responsáveis em DPPO (`V06001`),
+moradores em DPPO (`V06002`) e variância (`V06003`), rendimento nominal **médio**
+(`V06004`), variância (`V06005`) e **mediano** (`V06006`) mensal dos responsáveis **com
+rendimento**. Universo exatamente DPPO: a soma de `V06001` é 45.295 = DPPO
+(`caracteristicas_domicilio1 V00001`) — diferente do universo de 2010 (§ 1.2).
+Comparável com 2010: a média só dos que têm rendimento, `Basico V007` de 2010 (DPP) ×
+`V06004` (DPPO), em valores nominais (deflacionar). **Não** comparável: as classes de
+salário mínimo de 2000/2010 (2022 não tem distribuição) e a mediana (2010 não publica
+mediana por setor).
+
+**Entorno urbanístico 2022.** Levantado nos setores "escolhidos para aplicação do
+entorno": em Bagé, 43.742 dos 44.018 DPPO urbanos (99,4 %) e 2 dos 1.277 rurais — é um
+tema **urbano**. Sem linha, entre os urbanos: `…205000047` (tipo 6, sem DPPO),
+`…205000079` (tipo 7), `…205000197`, `…220000011` (sede de José Otávio), `…221000001`
+(população 0) e **`…205000195` — a favela Passo das Pedras**. O mesmo conjunto de itens
+vem em três unidades — domicílios (DPPO), moradores e **faces de quadra** (7.573 faces) —,
+cada item em sim / não / não declarado:
+
+- circulação da via (caminhão/ônibus; carros; só pedestres, bicicletas e motos; aquavia);
+- via pavimentada; bueiro; iluminação pública; ponto de ônibus;
+- via sinalizada para bicicleta; calçada; obstáculo na calçada; rampa para cadeirante;
+- arborização (sem árvores; 1–2; 3–4; 5 ou mais).
+
+**Há entorno em 2010?** Sim, em `Entorno01`–`Entorno05`: DPP e moradores por existência
+de identificação do logradouro, iluminação pública, pavimentação, calçada, meio-fio/guia,
+bueiro/boca de lobo, rampa para cadeirante, arborização, esgoto a céu aberto e lixo
+acumulado, cruzados com a condição de ocupação. Em Bagé, respondido para 32.482 dos 32.641
+DPP urbanos (99,5 %) e 3.220 dos 5.844 rurais.
+
+| item | 2010 | 2022 | comparável? |
+| --- | :---: | :---: | --- |
+| iluminação pública | sim | sim | sim, em domicílios (existe / não) |
+| pavimentação | sim | sim | sim |
+| calçada | sim | sim | sim |
+| bueiro / boca de lobo | sim | sim | sim |
+| rampa para cadeirante | sim | sim | sim |
+| arborização | sim (existe / não) | sim (4 classes) | sim, reduzindo 2022 a "tem árvore" |
+| meio-fio/guia, identificação do logradouro, esgoto a céu aberto, lixo acumulado | sim | **não** | não |
+| circulação da via, ponto de ônibus, via para bicicleta, obstáculo na calçada | **não** | sim | não |
+| unidade "face de quadra" | não | sim | não |
+
+Ressalvas da comparação: universo DPP (2010, com imputação dos fechados) × DPPO (2022);
+2022 tem a categoria "não declarado"; a definição operacional de "existe na face" e a
+seleção dos setores de 2022 não estão nos dicionários — conferir na metodologia antes de
+medir variação.
+
+**Favelas e comunidades urbanas (FCU) 2022.** **Bagé tem FCU registradas: 6
+comunidades, em 7 setores** — exatamente os 7 setores de tipo 1 (`CD_TIPO = 1`) da malha,
+todos urbanos, no distrito-sede.
+
+| FCU (código) | setores | moradores | domicílios particulares ocupados |
+| --- | ---: | ---: | ---: |
+| Passo das Pedras (`43016020001`) | 1 | 149 | 52 |
+| Stand (`43016020002`) | 2 | 190 | 67 |
+| Vila Miséria (`43016020003`) | 1 | 301 | 104 |
+| Balança Municipal (`43016020004`) | 1 | 74 | 22 |
+| Beco do Juruna (`43016020005`) | 1 | 289 | 97 |
+| Beco dos Coqueiros (`43016020007`) | 1 | 129 | 42 |
+| **total** | **7** | **1.132** | **384** |
+
+Nomes e códigos como na planilha oficial `FavelaseComunidadesUrbanas2022Setores_20250417`;
+moradores = `basico v0001`, domicílios = `basico v0007`, somados pelos setores (a FCU é
+composta por setores inteiros). Não há o código `…0006` em Bagé. Das 7, só Passo das
+Pedras fica sem dado de entorno.
 
 ---
 
@@ -256,9 +336,12 @@ diferença de traçado, de base cartográfica ou de desenho, que esta medição 
 **Decisão do responsável (2026-09-22): SAD69 / UTM 21S (`EPSG:29191`).** Registrada no
 `.json` irmão de `4301602.zip` e em `docs/ressalvas_censo_bage.md` § 3, com o resíduo
 de ~90–105 m como limitação conhecida e a **regra de uso: dados de 2000 só por município
-e distrito, nunca por setor**. Nada foi reprojetado nem gravado como camada. O CRS da
-malha rural de 2000 não foi decidido. A malha rural de 2000 vem sem `.prj`, em graus; foi lida
-como SAD69 geográfico (`EPSG:4618`) — **suposição**.
+e distrito, nunca por setor**. Nada foi reprojetado nem gravado como camada.
+
+A malha **rural** de 2000 vem sem `.prj`, em graus. **Decisão do responsável
+(2026-09-22): SAD69 geográfico (`EPSG:4618`)** — a mesma leitura usada nas medições
+acima (que eram feitas com ela como suposição de trabalho), registrada no `.json`
+irmão de `rs_setores_censitarios.zip` e nas ressalvas § 3, com a mesma regra de uso.
 
 ### 3.3 2000 → 2010, por sobreposição de áreas
 
@@ -337,12 +420,13 @@ Setores com ao menos uma célula suprimida nas variáveis do conceito (urbanos /
 | DPP | 0 | 0 | 4 (2 / 2) |
 | moradores por domicílio | 7 (6 / 1) | 2 (2 / 0) | 4 (2 / 2) |
 | alfabetização | 8 (6 / 2) | 2 (1 / 1) | 49 (28 / **21**) |
-| rendimento do responsável | **131 (95 / 36)** | 2 (1 / 1) | não medido (baixado depois do reconhecimento) |
+| rendimento do responsável | **131 (95 / 36)** | 2 (1 / 1) | 4 (2 / 2) — tema de 2026-05-08 (§ 1.4) |
 | cor ou raça | — | 2 (1 / 1) | 65 (58 / 7) |
 | água | 8 (6 / 2) | 2 (1 / 1) | **146 (123 / 23)** |
 | esgoto | 8 (6 / 2) | 2 (1 / 1) | **148 (127 / 21)** |
 | lixo | 8 (6 / 2) | 2 (1 / 1) | 71 (54 / 17) |
 | tipo de domicílio | 8 (6 / 2) | 2 (1 / 1) | 54 (48 / 6) |
+| entorno (domicílios, moradores, faces) | — | ver § 1.4 | **0** (em 168–171 setores com linha) |
 
 Leitura:
 
@@ -419,13 +503,20 @@ Pontos lidos como SIRGAS 2000 (`EPSG:4674`); o CSV não declara datum.
 - **Rendimento do responsável 2000 × 2010** em classes de salário mínimo.
 - **Endereços do CNEFE georreferenciados**, com 96 % no setor indicado (lido por
   sucessão).
+- **Rendimento médio e mediano do responsável por setor em 2022**, universo DPPO, com
+  supressão em só 4 setores.
+- **Entorno urbanístico em 2022** nos setores urbanos (99,4 % dos DPPO urbanos), sem
+  supressão, em três unidades (domicílios, moradores, faces).
+- **Favelas e comunidades urbanas em 2022**: 6 FCU, 7 setores, 1.132 moradores.
 
 ### Não dá
 
 - **Soma dos setores de 2000 como "Bagé de hoje"**: 11 setores (3.927 pessoas) são hoje
   de Aceguá.
-- **Distribuição de rendimento em 2022** (só média e mediana foram publicadas; o arquivo
-  foi baixado em 2026-09-22).
+- **Distribuição de rendimento em 2022** (só média e mediana foram publicadas).
+- **Entorno rural em 2022** (2 domicílios rurais levantados em Bagé).
+- **Meio-fio, identificação do logradouro, esgoto a céu aberto e lixo acumulado em
+  2022** (existiam no entorno de 2010, não no de 2022).
 - **Cor ou raça em 2000** (não está no universo).
 - **Série 2000–2010 por setor**: sem de/para oficial, CRS de 2000 não resolvido, IoU ~0,5.
 - **Água e esgoto por setor em 2022 com todas as categorias**: supressão em ~75 % dos
@@ -451,6 +542,13 @@ Pontos lidos como SIRGAS 2000 (`EPSG:4674`); o CSV não declara datum.
   universo DPP estrito, usar as médias do `Basico`.
 - **Setores rurais de 2022**: a supressão por célula é quase regra; resultados rurais
   por setor saem com lacunas grandes.
+- **Rendimento do responsável 2010 × 2022**: só a média dos que têm rendimento
+  (`Basico V007` × `V06004`), nominal — deflacionar; universos DPP × DPPO.
+- **Entorno 2010 × 2022**: iluminação, pavimentação, calçada, bueiro, rampa e
+  arborização (reduzida a "tem árvore"), em domicílios; conferir antes a definição
+  operacional de 2022 e a seleção dos setores.
+- **Favelas 2022**: a favela Passo das Pedras não tem entorno; FCU não tem série em 2010
+  neste acervo (a divulgação de 2010 usava "aglomerado subnormal", não levantado aqui).
 - **Grade estatística 2010/2022**: baixada (quadrantes 14 e 04, conferidos contra a área
   de estudo), mas só com população e domicílios; em 2010 os valores por célula vêm de
   agregação/desagregação do IBGE, não de contagem direta.
@@ -460,15 +558,24 @@ Pontos lidos como SIRGAS 2000 (`EPSG:4674`); o CSV não declara datum.
 ### Perguntas de pesquisa — SUGESTÕES para o responsável
 
 Nenhuma foi escolhida; todas são sustentadas pelo dado dentro das ressalvas acima.
+Atualizadas em 2026-09-22 com os temas do § 1.4 (limite de cinco).
 
-1. **SUGESTÃO** — Como a população e o número de domicílios se redistribuíram no
-   território de Bagé entre 2010 e 2022, nas 165 áreas mínimas comuns do de/para oficial?
-2. **SUGESTÃO** — O envelhecimento entre 2010 e 2022 é homogêneo no município ou se
-   concentra em áreas específicas (esquema etário comum, 70+)?
-3. **SUGESTÃO** — Como mudou a composição por cor ou raça entre 2010 e 2022, por área
-   mínima comum?
-4. **SUGESTÃO** — Onde o CNEFE 2022 mostra usos não residenciais (estabelecimentos por
-   espécie) e como isso se relaciona com a densidade de domicílios por setor?
-5. **SUGESTÃO** — Com a população quase estável (116.794 em 2010, 117.938 em 2022),
-   onde — em áreas urbanas × rurais — está a variação no número de domicílios
-   ocupados, definido o mesmo universo de domicílio nos dois censos?
+1. **SUGESTÃO** (mantida) — Como a população e o número de domicílios se redistribuíram
+   no território de Bagé entre 2010 e 2022, nas 165 áreas mínimas comuns do de/para
+   oficial?
+2. **SUGESTÃO** (mantida) — O envelhecimento entre 2010 e 2022 é homogêneo no município
+   ou se concentra em áreas específicas (esquema etário comum, 70+)?
+3. **SUGESTÃO** (nova) — Como mudou a infraestrutura do entorno dos domicílios urbanos
+   entre 2010 e 2022 — pavimentação, calçada, iluminação, bueiro, rampa, arborização —
+   por área mínima comum?
+4. **SUGESTÃO** (nova) — Como o rendimento médio do responsável (com rendimento,
+   deflacionado) variou entre 2010 e 2022 por área mínima comum, e em que medida
+   acompanha as mudanças do entorno?
+5. **SUGESTÃO** (nova) — Como as 6 favelas e comunidades urbanas de 2022 se diferenciam
+   do restante da área urbana em rendimento, características do domicílio e entorno
+   (Passo das Pedras sem entorno)?
+
+Saíram da lista, só pelo limite de cinco, e continuam sustentadas: composição por cor ou
+raça 2010–2022 por área mínima comum; usos não residenciais do CNEFE × densidade de
+domicílios; variação de domicílios ocupados urbano × rural com a população quase
+estável.

@@ -5,7 +5,7 @@
 > é perdida na próxima execução. A fonte são os
 > `estudos/*/manifesto.yaml`, resolvidos contra `data/catalogo_camadas.csv`.
 
-- **Gerado em:** 2026-09-22 12:01:22 -0300
+- **Gerado em:** 2026-09-22 12:57:56 -0300
 - **Estudos encontrados:** 3
 
 ## Camada → estudos que a consomem
