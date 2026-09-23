@@ -42,8 +42,13 @@ Três subordinadas, decididas pelo responsável em 2026-09-22 e escritas na ínt
 - **Urbano e rural definidos geograficamente** (área urbanizada ou a própria grade),
   nunca pelo rótulo de situação do setor — a reclassificação de 13 setores rurais de
   2010 em urbanos de 2022 entra como **seção de método** do artigo.
-- **Seção de método do artigo**, com os dois achados metodológicos: a reclassificação
-  de 13 setores rurais em urbanos e a troca de resolução da grade entre 2010 e 2022.
+- **Seção de método do artigo**, com três achados metodológicos:
+  1. a reclassificação de 13 setores rurais em urbanos;
+  2. a troca de resolução da grade entre 2010 e 2022;
+  3. a grade de 2010 **híbrida**: parte dela é desagregada do setor, não observada.
+     A variável de abordagem por célula não vem no produto (`resultados_s1.md` § 10.6;
+     `docs/ressalvas_censo_bage.md` § 8).
+  *O terceiro entrou em 2026-09-23; antes, o texto dizia "os dois achados".*
 
 ## Os dois documentos
 

@@ -7,7 +7,7 @@
 > (bloco `camadas:`) e `data/catalogo_fontes.csv` + o `.json` irmão de cada
 > arquivo (bloco `fontes_brutas:`).
 
-- **Gerado em:** 2026-09-23 09:25:59 -0300
+- **Gerado em:** 2026-09-23 10:41:11 -0300
 - **Estudos encontrados:** 3
 
 `camadas:` é produto curado do acervo (`data/catalogo_camadas.csv`);
@@ -31,8 +31,8 @@ A diferença está em `docs/convencoes.md`.
 | `ibge_censo2022_agregados_setores` | 3 | `ACERVO_BAGE-A03_expansao_adensamento` | ok |
 | `ibge_censo2022_entorno_setores` | 2 | `ACERVO_BAGE-A03_expansao_adensamento` | ok |
 | `ibge_cnefe2022` | 1 | `ACERVO_BAGE-A03_expansao_adensamento` | ok |
-| `ibge_grade_estatistica_2010` | 2 | `ACERVO_BAGE-A03_expansao_adensamento` | ok |
-| `ibge_grade_estatistica_2022` | 2 | `ACERVO_BAGE-A03_expansao_adensamento` | ok |
+| `ibge_grade_estatistica_2010` | 3 | `ACERVO_BAGE-A03_expansao_adensamento` | ok |
+| `ibge_grade_estatistica_2022` | 3 | `ACERVO_BAGE-A03_expansao_adensamento` | ok |
 
 ## Estudo → camadas e fontes brutas que consome
 
@@ -97,4 +97,6 @@ Nenhuma fonte bruta declarada.
 | `ibge_areas_urbanizadas_2022` | `data/raw/vetor/ibge/areas_urbanizadas_2022/AreasUrbanizadas2022_Brasil.zip` | censo_2022 | ok | confere (por sha256 do arquivo) |
 | `ibge_cnefe2022` | `data/raw/vetor/ibge/censo_2022/cnefe/4301602_BAGE.zip` | censo_2022 | ok | confere (por sha256 do arquivo) |
 | `ibge_censo2010_malha_setores` | `data/raw/vetor/ibge/censo_2010/rs_setores_censitarios.zip` | censo_2010 | ok | confere (por sha256 do arquivo) |
+| `ibge_grade_estatistica_2010` | `data/raw/tabular/ibge/censo_2010/doc/grade_estatistica.pdf` | censo_2010 | ok | confere (por sha256 do arquivo) |
+| `ibge_grade_estatistica_2022` | `data/raw/tabular/ibge/censo_2022/doc/Notas_metodologicas_grade_estatistica_2022.pdf` | censo_2022 | ok | confere (por sha256 do arquivo) |
 

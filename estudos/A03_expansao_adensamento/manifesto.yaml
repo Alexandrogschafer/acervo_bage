@@ -123,7 +123,8 @@ recorte_espacial:
     ou a própria grade), NUNCA pelo rótulo de situação do setor — ver
     metodo_previsto.
 
-# Não são perguntas subordinadas: são os dois resultados metodológicos do artigo.
+# Não são perguntas subordinadas: são os três resultados metodológicos do artigo.
+# (Até 2026-09-23: "os dois"; o terceiro, grade de 2010 híbrida, entrou nesse dia.)
 metodo_previsto:
   - >-
     A reclassificação de 13 setores rurais de 2010 em setores urbanos de 2022
@@ -141,6 +142,22 @@ metodo_previsto:
     15,6 % e 30,1 %. Medido em resultados_s1.md §§ 1, 4 e 8, por
     scripts/s1_expansao_adensamento.py; regra geral em
     docs/ressalvas_censo_bage.md § 7.
+  - >-
+    A grade estatística de 2010 é HÍBRIDA por método do IBGE (Grade
+    Estatística, 2016, p. 16–22): setor com ausência de localização acima de
+    50 % entra por desagregação (dasimétrico por vias, por uso e cobertura ou
+    ponderação zonal), e o urbano agregado entra pela face de quadra. A de 2022
+    é contagem direta de endereços do CNEFE. Entra como SEÇÃO DE MÉTODO,
+    terceiro achado metodológico do artigo: comparar 2010 com 2022 sem separar
+    a abordagem mistura dado modelado com observado. A variável de abordagem
+    por célula (p. 21) NÃO acompanha o produto do geoftp, e a regra não se
+    reconstrói, porque a ausência de localização por setor não é publicada.
+    Detecção indireta (resultados_s1.md § 10.6, scripts/s1_desagregacao_2010.py):
+    o teste da razão do setor não discrimina; o de pares idênticos contíguos
+    marca 1 setor rural (430160205000136: 968 domicílios de 2010, 31 das 232
+    extintas). Pedido ao IBGE redigido em
+    docs/pedido_ibge_grade_2010_abordagem.md; regra geral em
+    docs/ressalvas_censo_bage.md § 8.
 
 # Decisões, não pendências.
 fora_do_escopo:
@@ -235,5 +252,16 @@ fontes_brutas:
     arquivo: data/raw/vetor/ibge/censo_2010/rs_setores_censitarios.zip
     versao: censo_2010
     sha256: c7f65e26bf0813a01795084391ca6211da499a6498b8e523d98390568414b3b0
+
+  # documentação da grade (resultados_s1.md § 10.4; 2026-09-23): método híbrido de
+  # 2010 e vínculo por coordenada em 2022
+  - fonte_id: ibge_grade_estatistica_2010
+    arquivo: data/raw/tabular/ibge/censo_2010/doc/grade_estatistica.pdf
+    versao: censo_2010
+    sha256: 410ef1e6962e37383ac61769100cf3f96d258c94fe6c4431500c5da2b13c49d1
+  - fonte_id: ibge_grade_estatistica_2022
+    arquivo: data/raw/tabular/ibge/censo_2022/doc/Notas_metodologicas_grade_estatistica_2022.pdf
+    versao: censo_2022
+    sha256: ce520fad239c3784efa31f0a43d3438cbb07dfb58f8847ce8fcc09fcfb56bd2d
 
 referencias_bib: []

@@ -374,6 +374,11 @@ alteradas: o script confere o `sha256_conteudo` da camada (`78a8800b…`) antes 
   unidade. É contagem de endereço por célula: não publicar.
 - Duas fontes brutas entraram no manifesto: `ibge_cnefe2022` e
   `ibge_censo2010_malha_setores`.
+- **Reescrito em 2026-09-23, depois do download da documentação da grade:**
+  - § 10.4 refeito: a grade de 2010 é híbrida por método;
+  - § 10.6 novo: detecção indireta da desagregação, por `scripts/s1_desagregacao_2010.py`;
+  - conclusão (§ 10.7) atualizada.
+  - Nenhuma classe mudou.
 
 ### 10.1 Perfil das extintas
 
@@ -493,42 +498,120 @@ Todos têm nível de geocodificação 1, isto é, a coordenada original do Censo
 - **Limite do município.** 12 extintas tocam o limite, e 9 delas estão sem endereço.
   O CNEFE lido é só o de Bagé, então nessas 9 a conferência é incompleta.
 
-### 10.4 A documentação da grade: sigilo e posicionamento do endereço rural
+### 10.4 A documentação da grade: método, sigilo e posição do endereço
 
-**Os documentos da grade não estão no repositório.** As notas metodológicas de 2022
-(`Notas_metodologicas_grade_estatistica_2022.pdf`) e a metodologia de 2010
-(`grade_estatistica.pdf`) foram lidas só no reconhecimento dos servidores. O resumo delas
-está em `derivados/r_ftp_ibge.md`, Q2. Os arquivos da grade trazem só o histórico de
-geoprocessamento (`.shp.xml`) e nada sobre sigilo ou posicionamento.
+*Reescrito em 2026-09-23, depois de baixar a documentação da própria grade.*
 
-Documentos consultados, todos em `data/raw/`:
+A documentação está em `data/raw/tabular/ibge/censo_<ano>/doc/`:
+- 2010: `grade_estatistica.pdf` (IBGE, *Grade Estatística*, 2016, 28 p.);
+- 2022: `Notas_metodologicas_grade_estatistica_2022.pdf` (*Notas metodológicas
+  01/2025*).
+
+Ela entrou pela lista fixa em 2026-09-23, commit `de4a7de`.
+
+Continuam valendo os documentos do Censo já consultados:
 - `metodologia_censo_dem_2010.pdf`;
-- `notas_tecnicas.pdf` (2010);
-- `liv102168.pdf` (2022, *Características urbanísticas do entorno*);
-- os dicionários do CNEFE e das coordenadas de 2022;
-- `Leia_me_Comparabilidade_2010_2022.pdf`;
-- o `.shp.xml` das duas grades.
+- `liv102168.pdf`;
+- os dicionários do CNEFE.
 
-| tema | 2010 | 2022 |
-| --- | --- | --- |
-| **supressão por sigilo na grade** | **Regra não encontrada nos documentos que temos.** A metodologia de 2010 (§ 1.4.3) diz que as tabelas não são desidentificadas, salvo as de Terras Indígenas. A regra "< 5 DPP" é da base por setor, não da grade. | **Regra não encontrada nos documentos que temos.** O resumo das notas (r_ftp_ibge.md) não menciona sigilo. |
-| supressão, pelo dado | Nenhuma: 0 nulos; 234 células de 1 km e 86 de 200 m com **1** domicílio publicadas. | Nenhuma: 0 nulos; 296 células de 1 km e 141 de 200 m com **1** domicílio publicadas. |
-| **posição do endereço rural** | O recenseador coletava a coordenada por GPS no PDA **nos setores rurais**. Sem sinal depois de duas tentativas, a entrevista seguia **sem coordenada** (metodologia 2010, cap. 4, "Preparo dos arquivos para a coleta"). O próprio IBGE registra "falhas de obtenção" de coordenadas sem indicador de controle (§ 11.5.2.2.1). O CNEFE 2010 tinha coordenada **só na área rural** (§ 1.4.3.6). | Coordenada coletada **"o mais próximo possível do acesso à unidade"**. A inválida é trocada pelo melhor dado disponível: coleta anterior, coordenada do questionário, outro endereço da edificação ou ponto médio da face (liv102168, "Coordenadas geográficas", p. 39–40). O CNEFE registra isso em `NV_GEO_COORD`, de 1 a 6 (dicionário). |
-| como a grade usa a posição | **Não está nos documentos que temos.** O resumo em r_ftp_ibge.md diz que 2010 foi feita por agregação e desagregação (dasimetria, ponderação zonal), com um campo de método por célula. **Esse campo não existe nos arquivos baixados**, cujos campos são `ID_UNICO`, `nome_*`, `QUADRANTE`, `MASC`, `FEM`, `POP` e `DOM_OCU` (`.shp.xml`). Não sabemos onde a grade de 2010 pôs o domicílio rural sem coordenada, nem o domicílio de setor urbano, que não tinha coordenada. | Pelo resumo das notas: totalização direta dos microdados geocodificados pelo CNEFE, nos níveis 1 a 4, com os níveis 5 e 6 **excluídos**. |
+**A grade de 2010 é híbrida por método do próprio IBGE** (metodologia de 2010, p. 16–22):
 
-Verificações no dado que complementam a documentação:
-- **CNEFE 2022 de Bagé por nível de geocodificação:**
-  - 58.158 no nível 1;
-  - 4.273 no 2;
-  - 262 no 3;
-  - 86 no 4;
-  - **só 3 nos níveis 5 e 6** (2 e 1).
-  A exclusão dos níveis 5 e 6 não pesa em Bagé.
-- **Centro dos setores rurais de 2010.** Se a grade de 2010 pusesse o domicílio sem
-  coordenada no centro do setor, as extintas concentrariam esses pontos. Não
-  concentram:
-  - dos 36 setores rurais, **nenhum** tem o centroide numa extinta;
-  - só 1 tem nela o ponto representativo.
+- **Por que é híbrida.** Havia "uma quantidade significativa de registros sem dados de
+  localização" (p. 16).
+  - No urbano, as causas eram malha viária incompleta ou sem codificação.
+  - No rural, "nem todas as edificações tiveram as suas coordenadas geográficas
+    registradas".
+- **A regra, por setor censitário** (p. 17–18):
+  - "ausência de localização" é a diferença entre os domicílios do setor nos
+    microdados e os que puderam ser localizados;
+  - abaixo de **50 %**, o setor entra por **agregação**;
+  - acima de 50 %, entra por **desagregação**;
+  - o texto não diz o que acontece com exatamente 50 %.
+- **Agregação:**
+  - no rural, os pontos das coordenadas (p. 18);
+  - no urbano, **quadra/face**, não ponto. Quando a face cruza células, os domicílios
+    são repartidos pela extensão dela, supondo distribuição uniforme (p. 18–19).
+  - O setor pequeno diante da célula é incorporado inteiro, com tolerância de 90 %
+    (p. 20).
+- **Desagregação** (p. 18 e 20–21), do setor (origem) para a célula (destino), nesta
+  ordem de preferência:
+  1. dasimétrico com **vias**;
+  2. dasimétrico **binário** com uso e cobertura (povoada / não povoada);
+  3. **ponderação zonal simples**, por área.
+  - Nos três, **a população da célula é o número de domicílios × moradores por
+    domicílio do setor**.
+- **Arredondamento** só no fim. Os "dados espúrios" gerados pelo método foram
+  suprimidos (p. 22).
+- **A variável de abordagem por célula existe no método:** "foi incluída uma variável
+  para explicitar a abordagem utilizada para a obtenção dos dados em cada célula:
+  agregação, desagregação ou misto" (p. 21).
+  - **Ela NÃO acompanha o produto distribuído no geoftp.** Os quatro arquivos em
+    `data/raw/` têm só `ID_UNICO`, `nome_1KM` … `nome_500KM`, `QUADRANTE`, `MASC`, `FEM`,
+    `POP`, `DOM_OCU`, `Shape_Leng` e `Shape_Area`.
+  - A listagem de `.../grade_estatistica/censo_2010/` não tem outro produto além dos
+    56 quadrantes.
+- **Por que a regra não se reconstrói:** ela depende da ausência de localização de cada
+  setor, e esse número **não é publicado**.
+
+**Grade de 2022** (notas 01/2025, p. 6–7):
+- **Vínculo:** "a partir das coordenadas geográficas dos domicílios [...] incorporadas
+  ao registro de endereços do CNEFE".
+  - Níveis de qualidade posicional 1 a 4: **totalização direta**.
+  - Níveis 5 e 6: excluídos. São 0,028 % da população e 0,019 % dos domicílios do
+    Brasil; no RS, 0,021 % e 0,018 %.
+  - **Não há equivalente da desagregação:** 2022 é contagem de pontos.
+  - O nível 4 (ponto médio da face de quadra) é a única posição que não é do endereço.
+    Em Bagé ele tem 86 endereços.
+- **Upgrade de resolução:**
+  - a célula de 1 km de 2010 "que passou a interseccionar setores censitários urbanos em
+    2022" foi dividida em células de 200 m;
+  - **não houve o inverso** (sem *downgrade*);
+  - o resto das células de 1 km foi mantido.
+- **A regra confirma a nossa medição** (`derivados/s1_desagregacao_2010.json`, bloco
+  `upgrade_2022`):
+  - as células de 1 km de 2010, com centroide em Bagé, que intersectam setor urbano de
+    2022 são **41, exatamente as 41 mães** medidas no § 1;
+  - nenhuma prevista fica de fora, e nenhuma observada sobra;
+  - nenhuma célula de 200 m virou 1 km.
+  - Uma das 41 toca o setor urbano em só 0,2 m². Isso mostra que o IBGE aplicou a
+    interseção sem tolerância.
+- **Divergência de documentos.** A lista de níveis das notas não é a do dicionário do
+  CNEFE (§ 10.3):
+
+  | nível | notas da grade | dicionário do CNEFE |
+  | --- | --- | --- |
+  | 2 | mediana das coordenadas coletadas no mesmo logradouro | apartamentos no mesmo número |
+  | 3 | coordenada de operação anterior | coordenada estimada |
+  | 5 | mediana por logradouro, CEP e localidade | localidade |
+
+  Registrado sem resolver. Não muda Bagé, onde os níveis 5 e 6 somam 3 endereços.
+
+**Sigilo:**
+- A metodologia de 2010 trata a confidencialidade como desafio e cita limiares
+  europeus de supressão de 3 e 10 indivíduos (p. 9).
+- **Não declara regra de supressão para a grade brasileira.**
+- As notas de 2022 não tratam de sigilo.
+- No dado não há supressão: 0 nulos, e 234 e 296 células de 1 km com 1 domicílio (2010 e
+  2022).
+
+**Posição do endereço, no Censo** (sem mudança):
+- **2010:** GPS no PDA nos setores rurais; sem sinal depois de duas tentativas, a
+  entrevista seguia sem coordenada (metodologia do Censo 2010, cap. 4). O CNEFE 2010
+  tinha coordenada só no rural (§ 1.4.3.6).
+- **2022:** coordenada "o mais próximo possível do acesso à unidade" (liv102168,
+  p. 39–40).
+
+Verificações no dado (sem mudança):
+- Em Bagé, só 3 endereços do CNEFE estão nos níveis 5 e 6.
+- Nenhum centroide dos 36 setores rurais de 2010 cai numa extinta.
+
+> **Corrigido em 2026-09-23.** A versão anterior desta subseção dizia que a
+> documentação da grade "não está no repositório" e que "não sabemos onde a grade de
+> 2010 pôs o domicílio rural sem coordenada, nem o domicílio de setor urbano". Com a
+> metodologia de 2010 baixada, isso foi respondido acima:
+> - o domicílio de setor com ausência de localização acima de 50 % foi distribuído por
+>   desagregação;
+> - o domicílio urbano de setor agregado foi posto na face de quadra.
 
 ### 10.5 Contraste: as novas
 
@@ -582,7 +665,141 @@ centroide da unidade:
 - **Segundo maior agrupamento:** 10 unidades de 200 m e 111 domicílios nos setores
   urbanos 053 e 054; 9 dessas unidades estão sem endereço.
 
-### 10.6 Conclusão: o que os números sustentam
+### 10.6 Detecção indireta da desagregação na grade de 2010
+
+*Acrescentado em 2026-09-23.*
+- Script: `scripts/s1_desagregacao_2010.py`.
+- Números: `derivados/s1_desagregacao_2010.json`.
+
+**Tudo aqui é INDÍCIO.** Não é a variável oficial de abordagem, que não acompanha o
+produto (§ 10.4). Nenhuma classe foi alterada.
+
+**Setor de cada célula.** É o setor com a maior área de interseção, medida em
+ESRI:102033. A célula é "inteira" quando esse setor cobre ≥ 90 % dela, a tolerância da
+p. 20.
+
+**Teste A — a razão do setor (o teste pedido).**
+- **A ideia.** Na desagregação, a população da célula = domicílios × r, sendo r a razão
+  moradores/domicílio do setor. Com o arredondamento só no fim, uma célula desagregada
+  tem de satisfazer:
+
+  (DOM_OCU − 0,5)·r − 0,5 ≤ POP ≤ (DOM_OCU + 0,5)·r + 0,5
+
+- **Tolerância.** Essa desigualdade **é** a tolerância: o erro máximo que o
+  arredondamento de domicílios e de população permite.
+- **A razão r de cada setor:**
+  - 2010: `Domicilio02 V001 / Domicilio01 V001`, moradores e domicílios particulares e
+    coletivos;
+  - 2022: `basico v0001 / v0007`.
+- **Controles:**
+  - a grade de 2022, que é contagem de pontos;
+  - a própria grade de 2010, comparada com a razão de um setor sorteado.
+
+| células inteiras com domicílios ≥ 5 | células | compatíveis com a razão do próprio setor | compatíveis com a razão de um setor sorteado |
+| --- | ---: | ---: | ---: |
+| 2010 | 315 | **26,3 %** | 13,3 % |
+| 2022 (controle) | 345 | **21,7 %** | — |
+
+| por setor, com ≥ 3 células informativas | 2010 | 2022 |
+| --- | ---: | ---: |
+| setores | 40 | 44 |
+| mediana da fração compatível | 0,25 | 0,20 |
+| setores com fração compatível ≥ 0,8 | **0** | 0 |
+| mediana do coeficiente de variação da razão entre células | 0,098 | 0,106 |
+| setores com CV < 0,05 | 10 | 3 |
+
+**Veredito: o teste A NÃO discrimina e está DESCARTADO.**
+- 2010 fica a 4,6 pontos de 2022. Em 2022 não há desagregação, e ainda assim o dado dá
+  21,7 % de compatíveis.
+- Em nenhum setor de 2010 a maioria das células acompanha a razão do setor.
+- O excesso sobre o setor sorteado aparece nas duas edições: é a semelhança natural
+  entre a célula e a média do seu setor, não uma assinatura de método.
+- Na faixa de 1 a 2 domicílios, o intervalo de tolerância cobre quase qualquer valor
+  plausível: 82 % das células de 1 km com 1 domicílio são compatíveis em 2010, e 86 %
+  em 2022.
+- O motivo mais forte vem do teste B. As células com a assinatura mais clara de
+  desagregação têm razão **3,84** (73 pessoas / 19 domicílios), e a razão publicada do
+  setor é **3,61**. Se elas são desagregadas, o IBGE usou totais de setor diferentes
+  dos agregados publicados.
+  - Por exemplo, só os domicílios não localizados. Isto é inferência.
+  - Com isso, a razão publicada não serve de gabarito.
+
+**Teste B — pares idênticos contíguos (achado na exploração).**
+- **A ideia.** A ponderação zonal e o dasimétrico binário dão o **mesmo** par
+  (domicílios, população) a células inteiras com a mesma área povoada no mesmo setor.
+  A contagem de pontos só repete pares por coincidência.
+- **Critério:**
+  - DOM_OCU ≥ 3;
+  - célula inteira num setor;
+  - o par (DOM_OCU, POP) se repete numa vizinha rainha, também inteira, do mesmo setor.
+
+| | células com assinatura | setores | par |
+| --- | ---: | --- | --- |
+| 2010 | **4** (1 km) | 430160205000136 | 19 domicílios / 73 pessoas |
+| 2022 (controle) | **0** | — | — |
+
+**O teste B discrimina, mas enxerga pouco.**
+- Só marca desagregação onde ela deixou marca inequívoca: um bloco de células de 1 km
+  inteiras e iguais num setor rural.
+- A desagregação por **vias** dá valores diferentes em cada célula, pela extensão de via
+  de cada uma. A **mista** soma pontos e área. Nenhuma das duas repete pares.
+- Por isso a ausência de assinatura **não** indica agregação.
+
+**Classificação das 1.352 células de 2010 com domicílio:**
+
+| classe | células | domicílios | população |
+| --- | ---: | ---: | ---: |
+| assinatura de desagregação | 4 | 76 | 292 |
+| assinatura de agregação | **0** | — | — |
+| indeterminada | 1.348 | 37.832 | 114.618 |
+
+- **Nenhuma célula recebe "assinatura de agregação".** Nenhum teste separa a agregação
+  do resto: o controle de 2022, todo agregado, parece com tudo o mais.
+- **No setor.** A regra do IBGE é por setor, então as células inteiras de um setor
+  desagregado são todas desagregadas. Estendendo a assinatura ao setor 136, as unidades
+  cujo setor de maior área é o 136 somam 46 células com domicílio, **968 domicílios e
+  3.476 pessoas** (2,6 % dos 37.908 da grade de 2010).
+  - Não são todas desagregadas. O setor tem 494 DPP no agregado, e células de borda,
+    como a de 299 domicílios com 87 % no setor, trazem domicílios de setores urbanos
+    vizinhos.
+
+**Cruzamento com as classes da subordinada 1** (unidade harmonizada = célula de 2010):
+
+| classe | unidades | com assinatura | no setor 136 | domicílios 2010 no setor 136 |
+| --- | ---: | ---: | ---: | ---: |
+| nova | 355 | 0 | 1 | 0 |
+| adensada | 590 | 0 | 4 | 472 |
+| estável | 165 | 0 | 2 | 2 |
+| esvaziada | 365 | 2 | 9 | 265 |
+| **extinta** | **232** | **2** | **31** | **229** |
+| · extintas sem nenhum endereço no CNEFE | 147 | 2 | **27** | 209 |
+| · extintas com domicílio no CNEFE | 62 | 0 | 2 | 13 |
+
+**Efeito nos números da subordinada 1** se essas unidades forem tratadas à parte (só
+medido, nada aplicado):
+
+| | todas | sem as 4 células com assinatura | sem as unidades do setor 136 |
+| --- | ---: | ---: | ---: |
+| unidades | 1.707 | 1.703 | 1.660 |
+| ganho bruto de domicílios | 12.099 | 12.099 | 11.372 |
+| perda bruta | 4.624 | 4.555 | 4.248 |
+| extintas (domicílios 2010) | 232 (807) | 230 (769) | **201 (578)** |
+| novas (domicílios 2022) | 355 (1.884) | 355 (1.884) | 354 (1.883) |
+| ganho das adensadas | 10.215 | 10.215 | 9.489 |
+| **faixa da expansão** | **15,6–30,1 %** | 15,6–30,1 % | **16,6–25,6 %** |
+
+**Leitura:**
+- A assinatura estrita muda pouco: 2 extintas, 38 domicílios.
+- O setor 136 inteiro responde por **31 das 232 extintas e 229 dos 807 domicílios
+  extintos (28 %)**. Entre as 147 sem endereço, são 27.
+- Tratá-lo à parte estreita a faixa da expansão. O limite superior cai porque as 4
+  adensadas do setor são mães harmonizadas e somam +726 domicílios. Entre elas está a
+  célula de borda com 299 domicílios em 2010 e 909 em 2022.
+- **O tamanho do viés no município inteiro não se mede.** O que o dado mostra é um
+  piso: um setor, 968 domicílios.
+- Setores desagregados por vias, ou mistos, não deixam marca que este teste veja.
+
+### 10.7 Conclusão: o que os números sustentam
 
 | causa candidata | sustentada? | por quê |
 | --- | --- | --- |
@@ -590,7 +807,7 @@ centroide da unidade:
 | **supressão por sigilo** na grade | **não** | Nenhuma edição tem nulo, e as duas publicam centenas de células com 1 domicílio. Nenhum documento que temos traz regra de sigilo para a grade. |
 | **posicionamento por setor ou localidade** | **não** | Todos os 228 endereços nas extintas estão no nível 1, e o município tem só 3 endereços nos níveis 5 e 6. Nenhum centroide de setor rural de 2010 cai numa extinta. |
 | **desocupação real, com a construção de pé** (vaga ou de uso ocasional em 2022) | **sim, em 62 unidades** | 106 domicílios particulares e 3 coletivos no CNEFE, com nenhum ocupado na grade de 2022. Em 1 km, a grade tem 79 % do CNEFE. Nessas unidades a imagem deveria mostrar construção. |
-| **posição de 2010 fora do lugar** (domicílio real, contado no setor, mas posto em célula onde não estava) | **compatível, não comprovado**, nas 170 extintas sem domicílio no CNEFE (147 sem nenhum endereço e 23 só com agropecuário ou outros) | Em 2022 não há domicílio nessas unidades, o que bate com a imagem. O lado frágil é 2010: o domicílio urbano não tinha coordenada, e o rural podia ficar sem ela, com alocação não documentada nos arquivos que temos. O maior bloco (setor 136) tem 11 de 18 unidades com 10 a 19 domicílios, razão moradores/domicílio próxima da média do setor e 15 de 18 unidades sem endereço em 2022. |
+| **posição de 2010 modelada, não observada** (domicílio real, contado no setor, mas distribuído por desagregação ou pela face de quadra) | **o mecanismo está confirmado pelo método do IBGE** (§ 10.4). A marca no dado aparece num setor: **setor 136, 31 extintas e 229 domicílios**, 27 delas sem endereço. No resto, não se mede. | A grade de 2010 é híbrida: acima de 50 % de ausência de localização, o setor é desagregado. A variável por célula não acompanha o produto. O teste B acha no setor 136 um bloco de células iguais (19 / 73), que é a marca da ponderação zonal ou do dasimétrico binário (§ 10.6). |
 | **desaparecimento real** (construção demolida ou abandonada até sumir) | **compatível, não comprovado**, nas mesmas 170 | O agrupamento de extintas com esvaziadas acima do acaso é o que a despovoação rural produz. Os números de 2022 não separam isto da posição errada de 2010. |
 
 **Em resumo:**
@@ -602,8 +819,11 @@ centroide da unidade:
   Nelas, os números separam a pergunta mas não a respondem:
   - 2022 confirma a ausência;
   - a dúvida é se 2010 estava certo.
-  - Os indícios de alocação de 2010 são o bloco do setor 136 e os 344
-    domicílios de setor urbano de 2010, que não tinham coordenada.
+  - A grade de 2010 é híbrida por método (§ 10.4). O bloco do setor 136 tem a marca
+    da desagregação (§ 10.6). Os 344 domicílios de setor urbano de 2010 estão, no
+    melhor caso, na face de quadra e não no endereço.
+  - Sem a variável de abordagem por célula, o dado só mostra um piso do viés: um
+    setor, 229 domicílios extintos.
   - O teste que decide é **imagem de ~2010**: se houve construção onde a grade de 2010
     pôs domicílios.
 
@@ -614,15 +834,19 @@ de deslocamento. Proposta para decisão do responsável, sem nada aplicado:
      054), que somam 314 dos 807 domicílios;
    - depois, uma amostra das 147 sem endereço.
    - Pelo resultado, a causa de cada extinta fica documentada unidade a unidade.
-2. **Obter a documentação da grade** que falta (`grade_estatistica.pdf` de 2010 e as
-   notas de 2022), pela listagem do servidor. A regra de alocação de 2010 decide a
-   leitura das 170. Os arquivos não foram baixados nesta tarefa.
+2. **Pedir ao IBGE a variável de abordagem por célula** da grade de 2010 (p. 21). O
+   rascunho está em `docs/pedido_ibge_grade_2010_abordagem.md` e não foi enviado. Com a
+   variável, o cruzamento do § 10.6 deixa de ser indício.
+   - *Até 2026-09-23 este item era: "obter a documentação da grade que falta". Ela foi
+     obtida no commit `de4a7de`, e a variável não vem no produto.*
 3. **Sensibilidade, a registrar, sem mudar a classe.** As extintas afetam só o lado da
    perda: as 147 sem endereço somam 634 dos 4.624 domicílios de perda bruta (13,7 %).
    A faixa da expansão (§ 4) usa só ganhos, mas depende do zero de 2010 nas novas. Se
    a posição de 2010 é frágil no rural, as novas de 1 km (484 domicílios) também são:
    sem elas, a faixa iria de 15,6–30,1 % para **11,6–26,1 %**. É a faixa a declarar
    até o teste por imagem.
+4. **Declarar à parte o setor 136**, sem mudar classe: 31 extintas e 229 domicílios. A
+   faixa da expansão fica em 16,6–25,6 %, o que o § 10.6 mede.
 
 **Ressalvas desta seção:**
 - O CNEFE não distingue ocupado de vago.

@@ -1,0 +1,376 @@
+{
+  "natureza": "INDÍCIO; não é a variável oficial de abordagem (IBGE 2016, p. 21), que não acompanha os arquivos do geoftp",
+  "celulas_com_domicilio_no_municipio": {
+    "2010": 1352,
+    "2022": 1664
+  },
+  "teste_a_razao_do_setor": {
+    "regra": "compatível: (DOM−0,5)·r − 0,5 <= POP <= (DOM+0,5)·r + 0,5, r do setor de maior área; só células inteiras (>= 90 % num setor)",
+    "razao_do_setor": {
+      "2010": "Domicilio02 V001 / Domicilio01 V001",
+      "2022": "basico v0001 / v0007"
+    },
+    "por_faixa": [
+      {
+        "resolucao": "1 km",
+        "faixa_dom": "0–1",
+        "celulas_2010": 189,
+        "pct_compativel_2010": 82.0,
+        "pct_compativel_2010_razao_sorteada": 78.3,
+        "celulas_2022": 236,
+        "pct_compativel_2022": 86.0
+      },
+      {
+        "resolucao": "1 km",
+        "faixa_dom": "1–2",
+        "celulas_2010": 42,
+        "pct_compativel_2010": 66.7,
+        "pct_compativel_2010_razao_sorteada": 61.9,
+        "celulas_2022": 97,
+        "pct_compativel_2022": 56.7
+      },
+      {
+        "resolucao": "1 km",
+        "faixa_dom": "2–4",
+        "celulas_2010": 43,
+        "pct_compativel_2010": 44.2,
+        "pct_compativel_2010_razao_sorteada": 48.8,
+        "celulas_2022": 52,
+        "pct_compativel_2022": 51.9
+      },
+      {
+        "resolucao": "1 km",
+        "faixa_dom": "4–7",
+        "celulas_2010": 23,
+        "pct_compativel_2010": 30.4,
+        "pct_compativel_2010_razao_sorteada": 39.1,
+        "celulas_2022": 17,
+        "pct_compativel_2022": 29.4
+      },
+      {
+        "resolucao": "1 km",
+        "faixa_dom": "7–12",
+        "celulas_2010": 8,
+        "pct_compativel_2010": 37.5,
+        "pct_compativel_2010_razao_sorteada": 0.0,
+        "celulas_2022": 7,
+        "pct_compativel_2022": 0.0
+      },
+      {
+        "resolucao": "1 km",
+        "faixa_dom": "12–20",
+        "celulas_2010": 14,
+        "pct_compativel_2010": 0.0,
+        "pct_compativel_2010_razao_sorteada": 7.1,
+        "celulas_2022": 0,
+        "pct_compativel_2022": null
+      },
+      {
+        "resolucao": "1 km",
+        "faixa_dom": "20–40",
+        "celulas_2010": 2,
+        "pct_compativel_2010": 0.0,
+        "pct_compativel_2010_razao_sorteada": 0.0,
+        "celulas_2022": 0,
+        "pct_compativel_2022": null
+      },
+      {
+        "resolucao": "1 km",
+        "faixa_dom": "> 40",
+        "celulas_2010": 6,
+        "pct_compativel_2010": 16.7,
+        "pct_compativel_2010_razao_sorteada": 0.0,
+        "celulas_2022": 0,
+        "pct_compativel_2022": null
+      },
+      {
+        "resolucao": "200 m",
+        "faixa_dom": "0–1",
+        "celulas_2010": 60,
+        "pct_compativel_2010": 86.7,
+        "pct_compativel_2010_razao_sorteada": 86.7,
+        "celulas_2022": 103,
+        "pct_compativel_2022": 84.5
+      },
+      {
+        "resolucao": "200 m",
+        "faixa_dom": "1–2",
+        "celulas_2010": 26,
+        "pct_compativel_2010": 76.9,
+        "pct_compativel_2010_razao_sorteada": 69.2,
+        "celulas_2022": 36,
+        "pct_compativel_2022": 80.6
+      },
+      {
+        "resolucao": "200 m",
+        "faixa_dom": "2–4",
+        "celulas_2010": 37,
+        "pct_compativel_2010": 73.0,
+        "pct_compativel_2010_razao_sorteada": 56.8,
+        "celulas_2022": 35,
+        "pct_compativel_2022": 62.9
+      },
+      {
+        "resolucao": "200 m",
+        "faixa_dom": "4–7",
+        "celulas_2010": 26,
+        "pct_compativel_2010": 53.8,
+        "pct_compativel_2010_razao_sorteada": 30.8,
+        "celulas_2022": 37,
+        "pct_compativel_2022": 37.8
+      },
+      {
+        "resolucao": "200 m",
+        "faixa_dom": "7–12",
+        "celulas_2010": 23,
+        "pct_compativel_2010": 34.8,
+        "pct_compativel_2010_razao_sorteada": 17.4,
+        "celulas_2022": 45,
+        "pct_compativel_2022": 35.6
+      },
+      {
+        "resolucao": "200 m",
+        "faixa_dom": "12–20",
+        "celulas_2010": 35,
+        "pct_compativel_2010": 28.6,
+        "pct_compativel_2010_razao_sorteada": 11.4,
+        "celulas_2022": 34,
+        "pct_compativel_2022": 23.5
+      },
+      {
+        "resolucao": "200 m",
+        "faixa_dom": "20–40",
+        "celulas_2010": 86,
+        "pct_compativel_2010": 33.7,
+        "pct_compativel_2010_razao_sorteada": 14.0,
+        "celulas_2022": 64,
+        "pct_compativel_2022": 20.3
+      },
+      {
+        "resolucao": "200 m",
+        "faixa_dom": "> 40",
+        "celulas_2010": 92,
+        "pct_compativel_2010": 12.0,
+        "pct_compativel_2010_razao_sorteada": 4.3,
+        "celulas_2022": 141,
+        "pct_compativel_2022": 13.5
+      }
+    ],
+    "celulas_informativas_dom_>=_5": {
+      "2010": {
+        "celulas": 315,
+        "pct_compativel": 26.3,
+        "pct_compativel_razao_sorteada": 13.3
+      },
+      "2022": {
+        "celulas": 345,
+        "pct_compativel": 21.7
+      }
+    },
+    "por_setor": {
+      "2010": {
+        "setores_com_3_ou_mais_celulas_informativas": 40,
+        "mediana_da_fracao_compativel": 0.25,
+        "setores_com_fracao_compativel_>=_0,8": 0,
+        "mediana_do_cv_da_razao": 0.098,
+        "setores_com_cv_<_0,05": 10
+      },
+      "2022": {
+        "setores_com_3_ou_mais_celulas_informativas": 44,
+        "mediana_da_fracao_compativel": 0.2,
+        "setores_com_fracao_compativel_>=_0,8": 0,
+        "mediana_do_cv_da_razao": 0.106,
+        "setores_com_cv_<_0,05": 3
+      }
+    }
+  },
+  "teste_b_pares_identicos_contiguos": {
+    "regra": "DOM >= 3, célula inteira num setor, par (DOM, POP) idêntico numa vizinha rainha inteira no mesmo setor",
+    "2010": {
+      "celulas": 4,
+      "por_resolucao": {
+        "1 km": 4
+      },
+      "setores": [
+        "430160205000136"
+      ],
+      "pares": [
+        {
+          "setor": "430160205000136",
+          "dom": 19,
+          "pop": 73,
+          "celulas": 4
+        }
+      ],
+      "domicilios": 76,
+      "populacao": 292
+    },
+    "2022": {
+      "celulas": 0,
+      "por_resolucao": {},
+      "setores": [],
+      "pares": [],
+      "domicilios": 0,
+      "populacao": 0
+    }
+  },
+  "classificacao_das_celulas_2010": {
+    "regra": "assinatura de desagregação = teste B positivo; assinatura de agregação: nenhuma célula (nenhum teste separa agregação do resto; ver resultados_s1.md § 10); indeterminada = as demais",
+    "celulas_com_domicilio": 1352,
+    "desagregacao": 4,
+    "indeterminada": 1348,
+    "agregacao": 0
+  },
+  "totais_2010_por_assinatura": {
+    "assinatura_desagregacao": {
+      "celulas": 4,
+      "domicilios": 76,
+      "populacao": 292
+    },
+    "indeterminada": {
+      "celulas": 1348,
+      "domicilios": 37832,
+      "populacao": 114618
+    },
+    "em_setor_com_assinatura": {
+      "celulas": 46,
+      "domicilios": 968,
+      "populacao": 3476
+    },
+    "total": {
+      "celulas": 1352,
+      "domicilios": 37908,
+      "populacao": 114910
+    }
+  },
+  "cruzamento_com_as_classes": {
+    "setores_com_assinatura": [
+      "430160205000136"
+    ],
+    "por_classe": {
+      "nova": {
+        "unidades": 355,
+        "assinatura_desagregacao": 0,
+        "em_setor_com_assinatura": 1,
+        "dom_10_em_setor_com_assinatura": 0,
+        "compativeis_teste_a_descartado": 0
+      },
+      "adensada": {
+        "unidades": 590,
+        "assinatura_desagregacao": 0,
+        "em_setor_com_assinatura": 4,
+        "dom_10_em_setor_com_assinatura": 472,
+        "compativeis_teste_a_descartado": 183
+      },
+      "estavel": {
+        "unidades": 165,
+        "assinatura_desagregacao": 0,
+        "em_setor_com_assinatura": 2,
+        "dom_10_em_setor_com_assinatura": 2,
+        "compativeis_teste_a_descartado": 121
+      },
+      "esvaziada": {
+        "unidades": 365,
+        "assinatura_desagregacao": 2,
+        "em_setor_com_assinatura": 9,
+        "dom_10_em_setor_com_assinatura": 265,
+        "compativeis_teste_a_descartado": 99
+      },
+      "extinta": {
+        "unidades": 232,
+        "assinatura_desagregacao": 2,
+        "em_setor_com_assinatura": 31,
+        "dom_10_em_setor_com_assinatura": 229,
+        "compativeis_teste_a_descartado": 168,
+        "sem_nenhum_endereco_cnefe": {
+          "unidades": 147,
+          "assinatura_desagregacao": 2,
+          "em_setor_com_assinatura": 27,
+          "dom_10_em_setor_com_assinatura": 209,
+          "compativeis_teste_a_descartado": 102
+        },
+        "com_domicilio_cnefe": {
+          "unidades": 62,
+          "assinatura_desagregacao": 0,
+          "em_setor_com_assinatura": 2,
+          "dom_10_em_setor_com_assinatura": 13,
+          "compativeis_teste_a_descartado": 45
+        }
+      }
+    },
+    "efeito_nos_numeros_da_subordinada_1": {
+      "todas_as_unidades": {
+        "unidades": 1707,
+        "ganho_bruto": 12099,
+        "perda_bruta": 4624,
+        "domicilios_2010": 37908,
+        "saldo": 7475,
+        "novas": 355,
+        "dom_novas": 1884,
+        "adensadas": 590,
+        "ganho_adensadas": 10215,
+        "extintas": 232,
+        "dom_10_extintas": 807,
+        "expansao_pct_inferior": 15.6,
+        "expansao_pct_superior": 30.1
+      },
+      "sem_as_celulas_com_assinatura": {
+        "unidades": 1703,
+        "ganho_bruto": 12099,
+        "perda_bruta": 4555,
+        "domicilios_2010": 37832,
+        "saldo": 7544,
+        "novas": 355,
+        "dom_novas": 1884,
+        "adensadas": 590,
+        "ganho_adensadas": 10215,
+        "extintas": 230,
+        "dom_10_extintas": 769,
+        "expansao_pct_inferior": 15.6,
+        "expansao_pct_superior": 30.1
+      },
+      "sem_as_unidades_dos_setores_com_assinatura": {
+        "unidades": 1660,
+        "ganho_bruto": 11372,
+        "perda_bruta": 4248,
+        "domicilios_2010": 36940,
+        "saldo": 7124,
+        "novas": 354,
+        "dom_novas": 1883,
+        "adensadas": 586,
+        "ganho_adensadas": 9489,
+        "extintas": 201,
+        "dom_10_extintas": 578,
+        "expansao_pct_inferior": 16.6,
+        "expansao_pct_superior": 25.6
+      },
+      "leitura": "unidades harmonizadas; setor de 2010 = o de maior área; unidades sem setor de 2010 com domicílio (vazias em 2010) ficam em 'indeterminada'"
+    }
+  },
+  "upgrade_2022": {
+    "regra_das_notas": "célula de 1 km de 2010 que passou a intersectar setor urbano de 2022 é dividida em 200 m; não há o inverso",
+    "maes_observadas_em_bage": 41,
+    "previstas_intersecao_>_0_m2": {
+      "previstas": 41,
+      "coincidem": 41,
+      "so_previstas": 0,
+      "so_observadas": 0
+    },
+    "previstas_intersecao_>_1_m2": {
+      "previstas": 40,
+      "coincidem": 40,
+      "so_previstas": 0,
+      "so_observadas": 1
+    },
+    "previstas_intersecao_>_10000_m2": {
+      "previstas": 35,
+      "coincidem": 35,
+      "so_previstas": 0,
+      "so_observadas": 6
+    },
+    "menor_intersecao_urbana_de_uma_mae_m2": 0.204,
+    "celulas_200m_de_2010_que_viraram_1km": 0,
+    "crs_medicao_area": "ESRI:102033"
+  },
+  "crs_medicao_area": "ESRI:102033"
+}

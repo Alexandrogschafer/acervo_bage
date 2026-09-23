@@ -8,8 +8,8 @@
 > `data/raw/vetor/ibge/censo_<ano>/`, obtidos direto do IBGE por
 > `scripts/download/baixar_censo_ibge.py` (lista fixa em
 > `config/fontes_censo_ibge.yaml`). A procedência da cópia original está em
-> `docs/procedencia/revia_bg_censo/`. **Exceção:** o § 7 (grade estatística) foi
-> medido neste repositório, no estudo A03.
+> `docs/procedencia/revia_bg_censo/`. **Exceção:** os §§ 7 e 8 (grade estatística) foram
+> medidos neste repositório, no estudo A03.
 
 Quem usar os arquivos brutos do Censo (`data/raw/*/ibge/censo_<ano>/`) neste acervo precisa ler isto antes.
 São conclusões **medidas** sobre estes arquivos exatos — os mesmos sha256 que estão
@@ -210,6 +210,75 @@ achados metodológicos**:
 
 Os dois têm a mesma forma: uma mudança de recorte do IBGE que, lida como se o recorte
 fosse fixo, vira mudança no território.
+
+*Desde 2026-09-23 são três achados: o terceiro é a grade de 2010 híbrida (§ 8).*
+
+---
+
+## 8. Grade estatística de 2010: híbrida por método, sem a variável de abordagem
+
+*Acrescentado em 2026-09-23. Lido na documentação do IBGE e medido neste repositório.*
+- Documentação: `data/raw/tabular/ibge/censo_2010/doc/grade_estatistica.pdf` (IBGE,
+  *Grade Estatística*, 2016) e
+  `data/raw/tabular/ibge/censo_2022/doc/Notas_metodologicas_grade_estatistica_2022.pdf`.
+- Medição: `estudos/A03_expansao_adensamento/resultados_s1.md` § 10.4 e § 10.6, script
+  `scripts/s1_desagregacao_2010.py`.
+
+**A grade de 2010 não é observação direta em toda parte.** Pelo método do próprio IBGE
+(p. 16–22), ela é **híbrida**:
+
+| ausência de localização no setor | abordagem | como a célula recebe domicílios e população |
+| --- | --- | --- |
+| < 50 % | agregação | rural: pontos das coordenadas. Urbano: **quadra/face**, repartida pela extensão da face quando ela cruza células. |
+| > 50 % | desagregação | dasimétrico com vias; ou dasimétrico binário com uso e cobertura; ou ponderação zonal simples. População = domicílios × moradores por domicílio **do setor**. |
+
+- A metodologia descreve uma **variável de abordagem por célula** (agregação,
+  desagregação ou misto, p. 21). **Ela não acompanha o produto distribuído no geoftp:**
+  - os arquivos `grade_idNN.zip` de 2010 têm só `ID_UNICO`, `nome_*`, `QUADRANTE`,
+    `MASC`, `FEM`, `POP` e `DOM_OCU`;
+  - a listagem não traz outro produto.
+- **A regra também não se reconstrói por setor:** a "ausência de localização" de cada
+  setor não é publicada.
+
+**A grade de 2022 é observada** (notas 01/2025, p. 7): totalização direta dos
+microdados pela coordenada do endereço no CNEFE (níveis 1 a 4), com os níveis 5 e 6
+excluídos. Não há equivalente da desagregação.
+
+**Consequência.** Comparar 2010 com 2022 sem separar a abordagem **mistura dado modelado
+com dado observado**. Onde 2010 foi desagregado, a presença de domicílio numa célula e o
+zero da vizinha vêm da distribuição do setor, não do endereço. A diferença para 2022
+pode aparecer como "extinta", "nova" ou "esvaziada" sem que nada tenha mudado no
+lugar.
+
+**O que se detecta sem a variável** (indício, não a variável):
+- **Razão moradores/domicílio igual à do setor.** Não discrimina, e foi descartada:
+  - 26,3 % das células de 2010 são compatíveis, contra 21,7 % em 2022, que não tem
+    desagregação;
+  - as células com a marca mais clara nem seguem a razão publicada do setor.
+- **Pares (domicílios, população) idênticos em células vizinhas inteiras do mesmo setor.**
+  Discrimina: 4 células em 2010, 0 em 2022. Mas só enxerga ponderação zonal ou
+  dasimétrico binário em blocos homogêneos.
+  - Em Bagé, marca um setor: o rural `430160205000136`.
+  - As unidades desse setor têm **968 domicílios de 2010** e respondem por **31 das 232
+    extintas** da subordinada 1 do A03.
+- **O tamanho do viés no município inteiro não se mede sem a variável oficial.** O
+  pedido ao IBGE está redigido, sem envio, em `docs/pedido_ibge_grade_2010_abordagem.md`.
+
+> **REGRA DE USO: toda comparação 2010 × 2022 na grade declara que 2010 é parcialmente
+> modelado.**
+> - Resultado que dependa da posição fina de poucos domicílios em 2010 (célula que
+>   "surge" ou "some", sobretudo no rural e em setores urbanos isolados) é indício, não
+>   medida.
+> - Quando a variável de abordagem for obtida, separar as células desagregadas antes de
+>   medir.
+
+**No A03, é o terceiro achado metodológico** (`metodo_previsto` do manifesto), ao lado
+da reclassificação dos 13 setores e da troca de resolução (§ 7).
+- Os três têm a mesma forma: um procedimento do IBGE que, lido como se o dado fosse
+  homogêneo, vira mudança no território.
+- **A regra do upgrade** de 1 km para 200 m (notas 2022, p. 6: célula de 1 km de 2010
+  que passa a intersectar setor urbano de 2022) **confirma** a medição do § 7. As 41
+  mães de Bagé são exatamente as células previstas pela regra, 41 de 41.
 
 ---
 

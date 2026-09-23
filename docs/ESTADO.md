@@ -5,6 +5,36 @@ pendente. Entrada nova no topo.
 
 ---
 
+## 2026-09-23 — A03: grade de 2010 híbrida; detecção indireta da desagregação
+
+- **Documentação da grade baixada** pela lista fixa (commit `de4a7de`):
+  `grade_estatistica.pdf` (2010) e `Notas_metodologicas_grade_estatistica_2022.pdf`.
+- **Grade de 2010.** É híbrida por método: setor com mais de 50 % de ausência de
+  localização entra por desagregação. A variável de abordagem por célula (p. 21) **não
+  vem nos arquivos do geoftp**, e a regra não se reconstrói (a ausência por setor não é
+  publicada).
+- **Grade de 2022.** É contagem de pontos do CNEFE (níveis 1 a 4). A regra do upgrade
+  1 km → 200 m confere com as 41 mães medidas (41/41).
+- **`scripts/s1_desagregacao_2010.py`** gera `derivados/s1_desagregacao_2010.json`,
+  que é versionado:
+  - **Teste A** (a razão da célula é a do setor): 26,3 % de compatíveis em 2010 contra
+    21,7 % em 2022. Não discrimina, **descartado**.
+  - **Teste B** (pares idênticos contíguos): 4 células em 2010 e 0 em 2022, todas no
+    setor rural 430160205000136. Esse setor tem 968 domicílios de 2010, 31 das 232
+    extintas e 27 das 147 sem endereço.
+  - Tratar o setor à parte deixa a faixa da expansão em 16,6–25,6 %.
+  - Nada reclassificado.
+- **Registrado:**
+  - `resultados_s1.md` § 10 reescrito (§§ 10.4, 10.6 e 10.7);
+  - `docs/ressalvas_censo_bage.md` § 8 novo;
+  - o terceiro achado no `metodo_previsto` do manifesto e no README;
+  - a documentação da grade entrou no manifesto como fonte bruta.
+- **Pendente:** o pedido ao IBGE está redigido em
+  `docs/pedido_ibge_grade_2010_abordagem.md` e **não foi enviado**. Falta decidir o
+  canal e quem assina.
+
+---
+
 ## 2026-09-23 — A03: investigação das unidades extintas sem ocupação visível
 
 - **Motivo.** Na conferência visual, o responsável viu parte das 232 extintas sobre área
