@@ -5,6 +5,34 @@ pendente. Entrada nova no topo.
 
 ---
 
+## 2026-09-23 — A03: investigação das unidades extintas sem ocupação visível
+
+- **Motivo.** Na conferência visual, o responsável viu parte das 232 extintas sobre área
+  sem ocupação visível em imagem. **Investigado, sem reclassificar:** a camada de
+  trabalho e as classes ficaram como estavam, e o script confere o `sha256_conteudo`
+  (`78a8800b…`) antes de ler.
+- **`scripts/s1_extintas.py`** gera `derivados/s1_extintas.json`, que é versionado, e
+  `derivados/s1_extintas_unidades.gpkg`, fora do git, para a conferência no mapa.
+  Resultado em `resultados_s1.md` § 10.
+- **Manifesto:** entraram duas fontes brutas, `ibge_cnefe2022` e
+  `ibge_censo2010_malha_setores`.
+- **Achados:**
+  - 140 das 232 extintas tinham 1 domicílio em 2010.
+  - Extintas e novas são vizinhas **menos** que o acaso (105 contra 158 pares na
+    rainha), então o deslocamento entre vizinhas não se sustenta.
+  - A grade não tem supressão de célula pequena.
+  - 62 extintas têm domicílio no CNEFE 2022, o que indica desocupação real com a
+    construção de pé.
+  - 147 extintas não têm nenhum endereço (634 dos 807 domicílios). Nelas é compatível,
+    mas não comprovado, que a posição de 2010 estivesse fora do lugar. O maior bloco
+    fica no setor rural 430160205000136 de 2010.
+- **Pendente (decisão do responsável):**
+  - conferência por imagem de ~2010;
+  - obter `grade_estatistica.pdf` (2010) e as notas da grade de 2022;
+  - declarar a faixa de expansão de sensibilidade 11,6–26,1 %.
+
+---
+
 ## 2026-09-23 — A03: subordinada 2 harmonizada; agregados do § 8 no script
 
 - **Subordinada 2 do manifesto.** 132 células / +804 / −2.044 (junção por ID do d03) →

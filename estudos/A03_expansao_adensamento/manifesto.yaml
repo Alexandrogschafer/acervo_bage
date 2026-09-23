@@ -225,5 +225,15 @@ fontes_brutas:
     arquivo: data/raw/vetor/ibge/areas_urbanizadas_2022/AreasUrbanizadas2022_Brasil.zip
     versao: censo_2022
     sha256: 5e41d6c72c4d733f43f95cbe87a7a50861bf8d8032b3d158b703c5198cbdb434
+  # subordinada 1, investigação das extintas (scripts/s1_extintas.py, 2026-09-23):
+  # endereços do CNEFE dentro das unidades e situação do setor de 2010
+  - fonte_id: ibge_cnefe2022
+    arquivo: data/raw/vetor/ibge/censo_2022/cnefe/4301602_BAGE.zip
+    versao: censo_2022
+    sha256: 3cb40d650571397ae6b6ba13c44aa9d09302408c1c3283994f468572635f278d
+  - fonte_id: ibge_censo2010_malha_setores
+    arquivo: data/raw/vetor/ibge/censo_2010/rs_setores_censitarios.zip
+    versao: censo_2010
+    sha256: c7f65e26bf0813a01795084391ca6211da499a6498b8e523d98390568414b3b0
 
 referencias_bib: []

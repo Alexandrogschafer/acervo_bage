@@ -356,3 +356,276 @@ Consequência: "dentro/fora" continua sendo da área urbanizada (§ 1 e ressalva
 etapa futura perguntar pela relação entre expansão e regulação, a obtenção do perímetro
 legal passa pelas regras do acervo (fonte documentada, sem URL por adivinhação).
 
+
+---
+
+## 10. Investigação: unidades extintas sem ocupação visível
+
+Acrescentado em 2026-09-23. **Motivo:** na conferência visual, o responsável viu parte
+das 232 unidades extintas sobre áreas sem ocupação visível em imagem de satélite.
+
+**Esta seção investiga e não reclassifica.** A camada de trabalho e as classes não foram
+alteradas: o script confere o `sha256_conteudo` da camada (`78a8800b…`) antes de ler.
+
+- Script: `scripts/s1_extintas.py`.
+- Números: `derivados/s1_extintas.json`.
+- Apoio à conferência no mapa: `derivados/s1_extintas_unidades.gpkg`, fora do git. Tem
+  as extintas e as novas, com as contagens do CNEFE e as medidas de vizinhança por
+  unidade. É contagem de endereço por célula: não publicar.
+- Duas fontes brutas entraram no manifesto: `ibge_cnefe2022` e
+  `ibge_censo2010_malha_setores`.
+
+### 10.1 Perfil das extintas
+
+Domicílios ocupados de 2010. "Dentro" é a mesma regra do § 1: ≥ 50 % da área da unidade
+na área urbanizada de 2022.
+
+| grupo | unidades | domicílios 2010 | mediana | p90 | máx. | com 1 | com 2 | com 3 | ≤ 5 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| **todas** | **232** | **807** | **1** | **7,9** | **57** | **140** | **24** | **20** | **200** |
+| 200 m, dentro | 9 | 37 | 2 | 7,8 | 11 | 3 | 2 | 0 | 6 |
+| 200 m, fora | 81 | 374 | 1 | 10,0 | 57 | 41 | 7 | 11 | 67 |
+| 1 km, dentro | 0 | — | — | — | — | — | — | — | — |
+| 1 km, fora (3 harmonizadas) | 142 | 396 | 1 | 5,9 | 19 | 96 | 15 | 9 | 127 |
+
+- 140 das 232 extintas (60 %) tinham **um** domicílio em 2010, e 200 (86 %) tinham até
+  cinco.
+- Só 9 extintas estão dentro da área urbanizada, todas de 200 m.
+- Moradores por domicílio em 2010: 3,24.
+
+### 10.2 Teste de deslocamento
+
+**Perda** é o `dom_10` da extinta. Nas vizinhas:
+- **saldo** é a soma das variações de domicílios;
+- **ganho bruto** é a soma só das variações positivas.
+
+Vizinhança **rainha** é a unidade que toca a extinta (1 m). Vizinhança por **raio R** é a
+unidade cujo centroide está a até R da borda da extinta.
+
+O universo são as 5.718 unidades harmonizadas no município. Unidade sem domicílio nos
+dois anos entra com variação 0. Vizinha de outro município não entra.
+
+| vizinhança | resolução | extintas | saldo ≥ perda | 0 < saldo < perda | saldo = 0 | saldo < 0 | ganho bruto ≥ perda | com nova vizinha |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| rainha | todas | 232 | 96 | 9 | 41 | 86 | 133 | 102 |
+| raio 1 km | todas | 232 | 136 | 5 | 39 | 52 | 164 | 166 |
+| raio 2 km | todas | 232 | 147 | 4 | 24 | 57 | 181 | 194 |
+| rainha (= raio 1 km) | 1 km | 142 | 52 | 5 | 38 | 47 | 74 | 76 |
+| raio 2 km | 1 km | 142 | 57 | 4 | 24 | 57 | 91 | 104 |
+| rainha | 200 m | 90 | 44 | 4 | 3 | 39 | 59 | 26 |
+| raio 1 km | 200 m | 90 | 84 | 0 | 1 | 5 | 90 | 90 |
+| raio 2 km | 200 m | 90 | 90 | 0 | 0 | 0 | 90 | 90 |
+
+**Distribuição do saldo nas extintas de 1 km, rainha** (p10 / p25 / mediana / p75 /
+p90): −30,9 / −1 / 0 / 1,8 / 3.
+
+**Nas extintas de 200 m, o raio não discrimina.** O raio de 1 km alcança em mediana
+89,5 unidades, e o de 2 km, 236. A extinta fica então cercada pelo crescimento da
+cidade, e o saldo ≥ perda sai quase sempre verdadeiro.
+
+**Linha de base (1 km).** O "ganho ≥ perda" sozinho não diz nada: a perda típica é de 1
+domicílio. A tabela compara as medidas que não dependem da perda em torno de três grupos
+de unidades:
+
+| unidades de 1 km | n | saldo das vizinhas ≥ 1 (rainha / 2 km) | com nova vizinha (rainha / 2 km) |
+| --- | ---: | --- | --- |
+| extintas | 142 | 40,1 % / 43,0 % | 53,5 % / 73,2 % |
+| outras ocupadas (adensada, estável, esvaziada) | 297 | 48,5 % / 58,9 % | 53,9 % / 79,5 % |
+| sem domicílio nos dois anos | 3.341 | 30,2 % / 46,1 % | 32,1 % / 57,2 % |
+
+**Pares por permutação.** Se a extinção fosse o mesmo domicílio posto numa célula
+vizinha, pares extinta–nova apareceriam **mais** que o acaso.
+
+- Unidades: as 704 de 1 km com domicílio em algum ano.
+- Acaso: 9.999 permutações das classes entre essas mesmas unidades, com semente fixa.
+
+| par | vizinhança | observados | esperado (média) | p5–p95 | p (menos que o acaso) | p (mais que o acaso) |
+| --- | --- | ---: | ---: | --- | ---: | ---: |
+| **extinta–nova** | rainha | **105** | 157,5 | 137–178 | **0,0001** | 1,0 |
+| **extinta–nova** | centroides ≤ 2 km | **123** | 193,5 | 170–218 | **0,0001** | 1,0 |
+| **extinta–nova** | centroides ≤ 5 km | **727** | 1.101,1 | 1.010–1.196 | **0,0001** | 1,0 |
+| extinta–extinta | rainha | 64 | 42,0 | 31–54 | 0,997 | **0,003** |
+| extinta–esvaziada | rainha | 67 | 48,7 | 37–61 | 0,993 | **0,010** |
+| extinta–esvaziada | centroides ≤ 2 km | 85 | 59,9 | 47–74 | 0,998 | **0,003** |
+| nova–nova | rainha | 122 | 146,4 | 125–168 | 0,032 | 0,97 |
+
+**Leitura:**
+- Extintas e novas são vizinhas **menos** do que o acaso, em todas as escalas testadas
+  (1, 2 e 5 km).
+- As extintas se agrupam com outras extintas e com esvaziadas. A perda é regional, não
+  espelhada em ganho ao lado.
+- Em torno das extintas de 1 km, a vizinhança ganha **menos** que em torno das outras
+  unidades ocupadas.
+
+### 10.3 CNEFE 2022 dentro das extintas
+
+Os 228 endereços do CNEFE que caem nas 232 extintas:
+- **domicílio particular:** 106;
+- domicílio coletivo: 3;
+- **estabelecimento agropecuário:** 82;
+- outros: 37 (outras finalidades 33, edificação em construção 3, ensino 1).
+
+Todos têm nível de geocodificação 1, isto é, a coordenada original do Censo 2022.
+
+| extintas | 200 m | 1 km | total |
+| --- | ---: | ---: | ---: |
+| **com domicílio (particular ou coletivo) no CNEFE** | 6 | 56 | **62** |
+| só com agropecuário ou outros | 15 | 8 | 23 |
+| **sem nenhum endereço** | 69 | 78 | **147** |
+
+- **62 extintas têm domicílio no CNEFE.** Em 50 delas, o CNEFE tem tantos domicílios
+  quanto a grade tinha ocupados em 2010, ou mais.
+- **Isso contradiz "sem domicílio", mas não "sem domicílio ocupado"**, que é a regra da
+  classe (§ 1):
+  - o CNEFE lista o domicílio particular ocupado ou não (vago, de uso ocasional);
+  - a grade de 2022 conta só os ocupados.
+  - Nas unidades de 1 km, a grade tem 79,0 % dos domicílios do CNEFE (4.928 de 6.240);
+    nas de 200 m, 85,3 %.
+  - Uma unidade rural com 1 domicílio no CNEFE e nenhum ocupado é, portanto, esperável.
+- **Proporção com domicílio no CNEFE, pelo tamanho em 2010:**
+  - extintas que tinham 1 domicílio: 38 de 140;
+  - que tinham 2: 13 de 24;
+  - que tinham 3: 5 de 20;
+  - que tinham 4: 4 de 9;
+  - que tinham 5: 0 de 7;
+  - que tinham 6 ou mais: **2 de 32**.
+  Quanto maior a extinta, mais raro é haver domicílio lá em 2022.
+- **Limite do município.** 12 extintas tocam o limite, e 9 delas estão sem endereço.
+  O CNEFE lido é só o de Bagé, então nessas 9 a conferência é incompleta.
+
+### 10.4 A documentação da grade: sigilo e posicionamento do endereço rural
+
+**Os documentos da grade não estão no repositório.** As notas metodológicas de 2022
+(`Notas_metodologicas_grade_estatistica_2022.pdf`) e a metodologia de 2010
+(`grade_estatistica.pdf`) foram lidas só no reconhecimento dos servidores. O resumo delas
+está em `derivados/r_ftp_ibge.md`, Q2. Os arquivos da grade trazem só o histórico de
+geoprocessamento (`.shp.xml`) e nada sobre sigilo ou posicionamento.
+
+Documentos consultados, todos em `data/raw/`:
+- `metodologia_censo_dem_2010.pdf`;
+- `notas_tecnicas.pdf` (2010);
+- `liv102168.pdf` (2022, *Características urbanísticas do entorno*);
+- os dicionários do CNEFE e das coordenadas de 2022;
+- `Leia_me_Comparabilidade_2010_2022.pdf`;
+- o `.shp.xml` das duas grades.
+
+| tema | 2010 | 2022 |
+| --- | --- | --- |
+| **supressão por sigilo na grade** | **Regra não encontrada nos documentos que temos.** A metodologia de 2010 (§ 1.4.3) diz que as tabelas não são desidentificadas, salvo as de Terras Indígenas. A regra "< 5 DPP" é da base por setor, não da grade. | **Regra não encontrada nos documentos que temos.** O resumo das notas (r_ftp_ibge.md) não menciona sigilo. |
+| supressão, pelo dado | Nenhuma: 0 nulos; 234 células de 1 km e 86 de 200 m com **1** domicílio publicadas. | Nenhuma: 0 nulos; 296 células de 1 km e 141 de 200 m com **1** domicílio publicadas. |
+| **posição do endereço rural** | O recenseador coletava a coordenada por GPS no PDA **nos setores rurais**. Sem sinal depois de duas tentativas, a entrevista seguia **sem coordenada** (metodologia 2010, cap. 4, "Preparo dos arquivos para a coleta"). O próprio IBGE registra "falhas de obtenção" de coordenadas sem indicador de controle (§ 11.5.2.2.1). O CNEFE 2010 tinha coordenada **só na área rural** (§ 1.4.3.6). | Coordenada coletada **"o mais próximo possível do acesso à unidade"**. A inválida é trocada pelo melhor dado disponível: coleta anterior, coordenada do questionário, outro endereço da edificação ou ponto médio da face (liv102168, "Coordenadas geográficas", p. 39–40). O CNEFE registra isso em `NV_GEO_COORD`, de 1 a 6 (dicionário). |
+| como a grade usa a posição | **Não está nos documentos que temos.** O resumo em r_ftp_ibge.md diz que 2010 foi feita por agregação e desagregação (dasimetria, ponderação zonal), com um campo de método por célula. **Esse campo não existe nos arquivos baixados**, cujos campos são `ID_UNICO`, `nome_*`, `QUADRANTE`, `MASC`, `FEM`, `POP` e `DOM_OCU` (`.shp.xml`). Não sabemos onde a grade de 2010 pôs o domicílio rural sem coordenada, nem o domicílio de setor urbano, que não tinha coordenada. | Pelo resumo das notas: totalização direta dos microdados geocodificados pelo CNEFE, nos níveis 1 a 4, com os níveis 5 e 6 **excluídos**. |
+
+Verificações no dado que complementam a documentação:
+- **CNEFE 2022 de Bagé por nível de geocodificação:**
+  - 58.158 no nível 1;
+  - 4.273 no 2;
+  - 262 no 3;
+  - 86 no 4;
+  - **só 3 nos níveis 5 e 6** (2 e 1).
+  A exclusão dos níveis 5 e 6 não pesa em Bagé.
+- **Centro dos setores rurais de 2010.** Se a grade de 2010 pusesse o domicílio sem
+  coordenada no centro do setor, as extintas concentrariam esses pontos. Não
+  concentram:
+  - dos 36 setores rurais, **nenhum** tem o centroide numa extinta;
+  - só 1 tem nela o ponto representativo.
+
+### 10.5 Contraste: as novas
+
+| novas | unidades | domicílios 2022 | mediana | p90 | máx. | com 1 | com 2 | com 3 | ≤ 5 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| todas | 355 | 1.884 | 1 | 5,0 | 266 | 212 | 67 | 26 | 320 |
+| 200 m, dentro | 25 | 968 | 7 | 131,6 | 266 | 4 | 4 | 2 | 11 |
+| 200 m, fora | 65 | 432 | 1 | 10,6 | 170 | 37 | 8 | 3 | 51 |
+| 1 km, fora (6 harmonizadas) | 265 | 484 | 1 | 3,0 | 45 | 171 | 55 | 21 | 258 |
+
+**O perfil das novas rurais é o espelho do das extintas:** mediana de 1 domicílio, e
+171 das 265 unidades de 1 km com um só.
+
+**A diferença está no ancoramento:**
+- 351 das 355 novas têm domicílio no CNEFE 2022, com níveis de geocodificação 1 a 4
+  (2.587 / 322 / 12 / 1).
+- Em 221 delas, a grade tem exatamente o número de domicílios do CNEFE.
+- As 4 novas sem nenhum endereço **tocam o limite do município**. O domicílio delas
+  deve estar no CNEFE do município vizinho, que não foi lido.
+- **Do lado de 2022, portanto, a nova rural corresponde a pontos do CNEFE.** "Nova sem
+  ocupação visível" significaria que o próprio ponto do CNEFE está fora da construção.
+  A regra de 2022 permite isso: coordenada "no acesso à unidade", e numa propriedade
+  rural o acesso pode ficar longe da casa.
+- **Isso não se mede aqui:** só a imagem responde. A camada de apoio traz as 265 novas
+  de 1 km para essa conferência.
+
+**Onde as extintas caíam em 2010**, pela situação do setor de 2010 que contém o
+centroide da unidade:
+
+| | setor rural 2010 | setor urbano 2010 |
+| --- | --- | --- |
+| extintas de 1 km | 142 unidades (78 sem endereço), 396 dom. | — |
+| extintas de 200 m | 34 (28 sem endereço), 67 dom. | **56 (41 sem endereço), 344 dom.** |
+| novas de 1 km | 265 (4 sem endereço) | — |
+| novas de 200 m | 43 (0 sem endereço) | 47 (0 sem endereço) |
+
+- **Extintas de 200 m em setor urbano de 2010.** São 56 unidades e 344 domicílios,
+  43 % dos 807. O domicílio de setor urbano **não tinha coordenada** em 2010 (§ 10.4),
+  então a posição dele na grade de 2010 veio de alguma alocação que não conhecemos.
+- **Maior agrupamento de extintas** (18 unidades de 1 km, 203 domicílios):
+  - 15 das 18 unidades estão sem nenhum endereço no CNEFE 2022;
+  - o agrupamento cai quase todo no **setor rural 430160205000136** de 2010 (situação 8);
+  - 11 das 18 unidades tinham de 10 a 19 domicílios em 2010, todas com 3,6 a 3,9
+    moradores por domicílio. A média do setor em 2010 era de 3,61.
+- **O setor 136 inteiro:**
+  - 31 extintas, com 229 domicílios em 2010, 27 delas sem endereço;
+  - no agregado de 2010, o setor tinha **494 DPP**;
+  - a grade de 2010 põe **968** domicílios em unidades com centroide nele. A atribuição
+    por centroide mistura setores vizinhos na borda, então esse número indica, não
+    prova.
+- **Segundo maior agrupamento:** 10 unidades de 200 m e 111 domicílios nos setores
+  urbanos 053 e 054; 9 dessas unidades estão sem endereço.
+
+### 10.6 Conclusão: o que os números sustentam
+
+| causa candidata | sustentada? | por quê |
+| --- | --- | --- |
+| **deslocamento para a vizinha** (o mesmo domicílio posto em célula ao lado numa das edições) | **não** | Pares extinta–nova ficam **abaixo** do acaso a 1, 2 e 5 km (105 contra 158 esperados na rainha; p = 0,0001 para "menos"). A vizinhança das extintas ganha menos que a das outras unidades ocupadas. |
+| **supressão por sigilo** na grade | **não** | Nenhuma edição tem nulo, e as duas publicam centenas de células com 1 domicílio. Nenhum documento que temos traz regra de sigilo para a grade. |
+| **posicionamento por setor ou localidade** | **não** | Todos os 228 endereços nas extintas estão no nível 1, e o município tem só 3 endereços nos níveis 5 e 6. Nenhum centroide de setor rural de 2010 cai numa extinta. |
+| **desocupação real, com a construção de pé** (vaga ou de uso ocasional em 2022) | **sim, em 62 unidades** | 106 domicílios particulares e 3 coletivos no CNEFE, com nenhum ocupado na grade de 2022. Em 1 km, a grade tem 79 % do CNEFE. Nessas unidades a imagem deveria mostrar construção. |
+| **posição de 2010 fora do lugar** (domicílio real, contado no setor, mas posto em célula onde não estava) | **compatível, não comprovado**, nas 170 extintas sem domicílio no CNEFE (147 sem nenhum endereço e 23 só com agropecuário ou outros) | Em 2022 não há domicílio nessas unidades, o que bate com a imagem. O lado frágil é 2010: o domicílio urbano não tinha coordenada, e o rural podia ficar sem ela, com alocação não documentada nos arquivos que temos. O maior bloco (setor 136) tem 11 de 18 unidades com 10 a 19 domicílios, razão moradores/domicílio próxima da média do setor e 15 de 18 unidades sem endereço em 2022. |
+| **desaparecimento real** (construção demolida ou abandonada até sumir) | **compatível, não comprovado**, nas mesmas 170 | O agrupamento de extintas com esvaziadas acima do acaso é o que a despovoação rural produz. Os números de 2022 não separam isto da posição errada de 2010. |
+
+**Em resumo:**
+- **Não é deslocamento entre vizinhas.**
+- **62 extintas são desocupação real:** a construção existe e o domicílio estava vago ou
+  era de uso ocasional em 2022. A classe está certa nelas. Se a imagem não mostra
+  construção nessas 62, o que falha é a posição do ponto do CNEFE.
+- **As outras 170 concentram 634 dos 807 domicílios** (as 147 sem nenhum endereço).
+  Nelas, os números separam a pergunta mas não a respondem:
+  - 2022 confirma a ausência;
+  - a dúvida é se 2010 estava certo.
+  - Os indícios de alocação de 2010 são o bloco do setor 136 e os 344
+    domicílios de setor urbano de 2010, que não tinham coordenada.
+  - O teste que decide é **imagem de ~2010**: se houve construção onde a grade de 2010
+    pôs domicílios.
+
+**Tratamento.** Como o teste de deslocamento deu negativo, não há proposta de tratamento
+de deslocamento. Proposta para decisão do responsável, sem nada aplicado:
+1. **Conferência por imagem de ~2010** (histórico do Google Earth ou mosaico da época):
+   - começar pelos dois maiores agrupamentos (setor rural 136; setores urbanos 053 e
+     054), que somam 314 dos 807 domicílios;
+   - depois, uma amostra das 147 sem endereço.
+   - Pelo resultado, a causa de cada extinta fica documentada unidade a unidade.
+2. **Obter a documentação da grade** que falta (`grade_estatistica.pdf` de 2010 e as
+   notas de 2022), pela listagem do servidor. A regra de alocação de 2010 decide a
+   leitura das 170. Os arquivos não foram baixados nesta tarefa.
+3. **Sensibilidade, a registrar, sem mudar a classe.** As extintas afetam só o lado da
+   perda: as 147 sem endereço somam 634 dos 4.624 domicílios de perda bruta (13,7 %).
+   A faixa da expansão (§ 4) usa só ganhos, mas depende do zero de 2010 nas novas. Se
+   a posição de 2010 é frágil no rural, as novas de 1 km (484 domicílios) também são:
+   sem elas, a faixa iria de 15,6–30,1 % para **11,6–26,1 %**. É a faixa a declarar
+   até o teste por imagem.
+
+**Ressalvas desta seção:**
+- O CNEFE não distingue ocupado de vago.
+- A imagem de satélite não foi usada aqui: é a conferência do responsável.
+- A atribuição unidade → setor de 2010 é pelo centroide da unidade.
+- A conferência do CNEFE é incompleta nas unidades que cruzam o limite.

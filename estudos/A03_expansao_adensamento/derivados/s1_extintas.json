@@ -1,0 +1,1170 @@
+{
+  "objeto": "unidades extintas da camada de trabalho (dom_10 > 0 e dom_22 = 0)",
+  "camada": {
+    "arquivo": "estudos/A03_expansao_adensamento/saidas/s1_celulas_2010_2022.gpkg",
+    "sha256_conteudo_conferido": "78a8800b9a0aba22058a3de2e5b338ce0bb19dc052524aa1c4a54554074a2b17"
+  },
+  "universo_de_vizinhanca": {
+    "unidades": 5718,
+    "por_classe": {
+      "vazia": 4011,
+      "adensada": 590,
+      "esvaziada": 365,
+      "nova": 355,
+      "extinta": 232,
+      "estavel": 165
+    },
+    "regra": "unidades harmonizadas com centroide no município; sem domicílio nos dois anos = variação 0"
+  },
+  "1_perfil_extintas_dom_2010": {
+    "todas": {
+      "unidades": 232,
+      "domicilios": 807,
+      "mediana": 1.0,
+      "p90": 7.9,
+      "maximo": 57,
+      "com_1": 140,
+      "com_2": 24,
+      "com_3": 20,
+      "ate_5": 200
+    },
+    "200 m": {
+      "todas": {
+        "unidades": 90,
+        "domicilios": 411,
+        "mediana": 2.0,
+        "p90": 10.1,
+        "maximo": 57,
+        "com_1": 44,
+        "com_2": 9,
+        "com_3": 11,
+        "ate_5": 73
+      },
+      "dentro_da_area_urbanizada": {
+        "unidades": 9,
+        "domicilios": 37,
+        "mediana": 2.0,
+        "p90": 7.8,
+        "maximo": 11,
+        "com_1": 3,
+        "com_2": 2,
+        "com_3": 0,
+        "ate_5": 6
+      },
+      "fora_da_area_urbanizada": {
+        "unidades": 81,
+        "domicilios": 374,
+        "mediana": 1.0,
+        "p90": 10.0,
+        "maximo": 57,
+        "com_1": 41,
+        "com_2": 7,
+        "com_3": 11,
+        "ate_5": 67
+      }
+    },
+    "1 km": {
+      "todas": {
+        "unidades": 142,
+        "domicilios": 396,
+        "mediana": 1.0,
+        "p90": 5.9,
+        "maximo": 19,
+        "com_1": 96,
+        "com_2": 15,
+        "com_3": 9,
+        "ate_5": 127
+      },
+      "dentro_da_area_urbanizada": {
+        "unidades": 0,
+        "domicilios": 0,
+        "mediana": null,
+        "p90": null,
+        "maximo": null,
+        "com_1": 0,
+        "com_2": 0,
+        "com_3": 0,
+        "ate_5": 0
+      },
+      "fora_da_area_urbanizada": {
+        "unidades": 142,
+        "domicilios": 396,
+        "mediana": 1.0,
+        "p90": 5.9,
+        "maximo": 19,
+        "com_1": 96,
+        "com_2": 15,
+        "com_3": 9,
+        "ate_5": 127
+      },
+      "das_quais_harmonizadas": 3
+    }
+  },
+  "1_perfil_extintas_pop_2010": {
+    "populacao": 2618,
+    "moradores_por_domicilio": 3.24
+  },
+  "2_deslocamento": {
+    "regra": "saldo = soma de d_dom das vizinhas; ganho bruto = soma das variações positivas; perda = dom_10 da extinta. Rainha: toca (1 m). Raio R: centroide da vizinha a até R da borda da extinta.",
+    "rainha": {
+      "todas": {
+        "unidades": 232,
+        "mediana_de_vizinhas": 8.0,
+        "saldo_das_vizinhas": {
+          ">= perda": 96,
+          "entre 0 e perda (exclusive)": 9,
+          "= 0": 41,
+          "< 0": 86,
+          "quantis_p10_p25_p50_p75_p90": [
+            -43.0,
+            -3.0,
+            0.0,
+            3.0,
+            27.9
+          ]
+        },
+        "ganho_bruto_das_vizinhas": {
+          ">= perda": 133,
+          "= 0": 69,
+          "quantis_p10_p25_p50_p75_p90": [
+            0.0,
+            0.0,
+            2.0,
+            9.0,
+            54.5
+          ]
+        },
+        "com_unidade_nova_vizinha": 102,
+        "com_novas_vizinhas_somando_dom_22_>=_perda": 78
+      },
+      "200 m": {
+        "unidades": 90,
+        "mediana_de_vizinhas": 8.0,
+        "saldo_das_vizinhas": {
+          ">= perda": 44,
+          "entre 0 e perda (exclusive)": 4,
+          "= 0": 3,
+          "< 0": 39,
+          "quantis_p10_p25_p50_p75_p90": [
+            -48.8,
+            -8.5,
+            2.0,
+            24.0,
+            94.9
+          ]
+        },
+        "ganho_bruto_das_vizinhas": {
+          ">= perda": 59,
+          "= 0": 19,
+          "quantis_p10_p25_p50_p75_p90": [
+            0.0,
+            1.0,
+            12.5,
+            40.0,
+            96.9
+          ]
+        },
+        "com_unidade_nova_vizinha": 26,
+        "com_novas_vizinhas_somando_dom_22_>=_perda": 19
+      },
+      "1 km": {
+        "unidades": 142,
+        "mediana_de_vizinhas": 8.0,
+        "saldo_das_vizinhas": {
+          ">= perda": 52,
+          "entre 0 e perda (exclusive)": 5,
+          "= 0": 38,
+          "< 0": 47,
+          "quantis_p10_p25_p50_p75_p90": [
+            -30.9,
+            -1.0,
+            0.0,
+            1.8,
+            3.0
+          ]
+        },
+        "ganho_bruto_das_vizinhas": {
+          ">= perda": 74,
+          "= 0": 50,
+          "quantis_p10_p25_p50_p75_p90": [
+            0.0,
+            0.0,
+            1.0,
+            3.0,
+            4.0
+          ]
+        },
+        "com_unidade_nova_vizinha": 76,
+        "com_novas_vizinhas_somando_dom_22_>=_perda": 59
+      }
+    },
+    "raio_1_km": {
+      "todas": {
+        "unidades": 232,
+        "mediana_de_vizinhas": 8.0,
+        "saldo_das_vizinhas": {
+          ">= perda": 136,
+          "entre 0 e perda (exclusive)": 5,
+          "= 0": 39,
+          "< 0": 52,
+          "quantis_p10_p25_p50_p75_p90": [
+            -5.8,
+            0.0,
+            2.0,
+            247.0,
+            676.8
+          ]
+        },
+        "ganho_bruto_das_vizinhas": {
+          ">= perda": 164,
+          "= 0": 50,
+          "quantis_p10_p25_p50_p75_p90": [
+            0.0,
+            1.0,
+            3.0,
+            502.0,
+            786.7
+          ]
+        },
+        "com_unidade_nova_vizinha": 166,
+        "com_novas_vizinhas_somando_dom_22_>=_perda": 133
+      },
+      "200 m": {
+        "unidades": 90,
+        "mediana_de_vizinhas": 89.5,
+        "saldo_das_vizinhas": {
+          ">= perda": 84,
+          "entre 0 e perda (exclusive)": 0,
+          "= 0": 1,
+          "< 0": 5,
+          "quantis_p10_p25_p50_p75_p90": [
+            27.7,
+            124.5,
+            333.0,
+            677.0,
+            895.3
+          ]
+        },
+        "ganho_bruto_das_vizinhas": {
+          ">= perda": 90,
+          "= 0": 0,
+          "quantis_p10_p25_p50_p75_p90": [
+            139.5,
+            353.5,
+            619.5,
+            799.0,
+            1046.6
+          ]
+        },
+        "com_unidade_nova_vizinha": 90,
+        "com_novas_vizinhas_somando_dom_22_>=_perda": 74
+      },
+      "1 km": {
+        "unidades": 142,
+        "mediana_de_vizinhas": 8.0,
+        "saldo_das_vizinhas": {
+          ">= perda": 52,
+          "entre 0 e perda (exclusive)": 5,
+          "= 0": 38,
+          "< 0": 47,
+          "quantis_p10_p25_p50_p75_p90": [
+            -30.9,
+            -1.0,
+            0.0,
+            1.8,
+            3.0
+          ]
+        },
+        "ganho_bruto_das_vizinhas": {
+          ">= perda": 74,
+          "= 0": 50,
+          "quantis_p10_p25_p50_p75_p90": [
+            0.0,
+            0.0,
+            1.0,
+            3.0,
+            4.0
+          ]
+        },
+        "com_unidade_nova_vizinha": 76,
+        "com_novas_vizinhas_somando_dom_22_>=_perda": 59
+      }
+    },
+    "raio_2_km": {
+      "todas": {
+        "unidades": 232,
+        "mediana_de_vizinhas": 20.0,
+        "saldo_das_vizinhas": {
+          ">= perda": 147,
+          "entre 0 e perda (exclusive)": 4,
+          "= 0": 24,
+          "< 0": 57,
+          "quantis_p10_p25_p50_p75_p90": [
+            -7.0,
+            0.0,
+            4.0,
+            829.8,
+            1753.2
+          ]
+        },
+        "ganho_bruto_das_vizinhas": {
+          ">= perda": 181,
+          "= 0": 30,
+          "quantis_p10_p25_p50_p75_p90": [
+            0.0,
+            2.0,
+            7.0,
+            1646.0,
+            2471.7
+          ]
+        },
+        "com_unidade_nova_vizinha": 194,
+        "com_novas_vizinhas_somando_dom_22_>=_perda": 163
+      },
+      "200 m": {
+        "unidades": 90,
+        "mediana_de_vizinhas": 236.0,
+        "saldo_das_vizinhas": {
+          ">= perda": 90,
+          "entre 0 e perda (exclusive)": 0,
+          "= 0": 0,
+          "< 0": 0,
+          "quantis_p10_p25_p50_p75_p90": [
+            447.0,
+            677.0,
+            1308.0,
+            1760.0,
+            1969.8
+          ]
+        },
+        "ganho_bruto_das_vizinhas": {
+          ">= perda": 90,
+          "= 0": 0,
+          "quantis_p10_p25_p50_p75_p90": [
+            748.0,
+            1183.8,
+            1963.0,
+            2488.8,
+            2927.5
+          ]
+        },
+        "com_unidade_nova_vizinha": 90,
+        "com_novas_vizinhas_somando_dom_22_>=_perda": 83
+      },
+      "1 km": {
+        "unidades": 142,
+        "mediana_de_vizinhas": 20.0,
+        "saldo_das_vizinhas": {
+          ">= perda": 57,
+          "entre 0 e perda (exclusive)": 4,
+          "= 0": 24,
+          "< 0": 57,
+          "quantis_p10_p25_p50_p75_p90": [
+            -76.2,
+            -2.8,
+            0.0,
+            3.0,
+            6.0
+          ]
+        },
+        "ganho_bruto_das_vizinhas": {
+          ">= perda": 91,
+          "= 0": 30,
+          "quantis_p10_p25_p50_p75_p90": [
+            0.0,
+            1.0,
+            3.0,
+            5.0,
+            17.6
+          ]
+        },
+        "com_unidade_nova_vizinha": 104,
+        "com_novas_vizinhas_somando_dom_22_>=_perda": 80
+      }
+    },
+    "linha_de_base_1km": {
+      "extintas": {
+        "unidades": 142,
+        "rainha": {
+          "pct_saldo_das_vizinhas_>=_1": 40.1,
+          "pct_com_unidade_nova_vizinha": 53.5
+        },
+        "raio_1_km": {
+          "pct_saldo_das_vizinhas_>=_1": 40.1,
+          "pct_com_unidade_nova_vizinha": 53.5
+        },
+        "raio_2_km": {
+          "pct_saldo_das_vizinhas_>=_1": 43.0,
+          "pct_com_unidade_nova_vizinha": 73.2
+        }
+      },
+      "ocupadas_nao_extintas_nem_novas": {
+        "unidades": 297,
+        "rainha": {
+          "pct_saldo_das_vizinhas_>=_1": 48.5,
+          "pct_com_unidade_nova_vizinha": 53.9
+        },
+        "raio_1_km": {
+          "pct_saldo_das_vizinhas_>=_1": 48.1,
+          "pct_com_unidade_nova_vizinha": 55.2
+        },
+        "raio_2_km": {
+          "pct_saldo_das_vizinhas_>=_1": 58.9,
+          "pct_com_unidade_nova_vizinha": 79.5
+        }
+      },
+      "vazias_nos_dois_anos": {
+        "unidades": 3341,
+        "rainha": {
+          "pct_saldo_das_vizinhas_>=_1": 30.2,
+          "pct_com_unidade_nova_vizinha": 32.1
+        },
+        "raio_1_km": {
+          "pct_saldo_das_vizinhas_>=_1": 30.2,
+          "pct_com_unidade_nova_vizinha": 32.3
+        },
+        "raio_2_km": {
+          "pct_saldo_das_vizinhas_>=_1": 46.1,
+          "pct_com_unidade_nova_vizinha": 57.2
+        }
+      }
+    },
+    "pares_por_permutacao_1km": {
+      "unidades": 704,
+      "por_classe": {
+        "nova": 265,
+        "extinta": 142,
+        "estavel": 121,
+        "adensada": 94,
+        "esvaziada": 82
+      },
+      "permutacoes": 9999,
+      "semente": 20260923,
+      "rainha": {
+        "extinta-nova": {
+          "observados": 105,
+          "esperado_media": 157.5,
+          "p5_p95": [
+            137.0,
+            178.0
+          ],
+          "p_mais_que_o_acaso": 1.0,
+          "p_menos_que_o_acaso": 0.0001
+        },
+        "extinta-extinta": {
+          "observados": 64,
+          "esperado_media": 42.0,
+          "p5_p95": [
+            31.0,
+            54.0
+          ],
+          "p_mais_que_o_acaso": 0.0034,
+          "p_menos_que_o_acaso": 0.9974
+        },
+        "extinta-esvaziada": {
+          "observados": 67,
+          "esperado_media": 48.7,
+          "p5_p95": [
+            37.0,
+            61.0
+          ],
+          "p_mais_que_o_acaso": 0.0104,
+          "p_menos_que_o_acaso": 0.9929
+        },
+        "nova-nova": {
+          "observados": 122,
+          "esperado_media": 146.4,
+          "p5_p95": [
+            125.0,
+            168.0
+          ],
+          "p_mais_que_o_acaso": 0.9734,
+          "p_menos_que_o_acaso": 0.0322
+        }
+      },
+      "centroides_a_ate_2_km": {
+        "extinta-nova": {
+          "observados": 123,
+          "esperado_media": 193.5,
+          "p5_p95": [
+            170.0,
+            218.0
+          ],
+          "p_mais_que_o_acaso": 1.0,
+          "p_menos_que_o_acaso": 0.0001
+        },
+        "extinta-extinta": {
+          "observados": 75,
+          "esperado_media": 51.7,
+          "p5_p95": [
+            39.0,
+            66.0
+          ],
+          "p_mais_que_o_acaso": 0.0059,
+          "p_menos_que_o_acaso": 0.9953
+        },
+        "extinta-esvaziada": {
+          "observados": 85,
+          "esperado_media": 59.9,
+          "p5_p95": [
+            47.0,
+            74.0
+          ],
+          "p_mais_que_o_acaso": 0.0032,
+          "p_menos_que_o_acaso": 0.9976
+        },
+        "nova-nova": {
+          "observados": 151,
+          "esperado_media": 180.0,
+          "p5_p95": [
+            155.0,
+            206.0
+          ],
+          "p_mais_que_o_acaso": 0.9755,
+          "p_menos_que_o_acaso": 0.0284
+        }
+      },
+      "centroides_a_ate_5_km": {
+        "extinta-nova": {
+          "observados": 727,
+          "esperado_media": 1101.1,
+          "p5_p95": [
+            1010.0,
+            1196.0
+          ],
+          "p_mais_que_o_acaso": 1.0,
+          "p_menos_que_o_acaso": 0.0001
+        },
+        "extinta-extinta": {
+          "observados": 356,
+          "esperado_media": 293.1,
+          "p5_p95": [
+            245.0,
+            349.0
+          ],
+          "p_mais_que_o_acaso": 0.0352,
+          "p_menos_que_o_acaso": 0.967
+        },
+        "extinta-esvaziada": {
+          "observados": 435,
+          "esperado_media": 341.1,
+          "p5_p95": [
+            294.0,
+            392.0
+          ],
+          "p_mais_que_o_acaso": 0.002,
+          "p_menos_que_o_acaso": 0.9983
+        },
+        "nova-nova": {
+          "observados": 847,
+          "esperado_media": 1024.1,
+          "p5_p95": [
+            919.0,
+            1141.0
+          ],
+          "p_mais_que_o_acaso": 0.9983,
+          "p_menos_que_o_acaso": 0.0019
+        }
+      }
+    }
+  },
+  "3_cnefe_nas_extintas": {
+    "unidades": 232,
+    "enderecos_por_grupo": {
+      "domicilio_particular": 106,
+      "domicilio_coletivo": 3,
+      "estab_agropecuario": 82,
+      "outros": 37
+    },
+    "enderecos_por_especie": {
+      "domicilio_particular": 106,
+      "domicilio_coletivo": 3,
+      "estab_agropecuario": 82,
+      "estab_ensino": 1,
+      "estab_saude": 0,
+      "estab_outras_finalidades": 33,
+      "edificacao_em_construcao": 3,
+      "estab_religioso": 0
+    },
+    "nivel_de_geocodificacao": {
+      "1": 228
+    },
+    "unidades_com_domicilio_particular": 62,
+    "unidades_com_domicilio_particular_ou_coletivo": 62,
+    "unidades_so_com_agropecuario_ou_outros": 23,
+    "unidades_sem_nenhum_endereco": 147,
+    "tocam_o_limite_municipal": 12,
+    "sem_nenhum_endereco_e_tocam_o_limite": 9,
+    "200 m": {
+      "unidades": 90,
+      "com_domicilio_particular_ou_coletivo": 6,
+      "sem_nenhum_endereco": 69,
+      "dentro_da_area_urbanizada_com_domicilio": 0
+    },
+    "1 km": {
+      "unidades": 142,
+      "com_domicilio_particular_ou_coletivo": 56,
+      "sem_nenhum_endereco": 78,
+      "dentro_da_area_urbanizada_com_domicilio": 0
+    },
+    "extintas_com_domicilio_cnefe_>=_dom_2010": 50,
+    "extintas_com_domicilio_cnefe_por_dom_2010": {
+      "1": {
+        "unidades": 140,
+        "com_domicilio_cnefe": 38
+      },
+      "2": {
+        "unidades": 24,
+        "com_domicilio_cnefe": 13
+      },
+      "3": {
+        "unidades": 20,
+        "com_domicilio_cnefe": 5
+      },
+      "4": {
+        "unidades": 9,
+        "com_domicilio_cnefe": 4
+      },
+      "5": {
+        "unidades": 7,
+        "com_domicilio_cnefe": 0
+      },
+      ">=6": {
+        "unidades": 32,
+        "com_domicilio_cnefe": 2
+      }
+    },
+    "leitura": "o CNEFE lista o domicílio particular ocupado ou não (vago, uso ocasional); a grade de 2022 conta só os ocupados"
+  },
+  "3_ocupacao_grade_sobre_cnefe": {
+    "200 m": {
+      "dom_ocupados_grade_2022": 40455,
+      "domicilios_cnefe": 47438,
+      "razao_pct": 85.3
+    },
+    "1 km": {
+      "dom_ocupados_grade_2022": 4928,
+      "domicilios_cnefe": 6240,
+      "razao_pct": 79.0
+    }
+  },
+  "4_verificacoes": {
+    "celulas_pequenas_nas_duas_edicoes": {
+      "2010": {
+        "nulos_populacao": 0,
+        "nulos_domicilios": 0,
+        "populacao_sem_domicilio": 0,
+        "domicilio_sem_populacao": 0,
+        "200 m": {
+          "celulas": 1673,
+          "com_domicilio": 913,
+          "com_1": 86,
+          "com_2": 36,
+          "com_3": 35,
+          "com_4": 24
+        },
+        "1 km": {
+          "celulas": 4045,
+          "com_domicilio": 439,
+          "com_1": 234,
+          "com_2": 66,
+          "com_3": 40,
+          "com_4": 23
+        }
+      },
+      "2022": {
+        "nulos_populacao": 0,
+        "nulos_domicilios": 0,
+        "populacao_sem_domicilio": 0,
+        "domicilio_sem_populacao": 0,
+        "200 m": {
+          "celulas": 2698,
+          "com_domicilio": 1137,
+          "com_1": 141,
+          "com_2": 59,
+          "com_3": 38,
+          "com_4": 31
+        },
+        "1 km": {
+          "celulas": 4004,
+          "com_domicilio": 527,
+          "com_1": 296,
+          "com_2": 125,
+          "com_3": 51,
+          "com_4": 20
+        }
+      }
+    },
+    "cnefe_nivel_de_geocodificacao_municipio": {
+      "1": 58158,
+      "2": 4273,
+      "3": 262,
+      "4": 86,
+      "5": 2,
+      "6": 1
+    },
+    "setores_2010_centroides_por_classe": {
+      "setores": {
+        "URBANO": 132,
+        "RURAL": 36
+      },
+      "centroide": {
+        "RURAL": {
+          "vazia": 18,
+          "adensada": 12,
+          "esvaziada": 6
+        },
+        "URBANO": {
+          "adensada": 65,
+          "esvaziada": 44,
+          "vazia": 16,
+          "estavel": 3,
+          "nova": 3,
+          "extinta": 1
+        }
+      },
+      "ponto_representativo": {
+        "RURAL": {
+          "vazia": 19,
+          "adensada": 9,
+          "esvaziada": 5,
+          "nova": 2,
+          "extinta": 1
+        },
+        "URBANO": {
+          "adensada": 64,
+          "esvaziada": 45,
+          "vazia": 13,
+          "estavel": 6,
+          "extinta": 3,
+          "nova": 1
+        }
+      }
+    },
+    "situacao_do_setor_2010_pelo_centroide_da_unidade": {
+      "extinta": {
+        "1 km / setor RURAL": {
+          "unidades": 142,
+          "sem_nenhum_endereco_cnefe": 78,
+          "dom_10": 396,
+          "dom_22": 0
+        },
+        "200 m / setor RURAL": {
+          "unidades": 34,
+          "sem_nenhum_endereco_cnefe": 28,
+          "dom_10": 67,
+          "dom_22": 0
+        },
+        "200 m / setor URBANO": {
+          "unidades": 56,
+          "sem_nenhum_endereco_cnefe": 41,
+          "dom_10": 344,
+          "dom_22": 0
+        }
+      },
+      "nova": {
+        "1 km / setor RURAL": {
+          "unidades": 265,
+          "sem_nenhum_endereco_cnefe": 4,
+          "dom_10": 0,
+          "dom_22": 484
+        },
+        "200 m / setor RURAL": {
+          "unidades": 43,
+          "sem_nenhum_endereco_cnefe": 0,
+          "dom_10": 0,
+          "dom_22": 649
+        },
+        "200 m / setor URBANO": {
+          "unidades": 47,
+          "sem_nenhum_endereco_cnefe": 0,
+          "dom_10": 0,
+          "dom_22": 751
+        }
+      }
+    },
+    "maiores_agrupamentos_de_extintas": [
+      {
+        "unidades": 18,
+        "dom_10": 203,
+        "pop_10": 778,
+        "sem_nenhum_endereco": 15,
+        "domicilios_cnefe": 1,
+        "resolucoes": [
+          "1 km"
+        ],
+        "setores_2010": [
+          "430160205000136",
+          "430160205000137",
+          "430160205000140"
+        ]
+      },
+      {
+        "unidades": 10,
+        "dom_10": 111,
+        "pop_10": 356,
+        "sem_nenhum_endereco": 9,
+        "domicilios_cnefe": 1,
+        "resolucoes": [
+          "200 m"
+        ],
+        "setores_2010": [
+          "430160205000053",
+          "430160205000054"
+        ]
+      },
+      {
+        "unidades": 1,
+        "dom_10": 57,
+        "pop_10": 178,
+        "sem_nenhum_endereco": 1,
+        "domicilios_cnefe": 0,
+        "resolucoes": [
+          "200 m"
+        ],
+        "setores_2010": [
+          "430160205000113"
+        ]
+      },
+      {
+        "unidades": 9,
+        "dom_10": 45,
+        "pop_10": 153,
+        "sem_nenhum_endereco": 5,
+        "domicilios_cnefe": 0,
+        "resolucoes": [
+          "200 m"
+        ],
+        "setores_2010": [
+          "430160205000088"
+        ]
+      },
+      {
+        "unidades": 1,
+        "dom_10": 28,
+        "pop_10": 106,
+        "sem_nenhum_endereco": 1,
+        "domicilios_cnefe": 0,
+        "resolucoes": [
+          "200 m"
+        ],
+        "setores_2010": [
+          "430160205000140"
+        ]
+      },
+      {
+        "unidades": 6,
+        "dom_10": 23,
+        "pop_10": 78,
+        "sem_nenhum_endereco": 3,
+        "domicilios_cnefe": 0,
+        "resolucoes": [
+          "200 m"
+        ],
+        "setores_2010": [
+          "430160205000042",
+          "430160205000043",
+          "430160205000112"
+        ]
+      },
+      {
+        "unidades": 1,
+        "dom_10": 19,
+        "pop_10": 73,
+        "sem_nenhum_endereco": 1,
+        "domicilios_cnefe": 0,
+        "resolucoes": [
+          "1 km"
+        ],
+        "setores_2010": [
+          "430160205000136"
+        ]
+      },
+      {
+        "unidades": 13,
+        "dom_10": 15,
+        "pop_10": 42,
+        "sem_nenhum_endereco": 11,
+        "domicilios_cnefe": 1,
+        "resolucoes": [
+          "200 m"
+        ],
+        "setores_2010": [
+          "430160205000136"
+        ]
+      },
+      {
+        "unidades": 3,
+        "dom_10": 13,
+        "pop_10": 39,
+        "sem_nenhum_endereco": 3,
+        "domicilios_cnefe": 0,
+        "resolucoes": [
+          "200 m"
+        ],
+        "setores_2010": [
+          "430160205000102",
+          "430160205000136"
+        ]
+      },
+      {
+        "unidades": 1,
+        "dom_10": 12,
+        "pop_10": 42,
+        "sem_nenhum_endereco": 1,
+        "domicilios_cnefe": 0,
+        "resolucoes": [
+          "200 m"
+        ],
+        "setores_2010": [
+          "430160205000045"
+        ]
+      }
+    ],
+    "setores_2010_com_mais_domicilios_extintos": [
+      {
+        "setor_2010": "430160205000136",
+        "tipo": "RURAL",
+        "situacao_setor_2010": "8",
+        "dpp_do_setor_2010_V001": 494,
+        "dom_10_na_grade_centroide_no_setor": 968,
+        "dom_22_na_grade_centroide_no_setor": 1319,
+        "extintas": 31,
+        "dom_10_nas_extintas": 229,
+        "extintas_sem_nenhum_endereco": 27
+      },
+      {
+        "setor_2010": "430160205000054",
+        "tipo": "URBANO",
+        "situacao_setor_2010": "1",
+        "dpp_do_setor_2010_V001": 334,
+        "dom_10_na_grade_centroide_no_setor": 390,
+        "dom_22_na_grade_centroide_no_setor": 364,
+        "extintas": 9,
+        "dom_10_nas_extintas": 108,
+        "extintas_sem_nenhum_endereco": 7
+      },
+      {
+        "setor_2010": "430160205000113",
+        "tipo": "URBANO",
+        "situacao_setor_2010": "1",
+        "dpp_do_setor_2010_V001": 276,
+        "dom_10_na_grade_centroide_no_setor": 256,
+        "dom_22_na_grade_centroide_no_setor": 220,
+        "extintas": 2,
+        "dom_10_nas_extintas": 58,
+        "extintas_sem_nenhum_endereco": 1
+      },
+      {
+        "setor_2010": "430160205000088",
+        "tipo": "URBANO",
+        "situacao_setor_2010": "1",
+        "dpp_do_setor_2010_V001": 305,
+        "dom_10_na_grade_centroide_no_setor": 364,
+        "dom_22_na_grade_centroide_no_setor": 193,
+        "extintas": 9,
+        "dom_10_nas_extintas": 45,
+        "extintas_sem_nenhum_endereco": 5
+      },
+      {
+        "setor_2010": "430160205000140",
+        "tipo": "RURAL",
+        "situacao_setor_2010": "8",
+        "dpp_do_setor_2010_V001": 196,
+        "dom_10_na_grade_centroide_no_setor": 138,
+        "dom_22_na_grade_centroide_no_setor": 247,
+        "extintas": 4,
+        "dom_10_nas_extintas": 33,
+        "extintas_sem_nenhum_endereco": 3
+      },
+      {
+        "setor_2010": "430160205000112",
+        "tipo": "URBANO",
+        "situacao_setor_2010": "1",
+        "dpp_do_setor_2010_V001": 328,
+        "dom_10_na_grade_centroide_no_setor": 320,
+        "dom_22_na_grade_centroide_no_setor": 397,
+        "extintas": 6,
+        "dom_10_nas_extintas": 21,
+        "extintas_sem_nenhum_endereco": 3
+      },
+      {
+        "setor_2010": "430160222000002",
+        "tipo": "RURAL",
+        "situacao_setor_2010": "8",
+        "dpp_do_setor_2010_V001": 68,
+        "dom_10_na_grade_centroide_no_setor": 69,
+        "dom_22_na_grade_centroide_no_setor": 101,
+        "extintas": 7,
+        "dom_10_nas_extintas": 19,
+        "extintas_sem_nenhum_endereco": 3
+      },
+      {
+        "setor_2010": "430160221000002",
+        "tipo": "RURAL",
+        "situacao_setor_2010": "8",
+        "dpp_do_setor_2010_V001": 107,
+        "dom_10_na_grade_centroide_no_setor": 88,
+        "dom_22_na_grade_centroide_no_setor": 85,
+        "extintas": 13,
+        "dom_10_nas_extintas": 18,
+        "extintas_sem_nenhum_endereco": 8
+      },
+      {
+        "setor_2010": "430160205000139",
+        "tipo": "RURAL",
+        "situacao_setor_2010": "8",
+        "dpp_do_setor_2010_V001": 180,
+        "dom_10_na_grade_centroide_no_setor": 310,
+        "dom_22_na_grade_centroide_no_setor": 850,
+        "extintas": 14,
+        "dom_10_nas_extintas": 16,
+        "extintas_sem_nenhum_endereco": 9
+      },
+      {
+        "setor_2010": "430160217000005",
+        "tipo": "RURAL",
+        "situacao_setor_2010": "8",
+        "dpp_do_setor_2010_V001": 58,
+        "dom_10_na_grade_centroide_no_setor": 60,
+        "dom_22_na_grade_centroide_no_setor": 97,
+        "extintas": 10,
+        "dom_10_nas_extintas": 16,
+        "extintas_sem_nenhum_endereco": 3
+      }
+    ]
+  },
+  "5_novas": {
+    "perfil_dom_2022": {
+      "todas": {
+        "unidades": 355,
+        "domicilios": 1884,
+        "mediana": 1.0,
+        "p90": 5.0,
+        "maximo": 266,
+        "com_1": 212,
+        "com_2": 67,
+        "com_3": 26,
+        "ate_5": 320
+      },
+      "200 m": {
+        "todas": {
+          "unidades": 90,
+          "domicilios": 1400,
+          "mediana": 2.0,
+          "p90": 27.2,
+          "maximo": 266,
+          "com_1": 41,
+          "com_2": 12,
+          "com_3": 5,
+          "ate_5": 62
+        },
+        "dentro_da_area_urbanizada": {
+          "unidades": 25,
+          "domicilios": 968,
+          "mediana": 7.0,
+          "p90": 131.6,
+          "maximo": 266,
+          "com_1": 4,
+          "com_2": 4,
+          "com_3": 2,
+          "ate_5": 11
+        },
+        "fora_da_area_urbanizada": {
+          "unidades": 65,
+          "domicilios": 432,
+          "mediana": 1.0,
+          "p90": 10.6,
+          "maximo": 170,
+          "com_1": 37,
+          "com_2": 8,
+          "com_3": 3,
+          "ate_5": 51
+        }
+      },
+      "1 km": {
+        "todas": {
+          "unidades": 265,
+          "domicilios": 484,
+          "mediana": 1.0,
+          "p90": 3.0,
+          "maximo": 45,
+          "com_1": 171,
+          "com_2": 55,
+          "com_3": 21,
+          "ate_5": 258
+        },
+        "dentro_da_area_urbanizada": {
+          "unidades": 0,
+          "domicilios": 0,
+          "mediana": null,
+          "p90": null,
+          "maximo": null,
+          "com_1": 0,
+          "com_2": 0,
+          "com_3": 0,
+          "ate_5": 0
+        },
+        "fora_da_area_urbanizada": {
+          "unidades": 265,
+          "domicilios": 484,
+          "mediana": 1.0,
+          "p90": 3.0,
+          "maximo": 45,
+          "com_1": 171,
+          "com_2": 55,
+          "com_3": 21,
+          "ate_5": 258
+        },
+        "das_quais_harmonizadas": 6
+      }
+    },
+    "cnefe": {
+      "unidades": 355,
+      "enderecos_por_grupo": {
+        "domicilio_particular": 2406,
+        "domicilio_coletivo": 13,
+        "estab_agropecuario": 372,
+        "outros": 131
+      },
+      "enderecos_por_especie": {
+        "domicilio_particular": 2406,
+        "domicilio_coletivo": 13,
+        "estab_agropecuario": 372,
+        "estab_ensino": 2,
+        "estab_saude": 0,
+        "estab_outras_finalidades": 78,
+        "edificacao_em_construcao": 48,
+        "estab_religioso": 3
+      },
+      "nivel_de_geocodificacao": {
+        "1": 2587,
+        "2": 322,
+        "3": 12,
+        "4": 1
+      },
+      "unidades_com_domicilio_particular": 349,
+      "unidades_com_domicilio_particular_ou_coletivo": 351,
+      "unidades_so_com_agropecuario_ou_outros": 0,
+      "unidades_sem_nenhum_endereco": 4,
+      "tocam_o_limite_municipal": 25,
+      "sem_nenhum_endereco_e_tocam_o_limite": 4,
+      "200 m": {
+        "unidades": 90,
+        "com_domicilio_particular_ou_coletivo": 90,
+        "sem_nenhum_endereco": 0,
+        "dentro_da_area_urbanizada_com_domicilio": 25
+      },
+      "1 km": {
+        "unidades": 265,
+        "com_domicilio_particular_ou_coletivo": 261,
+        "sem_nenhum_endereco": 4,
+        "dentro_da_area_urbanizada_com_domicilio": 0
+      },
+      "novas_com_dom_2022_maior_que_domicilios_cnefe": 5,
+      "novas_com_dom_2022_igual_a_domicilios_cnefe": 221
+    }
+  },
+  "crs_medicao_distancia": "EPSG:31981",
+  "crs_medicao_area": "ESRI:102033"
+}
