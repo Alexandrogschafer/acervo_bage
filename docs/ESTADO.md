@@ -5,6 +5,37 @@ pendente. Entrada nova no topo.
 
 ---
 
+## 2026-09-23 — A03: subordinada 1 fechada, com o setor 136 à parte
+
+- **Decisão do responsável:** o setor rural de 2010 430160205000136 fica à parte na
+  subordinada 1.
+  - **Números adotados:** expansão de 16,6–25,6 % do ganho bruto de 11.372; 201
+    extintas com 578 domicílios; perda bruta de 4.248.
+  - **Sensibilidade com todas as unidades:** 15,6–30,1 %; 232 extintas com 807; perda
+    bruta de 4.624.
+  - A subordinada 2 não muda: as mesmas 137 unidades de divergência.
+  - `s1_desagregacao_2010.py` passou a gravar a tabela por classe dos três recortes.
+- **`resultados_s1.md`:**
+  - aviso no topo;
+  - §§ 3, 4, 7 e 8 com o cenário adotado, com o texto anterior em correção datada;
+  - § 10 com o **piso** e o descarte do teste A como parte do método;
+  - **§ 11 novo, de conclusão.**
+- **Manifesto:** a subordinada 1 está **CONCLUÍDA**, com o texto anterior em comentário.
+  O status do estudo continua `planejado`. O README foi atualizado.
+- **Ressalvas:**
+  - § 8: o piso e o descarte;
+  - **§ 9 novo:** as listas de nível de geocodificação (notas 2022 × dicionário do
+    CNEFE) divergem nos níveis 2, 3 e 5.
+    - O dado de Bagé confirma o dicionário no nível 2.
+    - Nenhuma contagem depende da lista.
+    - Uma frase do § 10.4 estava errada e foi corrigida: os níveis 2 a 4 somam 4.621
+      endereços, não 86.
+- **Pedido ao IBGE:** completado com o remetente (Alexandro Schafer, UNIPAMPA, Campus
+  Bagé, projeto ACERVO_BAGE) e a finalidade. O e-mail fica fora do repositório. **Não
+  enviado.**
+
+---
+
 ## 2026-09-23 — A03: grade de 2010 híbrida; detecção indireta da desagregação
 
 - **Documentação da grade baixada** pela lista fixa (commit `de4a7de`):

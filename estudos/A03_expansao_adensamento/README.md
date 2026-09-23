@@ -1,6 +1,6 @@
 # A03 — Expansão e adensamento
 
-**Status:** planejado · **Manifesto:** [`manifesto.yaml`](manifesto.yaml)
+**Status:** planejado (subordinada 1 concluída em 2026-09-23) · **Manifesto:** [`manifesto.yaml`](manifesto.yaml)
 
 Dinâmica domiciliar de Bagé/RS entre 2010 e 2022: o descompasso entre população
 estável e crescimento de domicílios, onde ele se materializou no território e com
@@ -64,9 +64,20 @@ grade (na unidade harmonizada, 12.099 domicílios de ganho bruto contra 4.624 de
 novas", da junção por ID do d03); e os 10 itens do entorno de 2022 com a dispersão
 entre setores.
 
-**[`resultados_s1.md`](resultados_s1.md)** — a subordinada 1: expansão entre 15,6 % e
-30,1 % do ganho bruto de domicílios, na unidade harmonizada da grade, com as geografias
-das unidades novas, adensadas e extintas.
+**[`resultados_s1.md`](resultados_s1.md)** — a subordinada 1, **concluída em
+2026-09-23** (§ 11).
+- **Expansão:** entre **16,6 % e 25,6 %** do ganho bruto de 11.372 domicílios, na
+  unidade harmonizada da grade.
+- **Setor à parte:** o setor rural de 2010 `430160205000136`, onde a grade de 2010 foi
+  desagregada.
+- **Extintas:** 201, com 578 domicílios; perda bruta de 4.248.
+- **Sensibilidade com todas as unidades:** 15,6–30,1 % de 12.099.
+- O documento traz também as geografias das unidades novas, adensadas e extintas e a
+  investigação das extintas (§ 10).
+
+*Corrigido em 2026-09-23. O texto anterior era: "a subordinada 1: expansão entre
+15,6 % e 30,1 % do ganho bruto de domicílios, na unidade harmonizada da grade, com as
+geografias das unidades novas, adensadas e extintas."*
 
 Os scripts que reproduzem cada número estão em [`scripts/`](scripts/) — `r00`–`r08`
 para o reconhecimento, `d01`–`d04` para o dimensionamento, `s1_*` para a subordinada 1

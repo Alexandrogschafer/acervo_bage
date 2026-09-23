@@ -60,13 +60,27 @@ subordinadas:
   #   8.461 em 568 células que já tinham domicílio. Falta caracterizar essas duas
   #   geografias — onde estão, que densidade têm e quanto de população acompanhou
   #   (15.385 pessoas nas células novas)."
+  # CONCLUÍDA em 2026-09-23 (resultados_s1.md § 11), com o setor rural de 2010
+  # 430160205000136 declarado À PARTE por decisão do responsável (4 células com
+  # assinatura de desagregação, 31 das 232 extintas; resultados_s1.md § 10.6).
+  # Texto anterior, até 2026-09-23 (números com todas as unidades, hoje a
+  # sensibilidade):
+  #   "1. Quanto do crescimento é expansão e quanto é adensamento? Pela grade
+  #   estatística, na unidade harmonizada (resultados_s1.md §§ 3–4): 1.884
+  #   domicílios em 355 unidades novas e 10.215 em 590 unidades que já tinham
+  #   domicílio — a expansão fica entre 15,6 % e 30,1 % do ganho bruto de 12.099
+  #   domicílios. Caracterizar essas duas geografias — onde estão, que densidade
+  #   têm e quanto de população acompanhou (4.604 moradores nas unidades novas)."
   - >-
-    1. Quanto do crescimento é expansão e quanto é adensamento? Pela grade
-    estatística, na unidade harmonizada (resultados_s1.md §§ 3–4): 1.884
-    domicílios em 355 unidades novas e 10.215 em 590 unidades que já tinham
-    domicílio — a expansão fica entre 15,6 % e 30,1 % do ganho bruto de 12.099
-    domicílios. Caracterizar essas duas geografias — onde estão, que densidade
-    têm e quanto de população acompanhou (4.604 moradores nas unidades novas).
+    1. [CONCLUÍDA em 2026-09-23 — resultados_s1.md § 11] Quanto do crescimento
+    é expansão e quanto é adensamento? Pela grade estatística, na unidade
+    harmonizada e com o setor rural de 2010 430160205000136 À PARTE (grade de
+    2010 desagregada ali; resultados_s1.md §§ 10.6 e 11): 1.883 domicílios em
+    354 unidades novas e 9.489 em 586 unidades que já tinham domicílio — a
+    expansão fica entre 16,6 % e 25,6 % do ganho bruto de 11.372 domicílios;
+    201 extintas com 578 domicílios; perda bruta de 4.248; 4.602 moradores nas
+    unidades novas. Sensibilidade com todas as unidades: 15,6–30,1 % de 12.099;
+    232 extintas com 807; perda bruta de 4.624.
   # Números corrigidos em 2026-09-23: os anteriores vinham da junção por
   # ID_UNICO do d03 (SUPERADO), que contava a troca de resolução da grade como
   # ocupação nova. Texto anterior, até 2026-09-23:

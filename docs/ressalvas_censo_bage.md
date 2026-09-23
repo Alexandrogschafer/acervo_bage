@@ -8,8 +8,8 @@
 > `data/raw/vetor/ibge/censo_<ano>/`, obtidos direto do IBGE por
 > `scripts/download/baixar_censo_ibge.py` (lista fixa em
 > `config/fontes_censo_ibge.yaml`). A procedência da cópia original está em
-> `docs/procedencia/revia_bg_censo/`. **Exceção:** os §§ 7 e 8 (grade estatística) foram
-> medidos neste repositório, no estudo A03.
+> `docs/procedencia/revia_bg_censo/`. **Exceção:** os §§ 7 a 9 (grade estatística e
+> níveis de geocodificação do CNEFE) foram medidos neste repositório, no estudo A03.
 
 Quem usar os arquivos brutos do Censo (`data/raw/*/ibge/censo_<ano>/`) neste acervo precisa ler isto antes.
 São conclusões **medidas** sobre estes arquivos exatos — os mesmos sha256 que estão
@@ -261,8 +261,27 @@ lugar.
   - Em Bagé, marca um setor: o rural `430160205000136`.
   - As unidades desse setor têm **968 domicílios de 2010** e respondem por **31 das 232
     extintas** da subordinada 1 do A03.
+- **O número de células desagregadas detectado é um PISO, não uma estimativa.**
+  - Só deixam rastro a ponderação zonal e o dasimétrico binário, e só num bloco
+    homogêneo: células inteiras com a mesma área povoada no mesmo setor.
+  - Não deixam **nenhum** rastro:
+    - a desagregação num setor heterogêneo;
+    - a desagregação por vias;
+    - a célula mista.
+  - Nesses casos a célula desagregada não se distingue da agregada.
+- **O teste da razão do setor foi descartado pelo controle de 2022, e o descarte é
+  parte do método.**
+  - Ele parte da fórmula do IBGE: população = domicílios × moradores por domicílio do
+    setor.
+  - Mas acusa 21,7 % de compatíveis em 2022, que não tem desagregação, contra 26,3 %
+    em 2010.
+  - Quem repetir o teste em outro município precisa do mesmo controle antes de ler
+    qualquer resultado.
 - **O tamanho do viés no município inteiro não se mede sem a variável oficial.** O
-  pedido ao IBGE está redigido, sem envio, em `docs/pedido_ibge_grade_2010_abordagem.md`.
+  pedido ao IBGE está em `docs/pedido_ibge_grade_2010_abordagem.md`, pronto para
+  envio e não enviado.
+- **No A03,** o setor 136 é declarado à parte nos resultados da subordinada 1 por
+  decisão do responsável (2026-09-23; `resultados_s1.md` § 11).
 
 > **REGRA DE USO: toda comparação 2010 × 2022 na grade declara que 2010 é parcialmente
 > modelado.**
@@ -279,6 +298,47 @@ da reclassificação dos 13 setores e da troca de resolução (§ 7).
 - **A regra do upgrade** de 1 km para 200 m (notas 2022, p. 6: célula de 1 km de 2010
   que passa a intersectar setor urbano de 2022) **confirma** a medição do § 7. As 41
   mães de Bagé são exatamente as células previstas pela regra, 41 de 41.
+
+---
+
+## 9. CNEFE 2022: as duas listas de nível de geocodificação não coincidem
+
+*Acrescentado em 2026-09-23. Medido neste repositório: `estudos/A03_expansao_adensamento/scripts/s1_desagregacao_2010.py`,
+bloco `niveis_de_geocodificacao_cnefe_2022`.*
+
+O campo `NV_GEO_COORD` do CNEFE 2022 tem duas descrições diferentes nos níveis 2, 3 e
+5. Os dois textos, literais:
+
+| nível | *Notas metodológicas 01/2025 — Grade Estatística*, p. 7 | dicionário do CNEFE (`Dicionario_CNEFE_Censo_2022.xls`) |
+| --- | --- | --- |
+| 2 | "Coordenada modificada pela mediana das coordenadas coletadas em um mesmo logradouro" | "Endereço - coordenada modificada (apartamentos em um mesmo número no logradouro)" |
+| 3 | "Coordenada estimada a partir da coordenada registrada em operação anterior para o endereço atual" | "Endereço - coordenada estimada (endereços originalmente sem coordenadas ou coordenadas inválidas)" |
+| 5 | "Mediana das coordenadas de endereços em mesmo logradouro, CEP e localidade" | "Localidade" |
+
+Os níveis 1, 4 e 6 coincidem: coordenada original, ponto médio da face de quadra e
+centroide do setor.
+
+**Em Bagé, o dado confere com o dicionário no nível 2:**
+- 3.925 dos 4.273 endereços de nível 2 (92 %) são apartamentos;
+- todos compartilham logradouro e número com outro registro;
+- nos 81 logradouros com mais de um número em nível 2, **cada número tem a sua
+  coordenada**, e nenhum tem coordenada única de logradouro.
+
+Os níveis 3 (262 endereços) e 5 (2) não se decidem pelo dado.
+
+**O que depende da lista:**
+- **Nenhuma contagem.** O código é o mesmo nas duas listas.
+- A exclusão dos níveis 5 e 6 da grade de 2022 vale em qualquer das duas; em Bagé são
+  3 endereços.
+- **Dependem só os rótulos:** o do nível 3 no reconhecimento do A03 (§ 5, 262
+  endereços) segue o dicionário e é incerto.
+- **Uma afirmação foi corrigida:** "o nível 4 é a única posição que não é do endereço"
+  (A03, `resultados_s1.md` § 10.4). Nas duas listas, os níveis 2 a 4 não são a
+  coordenada original: em Bagé são **4.621 endereços (7,4 %)**, 4.487 deles domicílios.
+
+> **REGRA DE USO:** ao citar um nível de geocodificação do CNEFE 2022, dizer de qual
+> lista vem o rótulo. Em Bagé, para o nível 2, usar o do dicionário, que o dado
+> confirma.
 
 ---
 

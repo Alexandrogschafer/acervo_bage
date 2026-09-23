@@ -31,7 +31,8 @@ quando ele cobre >= 90 % da célula (a tolerância da p. 20).
 
 LÊ data/raw/ (grades, malha 2010), o acervo (setores_2022, conferida),
 derivados/bage/ (agregados por setor, do r00), a camada de trabalho e a camada
-de apoio do s1_extintas (conferindo o sha256_conteudo de ambas). ESCREVE só:
+de apoio do s1_extintas (conferindo o sha256_conteudo de ambas) e o CNEFE 2022
+(nível de geocodificação: a divergência notas × dicionário). ESCREVE só:
     derivados/s1_desagregacao_2010.json
 """
 
@@ -54,6 +55,7 @@ from grade_estatistica import ler_grade  # noqa: E402
 from s1_expansao_adensamento import CLASSES, TOLERANCIA_CONTIGUIDADE_M  # noqa: E402
 from scripts.utils import catalogo, medidas, metadados, paths  # noqa: E402
 from scripts.utils.conteudo import sha256_conteudo  # noqa: E402
+from scripts.utils.hashes import sha256_arquivo  # noqa: E402
 
 ESTUDO = Path(__file__).resolve().parents[1]
 DERIV = ESTUDO / "derivados"
@@ -242,8 +244,20 @@ def numeros_s1(u: pd.DataFrame) -> dict:
             "adensadas": int((u["classe"] == "adensada").sum()),
             "ganho_adensadas": int(ganho.loc[ganho["classe"] == "adensada", "d_dom"].sum()),
             "extintas": int(len(ext)), "dom_10_extintas": int(ext["dom_10"].sum()),
+            "ganho_adensadas_harmonizadas": harm,
             "expansao_pct_inferior": round(100 * novas / bruto, 1) if bruto else None,
-            "expansao_pct_superior": round(100 * (novas + harm) / bruto, 1) if bruto else None}
+            "expansao_pct_superior": round(100 * (novas + harm) / bruto, 1) if bruto else None,
+            "populacao_2010": int(u["pop_10"].sum()), "populacao_2022": int(u["pop_22"].sum()),
+            "domicilios_2022": int(u["dom_22"].sum()),
+            "divergencia_ganham_dom_perdem_pop": {
+                "unidades": int(((u["d_dom"] > 0) & (u["d_pop"] < 0)).sum()),
+                "domicilios": int(u.loc[(u["d_dom"] > 0) & (u["d_pop"] < 0), "d_dom"].sum()),
+                "populacao": int(u.loc[(u["d_dom"] > 0) & (u["d_pop"] < 0), "d_pop"].sum())},
+            "por_classe": [{"classe": k, "unidades": int((s := u[u["classe"] == k]).shape[0]),
+                            "dom_2010": int(s["dom_10"].sum()), "dom_2022": int(s["dom_22"].sum()),
+                            "d_dom": int(s["d_dom"].sum()), "pop_2010": int(s["pop_10"].sum()),
+                            "pop_2022": int(s["pop_22"].sum()), "d_pop": int(s["d_pop"].sum())}
+                           for k in CLASSES]}
 
 
 def cruzamento(u: gpd.GeoDataFrame, g10: gpd.GeoDataFrame, b10: pd.Series, c10: pd.Series,
@@ -279,8 +293,11 @@ def cruzamento(u: gpd.GeoDataFrame, g10: gpd.GeoDataFrame, b10: pd.Series, c10: 
             "todas_as_unidades": base,
             "sem_as_celulas_com_assinatura": sem_b,
             "sem_as_unidades_dos_setores_com_assinatura": sem_setor,
-            "leitura": "unidades harmonizadas; setor de 2010 = o de maior área; unidades sem "
-                       "setor de 2010 com domicílio (vazias em 2010) ficam em 'indeterminada'"},
+            "so_as_unidades_dos_setores_com_assinatura": numeros_s1(x[x["setor_com_assinatura"]]),
+            "leitura": "unidades harmonizadas; setor de 2010 = o de maior área da unidade, "
+                       "inclusive para as sem domicílio em 2010 (novas). CENÁRIO ADOTADO desde "
+                       "2026-09-23 (resultados_s1.md § 11): 'sem as unidades dos setores com "
+                       "assinatura' (setor 430160205000136 à parte)"},
     }
 
 
@@ -295,6 +312,47 @@ def totais_municipio(g10: gpd.GeoDataFrame, b10: pd.Series) -> dict:
     out["total"] = {"celulas": int(com.sum()), "domicilios": int(g10["dom"].sum()),
                     "populacao": int(g10["pop"].sum())}
     return out
+
+
+def niveis_geocodificacao() -> dict:
+    """Divergência notas 2022 × dicionário do CNEFE nos níveis 2, 3 e 5: o que o dado diz.
+
+    Nível 2 nas notas: "mediana das coordenadas coletadas em um mesmo logradouro";
+    no dicionário: "apartamentos em um mesmo número no logradouro". Se fosse a
+    mediana do logradouro, números diferentes do mesmo logradouro dividiriam uma
+    coordenada; se é por número, cada número tem a sua.
+    """
+    import zipfile
+    cand = sorted(paths.caminho("raw_vetor", "ibge", "censo_2022", "cnefe").glob(f"{paths.codigo_ibge()}_*.zip"))
+    arq = cand[0]
+    if len(cand) != 1 or sha256_arquivo(arq) != metadados.ler(arq)["sha256"]:
+        raise SystemExit("PARADO — CNEFE do município ausente, duplicado ou diverge do .json irmão")
+    with zipfile.ZipFile(arq) as z:
+        membro = next(n for n in z.namelist() if n.endswith(".csv"))
+        df = pd.read_csv(z.open(membro), sep=";", dtype=str, encoding="latin-1")
+    tipo = next(c for c in df.columns if c.startswith("COD_TIPO_ESPECI"))  # nome truncado no arquivo
+    df["rua"] = df["COD_SETOR"].str[:15] + "|" + df["NOM_SEGLOGR"].fillna("")
+    df["numero"] = df["rua"] + "|" + df["NUM_ENDERECO"].fillna("")
+    df["xy"] = df["LATITUDE"] + "," + df["LONGITUDE"]
+    n2 = df[df["NV_GEO_COORD"] == "2"]
+    por_rua = n2.groupby("rua").agg(numeros=("numero", "nunique"), coords=("xy", "nunique"))
+    multi = por_rua[por_rua["numeros"] > 1]
+    dom = df["COD_ESPECIE"].isin(["1", "2"])
+    nao_original = df["NV_GEO_COORD"].isin(["2", "3", "4"])
+    return {
+        "enderecos_por_nivel": df["NV_GEO_COORD"].value_counts().sort_index().to_dict(),
+        "nao_originais_niveis_2_a_4": {"enderecos": int(nao_original.sum()),
+                                       "pct": round(100 * nao_original.mean(), 1),
+                                       "domicilios_particulares_ou_coletivos": int((nao_original & dom).sum())},
+        "nivel_2": {"enderecos": int(len(n2)),
+                    "apartamentos_tipo_103": int((n2[tipo] == "103").sum()),
+                    "com_outro_registro_no_mesmo_numero": int(n2["numero"].map(df["numero"].value_counts()).gt(1).sum()),
+                    "pct_com_coordenada_repetida_no_nivel_2": round(100 * n2.duplicated("xy", keep=False).mean(), 1),
+                    "logradouros_com_mais_de_um_numero": int(len(multi)),
+                    "desses_com_uma_coordenada_por_numero_ou_mais": int((multi["coords"] >= multi["numeros"]).sum()),
+                    "desses_com_uma_coordenada_so": int((multi["coords"] == 1).sum())},
+        "leitura": "nível 2 é por número (apartamentos), como no dicionário, e não mediana do logradouro",
+    }
 
 
 # --------------------------------------------------------------------------
@@ -332,6 +390,7 @@ def main() -> None:
         "totais_2010_por_assinatura": totais_municipio(g10, b10),
         "cruzamento_com_as_classes": cruzamento(u, g10, b10, c10, apoio),
         "upgrade_2022": upgrade(area, ms["2022"]),
+        "niveis_de_geocodificacao_cnefe_2022": niveis_geocodificacao(),
         "crs_medicao_area": medidas.crs_medicao_area(),
     }
     SAIDA.write_text(json.dumps(resultado, ensure_ascii=False, indent=2, default=int), encoding="utf-8")

@@ -10,6 +10,20 @@ está conferido no mapa, e nada foi para `data/acervo/` nem para `data/geoportal
 
 Este documento **descreve**. Não tira conclusão de planejamento urbano.
 
+> **Números adotados (decisão do responsável, 2026-09-23): setor 430160205000136 À PARTE.**
+> - O setor rural de 2010 `430160205000136` fica fora dos números principais: 47
+>   unidades, 968 domicílios de 2010.
+>   - Ele concentra as 4 células com assinatura de desagregação da grade de 2010.
+>   - Tem 31 das 232 extintas (§ 10.6).
+> - **Números principais:**
+>   - expansão entre **16,6 % e 25,6 %** do ganho bruto de **11.372** domicílios;
+>   - **201 extintas**, com **578** domicílios;
+>   - perda bruta de **4.248**.
+> - Os números com **todas as unidades** ficam ao lado, como sensibilidade: 15,6–30,1 %;
+>   232 extintas com 807 domicílios; perda bruta de 4.624.
+> - O fechamento está no § 11. Os §§ 5 a 8 continuam medidos sobre todas as unidades,
+>   e isso vem dito em cada um.
+
 ---
 
 ## 1. O que foi medido, e como
@@ -107,6 +121,25 @@ A harmonização não muda os totais: 2010 e 2022 somam o mesmo que no d03, com 
 | extinta | 232 | 807 | 0 | −807 | 2.618 | 0 | −2.618 | 3,24 → — |
 | **total** | **1.707** | **37.908** | **45.383** | **+7.475** | **114.910** | **117.977** | **+3.067** | 3,03 → 2,60 |
 
+A tabela acima tem **todas as unidades** e desde 2026-09-23 é a **sensibilidade**.
+
+**Cenário adotado: setor 430160205000136 à parte** (§ 10.6 e § 11). Números em
+`derivados/s1_desagregacao_2010.json`, bloco
+`efeito_nos_numeros_da_subordinada_1`.
+
+| classe | unidades | domicílios 2010 | domicílios 2022 | Δ domicílios | população 2010 | população 2022 | Δ população | moradores/dom. 2010 → 2022 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| nova | 354 | 0 | 1.883 | +1.883 | 0 | 4.602 | +4.602 | — → 2,44 |
+| adensada | 586 | 19.296 | 28.785 | +9.489 | 59.119 | 74.743 | +15.624 | 3,06 → 2,60 |
+| estável | 163 | 910 | 910 | 0 | 2.630 | 2.240 | −390 | 2,89 → 2,46 |
+| esvaziada | 356 | 16.156 | 12.486 | −3.670 | 47.923 | 32.594 | −15.329 | 2,97 → 2,61 |
+| extinta | **201** | **578** | 0 | −578 | 1.762 | 0 | −1.762 | 3,05 → — |
+| **total** | **1.660** | **36.940** | **44.064** | **+7.124** | **111.434** | **114.179** | **+2.745** | 3,02 → 2,59 |
+
+| o setor 136, à parte | unidades | domicílios 2010 | domicílios 2022 | Δ domicílios | população 2010 | população 2022 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| nova / adensada / estável / esvaziada / extinta | 1 / 4 / 2 / 9 / 31 | 968 | 1.319 | +351 | 3.476 | 3.798 |
+
 ---
 
 ## 4. A resposta: quanto é expansão, quanto é adensamento
@@ -121,12 +154,36 @@ Ganho bruto de domicílios nas unidades que ganharam: **12.099**.
 | · adensadas de 1 km | 162 | 1,3 % |
 | · adensadas de 1 km **que o IBGE passou a gradear em 200 m em 2022** | 1.754 | 14,5 % |
 
-**Faixa da expansão: 15,6 % a 30,1 % do ganho bruto.**
+A tabela acima tem **todas as unidades** e desde 2026-09-23 é a **sensibilidade**.
+
+**Cenário adotado (setor 430160205000136 à parte).** Ganho bruto de **11.372**:
+
+| origem | domicílios | % do ganho bruto |
+| --- | ---: | ---: |
+| unidades **novas** | 1.883 | **16,6 %** |
+| unidades **adensadas** | 9.489 | 83,4 % |
+| · adensadas de 200 m | 8.299 | 73,0 % |
+| · adensadas de 1 km | 162 | 1,4 % |
+| · adensadas de 1 km que o IBGE passou a gradear em 200 m (18) | 1.028 | 9,0 % |
+
+**Faixa da expansão adotada: 16,6 % a 25,6 % do ganho bruto.** Com todas as unidades, a
+sensibilidade é de 15,6 % a 30,1 %.
+- As 4 adensadas do setor 136 são mães harmonizadas, e uma delas é a célula de borda de
+  299 → 909 domicílios.
+- Tirá-las baixa o limite superior em 4,5 pontos.
+
+> *Corrigido em 2026-09-23. O texto anterior era: "**Faixa da expansão: 15,6 % a 30,1 %
+> do ganho bruto.**" Continua valendo como sensibilidade com todas as unidades.*
+
+Como os limites são definidos:
 - O limite inferior conta só as unidades novas.
-- O superior soma a elas o ganho das 22 adensadas harmonizadas.
+- O superior soma a elas o ganho das adensadas harmonizadas: 22 com todas as unidades,
+  18 no cenário adotado.
 - Essas 22 são células de 1 km que já tinham domicílio em 2010 e onde o IBGE passou a
   gradear em 200 m. Dentro delas pode haver ocupação de área nova que a resolução de
   1 km de 2010 não permite separar do adensamento.
+
+A comparação com o d03, abaixo, é com todas as unidades.
 
 Pela junção do d03, a leitura era 40 % de expansão (5.709 domicílios em 573 células
 novas), com 15.385 pessoas nas novas. **Harmonizada, a expansão fica entre 16 % e 30 %,
@@ -138,6 +195,9 @@ e as unidades novas somam 4.604 moradores.** Da diferença:
 ---
 
 ## 5. As geografias
+
+*Medidas sobre **todas as unidades**. As geografias não foram refeitas sem o setor 136:
+ele tem 47 das 1.707 unidades, sendo 31 extintas. Onde isso pesa, o § 11 diz.*
 
 ### 5.1 Onde estão
 
@@ -274,7 +334,8 @@ O que os mapas mostram, sem interpretar:
 1. **A grade de 2010 fica 1,6 % abaixo do município** (§ 2). Isso foi registrado e não
    corrigido.
 2. **Resolução de 1 km:** numa unidade rural, "adensada" e "nova" dizem respeito a
-   1 km². A faixa de 15,6–30,1 % (§ 4) é a medida dessa incerteza onde ela mais pesa.
+   1 km². A faixa de 16,6–25,6 % (§ 4, cenário adotado; 15,6–30,1 % com todas as
+   unidades) é a medida dessa incerteza onde ela mais pesa.
 3. **Não há perímetro urbano legal no acervo.** "Dentro/fora" e o contorno nos mapas são
    da *área urbanizada* do IBGE (2022), que é um mapeamento por imagem e não um limite
    legal. A escolha do tipo muda pouco (§ 5.1, sensibilidade). O perímetro legal **não será obtido
@@ -320,6 +381,11 @@ desta seção bateram com a saída, sem divergência.*
 | perderam população | 819 | −21.361 | 10 | 66 | 779 |
 
 Mediana, p90 e máximo das perdas são sobre o valor absoluto, como no d03.
+
+*Números de todas as unidades. No cenário adotado (setor 136 à parte, § 11):*
+- *ganho bruto de 11.372 contra perda bruta de **4.248**, com saldo de +7.124;*
+- *a divergência de sinal não muda: as mesmas 137 unidades, +843 / −2.095, porque
+  nenhuma delas está no setor 136.*
 
 - **Movimento bruto de domicílios:** +12.099 contra −4.624, para o mesmo saldo de
   **+7.475** — 16.723 de movimento, pouco mais de dois para um (o d03 dava 20.865, quase
@@ -560,8 +626,16 @@ Continuam valendo os documentos do Censo já consultados:
   - Níveis 5 e 6: excluídos. São 0,028 % da população e 0,019 % dos domicílios do
     Brasil; no RS, 0,021 % e 0,018 %.
   - **Não há equivalente da desagregação:** 2022 é contagem de pontos.
-  - O nível 4 (ponto médio da face de quadra) é a única posição que não é do endereço.
-    Em Bagé ele tem 86 endereços.
+  - Os níveis 2, 3 e 4 entram na grade de 2022 sem ser a coordenada original do
+    endereço.
+    - Em Bagé são **4.621 endereços (7,4 %)**, dos quais **4.487** são domicílios
+      (particulares ou coletivos).
+    - O nível 2, que é a maior parte, fica no mesmo número do endereço (ver a
+      divergência abaixo).
+  - *Corrigido em 2026-09-23. O texto anterior era: "O nível 4 (ponto médio da face de
+    quadra) é a única posição que não é do endereço. Em Bagé ele tem 86 endereços." Ele
+    estava errado nas duas listas: os níveis 2 e 3 também não são a coordenada
+    original.*
 - **Upgrade de resolução:**
   - a célula de 1 km de 2010 "que passou a interseccionar setores censitários urbanos em
     2022" foi dividida em células de 200 m;
@@ -584,7 +658,41 @@ Continuam valendo os documentos do Censo já consultados:
   | 3 | coordenada de operação anterior | coordenada estimada |
   | 5 | mediana por logradouro, CEP e localidade | localidade |
 
-  Registrado sem resolver. Não muda Bagé, onde os níveis 5 e 6 somam 3 endereços.
+  Os dois textos, citados:
+  - **Notas da grade 2022**, p. 7: "2. Coordenada modificada pela mediana das
+    coordenadas coletadas em um mesmo logradouro; 3. Coordenada estimada a partir da
+    coordenada registrada em operação anterior para o endereço atual; [...]
+    5. Mediana das coordenadas de endereços em mesmo logradouro, CEP e localidade".
+  - **Dicionário do CNEFE 2022** (`Dicionario_CNEFE_Censo_2022.xls`): "2=Endereço -
+    coordenada modificada (apartamentos em um mesmo número no logradouro); 3=Endereço -
+    coordenada estimada (endereços originalmente sem coordenadas ou coordenadas
+    inválidas); [...] 5=Localidade".
+
+  **O dado de Bagé confere com o dicionário no nível 2** (`scripts/s1_desagregacao_2010.py`,
+  bloco `niveis_de_geocodificacao_cnefe_2022` de `derivados/s1_desagregacao_2010.json`):
+  - dos 4.273 endereços de nível 2, **3.925 (92 %)** são apartamentos (`COD_TIPO_ESPECIE`
+    103);
+  - todos compartilham logradouro e número com outro registro;
+  - 99,1 % têm a mesma coordenada de outro nível 2;
+  - nos 81 logradouros com mais de um número em nível 2, **cada número tem a sua
+    coordenada**. Nenhum logradouro tem uma coordenada só, como teria uma "mediana do
+    logradouro".
+
+  Os níveis 3 (262 endereços) e 5 (2) não se decidem pelo dado.
+
+  **O que depende da lista, entre os números já medidos:**
+  - **Contagens por código** (§ 10.3: 228 endereços no nível 1 nas extintas; § 10.5:
+    2.587 / 322 / 12 / 1 nas novas; § 10.4: 3 endereços nos níveis 5 e 6):
+    **não dependem**. O código é o mesmo nas duas listas, e os níveis 5 e 6 são
+    excluídos da grade em qualquer das duas.
+  - **Rótulos do reconhecimento § 5** ("modificada para apartamentos no mesmo número
+    92,4 %", "estimada 85,5 %"): vêm do dicionário. O de nível 2 está confirmado pelo
+    dado. O de nível 3 é incerto e afeta 262 endereços.
+  - **Uma frase deste § 10.4** ("o nível 4 é a única posição que não é do endereço"):
+    estava errada e foi corrigida acima (4.621 endereços, não 86).
+  - Nenhum número da grade, das classes ou dos testes do § 10 muda.
+
+  A ressalva geral está em `docs/ressalvas_censo_bage.md` § 9.
 
 **Sigilo:**
 - A metodologia de 2010 trata a confidencialidade como desafio e cita limiares
@@ -708,7 +816,11 @@ p. 20.
 | mediana do coeficiente de variação da razão entre células | 0,098 | 0,106 |
 | setores com CV < 0,05 | 10 | 3 |
 
-**Veredito: o teste A NÃO discrimina e está DESCARTADO.**
+**Veredito: o teste A NÃO discrimina e está DESCARTADO pelo controle de 2022.**
+
+O descarte **é parte do método** e fica registrado com o motivo: o teste parte da
+fórmula do próprio IBGE (p. 20–21), mas acusa em 2022, que não tem desagregação, quase
+o mesmo que em 2010.
 - 2010 fica a 4,6 pontos de 2022. Em 2022 não há desagregação, e ainda assim o dado dá
   21,7 % de compatíveis.
 - Em nenhum setor de 2010 a maioria das células acompanha a razão do setor.
@@ -795,9 +907,19 @@ medido, nada aplicado):
 - Tratá-lo à parte estreita a faixa da expansão. O limite superior cai porque as 4
   adensadas do setor são mães harmonizadas e somam +726 domicílios. Entre elas está a
   célula de borda com 299 domicílios em 2010 e 909 em 2022.
-- **O tamanho do viés no município inteiro não se mede.** O que o dado mostra é um
-  piso: um setor, 968 domicílios.
-- Setores desagregados por vias, ou mistos, não deixam marca que este teste veja.
+- **O que foi medido é um PISO, não uma estimativa.** As 4 células e o setor 136 (968
+  domicílios) são o **mínimo** de desagregação em Bagé, não o tamanho dela.
+- **Só dois métodos deixam rastro detectável:** a ponderação zonal e o dasimétrico
+  binário, e só num **bloco homogêneo**, isto é, células inteiras com a mesma área
+  povoada no mesmo setor.
+- **Os demais não deixam nenhum rastro:**
+  - a desagregação num setor heterogêneo, com células de área povoada diferente;
+  - a desagregação por vias, que dá a cada célula a sua extensão de via;
+  - a célula mista, que soma pontos e área.
+  - Nesses casos a célula desagregada não se distingue de uma agregada, com nenhum dos
+    dois testes.
+- **O tamanho do viés no município inteiro não se mede** sem a variável oficial (§ 10.4
+  e `docs/pedido_ibge_grade_2010_abordagem.md`).
 
 ### 10.7 Conclusão: o que os números sustentam
 
@@ -845,11 +967,127 @@ de deslocamento. Proposta para decisão do responsável, sem nada aplicado:
    a posição de 2010 é frágil no rural, as novas de 1 km (484 domicílios) também são:
    sem elas, a faixa iria de 15,6–30,1 % para **11,6–26,1 %**. É a faixa a declarar
    até o teste por imagem.
+   - *Nota de 2026-09-23: essa conta é sobre todas as unidades. O cenário adotado é o
+     do item 4.*
 4. **Declarar à parte o setor 136**, sem mudar classe: 31 extintas e 229 domicílios. A
    faixa da expansão fica em 16,6–25,6 %, o que o § 10.6 mede.
+   **ADOTADO pelo responsável em 2026-09-23** (§ 11).
 
 **Ressalvas desta seção:**
 - O CNEFE não distingue ocupado de vago.
 - A imagem de satélite não foi usada aqui: é a conferência do responsável.
 - A atribuição unidade → setor de 2010 é pelo centroide da unidade.
 - A conferência do CNEFE é incompleta nas unidades que cruzam o limite.
+
+---
+
+## 11. Conclusão da subordinada 1
+
+*Fechada em 2026-09-23. A subordinada 1 está **concluída** no manifesto, e o estudo
+continua `planejado`. Nenhuma classe foi reclassificada: o setor 136 é declarado à
+parte, e as unidades dele mantêm as suas classes.*
+
+> *Quanto do crescimento é expansão e quanto é adensamento? Onde estão essas duas
+> geografias, que densidade têm e quanta população as acompanhou?*
+
+### 11.1 Números adotados
+
+**Decisão do responsável:** o setor rural de 2010 `430160205000136` fica **à parte**.
+- **Motivo:** ele concentra as 4 células com assinatura de desagregação da grade de
+  2010 e 31 das 232 extintas (§ 10.6).
+- **O que sai:** as unidades cujo setor de 2010 de maior área é o 136. São 47 unidades,
+  com 968 domicílios de 2010 e 1.319 de 2022.
+- **Fonte:** `derivados/s1_desagregacao_2010.json`, bloco
+  `efeito_nos_numeros_da_subordinada_1`.
+
+| | **adotado: setor 136 à parte** | sensibilidade: todas as unidades |
+| --- | ---: | ---: |
+| unidades com domicílio em algum ano | **1.660** | 1.707 |
+| domicílios 2010 → 2022 | **36.940 → 44.064** | 37.908 → 45.383 |
+| saldo de domicílios | **+7.124** | +7.475 |
+| ganho bruto / perda bruta | **11.372 / 4.248** | 12.099 / 4.624 |
+| novas (domicílios 2022) | **354 (1.883)** | 355 (1.884) |
+| adensadas (ganho) | **586 (+9.489)** | 590 (+10.215) |
+| extintas (domicílios 2010) | **201 (578)** | 232 (807) |
+| **expansão, % do ganho bruto** | **16,6 % a 25,6 %** | 15,6 % a 30,1 % |
+| adensamento, % do ganho bruto | **74,4 % a 83,4 %** | 69,9 % a 84,4 % |
+| moradores que acompanharam as novas | **4.602** | 4.604 |
+| divergência de sinal (subordinada 2) | 137 unidades, +843 / −2.095 | igual |
+
+**A resposta:**
+- **A maior parte do crescimento de domicílios de Bagé entre 2010 e 2022 é adensamento
+  da área já ocupada**, entre três quartos e cinco sextos do ganho bruto.
+- **A expansão sobre área sem domicílio em 2010 é de um sexto a um quarto.**
+- **A incerteza da faixa** vem das 18 unidades de 1 km que o IBGE passou a gradear em
+  200 m. Nelas, a resolução de 2010 não separa ocupação nova de adensamento (§ 4).
+
+**As geografias** (§ 5, medidas sobre todas as unidades; o setor 136 tem 47 delas):
+- **Adensadas:** uma mancha contínua. O maior agrupamento tem 481 unidades e 93 % dos
+  domicílios da classe, e 89 % dos domicílios estão dentro da área urbanizada de 2022.
+- **Novas:** duas populações.
+  - Unidades rurais de 1 km, dispersas, com mediana de 1 domicílio.
+  - Unidades de 200 m na franja da área urbanizada, que concentram os domicílios.
+  - Metade dos domicílios novos fica dentro da área urbanizada.
+- **Extintas:** rurais, com 95 % dos domicílios de 2010 fora da área urbanizada.
+  - Pelo § 10, 62 são desocupação com a construção de pé.
+  - As demais não se separam da posição modelada da grade de 2010.
+- **Densidade** (§ 5.3): as novas de 200 m chegam a 389 domicílios/km², menos de um
+  terço das adensadas (1.337).
+
+### 11.2 As três ressalvas metodológicas
+
+São as três do `metodo_previsto` do manifesto. As três têm a mesma forma: um
+procedimento do IBGE que, lido como se o dado fosse homogêneo, vira mudança no
+território.
+
+1. **Reclassificação de 13 setores rurais de 2010 em urbanos de 2022**
+   (dimensionamento § 1.3).
+   - Pelo rótulo de situação do setor, 67 % do ganho urbano de população é
+     reclassificação.
+   - **Tratamento:** urbano e rural definidos geograficamente, pela área urbanizada e
+     pela própria grade.
+2. **Troca de resolução da grade** (§ 1; `docs/ressalvas_censo_bage.md` § 7).
+   - Em 41 lugares, a célula de 1 km de 2010 virou as suas 25 de 200 m, pela regra das
+     notas de 2022 conferida 41 de 41 (§ 10.4).
+   - **Tratamento:** unidade harmonizada. A junção por `ID_UNICO` dava 40 % de expansão.
+3. **Grade de 2010 híbrida** (§§ 10.4 e 10.6; `docs/ressalvas_censo_bage.md` § 8).
+   - Parte de 2010 é desagregada do setor, não observada.
+   - A variável de abordagem por célula não acompanha o produto.
+   - **Tratamento:**
+     - o setor 136 à parte;
+     - declarar que o medido é um **piso**, porque só a ponderação zonal ou o
+       dasimétrico binário em bloco homogêneo deixam rastro;
+     - o teste pela razão do setor, descartado pelo controle de 2022, fica registrado
+       como parte do método.
+
+Além delas, entram na seção de ressalvas do artigo:
+- a grade de 2010 fica 1,6 % abaixo do município (§ 2);
+- "dentro/fora" é a área urbanizada do IBGE, não o perímetro legal (§§ 7 e 9);
+- a divergência entre as listas de níveis de geocodificação (§ 10.4;
+  `docs/ressalvas_censo_bage.md` § 9). Ela não muda nenhum número.
+
+### 11.3 O que fica para o texto do artigo
+
+- **Resultado:**
+  - a faixa de 16,6–25,6 % de expansão, com a sensibilidade de 15,6–30,1 % ao lado;
+  - a tabela por classe do cenário adotado (§ 3);
+  - as geografias do § 5, com a observação de que foram medidas sobre todas as
+    unidades.
+- **Seção de método:** os três achados do § 11.2, com os números que os medem.
+  - Troca de resolução: 40 % → 15,6–30,1 %.
+  - Grade híbrida: setor 136, 968 domicílios, 31 extintas, piso.
+- **O que o artigo NÃO afirma:**
+  - o tamanho total da desagregação em Bagé, que não se mede sem a variável do IBGE;
+  - a causa de cada uma das 170 extintas sem domicílio no CNEFE;
+  - qualquer leitura de planejamento urbano. Este documento descreve.
+
+**Pendências que não reabrem a subordinada 1:**
+- **Pedido ao IBGE da variável de abordagem.** O texto está pronto para envio em
+  `docs/pedido_ibge_grade_2010_abordagem.md` e não foi enviado. Se a variável chegar,
+  o § 10.6 é refeito com ela, e o cenário adotado pode mudar. Isso reabre só a
+  sensibilidade, não o método.
+- **Conferência por imagem de ~2010** do setor 136 e dos setores 053 e 054 (§ 10.7).
+- **As figuras em `saidas/`** foram desenhadas com todas as unidades. Para o artigo,
+  marcar o setor 136 nelas, o que ainda não foi feito.
+- **A camada de trabalho** segue pendente de conferência visual e promoção. Nada foi
+  para o acervo.

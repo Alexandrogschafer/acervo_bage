@@ -1,26 +1,37 @@
 # Pedido ao IBGE: variável de abordagem por célula da Grade Estatística 2010
 
-> **RASCUNHO — NÃO ENVIADO.** Redigido em 2026-09-23 para decisão do responsável.
-> - Nome, vínculo e contato do solicitante ficam em aberto e só entram na versão
->   enviada. Este repositório é público.
-> - O canal de envio também está em aberto, porque não foi confirmado. Em 2016, a
->   unidade responsável pela grade era a CDDI, Coordenação de Projetos Especiais
->   (ficha técnica da metodologia de 2010). Nas notas de 2022, é a CDDI, Coordenação de
->   Atendimento e Informação (ficha técnica). O mais provável é enviar pelo atendimento do IBGE,
->   endereçado à CDDI. Não há endereço de e-mail aqui porque nenhum foi conferido.
-> - Contexto: `estudos/A03_expansao_adensamento/resultados_s1.md` § 10.4 e § 10.6;
->   `docs/ressalvas_censo_bage.md` § 8.
+> **PRONTO PARA ENVIO — NÃO ENVIADO.** Redigido em 2026-09-23 e completado no mesmo dia
+> com o remetente indicado pelo responsável.
+> - **O e-mail de contato não está neste arquivo**, porque o repositório é público.
+>   Ele entra no momento do envio, pelo canal escolhido.
+> - **Canal ainda não confirmado.** Em 2016, a unidade responsável pela grade era a
+>   CDDI, Coordenação de Projetos Especiais (ficha técnica da metodologia de 2010). Nas
+>   notas de 2022, é a CDDI, Coordenação de Atendimento e Informação (ficha técnica). O
+>   mais provável é enviar pelo atendimento do IBGE, endereçado à CDDI. Nenhum endereço
+>   de e-mail do IBGE foi conferido.
+> - **Contexto:** `estudos/A03_expansao_adensamento/resultados_s1.md` §§ 10.4, 10.6 e
+>   11; `docs/ressalvas_censo_bage.md` § 8.
 
 ---
 
-**Para:** IBGE — Centro de Documentação e Disseminação de Informações (CDDI)
+**Para:** IBGE — Centro de Documentação e Disseminação de Informações (CDDI),
+Coordenação de Projetos Especiais (ou a coordenação que hoje responde pela Grade
+Estatística)
+**De:** Alexandro Schafer — Universidade Federal do Pampa (UNIPAMPA), Campus Bagé
 **Assunto:** Grade Estatística do Censo 2010: variável de abordagem (agregação /
 desagregação / misto) por célula
 
 Prezados,
 
-Estamos usando a Grade Estatística do IBGE para comparar o Censo 2010 com o Censo 2022
-no município de Bagé (RS), código 4301602. Os arquivos são os quadrantes `grade_id14` e
+Escrevo pela Universidade Federal do Pampa (UNIPAMPA), Campus Bagé, em nome do projeto
+de pesquisa **ACERVO_BAGE**. É um acervo público de dados espaciais,
+dados não espaciais e bibliografia sobre o município de Bagé (RS), com estudos
+derivados sobre a dinâmica urbana.
+
+Um desses estudos usa a Grade Estatística do IBGE para comparar o Censo 2010 com o
+Censo 2022 no município de Bagé (RS), código 4301602. A pergunta é onde o crescimento
+de domicílios entre os dois censos se materializou: em ocupação de área nova ou em
+adensamento da área já ocupada. Os arquivos são os quadrantes `grade_id14` e
 `grade_id04`, obtidos em
 `https://geoftp.ibge.gov.br/recortes_para_fins_estatisticos/grade_estatistica/`.
 
@@ -57,18 +68,28 @@ Solicitamos, se possível:
    de 2010** (p. 17), ou ao menos a indicação de quais setores de Bagé ficaram acima do
    limite de 50 %.
 
-Os dados serão usados em estudo acadêmico, com citação da fonte, e apenas de forma
-agregada.
+**Finalidade.** Os dados serão usados exclusivamente em pesquisa acadêmica, no
+projeto ACERVO_BAGE da UNIPAMPA, Campus Bagé.
+- O IBGE será citado como fonte.
+- A divulgação será sempre agregada, na própria célula da grade ou em recortes maiores.
+- Nenhum dado individual será solicitado nem divulgado.
+- A variável será usada para separar, na comparação 2010 × 2022, as células
+  observadas das modeladas, e para documentar isso na seção de método do trabalho.
+
+Enquanto a variável não chega, o estudo trata à parte o único setor em que o próprio
+dado mostra a marca da desagregação (o rural 430160205000136). Mas esse critério
+indireto só detecta parte dos casos.
 
 Atenciosamente,
 
-[nome do solicitante]
-[vínculo institucional]
-[contato]
+Alexandro Schafer
+Universidade Federal do Pampa (UNIPAMPA) — Campus Bagé
+Projeto de pesquisa ACERVO_BAGE
+[e-mail de contato — incluir no envio]
 
 ---
 
-**Anexo para o responsável (não enviar).** O que motivou o pedido:
+**Anexo interno (não enviar).** O que motivou o pedido:
 - O teste indireto pela razão moradores/domicílio do setor não discrimina 2010 de 2022.
 - O teste de pares idênticos contíguos acha um único setor com marca de desagregação:
   o rural `430160205000136`, com 968 domicílios de 2010 nas suas unidades e 31 das 232
