@@ -1,0 +1,19 @@
+{
+  "arquivo": "data/raw/tabular/ibge/censo_2022/doc/Notas_metodologicas_grade_estatistica_2022.pdf",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-23T12:41:15+00:00",
+  "edicao": "censo_2022",
+  "fonte_id": "ibge_grade_estatistica_2022",
+  "licenca": "dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "observacoes": "notas metodológicas da grade estatística 2022 (Notas metodológicas 01/2025). Arquivo bruto, exatamente como veio do IBGE. Last-Modified da origem: Thu, 12 Jun 2025 13:13:13 GMT. Baixado em 2026-09-23T12:41:15+00:00 direto do IBGE (URL obtida navegando as listagens do FTP). Lista fixa em config/fontes_censo_ibge.yaml; rebaixável por scripts/download/baixar_censo_ibge.py.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "ce520fad239c3784efa31f0a43d3438cbb07dfb58f8847ce8fcc09fcfb56bd2d",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 869225,
+  "tema": "censo",
+  "url_origem": "https://geoftp.ibge.gov.br/recortes_para_fins_estatisticos/grade_estatistica/censo_2022/Notas_metodologicas_grade_estatistica_2022.pdf",
+  "versao": "censo_2022"
+}

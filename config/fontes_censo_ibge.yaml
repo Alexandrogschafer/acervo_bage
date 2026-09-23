@@ -37,6 +37,12 @@
 # Urbanizadas do Brasil 2022 (geoftp, tipologias do território), para o A03
 # (subordinada 1: células dentro/fora da área urbanizada de 2022).
 #
+# Acrescentados em 2026-09-23 (6ª leva, mesmo procedimento da 1ª): documentação
+# da grade estatística — metodologia de 2010 (grade_estatistica.pdf) e notas
+# metodológicas de 2022 —, para o A03 (abordagem por célula da grade de 2010).
+# URLs lidas nas listagens de .../grade_estatistica/censo_2010/ e .../censo_2022/;
+# bytes e Last-Modified por HEAD. Mesmas fontes da grade (documentação dela).
+#
 # Ficou de fora a malha territorial de setores 2022 do geoftp
 # (RS_setores_CD2022.gpkg, sha256 3816950f…): ela é baixada por
 # scripts/download/baixar_malhas_ibge.py (fonte ibge_malha_setores_2022).
@@ -1000,6 +1006,32 @@ arquivos:
   last_modified: Mon, 17 Aug 2026 18:40:42 GMT
   baixado_em: '2026-09-23T02:16:01+00:00'
   descricao: Áreas Urbanizadas do Brasil 2022 (IBGE, tipologias do território), shapefile do Brasil inteiro
+- ano: '2010'
+  categoria: documentacao
+  fonte_id: ibge_grade_estatistica_2010
+  url: https://geoftp.ibge.gov.br/recortes_para_fins_estatisticos/grade_estatistica/censo_2010/grade_estatistica.pdf
+  arquivo: grade_estatistica.pdf
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2010/doc
+  bytes: 789617
+  sha256: 410ef1e6962e37383ac61769100cf3f96d258c94fe6c4431500c5da2b13c49d1
+  last_modified: Wed, 01 Jun 2016 16:56:22 GMT
+  baixado_em: '2026-09-23T12:41:14+00:00'
+  descricao: metodologia da grade estatística 2010 (agregação/desagregação por célula)
+- ano: '2022'
+  categoria: documentacao
+  fonte_id: ibge_grade_estatistica_2022
+  url: https://geoftp.ibge.gov.br/recortes_para_fins_estatisticos/grade_estatistica/censo_2022/Notas_metodologicas_grade_estatistica_2022.pdf
+  arquivo: Notas_metodologicas_grade_estatistica_2022.pdf
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2022/doc
+  bytes: 869225
+  sha256: ce520fad239c3784efa31f0a43d3438cbb07dfb58f8847ce8fcc09fcfb56bd2d
+  last_modified: Thu, 12 Jun 2025 13:13:13 GMT
+  baixado_em: '2026-09-23T12:41:15+00:00'
+  descricao: notas metodológicas da grade estatística 2022 (Notas metodológicas 01/2025)
 fontes:
 - id_fonte: ibge_censo2022_renda_responsavel_setores
   nome: Censo Demográfico 2022 — Agregados por Setores Censitários, Rendimento do Responsável (BR)
