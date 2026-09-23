@@ -5,6 +5,25 @@ pendente. Entrada nova no topo.
 
 ---
 
+## 2026-09-23 — A03: subordinada 2 harmonizada; agregados do § 8 no script
+
+- **Subordinada 2 do manifesto.** 132 células / +804 / −2.044 (junção por ID do d03) →
+  137 unidades (8,0 % de 1.707) / +843 / −2.095, citando `resultados_s1.md` § 8; texto
+  antigo em comentário datado. Resolve a pendência da entrada anterior. A nota do
+  dimensionamento § 5.3 foi atualizada; a proposta ficou como foi feita.
+- **`s1_expansao_adensamento.py`** ganhou os blocos `movimento_e_divergencia` e
+  `troca_de_resolucao_em_bage` em `derivados/s1_caracterizacao.json` (antes medidos à
+  mão). Rodado de novo: os 11 grupos de números do § 8 bateram com a saída, sem
+  divergência. O JSON só ganhou linhas. A camada de trabalho foi regravada com o mesmo
+  `sha256_conteudo` (`78a8800b…`); mudaram só o sha256 dos bytes e a `data_producao`
+  do `.json` irmão. As figuras não foram refeitas (o conteúdo da camada é o mesmo).
+- **README do A03.** Corrigida a frase que dava `setores_2022` como não publicável: ela
+  está conferida e publicável desde 2026-09-22, e o estudo resolve para
+  `pode_publicar=true` (13 entradas conferem). As saídas da subordinada 1 seguem
+  pendentes e não publicáveis.
+
+---
+
 ## 2026-09-23 — A03: números superados pela harmonização corrigidos; ressalva geral
 
 - **Correção.** Os números da junção por `ID_UNICO` (573 células novas / 5.709

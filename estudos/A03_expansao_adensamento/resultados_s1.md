@@ -303,10 +303,14 @@ O que os mapas mostram, sem interpretar:
 ## 8. O dimensionamento § 3.3 na unidade harmonizada
 
 Acrescentado em 2026-09-23, para substituir os números da junção por ID no
-dimensionamento. Medido sobre a camada de trabalho `saidas/s1_celulas_2010_2022.gpkg`
-(1.707 unidades com domicílio em algum dos dois anos), filtrando as colunas `d_dom` e
-`d_pop` com as mesmas regras do d03. Esses agregados **não** estão em
-`derivados/s1_caracterizacao.json`; os que estão (§§ 3 e 4) são a fonte primária.
+dimensionamento. Medido por `scripts/s1_expansao_adensamento.py` sobre as 1.707 unidades
+com domicílio em algum dos dois anos, com as mesmas regras do d03. Números em
+`derivados/s1_caracterizacao.json`, blocos `movimento_e_divergencia` e
+`troca_de_resolucao_em_bage`.
+
+*Até 2026-09-23 estes agregados eram medidos à mão sobre a camada de trabalho e não
+estavam no JSON. Entraram no script no mesmo dia; na nova execução, todos os números
+desta seção bateram com a saída, sem divergência.*
 
 | | unidades | soma | mediana | p90 | máximo |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -323,11 +327,11 @@ Mediana, p90 e máximo das perdas são sobre o valor absoluto, como no d03.
 - **Divergência de sinal:** **137 unidades (8,0 % das 1.707)** ganharam domicílios e
   perderam população, com +843 domicílios e −2.095 pessoas. O caminho inverso ocorre em
   7 unidades. O d03 dava 132 células (6,9 % de 1.925), +804 e −2.044. A subordinada 2 do
-  manifesto ainda cita os números do d03: não foi pedido corrigi-la nesta etapa, e a
-  troca fica para decisão do responsável.
+  manifesto foi corrigida para os números harmonizados em 2026-09-23.
 
 **De onde vem a troca de resolução, medida nas duas edições como o IBGE as publica**
-(leitura por `scripts/grade_estatistica.py`, centroide no município):
+(leitura por `scripts/grade_estatistica.py`, cada edição recortada pelo centroide da
+própria célula; bloco `troca_de_resolucao_em_bage`):
 - as 41 células que o d03 contava "só em 2010" são as 41 mães de 1 km; as 1.025 "só em
   2022" são as 41 × 25 filhas de 200 m. Não havia diferença de cobertura;
 - as mães tinham, em 2010, 2.380 domicílios e 7.945 pessoas (32 delas com domicílio);

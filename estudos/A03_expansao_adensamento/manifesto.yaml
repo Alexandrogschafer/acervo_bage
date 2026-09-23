@@ -67,12 +67,22 @@ subordinadas:
     domicílio — a expansão fica entre 15,6 % e 30,1 % do ganho bruto de 12.099
     domicílios. Caracterizar essas duas geografias — onde estão, que densidade
     têm e quanto de população acompanhou (4.604 moradores nas unidades novas).
+  # Números corrigidos em 2026-09-23: os anteriores vinham da junção por
+  # ID_UNICO do d03 (SUPERADO), que contava a troca de resolução da grade como
+  # ocupação nova. Texto anterior, até 2026-09-23:
+  #   "2. Onde domicílio e população andam em direções opostas? As 132 células que
+  #   ganham domicílio e perdem população (+804 domicílios, −2.044 pessoas) são o
+  #   retrato do encolhimento domiciliar no território — moradores por domicílio
+  #   caiu de 3,02 para 2,59 no município. Verificar se essas células formam área
+  #   contígua (centro? bairros antigos?) ou estão dispersas."
   - >-
-    2. Onde domicílio e população andam em direções opostas? As 132 células que
-    ganham domicílio e perdem população (+804 domicílios, −2.044 pessoas) são o
-    retrato do encolhimento domiciliar no território — moradores por domicílio
-    caiu de 3,02 para 2,59 no município. Verificar se essas células formam área
-    contígua (centro? bairros antigos?) ou estão dispersas.
+    2. Onde domicílio e população andam em direções opostas? As 137 unidades da
+    grade (8,0 % das 1.707 com domicílio, na unidade harmonizada) que ganham
+    domicílio e perdem população (+843 domicílios, −2.095 pessoas;
+    resultados_s1.md § 8) são o retrato do encolhimento domiciliar no
+    território — moradores por domicílio caiu de 3,02 para 2,59 no município.
+    Verificar se essas unidades formam área contígua (centro? bairros antigos?)
+    ou estão dispersas.
   - >-
     3. A infraestrutura do entorno acompanha onde a cidade cresceu? Cruzar as
     áreas de crescimento com pavimentação, bueiro, obstáculo na calçada,

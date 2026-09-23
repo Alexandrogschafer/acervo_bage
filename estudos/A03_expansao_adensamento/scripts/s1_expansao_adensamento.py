@@ -306,6 +306,70 @@ def faixa_expansao(u: gpd.GeoDataFrame) -> dict:
     }
 
 
+def dispersao(serie: pd.Series) -> dict:
+    """Como no d03: perdas entram em valor absoluto (mediana, p90 e máximo)."""
+    return {"n": int(len(serie)), "soma": int(serie.sum()),
+            "mediana": float(serie.median()) if len(serie) else None,
+            "p90": round(float(serie.quantile(0.90)), 1) if len(serie) else None,
+            "maximo": int(serie.max()) if len(serie) else None}
+
+
+def movimento_e_divergencia(u: gpd.GeoDataFrame) -> dict:
+    """O dimensionamento § 3.3 refeito na unidade harmonizada (resultados_s1.md § 8).
+
+    Mesmas regras do d03, aplicadas às unidades com domicílio em algum dos dois
+    anos: ganho/perda bruta de domicílios e de população e divergência de sinal.
+    """
+    g_dom, p_dom = u.loc[u["d_dom"] > 0, "d_dom"], u.loc[u["d_dom"] < 0, "d_dom"]
+    g_pop, p_pop = u.loc[u["d_pop"] > 0, "d_pop"], u.loc[u["d_pop"] < 0, "d_pop"]
+    div = u[(u["d_dom"] > 0) & (u["d_pop"] < 0)]
+    inv = u[(u["d_dom"] < 0) & (u["d_pop"] > 0)]
+    return {
+        "unidades_com_domicilio_em_algum_ano": int(len(u)),
+        "domicilios": {"ganharam": dispersao(g_dom), "perderam": dispersao(p_dom.abs()),
+                       "sem_mudanca": int((u["d_dom"] == 0).sum())},
+        "populacao": {"ganharam": dispersao(g_pop), "perderam": dispersao(p_pop.abs()),
+                      "sem_mudanca": int((u["d_pop"] == 0).sum())},
+        "movimento_bruto_de_domicilios": int(g_dom.sum() + p_dom.abs().sum()),
+        "saldo_de_domicilios": int(u["d_dom"].sum()),
+        "saldo_de_populacao": int(u["d_pop"].sum()),
+        "divergencia_de_sinal": {
+            "ganham_domicilio_e_perdem_populacao": {
+                "unidades": int(len(div)),
+                "pct_das_unidades": round(100 * len(div) / len(u), 1),
+                "domicilios_ganhos": int(div["d_dom"].sum()),
+                "populacao_perdida": int(div["d_pop"].sum())},
+            "perdem_domicilio_e_ganham_populacao": {
+                "unidades": int(len(inv)),
+                "pct_das_unidades": round(100 * len(inv) / len(u), 1)},
+        },
+    }
+
+
+def troca_de_resolucao(g10: gpd.GeoDataFrame, g22: gpd.GeoDataFrame) -> dict:
+    """Mães e filhas em Bagé, nas edições como o IBGE as publica (resultados_s1.md § 8).
+
+    Cada edição recortada pelo centroide da própria célula (regra do d03): as
+    células só em 2010 são as mães de 1 km; as só em 2022, as filhas de 200 m.
+    """
+    a = g10[g10["centroide_no_municipio"]]
+    b = g22[g22["centroide_no_municipio"]]
+    maes = a[~a["ID_UNICO"].isin(set(b["ID_UNICO"]))]
+    filhas = b[~b["ID_UNICO"].isin(set(a["ID_UNICO"]))]
+
+    def resumo(g: gpd.GeoDataFrame) -> dict:
+        return {"celulas": int(len(g)),
+                "resolucoes": sorted(set(resolucao(g["ID_UNICO"]).dropna())),
+                "com_domicilio": int((g["dom"] > 0).sum()),
+                "domicilios": int(g["dom"].sum()), "populacao": int(g["pop"].sum())}
+    return {
+        "recorte": "centroide da célula no município, em cada edição",
+        "celulas_de_mesmo_id": int(a["ID_UNICO"].isin(set(b["ID_UNICO"])).sum()),
+        "maes_2010": resumo(maes),
+        "filhas_2022": resumo(filhas),
+    }
+
+
 def densidade(u: gpd.GeoDataFrame) -> list[dict]:
     linhas = []
     for classe in CLASSES:
@@ -438,6 +502,8 @@ def main() -> None:
             "extinta": caracterizar(u, "extinta", "dom_10"),
         },
         "densidade_por_classe": densidade(u),
+        "movimento_e_divergencia": movimento_e_divergencia(u),
+        "troca_de_resolucao_em_bage": troca_de_resolucao(bruto10, bruto22),
         "moradores_por_classe": [
             {"classe": k, "pop_2010": int(r.pop_2010), "pop_2022": int(r.pop_2022),
              "d_pop": int(r.d_pop), "d_dom": int(r.d_dom),
@@ -484,6 +550,9 @@ def main() -> None:
     print(por_classe.to_string())
     print("conciliação d03:", resultado["conciliacao_com_d03"])
     print("centro:", resultado["centro"])
+    print("movimento e divergência:", json.dumps(resultado["movimento_e_divergencia"],
+                                                ensure_ascii=False))
+    print("troca de resolução:", resultado["troca_de_resolucao_em_bage"])
 
 
 if __name__ == "__main__":

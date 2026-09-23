@@ -369,8 +369,9 @@ infraestrutura, não sobre a existência do fenômeno.
 > são 1.884 domicílios em 355 unidades novas, 10.215 em 590 que já tinham domicílio e
 > 4.604 moradores nas novas ([`resultados_s1.md`](resultados_s1.md) §§ 3–4). O
 > manifesto já traz os números corrigidos. Os da subordinada 2 (132 / +804 / −2.044)
-> também mudam (137 / +843 / −2.095, resultados_s1.md § 8), mas o texto dela no
-> manifesto não foi alterado.
+> também estão superados: harmonizados, são 137 unidades (8,0 % de 1.707), +843
+> domicílios e −2.095 pessoas (resultados_s1.md § 8). O manifesto foi corrigido em
+> 2026-09-23.
 
 **Pergunta de pesquisa.**
 

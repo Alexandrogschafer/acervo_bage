@@ -95,6 +95,11 @@ acervo por **promoção**: conferência visual do responsável, depois cópia pa
 escrita direta.
 
 A publicação de qualquer saída herda a restrição **mais restritiva** entre as
-camadas declaradas no manifesto (`scripts/utils/publicacao.py`). Hoje a saída
-deste estudo é **não publicável**: `setores_2022` está com `pode_publicar=false`
-no catálogo, à espera de conferência.
+camadas declaradas no manifesto (`scripts/utils/publicacao.py`). `setores_2022` está
+**conferida e publicável** (`status_conferencia=conferido`, `pode_publicar=true`)
+desde 2026-09-22, e hoje as 13 entradas do manifesto (2 camadas + 11 fontes brutas)
+conferem e podem ser publicadas: o estudo resolve para `pode_publicar=true`. Isso não
+libera as saídas por si: cada uma tem o seu `.json` irmão, e as da subordinada 1
+seguem `pendente` e `pode_publicar=false` até a conferência visual e a promoção.
+*Corrigido em 2026-09-23; antes: "Hoje a saída deste estudo é não publicável:
+`setores_2022` está com `pode_publicar=false` no catálogo, à espera de conferência."*

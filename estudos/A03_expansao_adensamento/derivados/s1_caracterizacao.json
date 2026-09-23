@@ -696,6 +696,80 @@
       "mediana_dom_por_unidade_2022": 0.0
     }
   ],
+  "movimento_e_divergencia": {
+    "unidades_com_domicilio_em_algum_ano": 1707,
+    "domicilios": {
+      "ganharam": {
+        "n": 945,
+        "soma": 12099,
+        "mediana": 4.0,
+        "p90": 25.0,
+        "maximo": 610
+      },
+      "perderam": {
+        "n": 597,
+        "soma": 4624,
+        "mediana": 3.0,
+        "p90": 18.0,
+        "maximo": 190
+      },
+      "sem_mudanca": 165
+    },
+    "populacao": {
+      "ganharam": {
+        "n": 822,
+        "soma": 24428,
+        "mediana": 6.5,
+        "p90": 63.0,
+        "maximo": 1551
+      },
+      "perderam": {
+        "n": 819,
+        "soma": 21361,
+        "mediana": 10.0,
+        "p90": 66.0,
+        "maximo": 779
+      },
+      "sem_mudanca": 66
+    },
+    "movimento_bruto_de_domicilios": 16723,
+    "saldo_de_domicilios": 7475,
+    "saldo_de_populacao": 3067,
+    "divergencia_de_sinal": {
+      "ganham_domicilio_e_perdem_populacao": {
+        "unidades": 137,
+        "pct_das_unidades": 8.0,
+        "domicilios_ganhos": 843,
+        "populacao_perdida": -2095
+      },
+      "perdem_domicilio_e_ganham_populacao": {
+        "unidades": 7,
+        "pct_das_unidades": 0.4
+      }
+    }
+  },
+  "troca_de_resolucao_em_bage": {
+    "recorte": "centroide da célula no município, em cada edição",
+    "celulas_de_mesmo_id": 5677,
+    "maes_2010": {
+      "celulas": 41,
+      "resolucoes": [
+        "1 km"
+      ],
+      "com_domicilio": 32,
+      "domicilios": 2380,
+      "populacao": 7945
+    },
+    "filhas_2022": {
+      "celulas": 1025,
+      "resolucoes": [
+        "200 m"
+      ],
+      "com_domicilio": 224,
+      "domicilios": 3892,
+      "populacao": 10969
+    }
+  },
   "moradores_por_classe": [
     {
       "classe": "nova",
