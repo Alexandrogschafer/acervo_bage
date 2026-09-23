@@ -7,7 +7,7 @@
 > (bloco `camadas:`) e `data/catalogo_fontes.csv` + o `.json` irmão de cada
 > arquivo (bloco `fontes_brutas:`).
 
-- **Gerado em:** 2026-09-23 13:39:05 -0300
+- **Gerado em:** 2026-09-23 14:06:48 -0300
 - **Estudos encontrados:** 3
 
 `camadas:` é produto curado do acervo (`data/catalogo_camadas.csv`);

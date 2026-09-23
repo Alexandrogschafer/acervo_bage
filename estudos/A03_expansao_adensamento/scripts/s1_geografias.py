@@ -15,7 +15,14 @@ esta mesma camada (sha256_conteudo conferido). O CENTRO não muda: é a referên
 declarada no § 1 (centro médio dos domicílios de 2010 com todas as unidades) e
 as distâncias já estão na camada.
 
-LÊ saidas/s1_celulas_2010_2022.gpkg e derivados/s1_desagregacao_2010.json.
+EXTINTAS: URBANO DE BORDA (bloco `extintas_urbano_de_borda`). Para cada cenário,
+as extintas por situação do setor de 2010 (o do centroide da unidade, lido de
+derivados/s1_extintas_unidades.gpkg) e por distância à área urbanizada de 2022
+(0 = dentro ou tocando; distância da borda da unidade, no CRS de produção).
+
+LÊ saidas/s1_celulas_2010_2022.gpkg, derivados/s1_desagregacao_2010.json,
+derivados/s1_extintas_unidades.gpkg (conferido pelo sha256_conteudo) e data/raw/
+(área urbanizada 2022).
 ESCREVE só derivados/s1_geografias.json.
 """
 
@@ -30,6 +37,7 @@ sys.path.insert(0, str(RAIZ))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import geopandas as gpd  # noqa: E402
+import pandas as pd  # noqa: E402
 
 import s1_expansao_adensamento as s1  # noqa: E402
 from scripts.utils import medidas, metadados  # noqa: E402
@@ -50,6 +58,39 @@ def unidades_a_parte() -> tuple[list[str], str]:
     return c["unidades_a_parte"], ";".join(c["setores_com_assinatura"])
 
 
+FAIXAS_BORDA_M = [0, 1, 500, 1000, 2000, float("inf")]
+
+
+def area_urbanizada(crs) -> object:
+    area = s1.paths.carregar_area_estudo()
+    au = gpd.read_file(f"/vsizip/{s1.AU_ZIP}/{s1.AU_SHP}",
+                       bbox=tuple(area.to_crs("EPSG:4674").total_bounds)).to_crs(crs)
+    return au[(au["Tipo"] == s1.TIPO_URBANIZADA) & au.intersects(area.union_all())].union_all()
+
+
+def extintas_de_borda(u: gpd.GeoDataFrame, apoio: gpd.GeoDataFrame, au) -> dict:
+    e = u[u["classe"] == "extinta"].copy()
+    e["setor_2010"] = e["unidade"].map(apoio.set_index("unidade")["setor_2010"]).fillna("fora da malha")
+    e["dist_au_m"] = e.geometry.distance(au)
+    e["faixa"] = pd.cut(e["dist_au_m"], FAIXAS_BORDA_M, right=False,
+                        labels=["dentro ou tocando", "até 500 m", "500 m a 1 km", "1 a 2 km", "> 2 km"])
+    tot = int(e["dom_10"].sum())
+    por_sit = {s: {"unidades": int(len(g)), "dom_10": int(g["dom_10"].sum()),
+                   "pct_dom_10": round(100 * g["dom_10"].sum() / tot, 1),
+                   "por_resolucao": g["resolucao"].value_counts().to_dict()}
+               for s, g in e.groupby("setor_2010")}
+    por_faixa = {str(f): {"unidades": int(len(g)), "dom_10": int(g["dom_10"].sum())}
+                 for f, g in e.groupby("faixa", observed=False)}
+    urb = e[e["setor_2010"] == "URBANO"]
+    return {"extintas": int(len(e)), "dom_10": tot,
+            "por_situacao_do_setor_2010": por_sit,
+            "por_distancia_a_area_urbanizada_2022": por_faixa,
+            "setor_urbano_2010_e_fora_da_area_urbanizada_ate_1km": {
+                "unidades": int(((urb["dist_au_m"] > 0) & (urb["dist_au_m"] < 1000)).sum()),
+                "dom_10": int(urb.loc[(urb["dist_au_m"] > 0) & (urb["dist_au_m"] < 1000), "dom_10"].sum())},
+            "crs_medicao_distancia": s1.paths.crs_producao()}
+
+
 def cenario(u: gpd.GeoDataFrame) -> dict:
     return {
         "unidades": int(len(u)),
@@ -67,6 +108,11 @@ def main() -> None:
     if fora:
         raise SystemExit(f"PARADO — {len(fora)} unidades à parte fora da camada")
     adotado = u[~u["unidade"].isin(a_parte)].copy()
+    apoio_arq = s1.DERIV / "s1_extintas_unidades.gpkg"
+    if sha256_conteudo(apoio_arq) != metadados.ler(apoio_arq)["sha256_conteudo"]:
+        raise SystemExit("PARADO — s1_extintas_unidades.gpkg mudou desde o .json irmão")
+    apoio = gpd.read_file(apoio_arq)
+    au = area_urbanizada(u.crs)
     resultado = {
         "cenario_adotado": f"sem as {len(a_parte)} unidades do setor de 2010 {setores} "
                            "(resultados_s1.md § 11)",
@@ -74,6 +120,8 @@ def main() -> None:
         "centro": "o do § 1 (todas as unidades), sem mudança; distâncias lidas da camada",
         "adotado": cenario(adotado),
         "todas_as_unidades": cenario(u),
+        "extintas_urbano_de_borda": {"adotado": extintas_de_borda(adotado, apoio, au),
+                                     "todas_as_unidades": extintas_de_borda(u, apoio, au)},
         "crs_medicao_area": medidas.crs_medicao_area(),
     }
     SAIDA.write_text(json.dumps(resultado, ensure_ascii=False, indent=2, default=int), encoding="utf-8")

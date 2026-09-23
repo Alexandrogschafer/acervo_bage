@@ -89,14 +89,20 @@ subordinadas:
   #   retrato do encolhimento domiciliar no território — moradores por domicílio
   #   caiu de 3,02 para 2,59 no município. Verificar se essas células formam área
   #   contígua (centro? bairros antigos?) ou estão dispersas."
+  # Corrigido em 2026-09-23 (cenário adotado, setor 136 à parte; resultados_s1.md
+  # §§ 8 e 11). Nenhuma das 137 unidades está no setor 136: muda só o denominador.
+  # Texto anterior: "As 137 unidades da grade (8,0 % das 1.707 com domicílio, na
+  # unidade harmonizada) que ganham domicílio e perdem população [...]"
   - >-
     2. Onde domicílio e população andam em direções opostas? As 137 unidades da
-    grade (8,0 % das 1.707 com domicílio, na unidade harmonizada) que ganham
-    domicílio e perdem população (+843 domicílios, −2.095 pessoas;
-    resultados_s1.md § 8) são o retrato do encolhimento domiciliar no
-    território — moradores por domicílio caiu de 3,02 para 2,59 no município.
-    Verificar se essas unidades formam área contígua (centro? bairros antigos?)
-    ou estão dispersas.
+    grade (8,3 % das 1.660 com domicílio no cenário adotado, com o setor de 2010
+    430160205000136 à parte; 8,0 % das 1.707 com todas as unidades; na unidade
+    harmonizada) que ganham domicílio e perdem população (+843 domicílios,
+    −2.095 pessoas; resultados_s1.md § 8; mapa em
+    saidas/s1_mapa_divergencia_urbano.png) são o retrato do encolhimento
+    domiciliar no território — moradores por domicílio caiu de 3,02 para 2,59
+    no município. Verificar se essas unidades formam área contígua (centro?
+    bairros antigos?) ou estão dispersas.
   - >-
     3. A infraestrutura do entorno acompanha onde a cidade cresceu? Cruzar as
     áreas de crescimento com pavimentação, bueiro, obstáculo na calçada,
@@ -198,6 +204,18 @@ fora_do_escopo:
   - >-
     Leitura urbano × rural entre censos pelo rótulo de situação do setor: 67 %
     do salto urbano é reclassificação (ver metodo_previsto).
+
+# Saídas de TRABALHO do estudo (saidas/, fora do git), com o sha256_conteudo do
+# .json irmão. Não são camadas do acervo: nada aqui foi promovido. Registradas para
+# que o resultado escrito aponte o dado exato em que foi medido.
+saidas_de_trabalho:
+  - arquivo: estudos/A03_expansao_adensamento/saidas/s1_celulas_2010_2022.gpkg
+    sha256_conteudo: f323c4ba030122677c022aa8ffe49dac6569504c091a38b8275080ab5c0b9d21
+    status_conferencia: pendente
+    # 2026-09-23: acrescentado o campo booleano a_parte_setor_136 (47 unidades
+    # do setor rural de 2010 430160205000136, à parte no cenário adotado), por
+    # scripts/s1_expansao_adensamento.py. sha256_conteudo anterior:
+    # 78a8800b9a0aba22058a3de2e5b338ce0bb19dc052524aa1c4a54554074a2b17
 
 # Camadas do acervo (data/catalogo_camadas.csv), com versão e sha256 fixados.
 camadas:

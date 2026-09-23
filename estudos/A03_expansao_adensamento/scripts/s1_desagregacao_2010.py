@@ -268,6 +268,12 @@ def cruzamento(u: gpd.GeoDataFrame, g10: gpd.GeoDataFrame, b10: pd.Series, c10: 
     x = u.merge(cel.rename(columns={"ID_UNICO": "unidade"}), on="unidade", how="left")
     x["assinatura"] = np.where(x["b"].fillna(False).astype(bool), "desagregacao", "indeterminada")
     x["setor_com_assinatura"] = x["setor"].isin(setores_b)
+    # a camada marca as unidades à parte (s1_expansao_adensamento.py); a marca tem de
+    # ser igual ao que este script calcula
+    if "a_parte_setor_136" in x.columns and not (x["a_parte_setor_136"].astype(bool)
+                                                   == x["setor_com_assinatura"]).all():
+        raise SystemExit("PARADO — a marca a_parte_setor_136 da camada diverge da lista calculada; "
+                         "rodar s1_expansao_adensamento.py de novo")
     ap = apoio.set_index("unidade")
     ext = x[x["classe"] == "extinta"].copy()
     ext["sem_endereco"] = ap["enderecos"].reindex(ext["unidade"]).values == 0

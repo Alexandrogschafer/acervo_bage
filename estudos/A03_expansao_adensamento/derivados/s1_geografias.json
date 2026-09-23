@@ -1,6 +1,6 @@
 {
   "cenario_adotado": "sem as 47 unidades do setor de 2010 430160205000136 (resultados_s1.md § 11)",
-  "camada_sha256_conteudo": "78a8800b9a0aba22058a3de2e5b338ce0bb19dc052524aa1c4a54554074a2b17",
+  "camada_sha256_conteudo": "f323c4ba030122677c022aa8ffe49dac6569504c091a38b8275080ab5c0b9d21",
   "centro": "o do § 1 (todas as unidades), sem mudança; distâncias lidas da camada",
   "adotado": {
     "unidades": 1660,
@@ -1061,6 +1061,110 @@
         "mediana_dom_por_unidade_2022": 0.0
       }
     ]
+  },
+  "extintas_urbano_de_borda": {
+    "adotado": {
+      "extintas": 201,
+      "dom_10": 578,
+      "por_situacao_do_setor_2010": {
+        "RURAL": {
+          "unidades": 145,
+          "dom_10": 234,
+          "pct_dom_10": 40.5,
+          "por_resolucao": {
+            "1 km": 124,
+            "200 m": 19,
+            "1 km (2022 em 200 m)": 2
+          }
+        },
+        "URBANO": {
+          "unidades": 56,
+          "dom_10": 344,
+          "pct_dom_10": 59.5,
+          "por_resolucao": {
+            "200 m": 56
+          }
+        }
+      },
+      "por_distancia_a_area_urbanizada_2022": {
+        "dentro ou tocando": {
+          "unidades": 37,
+          "dom_10": 225
+        },
+        "até 500 m": {
+          "unidades": 39,
+          "dom_10": 171
+        },
+        "500 m a 1 km": {
+          "unidades": 9,
+          "dom_10": 15
+        },
+        "1 a 2 km": {
+          "unidades": 4,
+          "dom_10": 4
+        },
+        "> 2 km": {
+          "unidades": 112,
+          "dom_10": 163
+        }
+      },
+      "setor_urbano_2010_e_fora_da_area_urbanizada_ate_1km": {
+        "unidades": 26,
+        "dom_10": 152
+      },
+      "crs_medicao_distancia": "EPSG:31981"
+    },
+    "todas_as_unidades": {
+      "extintas": 232,
+      "dom_10": 807,
+      "por_situacao_do_setor_2010": {
+        "RURAL": {
+          "unidades": 176,
+          "dom_10": 463,
+          "pct_dom_10": 57.4,
+          "por_resolucao": {
+            "1 km": 139,
+            "200 m": 34,
+            "1 km (2022 em 200 m)": 3
+          }
+        },
+        "URBANO": {
+          "unidades": 56,
+          "dom_10": 344,
+          "pct_dom_10": 42.6,
+          "por_resolucao": {
+            "200 m": 56
+          }
+        }
+      },
+      "por_distancia_a_area_urbanizada_2022": {
+        "dentro ou tocando": {
+          "unidades": 42,
+          "dom_10": 230
+        },
+        "até 500 m": {
+          "unidades": 50,
+          "dom_10": 202
+        },
+        "500 m a 1 km": {
+          "unidades": 11,
+          "dom_10": 52
+        },
+        "1 a 2 km": {
+          "unidades": 7,
+          "dom_10": 53
+        },
+        "> 2 km": {
+          "unidades": 122,
+          "dom_10": 270
+        }
+      },
+      "setor_urbano_2010_e_fora_da_area_urbanizada_ate_1km": {
+        "unidades": 26,
+        "dom_10": 152
+      },
+      "crs_medicao_distancia": "EPSG:31981"
+    }
   },
   "crs_medicao_area": "ESRI:102033"
 }

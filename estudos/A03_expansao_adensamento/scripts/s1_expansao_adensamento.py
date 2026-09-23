@@ -43,8 +43,19 @@ REFERÊNCIAS DECLARADAS
 
 Distâncias no CRS de produção; áreas no CRS de área (scripts/utils/medidas.py).
 
+UNIDADES À PARTE (desde 2026-09-23, resultados_s1.md § 11): a camada traz o campo
+booleano `a_parte_setor_136`, verdadeiro nas unidades do setor rural de 2010
+430160205000136, declarado à parte no cenário adotado. A lista vem de
+derivados/s1_desagregacao_2010.json (cruzamento_com_as_classes.unidades_a_parte),
+que por sua vez é calculado SOBRE esta camada. Ordem de execução:
+    s1_expansao_adensamento.py -> s1_desagregacao_2010.py -> (de novo, se a lista
+    mudou) s1_expansao_adensamento.py
+O s1_desagregacao_2010.py confere que a marca da camada é igual à lista que ele
+calcula e PARA se divergir. O campo não muda classe nenhuma.
+
 LÊ data/raw/ (grades, área urbanizada), o acervo (limite, setores — pelo
-catálogo, conferido) e derivados/d01_descompasso.json. ESCREVE só:
+catálogo, conferido), derivados/d01_descompasso.json e
+derivados/s1_desagregacao_2010.json. ESCREVE só:
     saidas/s1_celulas_2010_2022.gpkg (+ .json irmão)   camada de trabalho
     derivados/s1_caracterizacao.json                  números
 """
@@ -83,6 +94,8 @@ TOLERANCIA_CONTIGUIDADE_M = 1.0
 FAIXAS_KM = [0, 1, 2, 3, 4, 6, 10, np.inf]
 
 CLASSES = ["nova", "adensada", "estavel", "esvaziada", "extinta"]
+DESAG = DERIV / "s1_desagregacao_2010.json"
+CAMPO_A_PARTE = "a_parte_setor_136"
 FONTES = "ibge_grade_estatistica_2010;ibge_grade_estatistica_2022"
 
 
@@ -392,6 +405,18 @@ def densidade(u: gpd.GeoDataFrame) -> list[dict]:
 
 # --------------------------------------------------------------------------
 
+def marca_a_parte(unidades: pd.Series) -> pd.Series:
+    """Unidades à parte no cenário adotado, lidas de s1_desagregacao_2010.json."""
+    if not DESAG.exists():
+        raise SystemExit(f"PARADO — falta {DESAG.name}: rodar s1_desagregacao_2010.py")
+    lista = set(json.loads(DESAG.read_text(encoding="utf-8"))
+                ["cruzamento_com_as_classes"]["unidades_a_parte"])
+    fora = lista - set(unidades)
+    if fora:
+        raise SystemExit(f"PARADO — {len(fora)} unidades à parte fora da camada: {sorted(fora)[:5]}")
+    return unidades.isin(lista)
+
+
 def main() -> None:
     area = paths.carregar_area_estudo()
     limite = area.union_all()
@@ -519,9 +544,10 @@ def main() -> None:
 
     # camada de trabalho (saidas/, fora do git) + .json irmão
     SAIDAS.mkdir(exist_ok=True)
+    u[CAMPO_A_PARTE] = marca_a_parte(u["unidade"])
     colunas = ["unidade", "resolucao", "harmonizada", "dom_10", "dom_22", "pop_10", "pop_22",
                "d_dom", "d_pop", "dr_dom", "dr_pop", "classe", "area_m2", "dist_centro_km",
-               "fracao_au", "fracao_au_todos_tipos", "geometry"]
+               "fracao_au", "fracao_au_todos_tipos", CAMPO_A_PARTE, "geometry"]
     saida = u[colunas].sort_values("unidade").reset_index(drop=True)
     if CAMADA.exists():
         CAMADA.unlink()
@@ -534,13 +560,16 @@ def main() -> None:
             "Camada de TRABALHO do A03 (subordinada 1): unidade harmonizada da grade "
             "estatística 2010 × 2022 com domicílio em algum dos dois anos, restrita a Bagé "
             "(centroide). Classes nova/adensada/estavel/esvaziada/extinta sobre domicílios "
-            "ocupados. 41 células de 1 km de 2010 subdivididas em 200 m em 2022 comparadas "
+            "ocupados. Campo a_parte_setor_136: unidades do setor rural de 2010 "
+            "430160205000136, à parte no cenário adotado (resultados_s1.md § 11). "
+            "41 células de 1 km de 2010 subdivididas em 200 m em 2022 comparadas "
             "na célula de 1 km (2022 = soma das 25 filhas). Não conferida no mapa: não vai "
             "para o acervo antes da conferência visual do responsável. Script: "
             "estudos/A03_expansao_adensamento/scripts/s1_expansao_adensamento.py."),
     )
     dados["sha256_conteudo"] = sha256_conteudo(CAMADA)
     dados["verificacoes"] = {"unidades": int(len(saida)),
+                             "unidades_a_parte_setor_136": int(saida[CAMPO_A_PARTE].sum()),
                              "conferencia_contra_o_municipio": conferencia,
                              "crs_medicao_area": medidas.crs_medicao_area()}
     metadados.escrever(CAMADA, dados, sobrescrever=True)

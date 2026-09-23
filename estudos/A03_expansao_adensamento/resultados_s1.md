@@ -79,6 +79,16 @@ A camada de trabalho traz, por unidade: domicílios e moradores nos dois anos, v
 absoluta e relativa (a relativa é nula quando 2010 = 0), classe, resolução, área, distância
 ao centro e fração da unidade dentro da área urbanizada de 2022.
 
+**Desde 2026-09-23** a camada traz também o campo booleano **`a_parte_setor_136`**,
+verdadeiro nas 47 unidades do setor rural de 2010 430160205000136, declarado à parte no
+cenário adotado (§ 11).
+- O campo é gravado por `scripts/s1_expansao_adensamento.py`, a partir da lista de
+  `derivados/s1_desagregacao_2010.json`. O `s1_desagregacao_2010.py` confere que a
+  marca é igual à lista que ele calcula.
+- O campo não muda classe.
+- O `sha256_conteudo` passou de `78a8800b…` para `f323c4ba…`.
+- A camada segue **pendente**, sem promoção.
+
 **Referências declaradas**
 
 | referência | definição |
@@ -250,13 +260,46 @@ Domicílios por faixa de distância ao centro (cenário adotado; entre parêntes
   área urbanizada (89,4 % com todas as unidades) e 88,7 % a menos de 4 km do centro.
   - A diferença vem das 4 mães harmonizadas do setor 136, fora da área urbanizada, que
     somavam 1.198 domicílios em 2022.
-- **Extintas.** São rurais: 93,8 % dos
-  domicílios de 2010 fora da área urbanizada.
+- **Extintas.** 93,8 % dos domicílios de 2010 estão fora da área urbanizada. Mas **não
+  são só rurais**, e isso o cenário adotado mostrou (ver o quadro abaixo).
   - 106 das 201 unidades estão a 10 km ou mais do centro.
   - Sem o setor 136, a mediana ponderada cai de 4,74 para
     **3,89 km**.
   - Quase todos os 229 domicílios extintos do setor estavam a 4 km ou mais do centro:
     31 entre 4 e 6 km, 100 entre 6 e 10 km e 93 a 10 km ou mais (faixas acima).
+
+**Parte do esvaziamento é urbano de borda, não só rural.** É uma leitura que o cenário
+adotado trouxe, e o anterior escondia. Números em `derivados/s1_geografias.json`, bloco
+`extintas_urbano_de_borda`.
+- O setor 136 é **rural** e concentrava 229 dos 807 domicílios extintos. Com ele, as
+  extintas pareciam um fenômeno do campo:
+  - mediana ponderada da distância ao centro de 4,74 km;
+  - maior agrupamento de 18 unidades de 1 km.
+- Sem ele:
+  - a mediana cai para **3,89 km**;
+  - o maior agrupamento passa a ser **urbano**: 10 unidades de 200 m, 111 domicílios,
+    nos setores urbanos 053 e 054 de 2010 (§ 5.2).
+
+| extintas | cenário adotado (201; 578 dom.) | todas as unidades (232; 807 dom.) |
+| --- | ---: | ---: |
+| domicílios de 2010 em **setor urbano de 2010** (56 unidades de 200 m) | **344 (59,5 %)** | 344 (42,6 %) |
+| domicílios de 2010 em setor rural de 2010 | 234 (40,5 %) | 463 (57,4 %) |
+| domicílios em unidades dentro ou tocando a área urbanizada de 2022 | 225 | 230 |
+| a até 500 m dela | 171 | 202 |
+| de 500 m a 1 km | 15 | 52 |
+| **até 1 km da área urbanizada, somados** | **411 (71,1 %)** | 484 (60,0 %) |
+| a mais de 2 km | 163 (28,2 %) | 270 (33,5 %) |
+
+- As 344 extintas de setor urbano de 2010 são as mesmas nos dois cenários. O que muda
+  é o peso delas: **passam a ser a maioria** dos domicílios extintos.
+- 26 dessas unidades, com 152 domicílios, ficam fora da área urbanizada de 2022, mas a
+  menos de 1 km dela. É a borda da cidade que tinha domicílio em 2010 e não tem em
+  2022.
+- **Ressalva:** em 2010, o domicílio de setor urbano entrou na grade pela face de
+  quadra, repartida ao longo da face, e não pelo endereço (§ 10.4). A posição fina
+  dessas extintas de borda tem, portanto, a incerteza da grade de 2010.
+  - Das 56, 41 não têm nenhum endereço no CNEFE 2022 (§ 10.5).
+  - A leitura "urbano de borda" vale para o conjunto; célula a célula, é indício.
 
 ### 5.2 Contiguidade
 
@@ -292,9 +335,8 @@ concentram a maior parte: um só deles tem 276 domicílios.
   unidade só.
 - Sem o setor 136, o maior agrupamento de extintas deixa de ser o bloco rural (18
   unidades, 203 domicílios).
-  - Passa a ser o urbano dos setores 053 e 054: 10
-    unidades de 200 m, 111 domicílios,
-    19,2 % dos da classe.
+  - Passa a ser o urbano dos setores 053 e 054: 10 unidades de 200 m, 111 domicílios,
+    19,2 % dos da classe. É o esvaziamento urbano de borda do § 5.1.
 
 ### 5.3 Densidade de domicílios
 
@@ -504,6 +546,9 @@ das 232 unidades extintas sobre áreas sem ocupação visível em imagem de sat�
 
 **Esta seção investiga e não reclassifica.** A camada de trabalho e as classes não foram
 alteradas: o script confere o `sha256_conteudo` da camada (`78a8800b…`) antes de ler.
+*(Desde 2026-09-23 a camada tem o campo `a_parte_setor_136`, e o `sha256_conteudo` passou
+a `f323c4ba…`. As classes e os números são os mesmos, e os scripts do § 10 foram rodados
+de novo sobre ela.)*
 
 - Script: `scripts/s1_extintas.py`.
 - Números: `derivados/s1_extintas.json`.
@@ -1108,8 +1153,17 @@ parte, e as unidades dele mantêm as suas classes.*
   - Unidades rurais de 1 km, dispersas, com mediana de 1 domicílio.
   - Unidades de 200 m na franja da área urbanizada, que concentram os domicílios.
   - Metade dos domicílios novos fica dentro da área urbanizada.
-- **Extintas:** rurais, com 93,8 % dos domicílios de 2010 fora da área urbanizada
-  (95,4 %). A mediana ponderada da distância ao centro é de 3,89 km (4,74 km).
+- **Extintas:** 93,8 % dos domicílios de 2010 estão fora da área urbanizada (95,4 %),
+  mas **parte do esvaziamento é urbano de borda, não só rural**. É leitura que o
+  cenário adotado trouxe e que o anterior escondia (§ 5.1).
+  - O maior agrupamento passa a ser urbano: 10 unidades de 200 m, 111 domicílios, nos
+    setores 053 e 054. Antes eram as 18 unidades de 1 km do setor rural 136.
+  - A mediana ponderada da distância ao centro cai de 4,74 para 3,89 km.
+  - 59,5 % dos domicílios extintos estavam em setores urbanos de 2010 (42,6 % com todas
+    as unidades).
+  - 71,1 % estão em unidades a até 1 km da área urbanizada de 2022.
+  - A posição fina dessas extintas urbanas tem a incerteza da grade de 2010 (face de
+    quadra, § 10.4).
   - Pelo § 10, 62 são desocupação com a construção de pé.
   - As demais não se separam da posição modelada da grade de 2010.
 - **Densidade** (§ 5.3): as novas de 200 m chegam a 389 domicílios/km², menos de um

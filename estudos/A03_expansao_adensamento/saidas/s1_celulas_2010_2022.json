@@ -3,16 +3,16 @@
   "autorizacao_fonte": true,
   "campos_removidos": [],
   "crs": "EPSG:31981",
-  "data_producao": "2026-09-23T08:38:43.995046-03:00",
+  "data_producao": "2026-09-23T14:04:09.394087-03:00",
   "fonte_id": "ibge_grade_estatistica_2010;ibge_grade_estatistica_2022",
   "licenca": "IBGE — uso livre com citação da fonte",
-  "observacoes": "Camada de TRABALHO do A03 (subordinada 1): unidade harmonizada da grade estatística 2010 × 2022 com domicílio em algum dos dois anos, restrita a Bagé (centroide). Classes nova/adensada/estavel/esvaziada/extinta sobre domicílios ocupados. 41 células de 1 km de 2010 subdivididas em 200 m em 2022 comparadas na célula de 1 km (2022 = soma das 25 filhas). Não conferida no mapa: não vai para o acervo antes da conferência visual do responsável. Script: estudos/A03_expansao_adensamento/scripts/s1_expansao_adensamento.py.",
+  "observacoes": "Camada de TRABALHO do A03 (subordinada 1): unidade harmonizada da grade estatística 2010 × 2022 com domicílio em algum dos dois anos, restrita a Bagé (centroide). Classes nova/adensada/estavel/esvaziada/extinta sobre domicílios ocupados. Campo a_parte_setor_136: unidades do setor rural de 2010 430160205000136, à parte no cenário adotado (resultados_s1.md § 11). 41 células de 1 km de 2010 subdivididas em 200 m em 2022 comparadas na célula de 1 km (2022 = soma das 25 filhas). Não conferida no mapa: não vai para o acervo antes da conferência visual do responsável. Script: estudos/A03_expansao_adensamento/scripts/s1_expansao_adensamento.py.",
   "pode_publicar": false,
   "referencias_bib": [],
-  "sha256": "dd1edf3c630da5e9b2e1bf9aebf769762b2247bf68352827e4b122b1d9ac1ede",
-  "sha256_conteudo": "78a8800b9a0aba22058a3de2e5b338ce0bb19dc052524aa1c4a54554074a2b17",
+  "sha256": "7dba3249563d2be33743a7e350d4247ffcc97f8af614908fa815fe258f0cbf3b",
+  "sha256_conteudo": "f323c4ba030122677c022aa8ffe49dac6569504c091a38b8275080ab5c0b9d21",
   "status_conferencia": "pendente",
-  "tamanho_bytes": 598016,
+  "tamanho_bytes": 602112,
   "tema": "censo",
   "verificacoes": {
     "conferencia_contra_o_municipio": {
@@ -46,7 +46,8 @@
       }
     },
     "crs_medicao_area": "ESRI:102033",
-    "unidades": 1707
+    "unidades": 1707,
+    "unidades_a_parte_setor_136": 47
   },
   "versao": "s1-v1"
 }

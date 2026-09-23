@@ -5,6 +5,35 @@ pendente. Entrada nova no topo.
 
 ---
 
+## 2026-09-23 — A03: unidades à parte marcadas na camada; subordinada 2 no cenário adotado
+
+- **Camada de trabalho:** ganhou o campo booleano `a_parte_setor_136` (47 unidades).
+  - Ele é gravado por `s1_expansao_adensamento.py`, a partir da lista de
+    `s1_desagregacao_2010.json`. O `s1_desagregacao_2010.py` PARA se a marca divergir
+    da lista.
+  - O `sha256_conteudo` passou de `78a8800b…` para **`f323c4ba…`**, com o `.json`
+    irmão atualizado. A camada segue pendente, sem promoção.
+  - A cadeia foi rodada de novo: s1 → s1_extintas → s1_desagregacao_2010 →
+    s1_geografias → s1_figuras. O `s1_caracterizacao.json` ficou byte a byte igual, e
+    nos demais JSONs só mudaram o sha da camada e as datas.
+- **Manifesto:**
+  - chave nova `saidas_de_trabalho`, com o `sha256_conteudo` da camada e o anterior em
+    comentário;
+  - subordinada 2: "8,3 % das 1.660 (cenário adotado); 8,0 % das 1.707 com todas as
+    unidades", com o texto anterior em comentário datado. As 137 unidades e o
+    +843 / −2.095 não mudam.
+- **`resultados_s1.md` §§ 5.1, 5.2 e 11.1:** parte do esvaziamento é **urbano de borda,
+  não só rural**.
+  - No cenário adotado, 59,5 % dos domicílios extintos estavam em setores urbanos de
+    2010 (42,6 % com todas as unidades).
+  - 71,1 % estão a até 1 km da área urbanizada de 2022.
+  - O maior agrupamento passa a ser o urbano dos setores 053 e 054, e a mediana cai de
+    4,74 para 3,89 km.
+  - **Ressalva:** a posição de 2010 no urbano vem da face de quadra.
+  - Os números saem do bloco `extintas_urbano_de_borda` do `s1_geografias.json`.
+
+---
+
 ## 2026-09-23 — A03: textos no cenário adotado; geografias e figuras refeitas
 
 - **Textos remetidos ao cenário adotado** (setor 136 à parte primeiro, todas as
