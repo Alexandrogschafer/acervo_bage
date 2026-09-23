@@ -1,0 +1,52 @@
+{
+  "arquivo": "estudos/A03_expansao_adensamento/saidas/s1_celulas_2010_2022.gpkg",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "EPSG:31981",
+  "data_producao": "2026-09-22T23:21:18.944498-03:00",
+  "fonte_id": "ibge_grade_estatistica_2010;ibge_grade_estatistica_2022",
+  "licenca": "IBGE — uso livre com citação da fonte",
+  "observacoes": "Camada de TRABALHO do A03 (subordinada 1): unidade harmonizada da grade estatística 2010 × 2022 com domicílio em algum dos dois anos, restrita a Bagé (centroide). Classes nova/adensada/estavel/esvaziada/extinta sobre domicílios ocupados. 41 células de 1 km de 2010 subdivididas em 200 m em 2022 comparadas na célula de 1 km (2022 = soma das 25 filhas). Não conferida no mapa: não vai para o acervo antes da conferência visual do responsável. Script: estudos/A03_expansao_adensamento/scripts/s1_expansao_adensamento.py.",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "sha256": "79179893a833dc3e67d9a81f95f8106851bc86ead1335c56ec35cfea57f84a1f",
+  "sha256_conteudo": "78a8800b9a0aba22058a3de2e5b338ce0bb19dc052524aa1c4a54554074a2b17",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 598016,
+  "tema": "censo",
+  "verificacoes": {
+    "conferencia_contra_o_municipio": {
+      "2010": {
+        "domicilios": {
+          "diferenca": -596,
+          "diferenca_pct": -1.55,
+          "grade": 37908,
+          "municipio": 38504
+        },
+        "populacao": {
+          "diferenca": -1884,
+          "diferenca_pct": -1.61,
+          "grade": 114910,
+          "municipio": 116794
+        }
+      },
+      "2022": {
+        "domicilios": {
+          "diferenca": 56,
+          "diferenca_pct": 0.12,
+          "grade": 45383,
+          "municipio": 45327
+        },
+        "populacao": {
+          "diferenca": 39,
+          "diferenca_pct": 0.03,
+          "grade": 117977,
+          "municipio": 117938
+        }
+      }
+    },
+    "crs_medicao_area": "ESRI:102033",
+    "unidades": 1707
+  },
+  "versao": "s1-v1"
+}

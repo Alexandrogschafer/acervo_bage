@@ -7,7 +7,7 @@
 > (bloco `camadas:`) e `data/catalogo_fontes.csv` + o `.json` irmão de cada
 > arquivo (bloco `fontes_brutas:`).
 
-- **Gerado em:** 2026-09-22 23:10:35 -0300
+- **Gerado em:** 2026-09-22 23:25:16 -0300
 - **Estudos encontrados:** 3
 
 `camadas:` é produto curado do acervo (`data/catalogo_camadas.csv`);
@@ -25,6 +25,7 @@ A diferença está em `docs/convencoes.md`.
 
 | Fonte | Arquivos | Estudos | Situação |
 | --- | ---: | --- | --- |
+| `ibge_areas_urbanizadas_2022` | 1 | `ACERVO_BAGE-A03_expansao_adensamento` | ok |
 | `ibge_censo2010_agregados_setores` | 1 | `ACERVO_BAGE-A03_expansao_adensamento` | ok |
 | `ibge_censo2022_agregados_setores` | 3 | `ACERVO_BAGE-A03_expansao_adensamento` | ok |
 | `ibge_censo2022_entorno_setores` | 2 | `ACERVO_BAGE-A03_expansao_adensamento` | ok |
@@ -91,4 +92,5 @@ Nenhuma fonte bruta declarada.
 | `ibge_censo2022_entorno_setores` | `data/raw/tabular/ibge/censo_2022/Agregados_por_setores_entorno_domicílios_BR.zip` | censo_2022 | ok | confere (por sha256 do arquivo) |
 | `ibge_censo2022_entorno_setores` | `data/raw/tabular/ibge/censo_2022/Agregados_por_setores_entorno_faces_BR.zip` | censo_2022 | ok | confere (por sha256 do arquivo) |
 | `ibge_censo2022_agregados_setores` | `data/raw/tabular/ibge/censo_2022/doc/Historico_formacao_Setores_Censitarios_2010_2022.xlsx` | censo_2022 | ok | confere (por sha256 do arquivo) |
+| `ibge_areas_urbanizadas_2022` | `data/raw/vetor/ibge/areas_urbanizadas_2022/AreasUrbanizadas2022_Brasil.zip` | censo_2022 | ok | confere (por sha256 do arquivo) |
 

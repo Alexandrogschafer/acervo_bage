@@ -1,0 +1,17 @@
+{
+  "arquivo": "estudos/A03_expansao_adensamento/saidas/s1_mapa_classes_municipio.png",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "EPSG:31981",
+  "data_producao": "2026-09-22T23:23:08.158243-03:00",
+  "fonte_id": "ibge_grade_estatistica_2010;ibge_grade_estatistica_2022;ibge_areas_urbanizadas_2022;ibge_malhas_municipais",
+  "licenca": "IBGE — uso livre com citação da fonte",
+  "observacoes": "Mapa das classes de mudança de domicílios (município inteiro). Figura do A03 (subordinada 1), gerada de saidas/s1_celulas_2010_2022.gpkg por scripts/s1_figuras.py. Não conferida: não publicar antes da conferência do responsável.",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "sha256": "420a092513beb6d84bc90b31936888e0479cb4d9382273a83eed4f928740d176",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 404363,
+  "tema": "censo",
+  "versao": "s1-v1"
+}

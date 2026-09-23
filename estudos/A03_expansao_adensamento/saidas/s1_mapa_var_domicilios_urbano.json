@@ -1,0 +1,17 @@
+{
+  "arquivo": "estudos/A03_expansao_adensamento/saidas/s1_mapa_var_domicilios_urbano.png",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "EPSG:31981",
+  "data_producao": "2026-09-22T23:23:06.631680-03:00",
+  "fonte_id": "ibge_grade_estatistica_2010;ibge_grade_estatistica_2022;ibge_areas_urbanizadas_2022;ibge_malhas_municipais",
+  "licenca": "IBGE — uso livre com citação da fonte",
+  "observacoes": "Mapa da variação de domicílios ocupados (área urbana). Figura do A03 (subordinada 1), gerada de saidas/s1_celulas_2010_2022.gpkg por scripts/s1_figuras.py. Não conferida: não publicar antes da conferência do responsável.",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "sha256": "1b87ce12a208388c1f4311d8ea93d3a97b91a20afa6aa4e3d64831af232e7da3",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 671423,
+  "tema": "censo",
+  "versao": "s1-v1"
+}

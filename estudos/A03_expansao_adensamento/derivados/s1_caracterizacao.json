@@ -1,0 +1,748 @@
+{
+  "harmonizacao": {
+    "celulas_comuns": 15664,
+    "celulas_2010_subdivididas_em_2022": 62,
+    "filhas_2022_por_mae": [
+      25
+    ],
+    "celulas_2022_filhas": 1550,
+    "desvio_maximo_area_filhas_x_mae_m2": 0.098,
+    "crs_medicao_area": "ESRI:102033",
+    "celulas_de_2010_contidas_em_2022": 0
+  },
+  "recorte": "centroide da unidade harmonizada no município (config/area_estudo.geojson)",
+  "unidades_no_municipio": 1707,
+  "unidades_harmonizadas_com_domicilio": 38,
+  "conferencia_contra_o_municipio": {
+    "2010": {
+      "populacao": {
+        "grade": 114910,
+        "municipio": 116794,
+        "diferenca": -1884,
+        "diferenca_pct": -1.61
+      },
+      "domicilios": {
+        "grade": 37908,
+        "municipio": 38504,
+        "diferenca": -596,
+        "diferenca_pct": -1.55
+      }
+    },
+    "2022": {
+      "populacao": {
+        "grade": 117977,
+        "municipio": 117938,
+        "diferenca": 39,
+        "diferenca_pct": 0.03
+      },
+      "domicilios": {
+        "grade": 45383,
+        "municipio": 45327,
+        "diferenca": 56,
+        "diferenca_pct": 0.12
+      }
+    }
+  },
+  "fonte_do_total_municipal": "derivados/d01_descompasso.json (2010: dpp_ocupados; 2022: dp_ocupados_dppo_mais_dpio)",
+  "por_classe": [
+    {
+      "classe": "nova",
+      "unidades": 355,
+      "dom_2010": 0,
+      "dom_2022": 1884,
+      "pop_2010": 0,
+      "pop_2022": 4604,
+      "d_dom": 1884,
+      "d_pop": 4604,
+      "area_km2": 268.6
+    },
+    {
+      "classe": "adensada",
+      "unidades": 590,
+      "dom_2010": 19768,
+      "dom_2022": 29983,
+      "pop_2010": 60806,
+      "pop_2022": 78217,
+      "d_dom": 10215,
+      "d_pop": 17411,
+      "area_km2": 113.84
+    },
+    {
+      "classe": "estavel",
+      "unidades": 165,
+      "dom_2010": 912,
+      "dom_2022": 912,
+      "pop_2010": 2637,
+      "pop_2022": 2245,
+      "d_dom": 0,
+      "d_pop": -392,
+      "area_km2": 122.76
+    },
+    {
+      "classe": "esvaziada",
+      "unidades": 365,
+      "dom_2010": 16421,
+      "dom_2022": 12604,
+      "pop_2010": 48849,
+      "pop_2022": 32911,
+      "d_dom": -3817,
+      "d_pop": -15938,
+      "area_km2": 93.32
+    },
+    {
+      "classe": "extinta",
+      "unidades": 232,
+      "dom_2010": 807,
+      "dom_2022": 0,
+      "pop_2010": 2618,
+      "pop_2022": 0,
+      "d_dom": -807,
+      "d_pop": -2618,
+      "area_km2": 145.6
+    }
+  ],
+  "conciliacao_com_d03": {
+    "d03_por_id_unico": {
+      "nova": 573,
+      "adensada": 568,
+      "estavel": 164,
+      "esvaziada": 359,
+      "extinta": 261
+    },
+    "d03_celulas_que_sao_troca_de_resolucao": {
+      "nova": 224,
+      "adensada": 0,
+      "estavel": 0,
+      "esvaziada": 0,
+      "extinta": 32
+    },
+    "harmonizado": {
+      "nova": 355,
+      "adensada": 590,
+      "estavel": 165,
+      "esvaziada": 365,
+      "extinta": 232
+    }
+  },
+  "centro": {
+    "definicao": "centro médio dos domicílios de 2010 (centroides das unidades ponderados por dom_10)",
+    "crs": "EPSG:31981",
+    "x": 776002.4,
+    "y": 6530802.8,
+    "setor_2022": "430160205000033",
+    "situacao_do_setor": "Urbana",
+    "observacao": "NM_BAIRRO está vazio nos 199 setores de 2022: o ponto é identificado pelo setor, não pelo bairro",
+    "sensibilidade_so_unidades_de_200m": {
+      "x": 775534.3,
+      "y": 6530623.9,
+      "distancia_ao_centro_km": 0.5
+    }
+  },
+  "faixa_da_expansao": {
+    "ganho_bruto_de_domicilios": 12099,
+    "em_unidades_novas": 1884,
+    "em_unidades_adensadas": 10215,
+    "adensadas_por_resolucao": {
+      "200 m": {
+        "unidades": 496,
+        "domicilios_ganhos": 8299
+      },
+      "1 km": {
+        "unidades": 72,
+        "domicilios_ganhos": 162
+      },
+      "1 km (2022 em 200 m)": {
+        "unidades": 22,
+        "domicilios_ganhos": 1754
+      }
+    },
+    "expansao_pct_limite_inferior": 15.6,
+    "expansao_pct_limite_superior": 30.1,
+    "leitura": "inferior = só unidades novas; superior = novas + ganho das adensadas de 1 km que o IBGE subdividiu em 200 m em 2022"
+  },
+  "area_urbanizada_2022": {
+    "fonte": "ibge_areas_urbanizadas_2022 (data/raw/vetor/ibge/areas_urbanizadas_2022/)",
+    "tipo_usado": "Área urbanizada",
+    "area_km2": 34.34,
+    "area_km2_todos_os_tipos": 36.83,
+    "poligonos": 40,
+    "poligonos_todos_os_tipos": 67,
+    "crs_medicao_area": "ESRI:102033"
+  },
+  "caracterizacao": {
+    "nova": {
+      "unidades": 355,
+      "peso": "dom_22 (domicílios de 2022)",
+      "distancia_ao_centro": {
+        "mediana_km": 17.96,
+        "p25_km": 5.42,
+        "p75_km": 38.99,
+        "maximo_km": 68.64,
+        "mediana_ponderada_por_domicilio_km": 3.47,
+        "faixas": [
+          {
+            "faixa_km": "0–1",
+            "unidades": 0,
+            "domicilios": 0
+          },
+          {
+            "faixa_km": "1–2",
+            "unidades": 7,
+            "domicilios": 195
+          },
+          {
+            "faixa_km": "2–3",
+            "unidades": 21,
+            "domicilios": 597
+          },
+          {
+            "faixa_km": "3–4",
+            "unidades": 26,
+            "domicilios": 250
+          },
+          {
+            "faixa_km": "4–6",
+            "unidades": 40,
+            "domicilios": 365
+          },
+          {
+            "faixa_km": "6–10",
+            "unidades": 25,
+            "domicilios": 90
+          },
+          {
+            "faixa_km": ">= 10",
+            "unidades": 236,
+            "domicilios": 387
+          }
+        ]
+      },
+      "contiguidade": {
+        "agrupamentos": 208,
+        "unidades_isoladas": 139,
+        "maior_agrupamento": {
+          "unidades": 12,
+          "domicilios": 38
+        },
+        "pct_domicilios_no_maior": 2.0,
+        "tamanhos_dos_10_maiores": [
+          {
+            "unidades": 12,
+            "domicilios": 38,
+            "area_km2": 12.0
+          },
+          {
+            "unidades": 7,
+            "domicilios": 67,
+            "area_km2": 7.0
+          },
+          {
+            "unidades": 6,
+            "domicilios": 73,
+            "area_km2": 0.24
+          },
+          {
+            "unidades": 6,
+            "domicilios": 10,
+            "area_km2": 6.0
+          },
+          {
+            "unidades": 5,
+            "domicilios": 276,
+            "area_km2": 0.2
+          },
+          {
+            "unidades": 5,
+            "domicilios": 129,
+            "area_km2": 0.2
+          },
+          {
+            "unidades": 5,
+            "domicilios": 54,
+            "area_km2": 0.2
+          },
+          {
+            "unidades": 5,
+            "domicilios": 18,
+            "area_km2": 5.0
+          },
+          {
+            "unidades": 5,
+            "domicilios": 13,
+            "area_km2": 0.2
+          },
+          {
+            "unidades": 5,
+            "domicilios": 8,
+            "area_km2": 5.0
+          }
+        ],
+        "distribuicao_de_tamanho": {
+          "1": 139,
+          "2-4": 56,
+          "5-9": 12,
+          "10-49": 1,
+          ">=50": 0
+        }
+      },
+      "area_urbanizada_2022": {
+        "regra": "dentro = >= 50 % da área da unidade na área urbanizada",
+        "dentro": {
+          "unidades": 25,
+          "domicilios": 968
+        },
+        "fora": {
+          "unidades": 330,
+          "domicilios": 916
+        },
+        "pct_domicilios_dentro": 51.4,
+        "toca_a_area_urbanizada": 72,
+        "sensibilidade_todos_os_tipos": {
+          "dentro": {
+            "unidades": 30,
+            "domicilios": 1017
+          },
+          "pct_domicilios_dentro": 54.0
+        }
+      },
+      "por_resolucao": {
+        "1 km": 259,
+        "200 m": 90,
+        "1 km (2022 em 200 m)": 6
+      }
+    },
+    "adensada": {
+      "unidades": 590,
+      "peso": "dom_22 (domicílios de 2022)",
+      "distancia_ao_centro": {
+        "mediana_km": 2.9,
+        "p25_km": 1.92,
+        "p75_km": 4.06,
+        "maximo_km": 70.59,
+        "mediana_ponderada_por_domicilio_km": 2.57,
+        "faixas": [
+          {
+            "faixa_km": "0–1",
+            "unidades": 41,
+            "domicilios": 2809
+          },
+          {
+            "faixa_km": "1–2",
+            "unidades": 118,
+            "domicilios": 7816
+          },
+          {
+            "faixa_km": "2–3",
+            "unidades": 148,
+            "domicilios": 8588
+          },
+          {
+            "faixa_km": "3–4",
+            "unidades": 127,
+            "domicilios": 7238
+          },
+          {
+            "faixa_km": "4–6",
+            "unidades": 81,
+            "domicilios": 2896
+          },
+          {
+            "faixa_km": "6–10",
+            "unidades": 24,
+            "domicilios": 466
+          },
+          {
+            "faixa_km": ">= 10",
+            "unidades": 51,
+            "domicilios": 170
+          }
+        ]
+      },
+      "contiguidade": {
+        "agrupamentos": 64,
+        "unidades_isoladas": 51,
+        "maior_agrupamento": {
+          "unidades": 481,
+          "domicilios": 28006
+        },
+        "pct_domicilios_no_maior": 93.4,
+        "tamanhos_dos_10_maiores": [
+          {
+            "unidades": 481,
+            "domicilios": 28006,
+            "area_km2": 37.48
+          },
+          {
+            "unidades": 18,
+            "domicilios": 759,
+            "area_km2": 12.24
+          },
+          {
+            "unidades": 17,
+            "domicilios": 847,
+            "area_km2": 0.68
+          },
+          {
+            "unidades": 5,
+            "domicilios": 18,
+            "area_km2": 5.0
+          },
+          {
+            "unidades": 2,
+            "domicilios": 14,
+            "area_km2": 2.0
+          },
+          {
+            "unidades": 2,
+            "domicilios": 11,
+            "area_km2": 2.0
+          },
+          {
+            "unidades": 2,
+            "domicilios": 8,
+            "area_km2": 2.0
+          },
+          {
+            "unidades": 2,
+            "domicilios": 8,
+            "area_km2": 2.0
+          },
+          {
+            "unidades": 2,
+            "domicilios": 7,
+            "area_km2": 0.08
+          },
+          {
+            "unidades": 2,
+            "domicilios": 7,
+            "area_km2": 0.08
+          }
+        ],
+        "distribuicao_de_tamanho": {
+          "1": 51,
+          "2-4": 9,
+          "5-9": 1,
+          "10-49": 2,
+          ">=50": 1
+        }
+      },
+      "area_urbanizada_2022": {
+        "regra": "dentro = >= 50 % da área da unidade na área urbanizada",
+        "dentro": {
+          "unidades": 442,
+          "domicilios": 26790
+        },
+        "fora": {
+          "unidades": 148,
+          "domicilios": 3193
+        },
+        "pct_domicilios_dentro": 89.4,
+        "toca_a_area_urbanizada": 512,
+        "sensibilidade_todos_os_tipos": {
+          "dentro": {
+            "unidades": 446,
+            "domicilios": 26825
+          },
+          "pct_domicilios_dentro": 89.5
+        }
+      },
+      "por_resolucao": {
+        "200 m": 496,
+        "1 km": 72,
+        "1 km (2022 em 200 m)": 22
+      }
+    },
+    "extinta": {
+      "unidades": 232,
+      "peso": "dom_10 (domicílios de 2010)",
+      "distancia_ao_centro": {
+        "mediana_km": 9.86,
+        "p25_km": 4.15,
+        "p75_km": 40.76,
+        "maximo_km": 70.38,
+        "mediana_ponderada_por_domicilio_km": 4.74,
+        "faixas": [
+          {
+            "faixa_km": "0–1",
+            "unidades": 1,
+            "domicilios": 7
+          },
+          {
+            "faixa_km": "1–2",
+            "unidades": 2,
+            "domicilios": 8
+          },
+          {
+            "faixa_km": "2–3",
+            "unidades": 34,
+            "domicilios": 188
+          },
+          {
+            "faixa_km": "3–4",
+            "unidades": 18,
+            "domicilios": 109
+          },
+          {
+            "faixa_km": "4–6",
+            "unidades": 42,
+            "domicilios": 128
+          },
+          {
+            "faixa_km": "6–10",
+            "unidades": 20,
+            "domicilios": 117
+          },
+          {
+            "faixa_km": ">= 10",
+            "unidades": 115,
+            "domicilios": 250
+          }
+        ]
+      },
+      "contiguidade": {
+        "agrupamentos": 146,
+        "unidades_isoladas": 115,
+        "maior_agrupamento": {
+          "unidades": 18,
+          "domicilios": 203
+        },
+        "pct_domicilios_no_maior": 25.2,
+        "tamanhos_dos_10_maiores": [
+          {
+            "unidades": 18,
+            "domicilios": 203,
+            "area_km2": 18.0
+          },
+          {
+            "unidades": 13,
+            "domicilios": 15,
+            "area_km2": 0.52
+          },
+          {
+            "unidades": 10,
+            "domicilios": 111,
+            "area_km2": 0.4
+          },
+          {
+            "unidades": 9,
+            "domicilios": 45,
+            "area_km2": 0.36
+          },
+          {
+            "unidades": 6,
+            "domicilios": 23,
+            "area_km2": 0.24
+          },
+          {
+            "unidades": 4,
+            "domicilios": 5,
+            "area_km2": 4.0
+          },
+          {
+            "unidades": 4,
+            "domicilios": 4,
+            "area_km2": 4.0
+          },
+          {
+            "unidades": 3,
+            "domicilios": 13,
+            "area_km2": 0.12
+          },
+          {
+            "unidades": 3,
+            "domicilios": 7,
+            "area_km2": 0.12
+          },
+          {
+            "unidades": 3,
+            "domicilios": 6,
+            "area_km2": 3.0
+          }
+        ],
+        "distribuicao_de_tamanho": {
+          "1": 115,
+          "2-4": 26,
+          "5-9": 2,
+          "10-49": 3,
+          ">=50": 0
+        }
+      },
+      "area_urbanizada_2022": {
+        "regra": "dentro = >= 50 % da área da unidade na área urbanizada",
+        "dentro": {
+          "unidades": 9,
+          "domicilios": 37
+        },
+        "fora": {
+          "unidades": 223,
+          "domicilios": 770
+        },
+        "pct_domicilios_dentro": 4.6,
+        "toca_a_area_urbanizada": 38,
+        "sensibilidade_todos_os_tipos": {
+          "dentro": {
+            "unidades": 12,
+            "domicilios": 42
+          },
+          "pct_domicilios_dentro": 5.2
+        }
+      },
+      "por_resolucao": {
+        "1 km": 139,
+        "200 m": 90,
+        "1 km (2022 em 200 m)": 3
+      }
+    }
+  },
+  "densidade_por_classe": [
+    {
+      "classe": "nova",
+      "resolucao": "200 m",
+      "unidades": 90,
+      "area_km2": 3.6,
+      "dom_por_km2_2010": 0.0,
+      "dom_por_km2_2022": 388.9,
+      "mediana_dom_por_unidade_2010": 0.0,
+      "mediana_dom_por_unidade_2022": 2.0
+    },
+    {
+      "classe": "nova",
+      "resolucao": "1 km (inclui harmonizadas)",
+      "unidades": 265,
+      "area_km2": 265.0,
+      "dom_por_km2_2010": 0.0,
+      "dom_por_km2_2022": 1.8,
+      "mediana_dom_por_unidade_2010": 0.0,
+      "mediana_dom_por_unidade_2022": 1.0
+    },
+    {
+      "classe": "adensada",
+      "resolucao": "200 m",
+      "unidades": 496,
+      "area_km2": 19.84,
+      "dom_por_km2_2010": 918.2,
+      "dom_por_km2_2022": 1336.5,
+      "mediana_dom_por_unidade_2010": 33.0,
+      "mediana_dom_por_unidade_2022": 50.0
+    },
+    {
+      "classe": "adensada",
+      "resolucao": "1 km (inclui harmonizadas)",
+      "unidades": 94,
+      "area_km2": 94.0,
+      "dom_por_km2_2010": 16.5,
+      "dom_por_km2_2022": 36.9,
+      "mediana_dom_por_unidade_2010": 2.0,
+      "mediana_dom_por_unidade_2022": 4.0
+    },
+    {
+      "classe": "estavel",
+      "resolucao": "200 m",
+      "unidades": 44,
+      "area_km2": 1.76,
+      "dom_por_km2_2010": 429.5,
+      "dom_por_km2_2022": 429.5,
+      "mediana_dom_por_unidade_2010": 3.5,
+      "mediana_dom_por_unidade_2022": 3.5
+    },
+    {
+      "classe": "estavel",
+      "resolucao": "1 km (inclui harmonizadas)",
+      "unidades": 121,
+      "area_km2": 121.0,
+      "dom_por_km2_2010": 1.3,
+      "dom_por_km2_2022": 1.3,
+      "mediana_dom_por_unidade_2010": 1.0,
+      "mediana_dom_por_unidade_2022": 1.0
+    },
+    {
+      "classe": "esvaziada",
+      "resolucao": "200 m",
+      "unidades": 283,
+      "area_km2": 11.32,
+      "dom_por_km2_2010": 1333.0,
+      "dom_por_km2_2022": 1040.8,
+      "mediana_dom_por_unidade_2010": 52.0,
+      "mediana_dom_por_unidade_2022": 39.0
+    },
+    {
+      "classe": "esvaziada",
+      "resolucao": "1 km (inclui harmonizadas)",
+      "unidades": 82,
+      "area_km2": 82.0,
+      "dom_por_km2_2010": 16.2,
+      "dom_por_km2_2022": 10.0,
+      "mediana_dom_por_unidade_2010": 4.0,
+      "mediana_dom_por_unidade_2022": 2.0
+    },
+    {
+      "classe": "extinta",
+      "resolucao": "200 m",
+      "unidades": 90,
+      "area_km2": 3.6,
+      "dom_por_km2_2010": 114.2,
+      "dom_por_km2_2022": 0.0,
+      "mediana_dom_por_unidade_2010": 2.0,
+      "mediana_dom_por_unidade_2022": 0.0
+    },
+    {
+      "classe": "extinta",
+      "resolucao": "1 km (inclui harmonizadas)",
+      "unidades": 142,
+      "area_km2": 142.0,
+      "dom_por_km2_2010": 2.8,
+      "dom_por_km2_2022": 0.0,
+      "mediana_dom_por_unidade_2010": 1.0,
+      "mediana_dom_por_unidade_2022": 0.0
+    }
+  ],
+  "moradores_por_classe": [
+    {
+      "classe": "nova",
+      "pop_2010": 0,
+      "pop_2022": 4604,
+      "d_pop": 4604,
+      "d_dom": 1884,
+      "moradores_por_domicilio_2010": null,
+      "moradores_por_domicilio_2022": 2.44
+    },
+    {
+      "classe": "adensada",
+      "pop_2010": 60806,
+      "pop_2022": 78217,
+      "d_pop": 17411,
+      "d_dom": 10215,
+      "moradores_por_domicilio_2010": 3.08,
+      "moradores_por_domicilio_2022": 2.61
+    },
+    {
+      "classe": "estavel",
+      "pop_2010": 2637,
+      "pop_2022": 2245,
+      "d_pop": -392,
+      "d_dom": 0,
+      "moradores_por_domicilio_2010": 2.89,
+      "moradores_por_domicilio_2022": 2.46
+    },
+    {
+      "classe": "esvaziada",
+      "pop_2010": 48849,
+      "pop_2022": 32911,
+      "d_pop": -15938,
+      "d_dom": -3817,
+      "moradores_por_domicilio_2010": 2.97,
+      "moradores_por_domicilio_2022": 2.61
+    },
+    {
+      "classe": "extinta",
+      "pop_2010": 2618,
+      "pop_2022": 0,
+      "d_pop": -2618,
+      "d_dom": -807,
+      "moradores_por_domicilio_2010": 3.24,
+      "moradores_por_domicilio_2022": null
+    }
+  ],
+  "crs_medicao_area": "ESRI:102033",
+  "crs_medicao_distancia": "EPSG:31981"
+}

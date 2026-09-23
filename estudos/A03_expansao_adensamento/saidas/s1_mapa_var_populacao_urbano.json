@@ -1,0 +1,17 @@
+{
+  "arquivo": "estudos/A03_expansao_adensamento/saidas/s1_mapa_var_populacao_urbano.png",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "EPSG:31981",
+  "data_producao": "2026-09-22T23:23:07.323167-03:00",
+  "fonte_id": "ibge_grade_estatistica_2010;ibge_grade_estatistica_2022;ibge_areas_urbanizadas_2022;ibge_malhas_municipais",
+  "licenca": "IBGE — uso livre com citação da fonte",
+  "observacoes": "Mapa da variação de moradores (área urbana). Figura do A03 (subordinada 1), gerada de saidas/s1_celulas_2010_2022.gpkg por scripts/s1_figuras.py. Não conferida: não publicar antes da conferência do responsável.",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "sha256": "eda546554472f5fe7cba443464815744926380e0b480b5c115f80c19a5ae84f8",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 677125,
+  "tema": "censo",
+  "versao": "s1-v1"
+}

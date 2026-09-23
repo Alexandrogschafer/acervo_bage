@@ -5,6 +5,44 @@ pendente. Entrada nova no topo.
 
 ---
 
+## 2026-09-22 — A03, subordinada 1: expansão e adensamento na grade
+
+- **Limpeza.** Removidos o bruto legado `data/raw/vetor/RS_Municipios_2025.zip` e o
+  `.json` dele. O sha256 (`d70d47cc…`) era idêntico ao canônico em
+  `ibge/municipio_2025/`, conferido antes de apagar. O `CLAUDE.md` foi atualizado com a
+  situação real dos estudos.
+- **Área urbanizada 2022.** Baixada pela lista fixa, 5ª leva de
+  `config/fontes_censo_ibge.yaml`. A URL foi obtida navegando o geoftp até
+  `…/areas_urbanizadas_do_brasil/2022/Shapefile/`. sha256 `5e41d6c7…`, 54,5 MB. A fonte
+  `ibge_areas_urbanizadas_2022` entrou no catálogo e nas `fontes_brutas` do manifesto
+  do A03.
+- **Achado de método: a grade de 2022 não é a de 2010 em toda parte.** 41 células de
+  1 km de 2010, no município, aparecem em 2022 como 25 células de 200 m cada. O d03 as
+  juntou por `ID_UNICO` com ausente = 0: 224 das 573 "novas" e 32 das 261 "extintas"
+  eram troca de resolução. `scripts/s1_expansao_adensamento.py` compara na **unidade
+  harmonizada** e para se a grade não fechar.
+- **Resultado harmonizado.** 355 novas (+1.884 domicílios, +4.604 moradores), 590
+  adensadas (+10.215), 165 estáveis, 365 esvaziadas, 232 extintas. A expansão fica
+  entre **15,6 % e 30,1 %** do ganho bruto de domicílios; o d03 dava 40 %.
+  - As adensadas formam um agrupamento contíguo de 481 unidades, com 93 % dos
+    domicílios da classe; 89 % dos domicílios estão dentro da área urbanizada.
+  - As novas são fragmentadas (208 agrupamentos) e têm 51 % dos domicílios dentro da
+    área urbanizada.
+  - As extintas são rurais: 95 % dos domicílios fora da área urbanizada.
+  Detalhes em `estudos/A03_expansao_adensamento/resultados_s1.md`.
+- **Conferência.** A grade de 2010 fica 1,61 % abaixo do município na população e
+  1,55 % nos domicílios (regra do centroide), registrado sem correção. A de 2022 fecha
+  (+0,03 % e +0,12 %).
+- **Saídas** (fora do git, cada uma com `.json` pendente): camada de trabalho
+  `saidas/s1_celulas_2010_2022.gpkg` e 6 mapas `saidas/s1_mapa_*.png`. Nada foi para o
+  acervo nem para o geoportal.
+- **Ambiente.** matplotlib acrescentado a `requirements.txt` e ao lock.
+- **Não reescritos:** `d03_grade.json`, o dimensionamento § 3.3 e o texto da
+  subordinada 1 no manifesto. Eles citam 573 / 5.709 / 15.385; a correção é decisão
+  do responsável.
+
+---
+
 ## 2026-09-22 — Promoção por linha de comando; vetor_ibge no esquema atual; vácuo
 
 - **`limite_municipal`, nota.** A frase "Conferido visualmente no mapa em

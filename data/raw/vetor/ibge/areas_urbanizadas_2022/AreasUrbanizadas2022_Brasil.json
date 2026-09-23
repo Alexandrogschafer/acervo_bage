@@ -1,0 +1,19 @@
+{
+  "arquivo": "data/raw/vetor/ibge/areas_urbanizadas_2022/AreasUrbanizadas2022_Brasil.zip",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-23T02:16:01+00:00",
+  "edicao": "censo_2022",
+  "fonte_id": "ibge_areas_urbanizadas_2022",
+  "licenca": "dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "observacoes": "Áreas Urbanizadas do Brasil 2022 (IBGE, tipologias do território), shapefile do Brasil inteiro. Arquivo bruto, exatamente como veio do IBGE. Last-Modified da origem: Mon, 17 Aug 2026 18:40:42 GMT. Baixado em 2026-09-23T02:16:01+00:00 direto do IBGE (URL obtida navegando as listagens do FTP). Lista fixa em config/fontes_censo_ibge.yaml; rebaixável por scripts/download/baixar_censo_ibge.py.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "5e41d6c72c4d733f43f95cbe87a7a50861bf8d8032b3d158b703c5198cbdb434",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 54451323,
+  "tema": "censo",
+  "url_origem": "https://geoftp.ibge.gov.br/organizacao_do_territorio/tipologias_do_territorio/areas_urbanizadas_do_brasil/2022/Shapefile/AreasUrbanizadas2022_Brasil.zip",
+  "versao": "censo_2022"
+}

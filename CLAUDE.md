@@ -93,4 +93,7 @@ python scripts/utils/indice.py
   publicação" do README. Não publicar no GitHub Pages até resolver.
 - `bibliografia/bage.bib` ainda é um exemplo de uma entrada; será substituído
   pela exportação do Zotero.
-- Os três estudos estão em `reconhecimento`, com `camadas: []`.
+- A03 (`expansao_adensamento`) está `planejado`, com pergunta definida,
+  2 camadas (`limite_municipal`, `setores_2022`) e 10 fontes brutas no
+  manifesto. A01 e A02 seguem em `reconhecimento`, sem entradas
+  (`camadas: []`, sem `fontes_brutas`), e resolvem para `pode_publicar=false`.

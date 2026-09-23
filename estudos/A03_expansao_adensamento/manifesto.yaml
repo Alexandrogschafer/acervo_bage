@@ -180,5 +180,10 @@ fontes_brutas:
     arquivo: data/raw/tabular/ibge/censo_2022/doc/Historico_formacao_Setores_Censitarios_2010_2022.xlsx
     versao: censo_2022
     sha256: d70a9e6a46bbd73f82b4e12f47343b36affcdfa0568ceec86969d23376f09403
+  # subordinada 1: células dentro/fora da área urbanizada de 2022 (scripts/s1_*.py)
+  - fonte_id: ibge_areas_urbanizadas_2022
+    arquivo: data/raw/vetor/ibge/areas_urbanizadas_2022/AreasUrbanizadas2022_Brasil.zip
+    versao: censo_2022
+    sha256: 5e41d6c72c4d733f43f95cbe87a7a50861bf8d8032b3d158b703c5198cbdb434
 
 referencias_bib: []
