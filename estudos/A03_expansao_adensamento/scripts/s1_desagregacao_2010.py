@@ -52,7 +52,7 @@ import pandas as pd  # noqa: E402
 import shapely  # noqa: E402
 
 from grade_estatistica import ler_grade  # noqa: E402
-from s1_expansao_adensamento import CLASSES, TOLERANCIA_CONTIGUIDADE_M  # noqa: E402
+from s1_expansao_adensamento import CLASSES, TOLERANCIA_CONTIGUIDADE_M, movimento_e_divergencia  # noqa: E402
 from scripts.utils import catalogo, medidas, metadados, paths  # noqa: E402
 from scripts.utils.conteudo import sha256_conteudo  # noqa: E402
 from scripts.utils.hashes import sha256_arquivo  # noqa: E402
@@ -249,6 +249,7 @@ def numeros_s1(u: pd.DataFrame) -> dict:
             "expansao_pct_superior": round(100 * (novas + harm) / bruto, 1) if bruto else None,
             "populacao_2010": int(u["pop_10"].sum()), "populacao_2022": int(u["pop_22"].sum()),
             "domicilios_2022": int(u["dom_22"].sum()),
+            "movimento_e_divergencia": movimento_e_divergencia(u),
             "divergencia_ganham_dom_perdem_pop": {
                 "unidades": int(((u["d_dom"] > 0) & (u["d_pop"] < 0)).sum()),
                 "domicilios": int(u.loc[(u["d_dom"] > 0) & (u["d_pop"] < 0), "d_dom"].sum()),
@@ -288,6 +289,9 @@ def cruzamento(u: gpd.GeoDataFrame, g10: gpd.GeoDataFrame, b10: pd.Series, c10: 
     sem_setor = numeros_s1(x[~x["setor_com_assinatura"]])
     return {
         "setores_com_assinatura": sorted(setores_b),
+        # unidades declaradas À PARTE no cenário adotado (resultados_s1.md § 11); lidas
+        # por s1_geografias.py e s1_figuras.py
+        "unidades_a_parte": sorted(x.loc[x["setor_com_assinatura"], "unidade"].tolist()),
         "por_classe": por_classe,
         "efeito_nos_numeros_da_subordinada_1": {
             "todas_as_unidades": base,
@@ -372,6 +376,7 @@ def main() -> None:
     apoio = conferida(APOIO)
 
     resultado = {
+        "camada_sha256_conteudo": metadados.ler(CAMADA)["sha256_conteudo"],
         "natureza": "INDÍCIO; não é a variável oficial de abordagem (IBGE 2016, p. 21), que não "
                     "acompanha os arquivos do geoftp",
         "celulas_com_domicilio_no_municipio": {"2010": int(com10.sum()), "2022": int(com22.sum())},

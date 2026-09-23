@@ -3,15 +3,15 @@
   "autorizacao_fonte": true,
   "campos_removidos": [],
   "crs": "EPSG:31981",
-  "data_producao": "2026-09-22T23:23:06.631680-03:00",
+  "data_producao": "2026-09-23T13:34:55.133574-03:00",
   "fonte_id": "ibge_grade_estatistica_2010;ibge_grade_estatistica_2022;ibge_areas_urbanizadas_2022;ibge_malhas_municipais",
   "licenca": "IBGE — uso livre com citação da fonte",
-  "observacoes": "Mapa da variação de domicílios ocupados (área urbana). Figura do A03 (subordinada 1), gerada de saidas/s1_celulas_2010_2022.gpkg por scripts/s1_figuras.py. Não conferida: não publicar antes da conferência do responsável.",
+  "observacoes": "Mapa da variação de domicílios ocupados (área urbana). Cenário adotado: setor de 2010 430160205000136 à parte (hachurado; fora das contagens). Figura do A03, gerada de saidas/s1_celulas_2010_2022.gpkg por scripts/s1_figuras.py. Não conferida: não publicar antes da conferência do responsável.",
   "pode_publicar": false,
   "referencias_bib": [],
-  "sha256": "1b87ce12a208388c1f4311d8ea93d3a97b91a20afa6aa4e3d64831af232e7da3",
+  "sha256": "1425aa33de0cc697be3451c2442a30d772febe17d79224c88c31fb025bef2ba5",
   "status_conferencia": "pendente",
-  "tamanho_bytes": 671423,
+  "tamanho_bytes": 742397,
   "tema": "censo",
-  "versao": "s1-v1"
+  "versao": "s1-v2"
 }

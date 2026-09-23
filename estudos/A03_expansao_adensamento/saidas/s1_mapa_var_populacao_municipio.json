@@ -3,15 +3,15 @@
   "autorizacao_fonte": true,
   "campos_removidos": [],
   "crs": "EPSG:31981",
-  "data_producao": "2026-09-22T23:23:09.408572-03:00",
+  "data_producao": "2026-09-23T13:34:59.639582-03:00",
   "fonte_id": "ibge_grade_estatistica_2010;ibge_grade_estatistica_2022;ibge_areas_urbanizadas_2022;ibge_malhas_municipais",
   "licenca": "IBGE — uso livre com citação da fonte",
-  "observacoes": "Mapa da variação de moradores (município inteiro). Figura do A03 (subordinada 1), gerada de saidas/s1_celulas_2010_2022.gpkg por scripts/s1_figuras.py. Não conferida: não publicar antes da conferência do responsável.",
+  "observacoes": "Mapa da variação de moradores (município inteiro). Cenário adotado: setor de 2010 430160205000136 à parte (hachurado; fora das contagens). Figura do A03, gerada de saidas/s1_celulas_2010_2022.gpkg por scripts/s1_figuras.py. Não conferida: não publicar antes da conferência do responsável.",
   "pode_publicar": false,
   "referencias_bib": [],
-  "sha256": "f0cdfb8d21b885e1ee897ff5801b1c824d1eac63b65695a14f8f0fb14552d369",
+  "sha256": "8b6e39858dd77b1e43e2dcf753f121e9ec9fd8eaa8f7e1d2976418dfdc0c0832",
   "status_conferencia": "pendente",
-  "tamanho_bytes": 398307,
+  "tamanho_bytes": 445799,
   "tema": "censo",
-  "versao": "s1-v1"
+  "versao": "s1-v2"
 }

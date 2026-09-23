@@ -1,0 +1,17 @@
+{
+  "arquivo": "estudos/A03_expansao_adensamento/saidas/s1_mapa_divergencia_urbano.png",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "EPSG:31981",
+  "data_producao": "2026-09-23T13:35:00.811431-03:00",
+  "fonte_id": "ibge_grade_estatistica_2010;ibge_grade_estatistica_2022;ibge_areas_urbanizadas_2022;ibge_malhas_municipais",
+  "licenca": "IBGE — uso livre com citação da fonte",
+  "observacoes": "Mapa das unidades que ganham domicílio e perdem moradores (subordinada 2, área urbana). Cenário adotado: setor de 2010 430160205000136 à parte (hachurado; fora das contagens). Figura do A03, gerada de saidas/s1_celulas_2010_2022.gpkg por scripts/s1_figuras.py. Não conferida: não publicar antes da conferência do responsável.",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "sha256": "0743712d75f964bd7cbeb2e9264f5294abcf9d920a90d01863a294fb6b03f7bc",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 672007,
+  "tema": "censo",
+  "versao": "s1-v2"
+}

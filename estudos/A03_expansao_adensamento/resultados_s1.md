@@ -21,8 +21,10 @@ Este documento **descreve**. Não tira conclusão de planejamento urbano.
 >   - perda bruta de **4.248**.
 > - Os números com **todas as unidades** ficam ao lado, como sensibilidade: 15,6–30,1 %;
 >   232 extintas com 807 domicílios; perda bruta de 4.624.
-> - O fechamento está no § 11. Os §§ 5 a 8 continuam medidos sobre todas as unidades,
->   e isso vem dito em cada um.
+> - O fechamento está no § 11.
+> - As geografias do § 5 e as sete figuras do § 6 foram refeitas no cenário adotado em
+>   2026-09-23.
+> - O § 8 continua sobre todas as unidades, com o cenário adotado anotado.
 
 ---
 
@@ -58,6 +60,10 @@ Se alguma dessas condições falhar, o script para.
 | extinta | 261 | 32 | **232** |
 
 As 590 adensadas incluem 22 unidades harmonizadas. As 355 novas incluem 6.
+
+*Esta tabela usa todas as unidades, porque compara a harmonização com o d03. Os números
+adotados, com o setor de 2010 430160205000136 à parte, estão nos §§ 3, 4 e 11: 354
+novas, 586 adensadas e 201 extintas.*
 
 **Classes**, sobre domicílios ocupados (2010: `DOM_OCU`; 2022: `TOTAL_DOM`):
 
@@ -112,20 +118,8 @@ A harmonização não muda os totais: 2010 e 2022 somam o mesmo que no d03, com 
 
 ## 3. Tabela por classe
 
-| classe | unidades | domicílios 2010 | domicílios 2022 | Δ domicílios | população 2010 | população 2022 | Δ população | moradores/dom. 2010 → 2022 |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
-| nova | 355 | 0 | 1.884 | +1.884 | 0 | 4.604 | +4.604 | — → 2,44 |
-| adensada | 590 | 19.768 | 29.983 | +10.215 | 60.806 | 78.217 | +17.411 | 3,08 → 2,61 |
-| estável | 165 | 912 | 912 | 0 | 2.637 | 2.245 | −392 | 2,89 → 2,46 |
-| esvaziada | 365 | 16.421 | 12.604 | −3.817 | 48.849 | 32.911 | −15.938 | 2,97 → 2,61 |
-| extinta | 232 | 807 | 0 | −807 | 2.618 | 0 | −2.618 | 3,24 → — |
-| **total** | **1.707** | **37.908** | **45.383** | **+7.475** | **114.910** | **117.977** | **+3.067** | 3,03 → 2,60 |
-
-A tabela acima tem **todas as unidades** e desde 2026-09-23 é a **sensibilidade**.
-
-**Cenário adotado: setor 430160205000136 à parte** (§ 10.6 e § 11). Números em
-`derivados/s1_desagregacao_2010.json`, bloco
-`efeito_nos_numeros_da_subordinada_1`.
+**Cenário adotado: setor 430160205000136 à parte** (§§ 10.6 e 11). Números em
+`derivados/s1_desagregacao_2010.json`, bloco `efeito_nos_numeros_da_subordinada_1`.
 
 | classe | unidades | domicílios 2010 | domicílios 2022 | Δ domicílios | população 2010 | população 2022 | Δ população | moradores/dom. 2010 → 2022 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
@@ -140,23 +134,24 @@ A tabela acima tem **todas as unidades** e desde 2026-09-23 é a **sensibilidade
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | nova / adensada / estável / esvaziada / extinta | 1 / 4 / 2 / 9 / 31 | 968 | 1.319 | +351 | 3.476 | 3.798 |
 
+**Sensibilidade: todas as unidades.** Até 2026-09-23 esta era a tabela principal, e
+continua valendo como sensibilidade.
+
+| classe | unidades | domicílios 2010 | domicílios 2022 | Δ domicílios | população 2010 | população 2022 | Δ população | moradores/dom. 2010 → 2022 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| nova | 355 | 0 | 1.884 | +1.884 | 0 | 4.604 | +4.604 | — → 2,44 |
+| adensada | 590 | 19.768 | 29.983 | +10.215 | 60.806 | 78.217 | +17.411 | 3,08 → 2,61 |
+| estável | 165 | 912 | 912 | 0 | 2.637 | 2.245 | −392 | 2,89 → 2,46 |
+| esvaziada | 365 | 16.421 | 12.604 | −3.817 | 48.849 | 32.911 | −15.938 | 2,97 → 2,61 |
+| extinta | 232 | 807 | 0 | −807 | 2.618 | 0 | −2.618 | 3,24 → — |
+| **total** | **1.707** | **37.908** | **45.383** | **+7.475** | **114.910** | **117.977** | **+3.067** | 3,03 → 2,60 |
+
 ---
 
 ## 4. A resposta: quanto é expansão, quanto é adensamento
 
-Ganho bruto de domicílios nas unidades que ganharam: **12.099**.
-
-| origem | domicílios | % do ganho bruto |
-| --- | ---: | ---: |
-| unidades **novas** | 1.884 | **15,6 %** |
-| unidades **adensadas** | 10.215 | 84,4 % |
-| · adensadas de 200 m | 8.299 | 68,6 % |
-| · adensadas de 1 km | 162 | 1,3 % |
-| · adensadas de 1 km **que o IBGE passou a gradear em 200 m em 2022** | 1.754 | 14,5 % |
-
-A tabela acima tem **todas as unidades** e desde 2026-09-23 é a **sensibilidade**.
-
-**Cenário adotado (setor 430160205000136 à parte).** Ganho bruto de **11.372**:
+**Cenário adotado (setor 430160205000136 à parte).** Ganho bruto de domicílios nas
+unidades que ganharam: **11.372**.
 
 | origem | domicílios | % do ganho bruto |
 | --- | ---: | ---: |
@@ -164,30 +159,37 @@ A tabela acima tem **todas as unidades** e desde 2026-09-23 é a **sensibilidade
 | unidades **adensadas** | 9.489 | 83,4 % |
 | · adensadas de 200 m | 8.299 | 73,0 % |
 | · adensadas de 1 km | 162 | 1,4 % |
-| · adensadas de 1 km que o IBGE passou a gradear em 200 m (18) | 1.028 | 9,0 % |
+| · adensadas de 1 km **que o IBGE passou a gradear em 200 m em 2022** (18) | 1.028 | 9,0 % |
 
-**Faixa da expansão adotada: 16,6 % a 25,6 % do ganho bruto.** Com todas as unidades, a
-sensibilidade é de 15,6 % a 30,1 %.
-- As 4 adensadas do setor 136 são mães harmonizadas, e uma delas é a célula de borda de
-  299 → 909 domicílios.
-- Tirá-las baixa o limite superior em 4,5 pontos.
-
-> *Corrigido em 2026-09-23. O texto anterior era: "**Faixa da expansão: 15,6 % a 30,1 %
-> do ganho bruto.**" Continua valendo como sensibilidade com todas as unidades.*
-
-Como os limites são definidos:
+**Faixa da expansão adotada: 16,6 % a 25,6 % do ganho bruto.**
 - O limite inferior conta só as unidades novas.
-- O superior soma a elas o ganho das adensadas harmonizadas: 22 com todas as unidades,
-  18 no cenário adotado.
-- Essas 22 são células de 1 km que já tinham domicílio em 2010 e onde o IBGE passou a
-  gradear em 200 m. Dentro delas pode haver ocupação de área nova que a resolução de
-  1 km de 2010 não permite separar do adensamento.
+- O superior soma a elas o ganho das 18 adensadas harmonizadas. São células de 1 km que
+  já tinham domicílio em 2010 e onde o IBGE passou a gradear em 200 m. Dentro delas
+  pode haver ocupação de área nova que a resolução de 1 km de 2010 não permite separar
+  do adensamento.
+- As 4 adensadas do setor 136 também são mães harmonizadas, e uma delas é a célula de
+  borda de 299 → 909 domicílios. Tirá-las baixa o limite superior em 4,5 pontos.
 
-A comparação com o d03, abaixo, é com todas as unidades.
+**Sensibilidade: todas as unidades.** Ganho bruto de 12.099:
 
-Pela junção do d03, a leitura era 40 % de expansão (5.709 domicílios em 573 células
-novas), com 15.385 pessoas nas novas. **Harmonizada, a expansão fica entre 16 % e 30 %,
-e as unidades novas somam 4.604 moradores.** Da diferença:
+| origem | domicílios | % do ganho bruto |
+| --- | ---: | ---: |
+| unidades **novas** | 1.884 | 15,6 % |
+| unidades **adensadas** | 10.215 | 84,4 % |
+| · adensadas de 200 m | 8.299 | 68,6 % |
+| · adensadas de 1 km | 162 | 1,3 % |
+| · adensadas de 1 km que o IBGE passou a gradear em 200 m em 2022 (22) | 1.754 | 14,5 % |
+
+Faixa de 15,6 % a 30,1 %.
+
+> *Corrigido em 2026-09-23. O texto anterior dava como principal a tabela de
+> sensibilidade acima e "**Faixa da expansão: 15,6 % a 30,1 % do ganho bruto.**", com
+> o limite superior sobre as 22 adensadas harmonizadas.*
+
+**A comparação com o d03 é com todas as unidades,** porque mede só o efeito da troca de
+resolução. Pela junção do d03, a leitura era 40 % de expansão: 5.709 domicílios em 573
+células novas, com 15.385 pessoas nelas. **Harmonizada, a expansão fica entre 16 % e
+30 %, e as unidades novas somam 4.604 moradores.** Da diferença:
 - 3.892 domicílios e 10.969 moradores estavam nas filhas de 200 m (224 delas com
   domicílio), que o d03 tratava como novas;
 - no d03, as mães correspondentes de 1 km apareciam como extintas.
@@ -196,60 +198,77 @@ e as unidades novas somam 4.604 moradores.** Da diferença:
 
 ## 5. As geografias
 
-*Medidas sobre **todas as unidades**. As geografias não foram refeitas sem o setor 136:
-ele tem 47 das 1.707 unidades, sendo 31 extintas. Onde isso pesa, o § 11 diz.*
+*Refeito em 2026-09-23 no **cenário adotado** (setor 430160205000136 à parte, § 11)
+por `scripts/s1_geografias.py`, com as mesmas funções do `s1_expansao_adensamento.py`.
+Números em `derivados/s1_geografias.json`: bloco `adotado`, e `todas_as_unidades` como
+sensibilidade. O centro é o do § 1, sem mudança.*
+
+- *Na sensibilidade, os números com todas as unidades são os de
+  `derivados/s1_caracterizacao.json`, com uma exceção: a ordem de um empate na lista
+  dos 10 maiores agrupamentos de adensadas, que o § 5 não publica.*
+- *O texto anterior, com todas as unidades, está nas colunas de sensibilidade e no bloco
+  de correção no fim da seção.*
 
 ### 5.1 Onde estão
 
-| | novas (355) | adensadas (590) | extintas (232) |
-| --- | ---: | ---: | ---: |
-| peso usado | domicílios 2022 | domicílios 2022 | domicílios 2010 |
-| distância ao centro, mediana das unidades | 17,96 km | 2,90 km | 9,86 km |
-| distância ao centro, mediana ponderada por domicílio | **3,47 km** | **2,57 km** | **4,74 km** |
-| p25 – p75 (unidades) | 5,4 – 39,0 km | 1,9 – 4,1 km | 4,2 – 40,8 km |
-| **dentro** da área urbanizada 2022 (unidades / domicílios) | 25 / 968 | 442 / 26.790 | 9 / 37 |
-| **fora** (unidades / domicílios) | 330 / 916 | 148 / 3.193 | 223 / 770 |
-| % dos domicílios dentro | **51,4 %** | **89,4 %** | **4,6 %** |
-| % dentro, com todos os tipos de área urbanizada | 54,0 % | 89,5 % | 5,2 % |
-| unidades que tocam a área urbanizada | 72 | 512 | 38 |
-| resolução (200 m / 1 km / 1 km harmonizada) | 90 / 259 / 6 | 496 / 72 / 22 | 90 / 139 / 3 |
+| | novas (354) | adensadas (586) | extintas (201) | sensibilidade: todas as unidades (novas / adensadas / extintas) |
+| --- | ---: | ---: | ---: | --- |
+| peso usado | domicílios 2022 | domicílios 2022 | domicílios 2010 | — |
+| distância ao centro, mediana das unidades | 18,08 km | 2,90 km | 11,06 km | 17,96 km ; 2,90 km ; 9,86 km |
+| distância ao centro, mediana ponderada por domicílio | **3,47 km** | **2,50 km** | **3,89 km** | **3,47 km** ; **2,57 km** ; **4,74 km** |
+| p25 – p75 (unidades) | 5,4 – 39,2 km | 1,9 – 4,1 km | 4,1 – 43,3 km | 5,4 – 39,0 km ; 1,9 – 4,1 km ; 4,2 – 40,8 km |
+| **dentro** da área urbanizada 2022 (unidades / domicílios) | 25 / 968 | 442 / 26.790 | 8 / 36 | 25 / 968 ; 442 / 26.790 ; 9 / 37 |
+| **fora** (unidades / domicílios) | 329 / 915 | 144 / 1.995 | 193 / 542 | 330 / 916 ; 148 / 3.193 ; 223 / 770 |
+| % dos domicílios dentro | **51,4 %** | **93,1 %** | **6,2 %** | **51,4 %** ; **89,4 %** ; **4,6 %** |
+| % dentro, com todos os tipos de área urbanizada | 54,0 % | 93,2 % | 6,9 % | 54,0 % ; 89,5 % ; 5,2 % |
+| unidades que tocam a área urbanizada | 72 | 508 | 33 | 72 ; 512 ; 38 |
+| resolução (200 m / 1 km / 1 km harmonizada) | 90 / 258 / 6 | 496 / 72 / 18 | 75 / 124 / 2 | 90 / 259 / 6 ; 496 / 72 / 22 ; 90 / 139 / 3 |
 
-Domicílios por faixa de distância ao centro:
+Domicílios por faixa de distância ao centro (cenário adotado; entre parênteses, com todas as unidades):
 
 | faixa | novas | adensadas | extintas |
 | --- | ---: | ---: | ---: |
 | 0–1 km | 0 | 2.809 | 7 |
 | 1–2 km | 195 | 7.816 | 8 |
-| 2–3 km | 597 | 8.588 | 188 |
-| 3–4 km | 250 | 7.238 | 109 |
-| 4–6 km | 365 | 2.896 | 128 |
-| 6–10 km | 90 | 466 | 117 |
-| ≥ 10 km | 387 | 170 | 250 |
+| 2–3 km | 597 | 8.588 | 186 (188) |
+| 3–4 km | 250 | 6.329 (7.238) | 106 (109) |
+| 4–6 km | 365 | 2.607 (2.896) | 97 (128) |
+| 6–10 km | 90 | 466 | 17 (117) |
+| ≥ 10 km | 386 (387) | 170 | 157 (250) |
 
-**Leitura descritiva:**
-- **Novas.** Duas populações de unidade. A maioria das unidades novas (259 de 355) é
-  rural, de 1 km, com mediana de 1 domicílio, espalhada pelo município. Os domicílios,
-  porém, se dividem ao meio:
-  - 51 % em 25 unidades dentro da área urbanizada;
-  - o restante nas 330 unidades de fora.
-  Entre 1 e 6 km do centro estão 1.407 dos 1.884 domicílios novos.
-  Nenhuma unidade nova está a menos de 1 km do centro.
-- **Adensadas.** Concentram-se na cidade: 89 % dos domicílios dentro da área
-  urbanizada, 88 % a menos de 4 km do centro.
-- **Extintas.** São rurais: 95 % dos domicílios de 2010 fora da área urbanizada.
-  115 das 232 unidades estão a 10 km ou mais do centro.
+**Leitura descritiva (cenário adotado):**
+- **Novas.** Tirar o setor 136 muda uma unidade nova só.
+  - Há duas populações de unidade. A maioria das novas (258 de
+    354) é rural, de 1 km, com mediana de 1 domicílio, espalhada pelo município.
+  - Os domicílios se dividem ao meio: 51,4 % em
+    25 unidades dentro da área urbanizada, e o
+    restante nas 329 de fora.
+  - Entre 1 e 6 km do centro estão 1.407 dos 1.883 domicílios novos. Nenhuma unidade
+    nova está a menos de 1 km do centro.
+- **Adensadas.** Concentram-se na cidade:
+  **93,1 %** dos domicílios dentro da
+  área urbanizada (89,4 % com todas as unidades) e 88,7 % a menos de 4 km do centro.
+  - A diferença vem das 4 mães harmonizadas do setor 136, fora da área urbanizada, que
+    somavam 1.198 domicílios em 2022.
+- **Extintas.** São rurais: 93,8 % dos
+  domicílios de 2010 fora da área urbanizada.
+  - 106 das 201 unidades estão a 10 km ou mais do centro.
+  - Sem o setor 136, a mediana ponderada cai de 4,74 para
+    **3,89 km**.
+  - Quase todos os 229 domicílios extintos do setor estavam a 4 km ou mais do centro:
+    31 entre 4 e 6 km, 100 entre 6 e 10 km e 93 a 10 km ou mais (faixas acima).
 
 ### 5.2 Contiguidade
 
-| | novas | adensadas | extintas |
-| --- | ---: | ---: | ---: |
-| agrupamentos contíguos | 208 | 64 | 146 |
-| unidades isoladas (agrupamento de 1) | 139 | 51 | 115 |
-| agrupamentos de 2–4 / 5–9 / 10–49 / ≥ 50 unidades | 56 / 12 / 1 / 0 | 9 / 1 / 2 / 1 | 26 / 2 / 3 / 0 |
-| maior agrupamento: unidades, domicílios | 12 un., 38 dom. | **481 un., 28.006 dom.** | 18 un., 203 dom. |
-| % dos domicílios da classe no maior agrupamento | 2,0 % | **93,4 %** | 25,2 % |
+| | novas | adensadas | extintas | sensibilidade: todas as unidades (novas / adensadas / extintas) |
+| --- | ---: | ---: | ---: | --- |
+| agrupamentos contíguos | 207 | 65 | 146 | 208 ; 64 ; 146 |
+| unidades isoladas (agrupamento de 1) | 138 | 51 | 118 | 139 ; 51 ; 115 |
+| agrupamentos de 2–4 / 5–9 / 10–49 / ≥ 50 unidades | 56 / 12 / 1 / 0 | 10 / 1 / 2 / 1 | 25 / 2 / 1 / 0 | 56 / 12 / 1 / 0 ; 9 / 1 / 2 / 1 ; 26 / 2 / 3 / 0 |
+| maior agrupamento: unidades, domicílios | 12 un., 38 dom. | 475 un., 26.729 dom. | 10 un., 111 dom. | 12 un., 38 dom. ; 481 un., 28.006 dom. ; 18 un., 203 dom. |
+| % dos domicílios da classe no maior agrupamento | 2,0 % | 92,9 % | 19,2 % | 2,0 % ; 93,4 % ; 25,2 % |
 
-Os 10 maiores agrupamentos de **novas** (unidades · domicílios · km²):
+Os 10 maiores agrupamentos de **novas** são os mesmos nos dois cenários (unidades · domicílios · km²):
 
 | unidades | domicílios | km² |
 | ---: | ---: | ---: |
@@ -267,65 +286,110 @@ Os 10 maiores agrupamentos de **novas** (unidades · domicílios · km²):
 Os agrupamentos de 1 km (5–12 km²) têm poucos domicílios. Os de 200 m (0,2 km²)
 concentram a maior parte: um só deles tem 276 domicílios.
 
-- As **adensadas** formam uma mancha contínua: um agrupamento de 481 unidades, 37,5 km²,
-  com 93 % dos domicílios da classe.
+- As **adensadas** formam uma mancha contínua: um agrupamento de 475 unidades,
+  31,5 km², com 92,9 % dos domicílios da classe.
 - As **novas** e as **extintas** são fragmentadas: a maioria dos agrupamentos tem uma
   unidade só.
+- Sem o setor 136, o maior agrupamento de extintas deixa de ser o bloco rural (18
+  unidades, 203 domicílios).
+  - Passa a ser o urbano dos setores 053 e 054: 10
+    unidades de 200 m, 111 domicílios,
+    19,2 % dos da classe.
 
 ### 5.3 Densidade de domicílios
 
 Densidade = domicílios da classe / área da classe (km² em ESRI:102033), separada por
-resolução. Somar 200 m com 1 km mistura escalas de ocupação diferentes.
+resolução. Somar 200 m com 1 km mistura escalas de ocupação diferentes. Cenário
+adotado; entre parênteses, os valores com todas as unidades, quando diferem.
 
 | classe | resolução | unidades | km² | dom/km² 2010 | dom/km² 2022 | mediana dom/unidade 2010 → 2022 |
 | --- | --- | ---: | ---: | ---: | ---: | --- |
 | nova | 200 m | 90 | 3,60 | 0 | 388,9 | 0 → 2 |
-| nova | 1 km (inclui harmonizadas) | 265 | 265,0 | 0 | 1,8 | 0 → 1 |
+| nova | 1 km (inclui harmonizadas) | 264 (265) | 264,0 (265,0) | 0 | 1,8 | 0 → 1 |
 | adensada | 200 m | 496 | 19,84 | 918,2 | 1.336,5 | 33 → 50 |
-| adensada | 1 km (inclui harmonizadas) | 94 | 94,0 | 16,5 | 36,9 | 2 → 4 |
-| estável | 200 m | 44 | 1,76 | 429,5 | 429,5 | 3,5 → 3,5 |
+| adensada | 1 km (inclui harmonizadas) | 90 (94) | 90,0 (94,0) | 12,0 (16,5) | 25,2 (36,9) | 2 → 4 |
+| estável | 200 m | 42 (44) | 1,68 (1,76) | 448,8 (429,5) | 448,8 (429,5) | 4 → 4 (3,5 → 3,5) |
 | estável | 1 km | 121 | 121,0 | 1,3 | 1,3 | 1 → 1 |
 | esvaziada | 200 m | 283 | 11,32 | 1.333,0 | 1.040,8 | 52 → 39 |
-| esvaziada | 1 km (inclui harmonizadas) | 82 | 82,0 | 16,2 | 10,0 | 4 → 2 |
-| extinta | 200 m | 90 | 3,60 | 114,2 | 0 | 2 → 0 |
-| extinta | 1 km (inclui harmonizadas) | 142 | 142,0 | 2,8 | 0 | 1 → 0 |
+| esvaziada | 1 km (inclui harmonizadas) | 73 (82) | 73,0 (82,0) | 14,6 (16,2) | 9,6 (10,0) | 3 → 2 (4 → 2) |
+| extinta | 200 m | 75 (90) | 3,00 (3,60) | 131,3 (114,2) | 0 | 2 → 0 |
+| extinta | 1 km (inclui harmonizadas) | 126 (142) | 126,0 (142,0) | 1,5 (2,8) | 0 | 1 → 0 |
 
-Nas células urbanas (200 m):
+Nas células urbanas (200 m), que o setor 136 quase não toca:
 - as novas chegam a 389 dom/km² em 2022, menos de um terço da densidade das adensadas
   (1.337);
 - as adensadas partem de 918 dom/km² em 2010, abaixo das esvaziadas (1.333 em 2010);
 - as esvaziadas eram as unidades mais densas de 2010.
 
+Nas de 1 km, tirar o setor 136 muda a densidade:
+- a das adensadas cai de 16,5 → 36,9 para 12,0 → 25,2 dom/km²;
+- a das extintas de 2010 cai de 2,8 para 1,5 dom/km².
+
 ### 5.4 Quantos moradores acompanharam cada classe
 
-- **Novas:** +1.884 domicílios e **+4.604 moradores** (2,44 por domicílio).
-- **Adensadas:** +10.215 domicílios e **+17.411 moradores**. Moradores por domicílio
-  caíram de 3,08 para 2,61.
-- **Esvaziadas:** −3.817 domicílios e **−15.938 moradores**. A perda de moradores é
-  proporcionalmente maior que a de domicílios (−33 % contra −23 %).
-- **Extintas:** −807 domicílios e −2.618 moradores.
-- **Estáveis:** sem variação de domicílios, e mesmo assim −392 moradores.
+Cenário adotado (tabela do § 3); entre parênteses, com todas as unidades.
+
+- **Novas:** +1.883 domicílios e **+4.602 moradores**, 2,44 por domicílio (+1.884 e
+  +4.604).
+- **Adensadas:** +9.489 domicílios e **+15.624 moradores** (+10.215 e +17.411).
+  Moradores por domicílio caíram de 3,06 para 2,60.
+- **Esvaziadas:** −3.670 domicílios e **−15.329 moradores** (−3.817 e −15.938). A perda
+  de moradores é proporcionalmente maior que a de domicílios (−32 % contra −23 %).
+- **Extintas:** −578 domicílios e −1.762 moradores (−807 e −2.618).
+- **Estáveis:** sem variação de domicílios, e mesmo assim −390 moradores (−392).
+
+> *Corrigido em 2026-09-23.* Até esta data o § 5 era medido só sobre todas as unidades.
+> Os números antigos estão nas colunas de sensibilidade acima e em
+> `derivados/s1_caracterizacao.json`, e seguem válidos como sensibilidade. As
+> leituras antigas que mudaram:
+> - adensadas "89 % dos domicílios dentro da área urbanizada" e agrupamento de
+>   "481 unidades, 37,5 km², 93 %";
+> - extintas "95 % fora", "115 das 232 unidades a 10 km ou mais" e maior agrupamento de
+>   "18 un., 203 dom.";
+> - moradores por classe com todas as unidades (§ 5.4 anterior).
 
 ---
 
 ## 6. Figuras
 
-Todas em `saidas/`, fora do git, cada uma com `.json` irmão (pendente, não publicável).
-Mapas em EPSG:31981, com escala, norte da quadrícula e fonte. A base é o limite municipal
-e o **contorno da área urbanizada de 2022 do IBGE**.
+*Refeitas em 2026-09-23 no cenário adotado (versão `s1-v2` no `.json` irmão), por
+`scripts/s1_figuras.py`.*
+
+Todas estão em `saidas/`, fora do git, cada uma com `.json` irmão (pendente, não
+publicável). Mapas em EPSG:31981, com escala, norte da quadrícula e fonte. A base é o
+limite municipal e o **contorno da área urbanizada de 2022 do IBGE**.
+
+**O setor 136 em todas as figuras:**
+- As 47 unidades do setor de 2010 430160205000136 aparecem **hachuradas e contornadas**,
+  na cor da sua classe ou faixa.
+- A legenda explica o que isso significa: à parte, porque a grade de 2010 foi
+  desagregada ali, e fora das contagens.
+- As contagens da legenda são as do cenário adotado.
 
 | figura | área urbana | município inteiro |
 | --- | --- | --- |
 | classes | `s1_mapa_classes_urbano.png` | `s1_mapa_classes_municipio.png` |
 | variação de domicílios | `s1_mapa_var_domicilios_urbano.png` | `s1_mapa_var_domicilios_municipio.png` |
 | variação de população | `s1_mapa_var_populacao_urbano.png` | `s1_mapa_var_populacao_municipio.png` |
+| **divergência de sinal (subordinada 2)** | `s1_mapa_divergencia_urbano.png` | — |
+
+**A sétima figura, nova em 2026-09-23,** é o primeiro mapa da subordinada 2: as 137
+unidades que ganharam domicílios e perderam moradores (+843 / −2.095).
+- Recorte urbano, com as demais unidades ocupadas em cinza de contexto.
+- 8 unidades rurais ficam fora do recorte (+9 domicílios, −22 moradores), e o próprio
+  mapa diz isso.
+- Nenhuma das 137 está no setor 136.
 
 O que os mapas mostram, sem interpretar:
 - a mancha azul (adensada) contínua na cidade, entremeada de esvaziadas no núcleo;
 - as novas de 200 m na franja da área urbanizada;
 - as novas e extintas de 1 km espalhadas pelo rural;
 - um bloco de unidades de 1 km a leste da cidade que perderam domicílios (esvaziadas e
-  extintas).
+  extintas). É o setor 136, hachurado.
+- na figura 7, as unidades da divergência de sinal se espalham pelo tecido urbano,
+  sem formar mancha.
+  - *Isto é descrição do mapa. Se elas formam área contígua é pergunta da subordinada
+    2, ainda não medida.*
 
 ---
 
@@ -373,27 +437,35 @@ com domicílio em algum dos dois anos, com as mesmas regras do d03. Números em
 estavam no JSON. Entraram no script no mesmo dia; na nova execução, todos os números
 desta seção bateram com a saída, sem divergência.*
 
-| | unidades | soma | mediana | p90 | máximo |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| ganharam domicílios | 945 | +12.099 | 4 | 25 | 610 |
-| perderam domicílios | 597 | −4.624 | 3 | 18 | 190 |
-| ganharam população | 822 | +24.428 | 6,5 | 63 | 1.551 |
-| perderam população | 819 | −21.361 | 10 | 66 | 779 |
+**Cenário adotado (setor 136 à parte, § 11).** Números em
+`derivados/s1_desagregacao_2010.json`, `efeito_nos_numeros_da_subordinada_1`,
+calculados pela mesma função `movimento_e_divergencia`. Na coluna da direita, a
+sensibilidade com todas as unidades.
+
+| | unidades | soma | mediana | p90 | máximo | sensibilidade: unidades / soma / mediana / p90 / máximo |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| ganharam domicílios | 940 | **+11.372** | 4 | 25 | 579 | 945 / +12.099 / 4 / 25 / 610 |
+| perderam domicílios | 557 | **−4.248** | 3 | 18 | 190 | 597 / −4.624 / 3 / 18 / 190 |
+| ganharam população | 817 | +22.639 | 6 | 62,4 | 1.453 | 822 / +24.428 / 6,5 / 63 / 1.551 |
+| perderam população | 777 | −19.894 | 10 | 65 | 779 | 819 / −21.361 / 10 / 66 / 779 |
 
 Mediana, p90 e máximo das perdas são sobre o valor absoluto, como no d03.
 
-*Números de todas as unidades. No cenário adotado (setor 136 à parte, § 11):*
-- *ganho bruto de 11.372 contra perda bruta de **4.248**, com saldo de +7.124;*
-- *a divergência de sinal não muda: as mesmas 137 unidades, +843 / −2.095, porque
-  nenhuma delas está no setor 136.*
+- **Movimento bruto de domicílios:** +11.372 contra −4.248, para um saldo de
+  **+7.124**. São 15.620 de movimento, pouco mais de dois para um.
+  - Com todas as unidades: 16.723 para +7.475.
+  - O d03 dava 20.865, quase três para um.
+- **Divergência de sinal:** **137 unidades** ganharam domicílios e perderam população,
+  com +843 domicílios e −2.095 pessoas.
+  - São 8,3 % das 1.660, ou 8,0 % das 1.707. Nenhuma delas está no setor 136.
+  - O caminho inverso ocorre em 7 unidades.
+  - O d03 dava 132 células (6,9 % de 1.925), +804 e −2.044. A subordinada 2 do
+    manifesto foi corrigida para os números harmonizados em 2026-09-23.
 
-- **Movimento bruto de domicílios:** +12.099 contra −4.624, para o mesmo saldo de
-  **+7.475** — 16.723 de movimento, pouco mais de dois para um (o d03 dava 20.865, quase
-  três para um).
-- **Divergência de sinal:** **137 unidades (8,0 % das 1.707)** ganharam domicílios e
-  perderam população, com +843 domicílios e −2.095 pessoas. O caminho inverso ocorre em
-  7 unidades. O d03 dava 132 células (6,9 % de 1.925), +804 e −2.044. A subordinada 2 do
-  manifesto foi corrigida para os números harmonizados em 2026-09-23.
+> *Corrigido em 2026-09-23 (cenário adotado). Antes, a tabela desta seção tinha só
+> todas as unidades (hoje a coluna de sensibilidade), com "Movimento bruto de
+> domicílios: +12.099 contra −4.624, para o mesmo saldo de +7.475 — 16.723 de
+> movimento" e a divergência em "8,0 % das 1.707".*
 
 **De onde vem a troca de resolução, medida nas duas edições como o IBGE as publica**
 (leitura por `scripts/grade_estatistica.py`, cada edição recortada pelo centroide da
@@ -946,16 +1018,23 @@ medido, nada aplicado):
     melhor caso, na face de quadra e não no endereço.
   - Sem a variável de abordagem por célula, o dado só mostra um piso do viés: um
     setor, 229 domicílios extintos.
-  - O teste que decide é **imagem de ~2010**: se houve construção onde a grade de 2010
-    pôs domicílios.
+  - O teste que decidiria unidade a unidade é **imagem de ~2010**: se houve construção
+    onde a grade de 2010 pôs domicílios. Ele foi dispensado (item 1 abaixo).
 
 **Tratamento.** Como o teste de deslocamento deu negativo, não há proposta de tratamento
 de deslocamento. Proposta para decisão do responsável, sem nada aplicado:
-1. **Conferência por imagem de ~2010** (histórico do Google Earth ou mosaico da época):
-   - começar pelos dois maiores agrupamentos (setor rural 136; setores urbanos 053 e
-     054), que somam 314 dos 807 domicílios;
-   - depois, uma amostra das 147 sem endereço.
-   - Pelo resultado, a causa de cada extinta fica documentada unidade a unidade.
+1. **Conferência por imagem de ~2010:** ENCERRADA COMO DISPENSADA em 2026-09-23, por
+   decisão do responsável.
+   - **O motivo:** o setor 136 já está à parte, e a conferência não mudaria decisão
+     nenhuma.
+     - Nenhuma classe é reclassificada por imagem.
+     - O setor 136 já foi retirado dos números adotados.
+     - Nos setores 053 e 054 (10 unidades de 200 m, 111 domicílios), a imagem só
+       diria se havia construção em 2010. Isso não altera a regra das classes nem o
+       cenário adotado.
+   - *O texto anterior propunha: começar pelos dois maiores agrupamentos (setor rural
+     136; setores urbanos 053 e 054), que somam 314 dos 807 domicílios; depois, uma
+     amostra das 147 sem endereço.*
 2. **Pedir ao IBGE a variável de abordagem por célula** da grade de 2010 (p. 21). O
    rascunho está em `docs/pedido_ibge_grade_2010_abordagem.md` e não foi enviado. Com a
    variável, o cruzamento do § 10.6 deixa de ser indício.
@@ -1021,18 +1100,20 @@ parte, e as unidades dele mantêm as suas classes.*
 - **A incerteza da faixa** vem das 18 unidades de 1 km que o IBGE passou a gradear em
   200 m. Nelas, a resolução de 2010 não separa ocupação nova de adensamento (§ 4).
 
-**As geografias** (§ 5, medidas sobre todas as unidades; o setor 136 tem 47 delas):
-- **Adensadas:** uma mancha contínua. O maior agrupamento tem 481 unidades e 93 % dos
-  domicílios da classe, e 89 % dos domicílios estão dentro da área urbanizada de 2022.
+**As geografias** (§ 5, cenário adotado; com todas as unidades entre parênteses):
+- **Adensadas:** uma mancha contínua. O maior agrupamento tem 475 unidades e 92,9 % dos
+  domicílios da classe (481; 93,4 %). 93,1 % dos domicílios estão dentro da área
+  urbanizada de 2022 (89,4 %).
 - **Novas:** duas populações.
   - Unidades rurais de 1 km, dispersas, com mediana de 1 domicílio.
   - Unidades de 200 m na franja da área urbanizada, que concentram os domicílios.
   - Metade dos domicílios novos fica dentro da área urbanizada.
-- **Extintas:** rurais, com 95 % dos domicílios de 2010 fora da área urbanizada.
+- **Extintas:** rurais, com 93,8 % dos domicílios de 2010 fora da área urbanizada
+  (95,4 %). A mediana ponderada da distância ao centro é de 3,89 km (4,74 km).
   - Pelo § 10, 62 são desocupação com a construção de pé.
   - As demais não se separam da posição modelada da grade de 2010.
 - **Densidade** (§ 5.3): as novas de 200 m chegam a 389 domicílios/km², menos de um
-  terço das adensadas (1.337).
+  terço das adensadas (1.337), nos dois cenários.
 
 ### 11.2 As três ressalvas metodológicas
 
@@ -1071,10 +1152,13 @@ Além delas, entram na seção de ressalvas do artigo:
 - **Resultado:**
   - a faixa de 16,6–25,6 % de expansão, com a sensibilidade de 15,6–30,1 % ao lado;
   - a tabela por classe do cenário adotado (§ 3);
-  - as geografias do § 5, com a observação de que foram medidas sobre todas as
-    unidades.
+  - as geografias do § 5, no cenário adotado, com a sensibilidade ao lado;
+  - as sete figuras do § 6, com o setor 136 hachurado. A figura 7 é o primeiro mapa
+    da subordinada 2.
 - **Seção de método:** os três achados do § 11.2, com os números que os medem.
-  - Troca de resolução: 40 % → 15,6–30,1 %.
+  - Troca de resolução: 40 % pela junção por ID, 15,6–30,1 % na unidade harmonizada
+    com todas as unidades. É essa a comparação que mede o achado. O número adotado do
+    resultado é 16,6–25,6 %, com o setor 136 à parte.
   - Grade híbrida: setor 136, 968 domicílios, 31 extintas, piso.
 - **O que o artigo NÃO afirma:**
   - o tamanho total da desagregação em Bagé, que não se mede sem a variável do IBGE;
@@ -1086,8 +1170,9 @@ Além delas, entram na seção de ressalvas do artigo:
   `docs/pedido_ibge_grade_2010_abordagem.md` e não foi enviado. Se a variável chegar,
   o § 10.6 é refeito com ela, e o cenário adotado pode mudar. Isso reabre só a
   sensibilidade, não o método.
-- **Conferência por imagem de ~2010** do setor 136 e dos setores 053 e 054 (§ 10.7).
-- **As figuras em `saidas/`** foram desenhadas com todas as unidades. Para o artigo,
-  marcar o setor 136 nelas, o que ainda não foi feito.
+- ~~Conferência por imagem de ~2010~~: **encerrada como dispensada** em 2026-09-23
+  (§ 10.7, item 1).
+- ~~Marcar o setor 136 nas figuras~~: **feito** em 2026-09-23 (§ 6). As sete figuras
+  foram refeitas com os números adotados.
 - **A camada de trabalho** segue pendente de conferência visual e promoção. Nada foi
   para o acervo.

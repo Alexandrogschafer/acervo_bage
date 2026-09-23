@@ -1,4 +1,5 @@
 {
+  "camada_sha256_conteudo": "78a8800b9a0aba22058a3de2e5b338ce0bb19dc052524aa1c4a54554074a2b17",
   "natureza": "INDÍCIO; não é a variável oficial de abordagem (IBGE 2016, p. 21), que não acompanha os arquivos do geoftp",
   "celulas_com_domicilio_no_municipio": {
     "2010": 1352,
@@ -247,6 +248,55 @@
     "setores_com_assinatura": [
       "430160205000136"
     ],
+    "unidades_a_parte": [
+      "1KME4993N7867",
+      "1KME4994N7866",
+      "1KME4994N7867",
+      "1KME4995N7866",
+      "1KME4995N7867",
+      "1KME4996N7865",
+      "1KME4996N7866",
+      "1KME4996N7867",
+      "1KME4997N7864",
+      "1KME4997N7865",
+      "1KME4997N7866",
+      "1KME4997N7867",
+      "1KME4998N7864",
+      "1KME4998N7865",
+      "1KME4998N7866",
+      "1KME4998N7867",
+      "1KME4999N7864",
+      "1KME4999N7865",
+      "1KME4999N7866",
+      "1KME4999N7867",
+      "1KME5000N7864",
+      "1KME5000N7865",
+      "1KME5000N7866",
+      "1KME5000N7867",
+      "1KME5001N7864",
+      "1KME5001N7865",
+      "1KME5001N7866",
+      "1KME5001N7867",
+      "1KME5002N7866",
+      "1KME5003N7866",
+      "200ME49928N78668",
+      "200ME49928N78682",
+      "200ME49928N78684",
+      "200ME49930N78668",
+      "200ME49930N78670",
+      "200ME49932N78668",
+      "200ME49932N78670",
+      "200ME49934N78666",
+      "200ME49934N78668",
+      "200ME49934N78670",
+      "200ME49936N78666",
+      "200ME49936N78668",
+      "200ME49936N78670",
+      "200ME49938N78664",
+      "200ME49938N78666",
+      "200ME49938N78668",
+      "200ME49938N78670"
+    ],
     "por_classe": {
       "nova": {
         "unidades": 355,
@@ -317,6 +367,58 @@
         "populacao_2010": 114910,
         "populacao_2022": 117977,
         "domicilios_2022": 45383,
+        "movimento_e_divergencia": {
+          "unidades_com_domicilio_em_algum_ano": 1707,
+          "domicilios": {
+            "ganharam": {
+              "n": 945,
+              "soma": 12099,
+              "mediana": 4.0,
+              "p90": 25.0,
+              "maximo": 610
+            },
+            "perderam": {
+              "n": 597,
+              "soma": 4624,
+              "mediana": 3.0,
+              "p90": 18.0,
+              "maximo": 190
+            },
+            "sem_mudanca": 165
+          },
+          "populacao": {
+            "ganharam": {
+              "n": 822,
+              "soma": 24428,
+              "mediana": 6.5,
+              "p90": 63.0,
+              "maximo": 1551
+            },
+            "perderam": {
+              "n": 819,
+              "soma": 21361,
+              "mediana": 10.0,
+              "p90": 66.0,
+              "maximo": 779
+            },
+            "sem_mudanca": 66
+          },
+          "movimento_bruto_de_domicilios": 16723,
+          "saldo_de_domicilios": 7475,
+          "saldo_de_populacao": 3067,
+          "divergencia_de_sinal": {
+            "ganham_domicilio_e_perdem_populacao": {
+              "unidades": 137,
+              "pct_das_unidades": 8.0,
+              "domicilios_ganhos": 843,
+              "populacao_perdida": -2095
+            },
+            "perdem_domicilio_e_ganham_populacao": {
+              "unidades": 7,
+              "pct_das_unidades": 0.4
+            }
+          }
+        },
         "divergencia_ganham_dom_perdem_pop": {
           "unidades": 137,
           "domicilios": 843,
@@ -393,6 +495,58 @@
         "populacao_2010": 114618,
         "populacao_2022": 117957,
         "domicilios_2022": 45376,
+        "movimento_e_divergencia": {
+          "unidades_com_domicilio_em_algum_ano": 1703,
+          "domicilios": {
+            "ganharam": {
+              "n": 945,
+              "soma": 12099,
+              "mediana": 4.0,
+              "p90": 25.0,
+              "maximo": 610
+            },
+            "perderam": {
+              "n": 593,
+              "soma": 4555,
+              "mediana": 3.0,
+              "p90": 18.0,
+              "maximo": 190
+            },
+            "sem_mudanca": 165
+          },
+          "populacao": {
+            "ganharam": {
+              "n": 822,
+              "soma": 24428,
+              "mediana": 6.5,
+              "p90": 63.0,
+              "maximo": 1551
+            },
+            "perderam": {
+              "n": 815,
+              "soma": 21089,
+              "mediana": 10.0,
+              "p90": 65.0,
+              "maximo": 779
+            },
+            "sem_mudanca": 66
+          },
+          "movimento_bruto_de_domicilios": 16654,
+          "saldo_de_domicilios": 7544,
+          "saldo_de_populacao": 3339,
+          "divergencia_de_sinal": {
+            "ganham_domicilio_e_perdem_populacao": {
+              "unidades": 137,
+              "pct_das_unidades": 8.0,
+              "domicilios_ganhos": 843,
+              "populacao_perdida": -2095
+            },
+            "perdem_domicilio_e_ganham_populacao": {
+              "unidades": 7,
+              "pct_das_unidades": 0.4
+            }
+          }
+        },
         "divergencia_ganham_dom_perdem_pop": {
           "unidades": 137,
           "domicilios": 843,
@@ -469,6 +623,58 @@
         "populacao_2010": 111434,
         "populacao_2022": 114179,
         "domicilios_2022": 44064,
+        "movimento_e_divergencia": {
+          "unidades_com_domicilio_em_algum_ano": 1660,
+          "domicilios": {
+            "ganharam": {
+              "n": 940,
+              "soma": 11372,
+              "mediana": 4.0,
+              "p90": 25.0,
+              "maximo": 579
+            },
+            "perderam": {
+              "n": 557,
+              "soma": 4248,
+              "mediana": 3.0,
+              "p90": 18.0,
+              "maximo": 190
+            },
+            "sem_mudanca": 163
+          },
+          "populacao": {
+            "ganharam": {
+              "n": 817,
+              "soma": 22639,
+              "mediana": 6.0,
+              "p90": 62.4,
+              "maximo": 1453
+            },
+            "perderam": {
+              "n": 777,
+              "soma": 19894,
+              "mediana": 10.0,
+              "p90": 65.0,
+              "maximo": 779
+            },
+            "sem_mudanca": 66
+          },
+          "movimento_bruto_de_domicilios": 15620,
+          "saldo_de_domicilios": 7124,
+          "saldo_de_populacao": 2745,
+          "divergencia_de_sinal": {
+            "ganham_domicilio_e_perdem_populacao": {
+              "unidades": 137,
+              "pct_das_unidades": 8.3,
+              "domicilios_ganhos": 843,
+              "populacao_perdida": -2095
+            },
+            "perdem_domicilio_e_ganham_populacao": {
+              "unidades": 7,
+              "pct_das_unidades": 0.4
+            }
+          }
+        },
         "divergencia_ganham_dom_perdem_pop": {
           "unidades": 137,
           "domicilios": 843,
@@ -545,6 +751,58 @@
         "populacao_2010": 3476,
         "populacao_2022": 3798,
         "domicilios_2022": 1319,
+        "movimento_e_divergencia": {
+          "unidades_com_domicilio_em_algum_ano": 47,
+          "domicilios": {
+            "ganharam": {
+              "n": 5,
+              "soma": 727,
+              "mediana": 25.0,
+              "p90": 394.4,
+              "maximo": 610
+            },
+            "perderam": {
+              "n": 40,
+              "soma": 376,
+              "mediana": 7.5,
+              "p90": 18.1,
+              "maximo": 49
+            },
+            "sem_mudanca": 2
+          },
+          "populacao": {
+            "ganharam": {
+              "n": 5,
+              "soma": 1789,
+              "mediana": 42.0,
+              "p90": 998.6,
+              "maximo": 1551
+            },
+            "perderam": {
+              "n": 42,
+              "soma": 1467,
+              "mediana": 27.0,
+              "p90": 69.8,
+              "maximo": 188
+            },
+            "sem_mudanca": 0
+          },
+          "movimento_bruto_de_domicilios": 1103,
+          "saldo_de_domicilios": 351,
+          "saldo_de_populacao": 322,
+          "divergencia_de_sinal": {
+            "ganham_domicilio_e_perdem_populacao": {
+              "unidades": 0,
+              "pct_das_unidades": 0.0,
+              "domicilios_ganhos": 0,
+              "populacao_perdida": 0
+            },
+            "perdem_domicilio_e_ganham_populacao": {
+              "unidades": 0,
+              "pct_das_unidades": 0.0
+            }
+          }
+        },
         "divergencia_ganham_dom_perdem_pop": {
           "unidades": 0,
           "domicilios": 0,

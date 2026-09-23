@@ -3,15 +3,15 @@
   "autorizacao_fonte": true,
   "campos_removidos": [],
   "crs": "EPSG:31981",
-  "data_producao": "2026-09-22T23:23:07.323167-03:00",
+  "data_producao": "2026-09-23T13:34:56.243623-03:00",
   "fonte_id": "ibge_grade_estatistica_2010;ibge_grade_estatistica_2022;ibge_areas_urbanizadas_2022;ibge_malhas_municipais",
   "licenca": "IBGE — uso livre com citação da fonte",
-  "observacoes": "Mapa da variação de moradores (área urbana). Figura do A03 (subordinada 1), gerada de saidas/s1_celulas_2010_2022.gpkg por scripts/s1_figuras.py. Não conferida: não publicar antes da conferência do responsável.",
+  "observacoes": "Mapa da variação de moradores (área urbana). Cenário adotado: setor de 2010 430160205000136 à parte (hachurado; fora das contagens). Figura do A03, gerada de saidas/s1_celulas_2010_2022.gpkg por scripts/s1_figuras.py. Não conferida: não publicar antes da conferência do responsável.",
   "pode_publicar": false,
   "referencias_bib": [],
-  "sha256": "eda546554472f5fe7cba443464815744926380e0b480b5c115f80c19a5ae84f8",
+  "sha256": "bb1d5f733f75d9eb6103421eb4794e02d4501c67db8aa89284aa77f5975ce62f",
   "status_conferencia": "pendente",
-  "tamanho_bytes": 677125,
+  "tamanho_bytes": 743793,
   "tema": "censo",
-  "versao": "s1-v1"
+  "versao": "s1-v2"
 }

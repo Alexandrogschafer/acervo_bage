@@ -5,6 +5,38 @@ pendente. Entrada nova no topo.
 
 ---
 
+## 2026-09-23 — A03: textos no cenário adotado; geografias e figuras refeitas
+
+- **Textos remetidos ao cenário adotado** (setor 136 à parte primeiro, todas as
+  unidades como sensibilidade, texto anterior em correção datada):
+  - `dimensionamento.md` §§ 3.3 e 5.2;
+  - `docs/ressalvas_censo_bage.md` § 7;
+  - `metodo_previsto` item 2 do manifesto;
+  - README;
+  - `resultados_s1.md` §§ 1 (nota), 3, 4 e 8, reordenados para o adotado vir primeiro.
+  - **Grep final** por 15,6 / 30,1 / 12.099 / 4.624 / 232 / 807: o que sobra é
+    sensibilidade rotulada, bloco de correção, o conjunto investigado no § 10 ou este
+    diário.
+- **Geografias do § 5 refeitas** por `scripts/s1_geografias.py`, com
+  `derivados/s1_geografias.json` nos dois cenários.
+  - Adensadas: 93,1 % dos domicílios dentro da área urbanizada (89,4 % com todas).
+  - Extintas: mediana ponderada de 3,89 km (4,74 km); o maior agrupamento passa a ser
+    o urbano dos setores 053 e 054.
+  - O cenário "todas as unidades" reproduz o `s1_caracterizacao.json`, salvo a ordem de
+    um empate num top-10 não publicado.
+- **`s1_desagregacao_2010.py`** grava a lista das 47 unidades à parte, o sha da camada
+  e o `movimento_e_divergencia` de cada recorte.
+- **Sete figuras refeitas** (`s1-v2`):
+  - setor 136 hachurado e contornado em todas, explicado na legenda;
+  - contagens da legenda no cenário adotado;
+  - **figura 7 nova:** as 137 unidades da divergência de sinal (subordinada 2), recorte
+    urbano. As 8 rurais fora do recorte estão declaradas no próprio mapa.
+- **Conferência por imagem de ~2010** (setores 136, 053 e 054): **encerrada como
+  dispensada**. O setor 136 já está à parte, e a conferência não mudaria decisão.
+- **Pedido ao IBGE:** segue sem envio.
+
+---
+
 ## 2026-09-23 — A03: subordinada 1 fechada, com o setor 136 à parte
 
 - **Decisão do responsável:** o setor rural de 2010 430160205000136 fica à parte na

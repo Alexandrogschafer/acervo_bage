@@ -181,11 +181,20 @@ No recorte lido pelos dois quadrantes (caixa envolvente do município, além da 
 62 mães e 1.550 filhas; as 41 e 1.025 acima são as de Bagé.
 
 **Por que importa.** Juntar as edições por `ID_UNICO` e tratar o ausente como zero **não
-gera erro**: as filhas entram como ocupação nova e a mãe como área abandonada. Em Bagé
-isso fez 224 células "novas" e 32 "extintas" que eram só troca de resolução, e levou a
-expansão a **40 %** do ganho bruto de domicílios, quando na unidade harmonizada ela fica
-entre **15,6 % e 30,1 %**. As células só numa edição parecem diferença de cobertura, mas
-são exatamente as mães e as filhas.
+gera erro**: as filhas entram como ocupação nova e a mãe como área abandonada.
+- Em Bagé isso fez 224 células "novas" e 32 "extintas" que eram só troca de resolução,
+  e levou a expansão a **40 %** do ganho bruto de domicílios.
+- Na unidade harmonizada, a expansão fica entre **16,6 % e 25,6 %**. É o número adotado
+  do A03, com o setor de 2010 430160205000136 à parte, por causa do § 8.
+- Com todas as unidades, a sensibilidade é de 15,6 % a 30,1 %. É esta a comparação que
+  mede o efeito da troca de resolução, porque só ela muda a junção.
+- As células só numa edição parecem diferença de cobertura, mas são exatamente as mães
+  e as filhas.
+
+> *Corrigido em 2026-09-23. O texto anterior terminava com: "[...] e levou a expansão a
+> **40 %** do ganho bruto de domicílios, quando na unidade harmonizada ela fica entre
+> **15,6 % e 30,1 %**." Esse número continua válido como sensibilidade com todas as
+> unidades.*
 
 > **REGRA DE USO: comparar a grade de 2010 com a de 2022 só na unidade harmonizada** —
 > onde 2010 tem uma célula de 1 km e 2022 tem as suas 25 filhas de 200 m, comparar a
@@ -195,9 +204,13 @@ são exatamente as mães e as filhas.
 > coisa, parar.
 
 Mesmo na unidade harmonizada fica uma incerteza: numa mãe de 1 km que já tinha domicílio
-em 2010, a resolução de 2010 não separa ocupação de área nova de adensamento. Em Bagé
-são 22 unidades adensadas com 1.754 domicílios ganhos, e é essa a largura da faixa de
-15,6 % a 30,1 %.
+em 2010, a resolução de 2010 não separa ocupação de área nova de adensamento.
+- No cenário adotado, são 18 unidades adensadas com 1.028 domicílios ganhos, e é essa a
+  largura da faixa de 16,6 % a 25,6 %.
+- Com todas as unidades, são 22 com 1.754, e a faixa vai de 15,6 % a 30,1 %.
+
+*Corrigido em 2026-09-23. Antes, o parágrafo dava só "22 unidades adensadas com 1.754
+domicílios ganhos [...] a faixa de 15,6 % a 30,1 %".*
 
 **No A03, é achado de método.** A seção de método prevista do artigo
 (`estudos/A03_expansao_adensamento/manifesto.yaml`, `metodo_previsto`) tem **dois

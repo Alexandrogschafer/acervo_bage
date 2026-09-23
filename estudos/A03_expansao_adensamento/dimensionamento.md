@@ -232,40 +232,52 @@ para a *geografia da mudança*; os *totais* vêm do setor e do município.
 
 ### 3.3 O que a grade mostra
 
-*Corrigido em 2026-09-23 (texto anterior no fim do documento). Números da unidade
-harmonizada, de [`resultados_s1.md`](resultados_s1.md) §§ 3, 4 e 8.*
+*Corrigido em 2026-09-23, duas vezes; os textos anteriores estão no fim do documento.
+Números da unidade harmonizada, no **cenário adotado**: o setor rural de 2010
+430160205000136 fica à parte, porque a grade de 2010 foi desagregada ali
+([`resultados_s1.md`](resultados_s1.md) §§ 3, 4, 10.6 e 11). A sensibilidade com todas
+as unidades fica ao lado. Fonte: `derivados/s1_desagregacao_2010.json`, bloco
+`efeito_nos_numeros_da_subordinada_1`.*
 
-Das unidades harmonizadas de Bagé, **1.707 têm domicílio em algum dos dois anos**.
+Das unidades harmonizadas de Bagé, **1.660 têm domicílio em algum dos dois anos**, fora
+as 47 do setor 136. Com elas, são 1.707.
 
-| | unidades | soma | mediana | p90 | máximo |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| ganharam domicílios | 945 | +12.099 | 4 | 25 | 610 |
-| perderam domicílios | 597 | −4.624 | 3 | 18 | 190 |
-| ganharam população | 822 | +24.428 | 6,5 | 63 | 1.551 |
-| perderam população | 819 | −21.361 | 10 | 66 | 779 |
+| | unidades | soma | mediana | p90 | máximo | sensibilidade: unidades / soma |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| ganharam domicílios | 940 | **+11.372** | 4 | 25 | 579 | 945 / +12.099 |
+| perderam domicílios | 557 | **−4.248** | 3 | 18 | 190 | 597 / −4.624 |
+| ganharam população | 817 | +22.639 | 6 | 62,4 | 1.453 | 822 / +24.428 |
+| perderam população | 777 | −19.894 | 10 | 65 | 779 | 819 / −21.361 |
 
-**O município quase parado esconde um território em movimento.** Para um saldo líquido
-de +7.475 domicílios na grade, houve +12.099 de ganho bruto contra −4.624 de perda —
-**16.723 domicílios de movimento para 7.475 de saldo, pouco mais de dois para um**. Na
-população o contraste é maior: +24.428 contra −21.361 para um saldo de +3.067.
+**O município quase parado esconde um território em movimento.**
+- Para um saldo líquido de **+7.124** domicílios, houve +11.372 de ganho bruto contra
+  −4.248 de perda. São **15.620 domicílios de movimento para 7.124 de saldo, pouco mais
+  de dois para um**.
+- Com todas as unidades: 16.723 de movimento para +7.475 de saldo.
+- Na população o contraste é maior: +22.639 contra −19.894, para um saldo de +2.745
+  (+3.067 com todas as unidades).
 
 **De onde vem o ganho de domicílios:**
 
-| origem | unidades | domicílios |
-| --- | ---: | ---: |
-| unidades **novas** (sem domicílio em 2010) | 355 | **+1.884** |
-| unidades que **já tinham** domicílio e cresceram | 590 | **+10.215** |
+| origem | unidades | domicílios | sensibilidade |
+| --- | ---: | ---: | --- |
+| unidades **novas** (sem domicílio em 2010) | 354 | **+1.883** | 355 / +1.884 |
+| unidades que **já tinham** domicílio e cresceram | 586 | **+9.489** | 590 / +10.215 |
 
-Ou seja: a **expansão fica entre 15,6 % e 30,1 % do ganho bruto** e o restante é
-adensamento de área já ocupada. O limite superior soma às novas o ganho de 22 unidades
-de 1 km em que o IBGE passou a gradear em 200 m em 2022, onde a resolução de 2010 não
-separa ocupação nova de adensamento (resultados_s1.md § 4). As unidades novas trouxeram
-**4.604 moradores**. Há **232 unidades** que tinham domicílio em 2010 e não têm mais.
+**A expansão fica entre 16,6 % e 25,6 % do ganho bruto**, e o restante é adensamento de
+área já ocupada. Com todas as unidades, a sensibilidade é de 15,6 % a 30,1 %.
+- O limite superior soma às novas o ganho de 18 unidades de 1 km (22 com todas) em que
+  o IBGE passou a gradear em 200 m em 2022. Nelas, a resolução de 2010 não separa
+  ocupação nova de adensamento (resultados_s1.md § 4).
+- As unidades novas trouxeram **4.602 moradores** (4.604).
+- Há **201 unidades** que tinham domicílio em 2010 e não têm mais, com 578 domicílios.
+  Com todas as unidades são 232, com 807.
 
-**Divergência de sinal:** **137 unidades (8,0 % das ocupadas) ganharam domicílios e
-perderam população** — +843 domicílios e −2.095 pessoas. O caminho inverso (perder
-domicílio e ganhar população) ocorre em só 7 unidades. A divergência existe, é
-localizada e tem direção clara.
+**Divergência de sinal:** **137 unidades ganharam domicílios e perderam população**,
++843 domicílios e −2.095 pessoas. São 8,3 % das 1.660 ocupadas, ou 8,0 % das 1.707. O
+setor 136 não tem nenhuma delas. O caminho inverso, perder domicílio e ganhar
+população, ocorre em só 7 unidades. A divergência existe, é localizada e tem direção
+clara.
 
 ---
 
@@ -344,11 +356,17 @@ infraestrutura, não sobre a existência do fenômeno.
 
 1. **Redistribuição — sinal forte.** *(Corrigido em 2026-09-23, com os números de
    [`resultados_s1.md`](resultados_s1.md); texto anterior no fim do documento.)*
-   Movimento bruto de 12.099 domicílios ganhos contra 4.624 perdidos para um saldo de
-   7.475; 355 unidades novas, com 15,6 % a 30,1 % do ganho bruto; 137 unidades que
-   ganham domicílio e perdem população; 232 unidades esvaziadas por completo. O
-   município parado é média de movimentos grandes e de direções opostas — medidos na
-   unidade harmonizada, porque a grade **não** é a mesma geografia nos dois anos (§ 3.1).
+   No cenário adotado, com o setor 136 à parte (§ 3.3), são 11.372 domicílios ganhos
+   contra 4.248 perdidos para um saldo de 7.124.
+   - 354 unidades novas, com **16,6 % a 25,6 %** do ganho bruto.
+   - 137 unidades ganham domicílio e perdem população.
+   - 201 unidades se esvaziaram por completo.
+   - Sensibilidade com todas as unidades: 12.099 × 4.624; 355 novas; 15,6–30,1 %; 232.
+
+   O município parado é média de movimentos grandes e de direções opostas. Eles são
+   medidos na unidade harmonizada, porque a grade **não** é a mesma geografia nos dois
+   anos (§ 3.1). O setor 136 fica fora porque a grade de 2010 é modelada ali.
+   *(Corrigido de novo em 2026-09-23; texto anterior no fim do documento.)*
 2. **Infraestrutura — sinal forte, mas transversal.** A pavimentação varia de ~0 a
    100 % entre setores (IQR de 76,6 pontos), e mais quatro itens discriminam bem. Só
    que **o entorno só existe em 2022**: é um retrato, não uma série (§ 1.4 do
@@ -491,3 +509,59 @@ levando a expansão a 40 % do ganho bruto. Medição que motivou a correção:
 
 </details>
 
+## Corrigido em 2026-09-23 (segunda correção): cenário adotado, setor 136 à parte
+
+O responsável decidiu, em 2026-09-23, declarar à parte o setor rural de 2010
+430160205000136, onde a grade de 2010 foi desagregada ([`resultados_s1.md`](resultados_s1.md)
+§§ 10.6 e 11). Os §§ 3.3 e 5.2 (item 1) passaram a dar primeiro os números adotados. O
+texto que eles tinham, com todas as unidades e ainda válido como sensibilidade, fica
+abaixo.
+
+<details>
+<summary>Texto anterior (da primeira correção, até a segunda, ambas em 2026-09-23)</summary>
+
+> ### 3.3 O que a grade mostra
+>
+> *Corrigido em 2026-09-23 (texto anterior no fim do documento). Números da unidade
+> harmonizada, de [`resultados_s1.md`](resultados_s1.md) §§ 3, 4 e 8.*
+>
+> Das unidades harmonizadas de Bagé, **1.707 têm domicílio em algum dos dois anos**.
+>
+> | | unidades | soma | mediana | p90 | máximo |
+> | --- | ---: | ---: | ---: | ---: | ---: |
+> | ganharam domicílios | 945 | +12.099 | 4 | 25 | 610 |
+> | perderam domicílios | 597 | −4.624 | 3 | 18 | 190 |
+> | ganharam população | 822 | +24.428 | 6,5 | 63 | 1.551 |
+> | perderam população | 819 | −21.361 | 10 | 66 | 779 |
+>
+> **O município quase parado esconde um território em movimento.** Para um saldo líquido
+> de +7.475 domicílios na grade, houve +12.099 de ganho bruto contra −4.624 de perda —
+> **16.723 domicílios de movimento para 7.475 de saldo, pouco mais de dois para um**. Na
+> população o contraste é maior: +24.428 contra −21.361 para um saldo de +3.067.
+>
+> **De onde vem o ganho de domicílios:**
+>
+> | origem | unidades | domicílios |
+> | --- | ---: | ---: |
+> | unidades **novas** (sem domicílio em 2010) | 355 | **+1.884** |
+> | unidades que **já tinham** domicílio e cresceram | 590 | **+10.215** |
+>
+> Ou seja: a **expansão fica entre 15,6 % e 30,1 % do ganho bruto** e o restante é
+> adensamento de área já ocupada. O limite superior soma às novas o ganho de 22 unidades
+> de 1 km em que o IBGE passou a gradear em 200 m em 2022, onde a resolução de 2010 não
+> separa ocupação nova de adensamento (resultados_s1.md § 4). As unidades novas trouxeram
+> **4.604 moradores**. Há **232 unidades** que tinham domicílio em 2010 e não têm mais.
+>
+> **Divergência de sinal:** **137 unidades (8,0 % das ocupadas) ganharam domicílios e
+> perderam população** — +843 domicílios e −2.095 pessoas. O caminho inverso (perder
+> domicílio e ganhar população) ocorre em só 7 unidades. A divergência existe, é
+> localizada e tem direção clara.
+>
+> **(§ 5.2, item 1)** Movimento bruto de 12.099 domicílios ganhos contra 4.624 perdidos
+> para um saldo de 7.475; 355 unidades novas, com 15,6 % a 30,1 % do ganho bruto; 137
+> unidades que ganham domicílio e perdem população; 232 unidades esvaziadas por
+> completo. O município parado é média de movimentos grandes e de direções opostas —
+> medidos na unidade harmonizada, porque a grade **não** é a mesma geografia nos dois
+> anos (§ 3.1).
+
+</details>

@@ -59,10 +59,16 @@ totais, geografia entre censos, sigilo, comparabilidade do entorno, CNEFE × set
 **[`dimensionamento.md`](dimensionamento.md)** — a medição que fechou a pergunta:
 população +0,98 % contra domicílios ocupados +17,64 %; Bagé comparado ao RS e ao
 Brasil (o descompasso é o padrão do estado, não anomalia local); a redistribuição na
-grade (na unidade harmonizada, 12.099 domicílios de ganho bruto contra 4.624 de perda;
-355 unidades novas — corrigido em 2026-09-23, antes "14.170 contra 6.695; 573 células
-novas", da junção por ID do d03); e os 10 itens do entorno de 2022 com a dispersão
-entre setores.
+grade (na unidade harmonizada, com o setor de 2010 430160205000136 à parte: 11.372
+domicílios de ganho bruto contra 4.248 de perda, 354 unidades novas; com todas as
+unidades, 12.099 contra 4.624 e 355); e os 10 itens do entorno de 2022 com a
+dispersão entre setores.
+
+*Corrigido duas vezes em 2026-09-23:*
+- *da junção por ID do d03 ("14.170 contra 6.695; 573 células novas") para a unidade
+  harmonizada;*
+- *depois, para o cenário adotado. O texto intermediário era "12.099 domicílios de
+  ganho bruto contra 4.624 de perda; 355 unidades novas".*
 
 **[`resultados_s1.md`](resultados_s1.md)** — a subordinada 1, **concluída em
 2026-09-23** (§ 11).
