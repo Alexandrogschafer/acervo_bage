@@ -29,14 +29,21 @@ Três subordinadas, decididas pelo responsável em 2026-09-22 e escritas na ínt
 
 ## Recorte espacial (decidido)
 
-- **Grade estatística** para a mudança 2010 → 2022: única geografia fixa entre os dois
-  censos, com a coincidência das células conferida.
+- **Grade estatística** para a mudança 2010 → 2022, comparada na **unidade
+  harmonizada**: em 41 lugares do município o IBGE refinou a resolução entre 2010 e
+  2022 (a célula de 1 km virou as 25 de 200 m que a compõem), então a comparação é a
+  mãe de 1 km contra a soma das 25 filhas — ver
+  [`docs/ressalvas_censo_bage.md`](../../docs/ressalvas_censo_bage.md) § 7.
+  *Corrigido em 2026-09-23; antes: "única geografia fixa entre os dois censos, com a
+  coincidência das células conferida".*
 - **Setor censitário de 2022** para o entorno: único recorte em que ele existe.
 - **Junção célula → setor**, com a incerteza da atribuição medida e declarada.
 - **Área mínima comum** só se surgir necessidade de atributo do censo em série.
 - **Urbano e rural definidos geograficamente** (área urbanizada ou a própria grade),
   nunca pelo rótulo de situação do setor — a reclassificação de 13 setores rurais de
   2010 em urbanos de 2022 entra como **seção de método** do artigo.
+- **Seção de método do artigo**, com os dois achados metodológicos: a reclassificação
+  de 13 setores rurais em urbanos e a troca de resolução da grade entre 2010 e 2022.
 
 ## Os dois documentos
 
@@ -47,11 +54,24 @@ totais, geografia entre censos, sigilo, comparabilidade do entorno, CNEFE × set
 **[`dimensionamento.md`](dimensionamento.md)** — a medição que fechou a pergunta:
 população +0,98 % contra domicílios ocupados +17,64 %; Bagé comparado ao RS e ao
 Brasil (o descompasso é o padrão do estado, não anomalia local); a redistribuição na
-grade (14.170 domicílios de ganho bruto contra 6.695 de perda; 573 células novas); e
-os 10 itens do entorno de 2022 com a dispersão entre setores.
+grade (na unidade harmonizada, 12.099 domicílios de ganho bruto contra 4.624 de perda;
+355 unidades novas — corrigido em 2026-09-23, antes "14.170 contra 6.695; 573 células
+novas", da junção por ID do d03); e os 10 itens do entorno de 2022 com a dispersão
+entre setores.
+
+**[`resultados_s1.md`](resultados_s1.md)** — a subordinada 1: expansão entre 15,6 % e
+30,1 % do ganho bruto de domicílios, na unidade harmonizada da grade, com as geografias
+das unidades novas, adensadas e extintas.
 
 Os scripts que reproduzem cada número estão em [`scripts/`](scripts/) — `r00`–`r08`
-para o reconhecimento, `d01`–`d04` para o dimensionamento.
+para o reconhecimento, `d01`–`d04` para o dimensionamento, `s1_*` para a subordinada 1
+(`grade_estatistica.py` é a leitura da grade, comum a eles).
+
+> **`scripts/d03_grade.py` está SUPERADO** desde 2026-09-23 por
+> `scripts/s1_expansao_adensamento.py`. Ele junta as duas edições da grade por
+> `ID_UNICO` e conta a troca de resolução de 1 km para 200 m como ocupação nova (573
+> células "novas", 40 % de expansão). Fica no repositório como origem do texto anterior
+> do dimensionamento § 3; os números válidos são os de `resultados_s1.md`.
 
 **Antes de usar qualquer número, ler [`docs/ressalvas_censo_bage.md`](../../docs/ressalvas_censo_bage.md)**:
 a soma dos setores fecha em 2022 e não fecha em 2010; a malha de 2000 vem com

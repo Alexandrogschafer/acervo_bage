@@ -52,12 +52,21 @@ pergunta: >-
 # Decidida pelo responsável em 2026-09-22, sobre estudos/A03_expansao_adensamento/
 # dimensionamento.md § 5.3.
 subordinadas:
+  # Números corrigidos em 2026-09-23: os anteriores vinham da junção por
+  # ID_UNICO do d03 (SUPERADO), que contava a troca de resolução da grade como
+  # ocupação nova. Texto anterior, até 2026-09-23:
+  #   "1. Quanto do crescimento é expansão e quanto é adensamento? Pela grade
+  #   estatística, já se sabe o tamanho: 5.709 domicílios em 573 células novas e
+  #   8.461 em 568 células que já tinham domicílio. Falta caracterizar essas duas
+  #   geografias — onde estão, que densidade têm e quanto de população acompanhou
+  #   (15.385 pessoas nas células novas)."
   - >-
     1. Quanto do crescimento é expansão e quanto é adensamento? Pela grade
-    estatística, já se sabe o tamanho: 5.709 domicílios em 573 células novas e
-    8.461 em 568 células que já tinham domicílio. Falta caracterizar essas duas
-    geografias — onde estão, que densidade têm e quanto de população acompanhou
-    (15.385 pessoas nas células novas).
+    estatística, na unidade harmonizada (resultados_s1.md §§ 3–4): 1.884
+    domicílios em 355 unidades novas e 10.215 em 590 unidades que já tinham
+    domicílio — a expansão fica entre 15,6 % e 30,1 % do ganho bruto de 12.099
+    domicílios. Caracterizar essas duas geografias — onde estão, que densidade
+    têm e quanto de população acompanhou (4.604 moradores nas unidades novas).
   - >-
     2. Onde domicílio e população andam em direções opostas? As 132 células que
     ganham domicílio e perdem população (+804 domicílios, −2.044 pessoas) são o
@@ -72,11 +81,23 @@ subordinadas:
 
 # Decidido pelo responsável em 2026-09-22.
 recorte_espacial:
+  # Corrigido em 2026-09-23: a afirmação de que a grade é a mesma geografia
+  # nos dois anos estava errada — a conferência do d03 olhou só as células de
+  # mesmo ID e não viu a troca de resolução. Texto anterior, até 2026-09-23:
+  #   "Grade estatística para a mudança 2010 → 2022: é a única geografia fixa
+  #   entre os dois censos, e a coincidência das células está conferida
+  #   (dimensionamento.md § 3.1: 5.677 células comuns, centroides a 4,9e-5 m,
+  #   área a 0,14 m²)."
   - >-
-    Grade estatística para a mudança 2010 → 2022: é a única geografia fixa
-    entre os dois censos, e a coincidência das células está conferida
-    (dimensionamento.md § 3.1: 5.677 células comuns, centroides a 4,9e-5 m,
-    área a 0,14 m²).
+    Grade estatística para a mudança 2010 → 2022, comparada na UNIDADE
+    HARMONIZADA. A grade é aninhada, mas não é a mesma nas duas edições: em 41
+    lugares do município o IBGE refinou a resolução entre 2010 e 2022, e a
+    célula de 1 km de 2010 aparece em 2022 como as 25 células de 200 m que a
+    compõem. A comparação é a mãe de 1 km contra a soma das suas 25 filhas;
+    juntar por ID_UNICO trata o refinamento como ocupação nova. Conferido em
+    resultados_s1.md § 1 (as filhas cobrem a mãe com desvio máximo de 0,1 m²,
+    em ESRI:102033; nas 5.677 células de mesmo ID, centroides a 4,9e-5 m e
+    área a 0,14 m²). Regra geral do acervo: docs/ressalvas_censo_bage.md § 7.
   - >-
     Setor censitário de 2022 para o entorno: é o único recorte em que o entorno
     existe (168 setores por domicílio, 171 por face).
@@ -92,7 +113,7 @@ recorte_espacial:
     ou a própria grade), NUNCA pelo rótulo de situação do setor — ver
     metodo_previsto.
 
-# Não é pergunta subordinada: é resultado metodológico do artigo.
+# Não são perguntas subordinadas: são os dois resultados metodológicos do artigo.
 metodo_previsto:
   - >-
     A reclassificação de 13 setores rurais de 2010 em setores urbanos de 2022
@@ -101,6 +122,15 @@ metodo_previsto:
     rural pelo rótulo de situação do setor produz um falso êxodo rural, e por
     que o artigo usa definição geográfica. Medido em dimensionamento.md § 1.3,
     por scripts/d01_descompasso.py.
+  - >-
+    A troca de resolução da grade estatística entre 2010 e 2022 (41 células de
+    1 km de 2010 que aparecem em 2022 como 25 células de 200 m cada) entra como
+    SEÇÃO DE MÉTODO, segundo achado metodológico do artigo: juntar as edições
+    por ID_UNICO conta o refinamento como ocupação nova e leva a expansão a
+    40 % do ganho bruto de domicílios; na unidade harmonizada ela fica entre
+    15,6 % e 30,1 %. Medido em resultados_s1.md §§ 1, 4 e 8, por
+    scripts/s1_expansao_adensamento.py; regra geral em
+    docs/ressalvas_censo_bage.md § 7.
 
 # Decisões, não pendências.
 fora_do_escopo:

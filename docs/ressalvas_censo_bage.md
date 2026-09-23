@@ -8,7 +8,8 @@
 > `data/raw/vetor/ibge/censo_<ano>/`, obtidos direto do IBGE por
 > `scripts/download/baixar_censo_ibge.py` (lista fixa em
 > `config/fontes_censo_ibge.yaml`). A procedência da cópia original está em
-> `docs/procedencia/revia_bg_censo/`.
+> `docs/procedencia/revia_bg_censo/`. **Exceção:** o § 7 (grade estatística) foi
+> medido neste repositório, no estudo A03.
 
 Quem usar os arquivos brutos do Censo (`data/raw/*/ibge/censo_<ano>/`) neste acervo precisa ler isto antes.
 São conclusões **medidas** sobre estes arquivos exatos — os mesmos sha256 que estão
@@ -152,6 +153,63 @@ setores. São arquivos diferentes, diretórios diferentes e datas de divulgaçã
 
 **Dado de endereço.** Publicar qualquer derivado do CNEFE no geoportal exige decidir
 antes o nível de agregação; o arquivo bruto não vai para `data/geoportal/`.
+
+## 7. Grade estatística 2010 → 2022: a resolução mudou em 41 lugares
+
+*Acrescentado em 2026-09-23. Diferente dos §§ 1–6, esta ressalva foi **medida neste
+repositório**, não no REVIA_BG. Medição: `estudos/A03_expansao_adensamento/resultados_s1.md`
+§§ 1, 4 e 8, script `estudos/A03_expansao_adensamento/scripts/s1_expansao_adensamento.py`,
+sobre a grade bruta em `data/raw/vetor/ibge/censo_<ano>/grade_estatistica/`
+(quadrantes `grade_id14` e `grade_id04`).*
+
+A grade estatística do IBGE é aninhada (200 m no urbano, 1 km no rural), mas **não é a
+mesma nas duas edições**. Em **41 lugares de Bagé** (centroide no município), o IBGE
+refinou a resolução entre 2010 e 2022: a célula de 1 km de 2010 aparece em 2022 como as
+**25 células de 200 m** que a compõem.
+
+| medida | valor |
+| --- | ---: |
+| células de mesmo `ID_UNICO` nas duas edições | 5.677 |
+| nelas: distância máxima entre centroides / diferença máxima de área | 4,9 × 10⁻⁵ m / 0,14 m² |
+| células de 1 km de 2010 subdivididas em 2022 (mães) | **41** |
+| células de 200 m de 2022 que as substituem (filhas, 41 × 25) | **1.025** |
+| desvio máximo de área, soma das filhas × mãe (ESRI:102033) | 0,1 m² |
+| mães com domicílio em 2010 (domicílios / pessoas) | 32 (2.380 / 7.945) |
+| filhas com domicílio em 2022 (domicílios / pessoas) | 224 (3.892 / 10.969) |
+
+No recorte lido pelos dois quadrantes (caixa envolvente do município, além da borda) há
+62 mães e 1.550 filhas; as 41 e 1.025 acima são as de Bagé.
+
+**Por que importa.** Juntar as edições por `ID_UNICO` e tratar o ausente como zero **não
+gera erro**: as filhas entram como ocupação nova e a mãe como área abandonada. Em Bagé
+isso fez 224 células "novas" e 32 "extintas" que eram só troca de resolução, e levou a
+expansão a **40 %** do ganho bruto de domicílios, quando na unidade harmonizada ela fica
+entre **15,6 % e 30,1 %**. As células só numa edição parecem diferença de cobertura, mas
+são exatamente as mães e as filhas.
+
+> **REGRA DE USO: comparar a grade de 2010 com a de 2022 só na unidade harmonizada** —
+> onde 2010 tem uma célula de 1 km e 2022 tem as suas 25 filhas de 200 m, comparar a
+> mãe com a soma das filhas. **Juntar por `ID_UNICO` trata refinamento como ocupação
+> nova.** Conferir antes de medir: cada célula que só existe numa edição tem de estar
+> contida numa célula da outra, e as filhas têm de cobrir a mãe; se sobrar alguma
+> coisa, parar.
+
+Mesmo na unidade harmonizada fica uma incerteza: numa mãe de 1 km que já tinha domicílio
+em 2010, a resolução de 2010 não separa ocupação de área nova de adensamento. Em Bagé
+são 22 unidades adensadas com 1.754 domicílios ganhos, e é essa a largura da faixa de
+15,6 % a 30,1 %.
+
+**No A03, é achado de método.** A seção de método prevista do artigo
+(`estudos/A03_expansao_adensamento/manifesto.yaml`, `metodo_previsto`) tem **dois
+achados metodológicos**:
+1. a **reclassificação de 13 setores rurais de 2010 em urbanos de 2022**, que faz a série
+   urbano × rural pelo rótulo de situação do setor produzir um falso êxodo rural (67 % do
+   ganho urbano de população);
+2. a **troca de resolução da grade entre 2010 e 2022**, desta seção, que faz a junção por
+   identificador produzir uma falsa expansão.
+
+Os dois têm a mesma forma: uma mudança de recorte do IBGE que, lida como se o recorte
+fosse fixo, vira mudança no território.
 
 ---
 

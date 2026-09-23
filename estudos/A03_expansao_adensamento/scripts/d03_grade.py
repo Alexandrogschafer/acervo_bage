@@ -1,6 +1,21 @@
 """
 A03 — dimensionamento, bloco 3: redistribuição na grade estatística 2010 × 2022.
 
+SUPERADO em 2026-09-23 por `s1_expansao_adensamento.py` (unidade harmonizada).
+Mantido, sem apagar, porque é a origem dos números do dimensionamento § 3 na
+redação anterior (derivados/d03_grade.json). NÃO usar os números dele:
+- a conferência abaixo olha só as células de mesmo `ID_UNICO` e por isso não vê
+  que, em 41 lugares do município, a célula de 1 km de 2010 virou em 2022 as 25
+  células de 200 m que a compõem (as "41 só em 2010" e "1.025 só em 2022" que
+  ele relata são exatamente essas mães e filhas, não diferença de cobertura);
+- a junção por `ID_UNICO` com ausente = 0 conta essa troca de resolução como
+  células "novas" (224 filhas com domicílio) e "extintas" (32 mães).
+Números corretos: estudos/A03_expansao_adensamento/resultados_s1.md. Regra de
+uso: docs/ressalvas_censo_bage.md § 7. A leitura da grade (`ler_grade`) foi
+para `grade_estatistica.py`, que o s1 usa; este script a importa de lá.
+
+Texto original:
+
 Antes de medir, CONFERE que as duas edições da grade são a mesma geografia: o
 identificador `ID_UNICO` das células de 200 m / 1 km e a geometria delas. Se as
 células não coincidirem, o script PARA e relata — comparar célula a célula duas
@@ -32,34 +47,10 @@ import pandas as pd  # noqa: E402
 
 from scripts.utils import medidas, paths  # noqa: E402
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from grade_estatistica import ler_grade  # noqa: E402
+
 DERIV = Path(__file__).resolve().parents[1] / "derivados"
-VET = paths.caminho("raw_vetor", "ibge")
-QUADRANTES = ("grade_id14.zip", "grade_id04.zip")
-CRS_GRADE = "EPSG:4674"   # declarado nos quatro shapefiles (§ 3.4 do reconhecimento)
-CAMPOS = {"2010": {"pop": "POP", "dom": "DOM_OCU"}, "2022": {"pop": "TOTAL", "dom": "TOTAL_DOM"}}
-
-
-def ler_grade(ano: str, area: gpd.GeoSeries) -> gpd.GeoDataFrame:
-    """Células dos dois quadrantes cujo centroide cai no município."""
-    campos = CAMPOS[ano]
-    limite = area.union_all()
-    # o bbox do filtro vai no CRS DO ARQUIVO (a grade vem em EPSG:4674), não no de produção
-    caixa = tuple(area.to_crs(CRS_GRADE).total_bounds)
-    partes = []
-    for arquivo in QUADRANTES:
-        caminho = f"zip://{VET / f'censo_{ano}' / 'grade_estatistica' / arquivo}"
-        g = gpd.read_file(caminho, columns=["ID_UNICO", campos["pop"], campos["dom"]],
-                          bbox=caixa)
-        partes.append(g.to_crs(area.crs))
-    g = pd.concat(partes, ignore_index=True)
-    g = gpd.GeoDataFrame(g, geometry="geometry", crs=area.crs)
-    g = g.rename(columns={campos["pop"]: "pop", campos["dom"]: "dom"})
-    g["centroide_no_municipio"] = g.geometry.centroid.within(limite)
-    g["toca_o_municipio"] = g.intersects(limite)
-    return g[["ID_UNICO", "pop", "dom", "centroide_no_municipio", "toca_o_municipio",
-              "geometry"]].reset_index(drop=True)
-
-
 def conferir_geografia(g10: gpd.GeoDataFrame, g22: gpd.GeoDataFrame) -> dict:
     """As duas edições são a mesma grade? IDs e geometria das células comuns."""
     ids10, ids22 = set(g10["ID_UNICO"]), set(g22["ID_UNICO"])

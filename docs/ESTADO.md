@@ -5,6 +5,35 @@ pendente. Entrada nova no topo.
 
 ---
 
+## 2026-09-23 — A03: números superados pela harmonização corrigidos; ressalva geral
+
+- **Correção.** Os números da junção por `ID_UNICO` (573 células novas / 5.709
+  domicílios / 15.385 pessoas; 568 / 8.461; 261 extintas; 14.170 × 6.695) foram
+  trocados pelos da unidade harmonizada (`resultados_s1.md`) no dimensionamento §§ 3.1,
+  3.3 e 5.2, na subordinada 1 e no `recorte_espacial` do manifesto e no README do A03.
+  O texto antigo ficou em bloco de correção datado (dimensionamento: seção "Corrigido em
+  2026-09-23"; manifesto: comentário acima de cada item). A afirmação de que a grade é
+  "a mesma geografia" nos dois anos foi substituída pela regra da unidade harmonizada.
+  - A nota da proposta em § 5.3 do dimensionamento foi acrescentada; a proposta ficou
+    como foi feita.
+- **Achado da conferência.** As "41 células só em 2010 e 1.025 só em 2022" que o d03
+  lia como diferença de cobertura são exatamente as 41 mães de 1 km e as 41 × 25 filhas.
+- **Ressalva geral.** `docs/ressalvas_censo_bage.md` § 7: troca de resolução da grade,
+  com os números medidos e a regra de uso. `metodo_previsto` do manifesto ganhou o
+  segundo achado de método (troca de resolução, ao lado da reclassificação dos 13
+  setores).
+- **d03 SUPERADO** por `s1_expansao_adensamento.py` (docstring e README), sem apagar.
+  A leitura da grade (`ler_grade`) foi para `scripts/grade_estatistica.py`, usado pelo
+  s1 e pelo d03; o d03 rodou de novo e `d03_grade.json` saiu idêntico.
+- **`resultados_s1.md`.** § 8 com os equivalentes harmonizados do dimensionamento § 3.3
+  (movimento bruto 12.099 × 4.624; divergência de sinal em 137 unidades, +843 / −2.095),
+  medidos sobre a camada de trabalho. § 9: perímetro urbano legal **não** será obtido
+  nesta etapa, por decisão do responsável.
+- **Pendente (decisão do responsável):** a subordinada 2 do manifesto ainda cita
+  132 células / +804 / −2.044 do d03; harmonizado é 137 / +843 / −2.095.
+
+---
+
 ## 2026-09-22 — A03, subordinada 1: expansão e adensamento na grade
 
 - **Limpeza.** Removidos o bruto legado `data/raw/vetor/RS_Municipios_2025.zip` e o

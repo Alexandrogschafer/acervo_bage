@@ -17,7 +17,7 @@ citadas item a item. O que o acervo **não** tem está dito como ausência, não
 | --- | --- |
 | `d01_descompasso.py` | § 1 — município: população, domicílios, não ocupados, urbano × rural |
 | `d02_comparacao.py` | § 2 — Bagé × RS × Brasil e a posição de Bagé entre os municípios do RS |
-| `d03_grade.py` | § 3 — redistribuição na grade estatística 2010 × 2022 |
+| `d03_grade.py` | § 3 — redistribuição na grade estatística 2010 × 2022. **SUPERADO** em 2026-09-23 por `s1_expansao_adensamento.py` (unidade harmonizada) |
 | `d04_entorno.py` | § 4 — os 10 itens do entorno 2022, por domicílio e por face |
 
 ---
@@ -182,18 +182,35 @@ que infraestrutura**. É o que os blocos 3 e 4 dimensionam.
 
 ## 3. Redistribuição: a grade estatística 2010 × 2022
 
+> **Corrigido em 2026-09-23.** Os §§ 3.1 e 3.3 foram reescritos com a unidade
+> harmonizada de [`resultados_s1.md`](resultados_s1.md): a grade **não** é a mesma
+> geografia nos dois anos, e a junção por `ID_UNICO` do d03 contava a troca de resolução
+> como ocupação nova. O d03 está SUPERADO. O texto anterior está preservado em
+> [Corrigido em 2026-09-23](#corrigido-em-2026-09-23), no fim deste documento. Regra
+> geral: [`docs/ressalvas_censo_bage.md`](../../docs/ressalvas_censo_bage.md) § 7.
+
 Medido por `scripts/d03_grade.py` (`derivados/d03_grade.json`). Células de 200 m no
 urbano e 1 km no rural, quadrantes ID_14 e ID_04. Uma célula é de Bagé quando seu
 **centroide** cai no município — regra única para os dois anos.
 
-### 3.1 Conferência exigida: as duas edições são a mesma geografia
+### 3.1 Conferência exigida: a grade NÃO é a mesma geografia nos dois anos
 
-**São.** Entre as células de Bagé, 5.677 têm o mesmo `ID_UNICO` nas duas edições, e
-nelas a **distância máxima entre centroides é 4,9 × 10⁻⁵ m** e a **diferença máxima de
-área, 0,14 m²** (tamanhos: 40.000 m² e 1.000.002 m²). As diferenças de contagem são de
-cobertura, não de malha: 41 células só na edição de 2010 e 1.025 só na de 2022 — a
-grade de 2022 cobre mais território. Como a geografia confere, a comparação célula a
-célula é legítima e o script seguiu.
+*Corrigido em 2026-09-23 (texto anterior no fim do documento). Medição:
+[`resultados_s1.md`](resultados_s1.md) §§ 1 e 8, script `scripts/s1_expansao_adensamento.py`.*
+
+**Não é, em toda parte.** A grade é aninhada, e nas 5.677 células de Bagé com o mesmo
+`ID_UNICO` nas duas edições a geometria coincide (distância máxima entre centroides de
+4,9 × 10⁻⁵ m, diferença máxima de área de 0,14 m²). Mas em **41 lugares do município o
+IBGE refinou a resolução entre 2010 e 2022**: a célula de 1 km de 2010 aparece em 2022
+como as **25 células de 200 m** que a compõem. As "41 células só em 2010 e 1.025 só em
+2022" que o d03 lia como diferença de cobertura são exatamente essas 41 mães e as suas
+41 × 25 filhas.
+
+A conferência do d03 olhou só as células de mesmo ID e por isso não viu o aninhamento.
+**Regra:** comparar 2010 com 2022 na **unidade harmonizada** — a mãe de 1 km contra a
+soma das suas 25 filhas. O `s1_expansao_adensamento.py` faz isso e **para** se alguma
+célula de uma edição não couber numa da outra ou se as filhas não cobrirem a mãe (desvio
+máximo medido: 0,1 m², em ESRI:102033).
 
 ### 3.2 Ressalva: a grade de 2010 não fecha com o município
 
@@ -215,35 +232,39 @@ para a *geografia da mudança*; os *totais* vêm do setor e do município.
 
 ### 3.3 O que a grade mostra
 
-Das 6.743 células de Bagé, **1.925 têm domicílio em algum dos dois anos**.
+*Corrigido em 2026-09-23 (texto anterior no fim do documento). Números da unidade
+harmonizada, de [`resultados_s1.md`](resultados_s1.md) §§ 3, 4 e 8.*
 
-| | células | soma | mediana | p90 | máximo |
+Das unidades harmonizadas de Bagé, **1.707 têm domicílio em algum dos dois anos**.
+
+| | unidades | soma | mediana | p90 | máximo |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| ganharam domicílios | 1.141 | +14.170 | 4 | 27 | 293 |
-| perderam domicílios | 620 | −6.695 | 3 | 19 | 700 |
-| ganharam população | 1.023 | +31.050 | 7 | 67 | 727 |
-| perderam população | 837 | −27.983 | 10 | 70 | 2.270 |
+| ganharam domicílios | 945 | +12.099 | 4 | 25 | 610 |
+| perderam domicílios | 597 | −4.624 | 3 | 18 | 190 |
+| ganharam população | 822 | +24.428 | 6,5 | 63 | 1.551 |
+| perderam população | 819 | −21.361 | 10 | 66 | 779 |
 
-**O município quase parado esconde um território em movimento intenso.** Para um saldo
-líquido de +7.475 domicílios na grade, houve +14.170 de ganho bruto contra −6.695 de
-perda — **20.865 domicílios de movimento para 7.475 de saldo, quase três para um**. Na
-população o contraste é maior ainda: +31.050 contra −27.983 para um saldo perto de
-zero.
+**O município quase parado esconde um território em movimento.** Para um saldo líquido
+de +7.475 domicílios na grade, houve +12.099 de ganho bruto contra −4.624 de perda —
+**16.723 domicílios de movimento para 7.475 de saldo, pouco mais de dois para um**. Na
+população o contraste é maior: +24.428 contra −21.361 para um saldo de +3.067.
 
 **De onde vem o ganho de domicílios:**
 
-| origem | células | domicílios |
+| origem | unidades | domicílios |
 | --- | ---: | ---: |
-| células **novas** (sem domicílio em 2010) | 573 | **+5.709** |
-| células que **já tinham** domicílio e cresceram | 568 | **+8.461** |
+| unidades **novas** (sem domicílio em 2010) | 355 | **+1.884** |
+| unidades que **já tinham** domicílio e cresceram | 590 | **+10.215** |
 
-Ou seja: **60 % do ganho bruto é adensamento** de área já ocupada e **40 % é ocupação
-de área nova** — e as células novas trouxeram 15.385 pessoas. Também há 261 células que
-tinham domicílio em 2010 e não têm mais.
+Ou seja: a **expansão fica entre 15,6 % e 30,1 % do ganho bruto** e o restante é
+adensamento de área já ocupada. O limite superior soma às novas o ganho de 22 unidades
+de 1 km em que o IBGE passou a gradear em 200 m em 2022, onde a resolução de 2010 não
+separa ocupação nova de adensamento (resultados_s1.md § 4). As unidades novas trouxeram
+**4.604 moradores**. Há **232 unidades** que tinham domicílio em 2010 e não têm mais.
 
-**Divergência de sinal:** **132 células (6,9 % das ocupadas) ganharam domicílios e
-perderam população** — +804 domicílios e −2.044 pessoas. O caminho inverso (perder
-domicílio e ganhar população) ocorre em só 7 células (0,4 %). A divergência existe, é
+**Divergência de sinal:** **137 unidades (8,0 % das ocupadas) ganharam domicílios e
+perderam população** — +843 domicílios e −2.095 pessoas. O caminho inverso (perder
+domicílio e ganhar população) ocorre em só 7 unidades. A divergência existe, é
 localizada e tem direção clara.
 
 ---
@@ -321,11 +342,13 @@ infraestrutura, não sobre a existência do fenômeno.
 
 **A redistribuição no território (§ 3).** Em ordem:
 
-1. **Redistribuição — sinal forte.** Movimento bruto de 14.170 domicílios ganhos contra
-   6.695 perdidos para um saldo de 7.475; 573 células novas; 132 células que ganham
-   domicílio e perdem população; 261 células esvaziadas. O município parado é média de
-   movimentos grandes e de direções opostas — e a grade está conferida como a mesma
-   geografia nos dois anos.
+1. **Redistribuição — sinal forte.** *(Corrigido em 2026-09-23, com os números de
+   [`resultados_s1.md`](resultados_s1.md); texto anterior no fim do documento.)*
+   Movimento bruto de 12.099 domicílios ganhos contra 4.624 perdidos para um saldo de
+   7.475; 355 unidades novas, com 15,6 % a 30,1 % do ganho bruto; 137 unidades que
+   ganham domicílio e perdem população; 232 unidades esvaziadas por completo. O
+   município parado é média de movimentos grandes e de direções opostas — medidos na
+   unidade harmonizada, porque a grade **não** é a mesma geografia nos dois anos (§ 3.1).
 2. **Infraestrutura — sinal forte, mas transversal.** A pavimentação varia de ~0 a
    100 % entre setores (IQR de 76,6 pontos), e mais quatro itens discriminam bem. Só
    que **o entorno só existe em 2022**: é um retrato, não uma série (§ 1.4 do
@@ -340,6 +363,14 @@ infraestrutura, não sobre a existência do fenômeno.
 > a 3 reescrita: iluminação entra como controle e ciclovia como ausência), o recorte
 > espacial e o que fica fora estão em [`manifesto.yaml`](manifesto.yaml), que é o
 > registro válido. O texto abaixo é a proposta como foi feita, mantida como está.
+>
+> **Nota de 2026-09-23.** Os números da subordinada 1 abaixo (5.709 / 573 / 8.461 / 568
+> / 15.385) vêm da junção por ID do d03 e estão **superados**: na unidade harmonizada
+> são 1.884 domicílios em 355 unidades novas, 10.215 em 590 que já tinham domicílio e
+> 4.604 moradores nas novas ([`resultados_s1.md`](resultados_s1.md) §§ 3–4). O
+> manifesto já traz os números corrigidos. Os da subordinada 2 (132 / +804 / −2.044)
+> também mudam (137 / +843 / −2.095, resultados_s1.md § 8), mas o texto dela no
+> manifesto não foi alterado.
 
 **Pergunta de pesquisa.**
 
@@ -391,3 +422,71 @@ infraestrutura, não sobre a existência do fenômeno.
 4. Definir o recorte espacial de trabalho: grade (célula), setor 2022, ou área mínima
    comum. A grade é a única que compara território direto entre os dois anos; o setor é
    a única com entorno; a AMC é a única com série de atributo do censo.
+
+---
+
+## Corrigido em 2026-09-23
+
+Texto anterior dos §§ 3.1, 3.3 e 5.2 (item 1), mantido como registro. Foi substituído
+porque a conferência de geografia do d03 olhou só as células de mesmo `ID_UNICO` e não
+viu que, em 41 lugares do município, a célula de 1 km de 2010 aparece em 2022 como as 25
+células de 200 m que a compõem. A junção por ID com ausente = 0 contou essa troca de
+resolução como 224 células "novas" (as filhas com domicílio) e 32 "extintas" (as mães),
+levando a expansão a 40 % do ganho bruto. Medição que motivou a correção:
+[`resultados_s1.md`](resultados_s1.md) §§ 1, 4 e 8.
+
+<details>
+<summary>Texto anterior (até 2026-09-23)</summary>
+
+> ### 3.1 Conferência exigida: as duas edições são a mesma geografia
+>
+> **São.** Entre as células de Bagé, 5.677 têm o mesmo `ID_UNICO` nas duas edições, e
+> nelas a **distância máxima entre centroides é 4,9 × 10⁻⁵ m** e a **diferença máxima de
+> área, 0,14 m²** (tamanhos: 40.000 m² e 1.000.002 m²). As diferenças de contagem são de
+> cobertura, não de malha: 41 células só na edição de 2010 e 1.025 só na de 2022 — a
+> grade de 2022 cobre mais território. Como a geografia confere, a comparação célula a
+> célula é legítima e o script seguiu.
+>
+> ### 3.3 O que a grade mostra
+>
+> Das 6.743 células de Bagé, **1.925 têm domicílio em algum dos dois anos**.
+>
+> | | células | soma | mediana | p90 | máximo |
+> | --- | ---: | ---: | ---: | ---: | ---: |
+> | ganharam domicílios | 1.141 | +14.170 | 4 | 27 | 293 |
+> | perderam domicílios | 620 | −6.695 | 3 | 19 | 700 |
+> | ganharam população | 1.023 | +31.050 | 7 | 67 | 727 |
+> | perderam população | 837 | −27.983 | 10 | 70 | 2.270 |
+>
+> **O município quase parado esconde um território em movimento intenso.** Para um saldo
+> líquido de +7.475 domicílios na grade, houve +14.170 de ganho bruto contra −6.695 de
+> perda — **20.865 domicílios de movimento para 7.475 de saldo, quase três para um**. Na
+> população o contraste é maior ainda: +31.050 contra −27.983 para um saldo perto de
+> zero.
+>
+> **De onde vem o ganho de domicílios:**
+>
+> | origem | células | domicílios |
+> | --- | ---: | ---: |
+> | células **novas** (sem domicílio em 2010) | 573 | **+5.709** |
+> | células que **já tinham** domicílio e cresceram | 568 | **+8.461** |
+>
+> Ou seja: **60 % do ganho bruto é adensamento** de área já ocupada e **40 % é ocupação
+> de área nova** — e as células novas trouxeram 15.385 pessoas. Também há 261 células que
+> tinham domicílio em 2010 e não têm mais.
+>
+> **Divergência de sinal:** **132 células (6,9 % das ocupadas) ganharam domicílios e
+> perderam população** — +804 domicílios e −2.044 pessoas. O caminho inverso (perder
+> domicílio e ganhar população) ocorre em só 7 células (0,4 %). A divergência existe, é
+> localizada e tem direção clara.
+>
+> ### 5.2 (item 1)
+>
+> 1. **Redistribuição — sinal forte.** Movimento bruto de 14.170 domicílios ganhos contra
+>    6.695 perdidos para um saldo de 7.475; 573 células novas; 132 células que ganham
+>    domicílio e perdem população; 261 células esvaziadas. O município parado é média de
+>    movimentos grandes e de direções opostas — e a grade está conferida como a mesma
+>    geografia nos dois anos.
+
+</details>
+

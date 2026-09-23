@@ -277,7 +277,8 @@ O que os mapas mostram, sem interpretar:
    1 km². A faixa de 15,6–30,1 % (§ 4) é a medida dessa incerteza onde ela mais pesa.
 3. **Não há perímetro urbano legal no acervo.** "Dentro/fora" e o contorno nos mapas são
    da *área urbanizada* do IBGE (2022), que é um mapeamento por imagem e não um limite
-   legal. A escolha do tipo muda pouco (§ 5.1, sensibilidade).
+   legal. A escolha do tipo muda pouco (§ 5.1, sensibilidade). O perímetro legal **não será obtido
+   nesta etapa** (§ 9).
 4. **Centro** é uma definição estatística, o centro médio dos domicílios de 2010, e não o
    centro histórico. As distâncias são euclidianas, não por rede viária.
 5. **Moradores:** `POP` (2010) e `TOTAL` (2022) são a população residente da célula;
@@ -285,6 +286,69 @@ O que os mapas mostram, sem interpretar:
    reconhecimento (§ 3.4).
 6. **A camada de trabalho não está conferida.** Ela só vai para o acervo depois da
    conferência visual do responsável e da promoção (`scripts/utils/promover.py`).
-7. **O d03 e o dimensionamento § 3.3 continuam com os números da junção por ID**
-   (573 / 5.709 / 15.385). Eles não foram reescritos aqui, e a subordinada 1 do
-   manifesto cita esses números.
+7. **O d03 está SUPERADO** por `scripts/s1_expansao_adensamento.py` (docstring do
+   `d03_grade.py`), e os números da junção por ID (573 / 5.709 / 15.385) foram
+   corrigidos em 2026-09-23 no dimensionamento (§§ 3 e 5), na subordinada 1 e no
+   `recorte_espacial` do manifesto e no README, com o texto antigo preservado em bloco
+   de correção datado. Os equivalentes harmonizados do dimensionamento § 3.3 estão no
+   § 8 abaixo. A troca de resolução é ressalva geral do acervo:
+   `docs/ressalvas_censo_bage.md` § 7.
+
+   *Texto anterior (até 2026-09-23):* "O d03 e o dimensionamento § 3.3 continuam com os
+   números da junção por ID (573 / 5.709 / 15.385). Eles não foram reescritos aqui, e a
+   subordinada 1 do manifesto cita esses números."
+
+---
+
+## 8. O dimensionamento § 3.3 na unidade harmonizada
+
+Acrescentado em 2026-09-23, para substituir os números da junção por ID no
+dimensionamento. Medido sobre a camada de trabalho `saidas/s1_celulas_2010_2022.gpkg`
+(1.707 unidades com domicílio em algum dos dois anos), filtrando as colunas `d_dom` e
+`d_pop` com as mesmas regras do d03. Esses agregados **não** estão em
+`derivados/s1_caracterizacao.json`; os que estão (§§ 3 e 4) são a fonte primária.
+
+| | unidades | soma | mediana | p90 | máximo |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| ganharam domicílios | 945 | +12.099 | 4 | 25 | 610 |
+| perderam domicílios | 597 | −4.624 | 3 | 18 | 190 |
+| ganharam população | 822 | +24.428 | 6,5 | 63 | 1.551 |
+| perderam população | 819 | −21.361 | 10 | 66 | 779 |
+
+Mediana, p90 e máximo das perdas são sobre o valor absoluto, como no d03.
+
+- **Movimento bruto de domicílios:** +12.099 contra −4.624, para o mesmo saldo de
+  **+7.475** — 16.723 de movimento, pouco mais de dois para um (o d03 dava 20.865, quase
+  três para um).
+- **Divergência de sinal:** **137 unidades (8,0 % das 1.707)** ganharam domicílios e
+  perderam população, com +843 domicílios e −2.095 pessoas. O caminho inverso ocorre em
+  7 unidades. O d03 dava 132 células (6,9 % de 1.925), +804 e −2.044. A subordinada 2 do
+  manifesto ainda cita os números do d03: não foi pedido corrigi-la nesta etapa, e a
+  troca fica para decisão do responsável.
+
+**De onde vem a troca de resolução, medida nas duas edições como o IBGE as publica**
+(leitura por `scripts/grade_estatistica.py`, centroide no município):
+- as 41 células que o d03 contava "só em 2010" são as 41 mães de 1 km; as 1.025 "só em
+  2022" são as 41 × 25 filhas de 200 m. Não havia diferença de cobertura;
+- as mães tinham, em 2010, 2.380 domicílios e 7.945 pessoas (32 delas com domicílio);
+- as filhas têm, em 2022, 3.892 domicílios e 10.969 pessoas (224 delas com domicílio).
+
+---
+
+## 9. Decisão: o perímetro urbano legal não será obtido nesta etapa
+
+**Decidido pelo responsável em 2026-09-23.** O perímetro urbano legal de Bagé não será
+obtido para a subordinada 1.
+
+Motivo: a pergunta é onde o crescimento de domicílios se materializou no território.
+- A **área urbanizada do IBGE** (2022) é **medida**: mapeamento da ocupação por imagem,
+  com método publicado e o mesmo critério para todos os municípios, o que a torna
+  comparável.
+- O **perímetro urbano legal** é **norma**: diz onde a lei permite ou reconhece o uso
+  urbano, e responde a outra pergunta (se a expansão ocorreu dentro ou fora do limite
+  legal, isto é, sobre regulação, não sobre ocupação).
+
+Consequência: "dentro/fora" continua sendo da área urbanizada (§ 1 e ressalva 3). Se uma
+etapa futura perguntar pela relação entre expansão e regulação, a obtenção do perímetro
+legal passa pelas regras do acervo (fonte documentada, sem URL por adivinhação).
+

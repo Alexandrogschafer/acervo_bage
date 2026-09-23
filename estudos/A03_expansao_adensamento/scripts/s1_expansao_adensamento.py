@@ -65,7 +65,7 @@ import pandas as pd  # noqa: E402
 import shapely  # noqa: E402
 from shapely.geometry import Point  # noqa: E402
 
-import d03_grade  # noqa: E402
+from grade_estatistica import ler_grade  # noqa: E402
 from scripts.utils import catalogo, medidas, metadados, paths  # noqa: E402
 from scripts.utils.conteudo import sha256_conteudo  # noqa: E402
 
@@ -331,8 +331,8 @@ def densidade(u: gpd.GeoDataFrame) -> list[dict]:
 def main() -> None:
     area = paths.carregar_area_estudo()
     limite = area.union_all()
-    bruto10 = d03_grade.ler_grade("2010", area.geometry)
-    bruto22 = d03_grade.ler_grade("2022", area.geometry)
+    bruto10 = ler_grade("2010", area.geometry)
+    bruto22 = ler_grade("2022", area.geometry)
 
     unidades, harmonizacao = harmonizar(bruto10, bruto22)
     unidades["centroide_no_municipio"] = unidades.geometry.centroid.within(limite)
