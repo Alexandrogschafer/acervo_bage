@@ -45,6 +45,9 @@ Campos OPCIONAIS de derivação e medida, também gravados só quando informados
                         normalizada + atributos + CRS; scripts/utils/conteudo.py).
                         Ao lado do `sha256` do arquivo: o arquivo pode mudar
                         de bytes sem mudar de dado, e é este que diz se mudou.
+    complementos        campos que um `.json` anterior tinha e que o produtor
+                        atual não gera (anotação à mão, esquema antigo): o
+                        produtor os PRESERVA aqui em vez de descartá-los.
 
 Existem porque cópia de terceiro só é rastreável se o arquivo disser de qual
 ponto exato da origem ele saiu: "veio do repositório X" não permite reencontrar
@@ -104,6 +107,7 @@ CAMPOS: tuple[str, ...] = (
 CAMPOS_OPCIONAIS: tuple[str, ...] = (
     "repo_origem", "commit", "url_origem", "data_commit", "nome_original",
     "edicao", "camada_origem", "medidas", "verificacoes", "sha256_conteudo",
+    "complementos",
 )
 
 
@@ -292,6 +296,7 @@ def escrever(
     metadados: dict[str, Any],
     sobrescrever: bool = False,
     teto_publicacao: bool = True,
+    antigo_conferencia: dict[str, Any] | None = None,
     _reconciliar: bool = True,
 ) -> Path:
     """Grava o `.json` irmão: UTF-8, indent=2, chaves ordenadas.
@@ -304,6 +309,10 @@ def escrever(
         metadados: dicionário, normalmente vindo de `montar()`.
         sobrescrever: obrigatório para substituir um `.json` já existente.
         teto_publicacao: ver `reconciliar()`.
+        antigo_conferencia: estado anterior a reconciliar, quando o `.json` em
+            disco é de esquema antigo (sem status) e a conferência está
+            registrada em outro lugar — a linha do catálogo. Default: o
+            `.json` em disco.
         _reconciliar: só `promover()` desliga — é o único caminho que promove.
 
     Returns:
@@ -328,7 +337,9 @@ def escrever(
             "substituição for intencional — metadado apagado por engano é rastro perdido."
         )
     if _reconciliar:
-        antigo = json.loads(destino.read_text(encoding="utf-8")) if destino.exists() else None
+        antigo = antigo_conferencia
+        if antigo is None and destino.exists():
+            antigo = json.loads(destino.read_text(encoding="utf-8"))
         metadados = reconciliar(antigo, metadados, teto_publicacao)
 
     destino.parent.mkdir(parents=True, exist_ok=True)

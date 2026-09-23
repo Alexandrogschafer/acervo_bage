@@ -5,6 +5,40 @@ pendente. Entrada nova no topo.
 
 ---
 
+## 2026-09-22 — Promoção por linha de comando; vetor_ibge no esquema atual; vácuo
+
+- **`limite_municipal`, nota.** A frase "Conferido visualmente no mapa em
+  2026-09-20." foi movida para o bloco `--- conferência ---` da linha do
+  catálogo, com o texto inalterado.
+- **`vetor_ibge.py`, esquema atual.** Grava o `.json` por `metadados.montar`
+  (status, pode_publicar, observacoes, sha256_conteudo, medidas, verificacoes).
+  Campos antigos que ele não gera vão para `complementos`
+  (`area_km2_geometrica_recalculada_em`, `data_acesso` e `data_processamento`
+  de 2026-09-20). Mudanças no modo de rodar:
+  - `--local` não usa a rede: lê o ZIP já em `data/raw/vetor/ibge/municipio_<ano>/`
+    e aborta se o conteúdo divergir do registrado;
+  - o modo online delega a navegação e o download a `baixar_malhas_ibge.py`.
+- **`limite_municipal`, regravação.** O `.json` foi regravado com `--local`,
+  sem rede. O `sha256_conteudo` (`33770372a09e…`) bate no arquivo em disco e no
+  gerado do ZIP, e o GeoPackage não foi regravado (sha256 `a5618d27fbe6…`
+  mantido). Continua conferido e publicável, com a nota no bloco do `.json` e
+  do catálogo. Uma segunda execução não mudou nada.
+- **Vácuo.** Só conta como vazio o manifesto sem `camadas:` E sem
+  `fontes_brutas:`. Manifesto só com fontes brutas publicáveis agora resolve
+  para true (`convencoes.md` § 7).
+- **`scripts/utils/promover.py`.** Promove por `--id` (`id_camada` ou caminho) e
+  `--nota`. Confere o hash e a fonte antes de gravar, e `pode_publicar` nunca
+  sai mais permissivo que a fonte. Documentado em `convencoes.md` § 1 e no
+  README.
+- **Controles.** `testar_validador.py`: 38/38, sendo 8 novos (V1–V2, PR1–PR5, VI1).
+- **Estado final.** Os quatro produtos de limites estão conferidos, com a nota
+  no bloco: setores, distritos, área de estudo e limite municipal.
+- **Não mexido:** o bruto legado `data/raw/vetor/RS_Municipios_2025.zip` e o
+  `.json` dele, do layout anterior, idênticos em sha256 ao canônico em
+  `ibge/municipio_2025/`. Nenhum script lê mais esse caminho.
+
+---
+
 ## 2026-09-22 — Nota de conferência preservada; fontes brutas na regra de publicação
 
 Resolve o "Atenção" da entrada abaixo.

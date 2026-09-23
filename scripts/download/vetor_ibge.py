@@ -1,52 +1,56 @@
 """
-Baixa a malha municipal do IBGE e gera a camada canônica do limite municipal:
+Gera a camada canônica do limite municipal a partir da malha municipal do IBGE:
 
-    data/acervo/limites/limite-municipal_ibge_{ano}_municipal.gpkg  (camada `limite_municipal`)
+    data/raw/vetor/ibge/municipio_<ano>/<UF>_Municipios_<ano>.zip   (bruto, UF inteira)
+        -> data/acervo/limites/limite-municipal_ibge_<ano>_municipal.gpkg  (camada `limite_municipal`)
+           data/acervo/limites/limite-municipal_ibge_<ano>_municipal.json  (.json irmão)
 
-A área de estudo (config/area_estudo.geojson) NÃO é mais gravada aqui: ela é
+A área de estudo (config/area_estudo.geojson) NÃO é gravada aqui: ela é
 derivada desta camada por `scripts/processamento/area_estudo.py`, em EPSG:4326.
 
 Município, CRS e caminhos vêm todos de `config/config.yaml` via
 `scripts/utils/paths.py` — nada fixo neste arquivo.
 
-REGRA DE ORIGEM DO DADO
------------------------
-O download vem exclusivamente do servidor de arquivos do IBGE
-(geoftp.ibge.gov.br) e NENHUMA URL é montada por adivinhação: o script parte
-da raiz e desce pelas listagens de diretório, conferindo em cada nível que o
-nome esperado realmente está listado. Se o IBGE reorganizar a árvore, o
-script falha dizendo qual nível sumiu — em vez de baixar silenciosamente um
-arquivo errado ou 404. A API de malhas (servicodados.ibge.gov.br) não é
-usada aqui de propósito: o produto do geoftp traz os atributos oficiais
-(inclusive AREA_KM2, do Áreas Territoriais), que o GeoJSON da API não traz.
+ORIGEM DO DADO
+--------------
+O bruto é obtido por `scripts/download/baixar_malhas_ibge.py`, que navega as
+listagens do geoftp do IBGE a partir de `organizacao_do_territorio/` sem
+montar URL por adivinhação, grava o ZIP em `data/raw/vetor/ibge/<edicao>/` com
+o `.json` irmão e registra a fonte no catálogo. Este script:
 
-Idempotente: o ZIP já baixado não é baixado de novo (a menos de --forcar), e
-a conferência é por sha256, não por data de arquivo local.
+- sem opção: chama esse download (navegação + HEAD; só baixa se preciso) e
+  depois recorta;
+- `--local`: NÃO acessa a rede. Usa o ZIP já em `data/raw/`, conferindo o
+  sha256 do ZIP contra o seu `.json` irmão. Neste modo, se o CONTEÚDO do
+  GeoPackage (o que está em disco, ou o que seria gerado) divergir do
+  `sha256_conteudo` registrado, o script ABORTA sem gravar nada: é o modo de
+  regravar metadado, não de trocar dado;
+- `--verificar`: não grava nada; gera o GeoPackage num temporário a partir do
+  ZIP local e compara o conteúdo com o registrado.
 
-Parametrizado por código IBGE (default: o do config) — a UF é deduzida dos 2
-primeiros dígitos do código, então o script roda para qualquer município do
-país sem edição.
+METADADO
+--------
+O `.json` irmão segue o esquema de `scripts/utils/metadados.py`
+(`metadados.montar`): status_conferencia, pode_publicar, observacoes,
+sha256_conteudo, medidas, verificacoes. Campos que o `.json` anterior tinha e
+este script não gera (anotação à mão, esquema antigo) são PRESERVADOS em
+`complementos`, em vez de descartados.
+
+Conferência: a nota do responsável (bloco "--- conferência ---") segue a regra
+de `metadados.reconciliar`: o mesmo CONTEÚDO preserva status, pode_publicar e
+a nota no `.json` e na linha do catálogo; dado novo despromove. Um `.json` de
+esquema antigo (sem status) é reconciliado contra a linha do catálogo, que é
+onde a conferência dele estava registrada. O script nunca promove.
+
+Determinismo: o GeoPackage é gravado com `last_change` fixado no Last-Modified
+da malha de origem, e só substitui o existente se o CONTEÚDO mudou — uma
+camada conferida com o mesmo dado nunca é regravada.
 
 Uso:
     python scripts/download/vetor_ibge.py
-    python scripts/download/vetor_ibge.py --codigo-ibge 4322400
-    python scripts/download/vetor_ibge.py --ano 2024 --forcar
+    python scripts/download/vetor_ibge.py --local
+    python scripts/download/vetor_ibge.py --local --ano 2025
     python scripts/download/vetor_ibge.py --verificar
-
---verificar NÃO grava nada no repositório: exige o ZIP já baixado, gera o
-GeoPackage num diretório temporário do sistema e compara o CONTEÚDO
-(sha256_conteudo: geometria normalizada + atributos + CRS, ver
-scripts/utils/conteudo.py) com o registrado no `.json` de `limite_municipal`.
-O sha256 do arquivo é mostrado só como informação: ele muda com o layout
-físico do SQLite sem que o dado mude.
-
-Determinismo: o GeoPackage é gravado com `last_change` fixado no Last-Modified
-da malha de origem (como em limites_ibge.py), e só substitui o existente se o
-CONTEÚDO mudou — uma camada conferida com o mesmo dado nunca é regravada.
-
-Conferência: a linha de `limite_municipal` no catálogo segue a regra da nota
-de conferência (scripts/utils/metadados.py): o mesmo conteúdo preserva
-status, pode_publicar e o bloco "--- conferência ---"; dado novo despromove.
 """
 
 from __future__ import annotations
@@ -57,18 +61,17 @@ import logging
 import re
 import sys
 import tempfile
-from datetime import datetime, timezone
+from datetime import timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 
 import geopandas as gpd
 import pyogrio
-import requests
 
 RAIZ_PROJETO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(RAIZ_PROJETO))
 
-from scripts.utils import medidas, paths  # noqa: E402
+from scripts.utils import catalogo, medidas, metadados, paths  # noqa: E402
 from scripts.utils.conteudo import sha256_conteudo  # noqa: E402
 from scripts.utils.hashes import sha256_arquivo  # noqa: E402
 
@@ -78,15 +81,9 @@ logger = logging.getLogger("vetor_ibge")
 # tudo vem do config — ver config/config.yaml
 CRS_PADRAO = paths.crs_producao()
 CODIGO_IBGE_DEFAULT = paths.codigo_ibge()
+ID_CAMADA = "limite_municipal"
+TEMA = "limites"
 
-# Único host autorizado para este script (ver "REGRA DE ORIGEM DO DADO").
-HOST_GEOFTP = "https://geoftp.ibge.gov.br/"
-# Ponto de partida da navegação: só o primeiro nível é nomeado aqui; todos os
-# demais são resolvidos lendo a listagem do nível anterior.
-RAIZ_NAVEGACAO = "organizacao_do_territorio/"
-CAMINHO_ESPERADO = ["malhas_territoriais/", "malhas_municipais/"]
-
-DIR_RAW_VETOR = paths.caminho("raw_vetor")
 DIR_ACERVO_LIMITES = paths.caminho("acervo_limites")
 
 # Códigos de UF do IBGE (2 primeiros dígitos do código municipal) -> sigla,
@@ -104,151 +101,77 @@ UF_POR_CODIGO = {
 # da malha (o IBGE já usou CD_GEOCODM e CD_GEOCMU antes do CD_MUN atual).
 COLUNAS_CODIGO_MUNICIPIO = ("CD_MUN", "CD_GEOCODM", "CD_GEOCMU", "GEOCODIGO")
 
-TIMEOUT = 120
+# Campos do `.json` de esquema antigo que este script agora gera, com o mesmo
+# significado, em outro lugar (observacoes, edicao, medidas, verificacoes).
+# Qualquer OUTRO campo fora do esquema vai para `complementos` — inclusive
+# datas antigas (data_acesso, data_processamento), que registram fatos daquela
+# execução e não são recalculáveis.
+LEGADO_COBERTO = frozenset({
+    "descricao", "municipio", "codigo_ibge", "fonte", "edicao_malha", "sha256_origem",
+    "last_modified_origem", "crs_origem", "crs_saida",
+    "transformacao_aplicada", "n_features", "area_km2_geometrica", "crs_medicao_area",
+    "area_km2_oficial_ibge", "colunas",
+})
+
+
+class ConteudoDivergente(RuntimeError):
+    """`--local`: o conteúdo do GeoPackage não é o registrado — nada foi gravado."""
 
 
 # --------------------------------------------------------------------------
-# navegação pelas listagens do geoftp
+# bruto: ZIP da malha em data/raw/
 # --------------------------------------------------------------------------
 
-def listar_diretorio(url: str) -> list[str]:
-    """Lê uma listagem de diretório do geoftp e devolve as entradas filhas.
-
-    Descarta links de navegação do Apache (ordenação `?C=`), o link para o
-    diretório pai e qualquer link que aponte para fora do host.
-    """
-    if not url.startswith(HOST_GEOFTP):
-        raise RuntimeError(f"URL fora do host autorizado ({HOST_GEOFTP}): {url}")
-
-    resposta = requests.get(url, timeout=TIMEOUT)
-    resposta.raise_for_status()
-
-    entradas = []
-    for href in re.findall(r'href="([^"]+)"', resposta.text):
-        # só entradas relativas (filhos deste diretório): descarta "?C=N;O=D"
-        # (ordenação), "/caminho/absoluto" (pai) e "http..." (externos)
-        if href.startswith(("?", "/", "http://", "https://", "#")):
-            continue
-        entradas.append(href)
-    return entradas
-
-
-def entrar(url_pai: str, nome: str) -> str:
-    """Desce um nível, exigindo que `nome` esteja listado em `url_pai`."""
-    entradas = listar_diretorio(url_pai)
-    if nome not in entradas:
-        raise RuntimeError(
-            f"'{nome}' não está listado em {url_pai}. "
-            f"Entradas encontradas: {sorted(entradas)[:20]}"
-        )
-    logger.info("listagem ok: %s -> %s", url_pai, nome)
-    return url_pai + nome
-
-
-def resolver_url_malha(codigo_ibge: str, ano: str | None) -> tuple[str, str, str]:
-    """Navega o geoftp até o ZIP da malha municipal da UF do código informado.
-
-    Retorna (url_do_zip, nome_do_arquivo, ano_da_edicao).
-    """
+def uf_de(codigo_ibge: str) -> str:
     uf = UF_POR_CODIGO.get(codigo_ibge[:2])
     if uf is None:
-        raise RuntimeError(
-            f"Código IBGE '{codigo_ibge}' não começa com um código de UF válido."
-        )
-
-    url = entrar(HOST_GEOFTP, RAIZ_NAVEGACAO)
-    for nivel in CAMINHO_ESPERADO:
-        url = entrar(url, nivel)
-
-    # edições disponíveis: 'municipio_2000/' ... 'municipio_2025/'
-    edicoes = {}
-    for entrada in listar_diretorio(url):
-        achado = re.fullmatch(r"municipio_(\d{4})/", entrada)
-        if achado:
-            edicoes[achado.group(1)] = entrada
-    if not edicoes:
-        raise RuntimeError(f"Nenhuma edição 'municipio_AAAA/' listada em {url}")
-
-    ano_escolhido = ano or max(edicoes)
-    if ano_escolhido not in edicoes:
-        raise RuntimeError(
-            f"Edição {ano_escolhido} não existe. Disponíveis: {sorted(edicoes)}"
-        )
-    logger.info("edição da malha: %s (disponíveis: %s)", ano_escolhido, sorted(edicoes))
-
-    url = entrar(url, edicoes[ano_escolhido])
-    url = entrar(url, "UFs/")
-    url = entrar(url, f"{uf}/")
-
-    # o arquivo de municípios da UF, entre os produtos da pasta (a mesma pasta
-    # traz UF, regiões imediatas e intermediárias — não servem aqui)
-    candidatos = [
-        e for e in listar_diretorio(url)
-        if re.fullmatch(rf"{uf}_Municipios_\d{{4}}\.zip", e, flags=re.IGNORECASE)
-    ]
-    if len(candidatos) != 1:
-        raise RuntimeError(
-            f"Esperava exatamente 1 arquivo '{uf}_Municipios_AAAA.zip' em {url}, "
-            f"achei {candidatos}"
-        )
-    nome_arquivo = candidatos[0]
-    return url + nome_arquivo, nome_arquivo, ano_escolhido
+        raise RuntimeError(f"Código IBGE '{codigo_ibge}' não começa com um código de UF válido.")
+    return uf
 
 
-# --------------------------------------------------------------------------
-# download idempotente
-# --------------------------------------------------------------------------
+def zip_local(uf: str, ano: str | None) -> tuple[Path, dict, str]:
+    """O ZIP da malha já em data/raw/, conferido contra o seu `.json` irmão.
 
-def baixar(url: str, destino: Path, forcar: bool) -> dict:
-    """Baixa `url` para `destino` (streaming) e devolve os metadados da coleta.
-
-    Idempotente: se o destino já existe e `forcar` é False, não rebaixa —
-    apenas relê o tamanho/sha256 do arquivo em disco e o Last-Modified da
-    origem (HEAD), para o metadado refletir a origem atual.
+    Returns:
+        (caminho do ZIP, `.json` irmão, edição — ex.: "municipio_2025")
     """
-    destino.parent.mkdir(parents=True, exist_ok=True)
-
-    cabecalho = requests.head(url, timeout=TIMEOUT)
-    cabecalho.raise_for_status()
-    last_modified = cabecalho.headers.get("Last-Modified")
-    tamanho_origem = cabecalho.headers.get("Content-Length")
-
-    if destino.exists() and not forcar:
-        logger.info("já existe, não rebaixando: %s (use --forcar)", destino.name)
-    else:
-        logger.info("baixando %s (%s bytes) -> %s", url, tamanho_origem, destino.name)
-        with requests.get(url, stream=True, timeout=TIMEOUT) as resposta:
-            resposta.raise_for_status()
-            with open(destino, "wb") as saida:
-                for bloco in resposta.iter_content(chunk_size=1024 * 1024):
-                    saida.write(bloco)
-
-    tamanho_local = destino.stat().st_size
-    if tamanho_origem and int(tamanho_origem) != tamanho_local:
-        raise RuntimeError(
-            f"Download incompleto: origem diz {tamanho_origem} bytes, "
-            f"arquivo local tem {tamanho_local}"
-        )
-
-    return {
-        "url": url,
-        "last_modified_origem": last_modified,
-        "tamanho_bytes": tamanho_local,
-        "sha256": sha256_arquivo(destino),
-        "data_acesso": datetime.now(timezone.utc).isoformat(),
-    }
+    base = paths.caminho("raw_vetor", "ibge")
+    edicoes = sorted(d.name for d in base.glob("municipio_*") if d.is_dir())
+    edicao = f"municipio_{ano}" if ano else (edicoes[-1] if edicoes else "")
+    if edicao not in edicoes:
+        raise RuntimeError(f"edição '{edicao or '?'}' não está em {paths.relativo(base)} "
+                           f"(há: {edicoes}). Baixe com baixar_malhas_ibge.py.")
+    candidatos = sorted((base / edicao).glob(f"{uf}_Municipios_*.zip"))
+    if len(candidatos) != 1:
+        raise RuntimeError(f"esperava 1 '{uf}_Municipios_AAAA.zip' em "
+                           f"{paths.relativo(base / edicao)}, achei {candidatos}")
+    caminho_zip = candidatos[0]
+    meta = metadados.ler(caminho_zip)
+    if sha256_arquivo(caminho_zip) != str(meta.get("sha256", "")).lower():
+        raise RuntimeError(f"{paths.relativo(caminho_zip)}: sha256 do ZIP diverge do seu "
+                           ".json — o bruto mudou depois de registrado.")
+    return caminho_zip, meta, edicao
 
 
-def escrever_metadado(caminho_dado: Path, metadados: dict) -> Path:
-    """Grava o .json irmão de um arquivo de dado."""
-    caminho = caminho_dado.with_suffix(".json")
-    caminho.write_text(json.dumps(metadados, ensure_ascii=False, indent=2), encoding="utf-8")
-    logger.info("metadado: %s", caminho.relative_to(RAIZ_PROJETO))
-    return caminho
+def obter_bruto(uf: str, ano: str | None, forcar: bool) -> None:
+    """Navega o geoftp e baixa o ZIP se preciso (delegado a baixar_malhas_ibge.py)."""
+    from scripts.download import baixar_malhas_ibge
+
+    produto = baixar_malhas_ibge.resolver_municipal(uf, ano)
+    baixar_malhas_ibge.baixar(produto, forcar)
+    logger.info("catálogo de fontes: %s", baixar_malhas_ibge.registrar_fonte(produto))
+
+
+def last_modified_de(meta_zip: dict) -> str:
+    achado = re.search(r"Last-Modified da origem: ([^.]+GMT)", meta_zip.get("observacoes", ""))
+    if not achado:
+        raise RuntimeError("Last-Modified da origem ausente no .json do ZIP — sem carimbo "
+                           "determinístico.")
+    return achado.group(1)
 
 
 # --------------------------------------------------------------------------
-# recorte do município
+# recorte e GeoPackage
 # --------------------------------------------------------------------------
 
 def recortar_municipio(caminho_zip: Path, codigo_ibge: str) -> gpd.GeoDataFrame:
@@ -276,166 +199,253 @@ def recortar_municipio(caminho_zip: Path, codigo_ibge: str) -> gpd.GeoDataFrame:
     return municipio.to_crs(CRS_PADRAO)
 
 
-def carimbo_gpkg(last_modified: str | None) -> str:
+def carimbo_gpkg(last_modified: str) -> str:
     """`last_change` fixo do GeoPackage: o Last-Modified da malha de origem.
 
     Mesma técnica de limites_ibge.py: a mesma entrada gera o mesmo carimbo, em
     vez da hora da execução.
     """
-    if not last_modified:
-        raise RuntimeError("Last-Modified da origem ausente — sem carimbo determinístico.")
     return (parsedate_to_datetime(last_modified).astimezone(timezone.utc)
             .strftime("%Y-%m-%dT%H:%M:%S.000Z"))
 
 
-def gravar_gpkg(municipio: gpd.GeoDataFrame, destino: Path, carimbo: str) -> bool:
-    """Grava o GeoPackage com carimbo fixo; devolve False se o existente já tem
-    o mesmo CONTEÚDO (sha256_conteudo) — nesse caso o arquivo NÃO é substituído,
-    e o sha256 conferido continua valendo."""
+def _gravar(municipio: gpd.GeoDataFrame, destino: Path, carimbo: str) -> None:
+    pyogrio.set_gdal_config_options({"OGR_CURRENT_DATE": carimbo})
+    try:
+        municipio.to_file(destino, driver="GPKG", layer=ID_CAMADA)
+    finally:
+        pyogrio.set_gdal_config_options({"OGR_CURRENT_DATE": None})
+
+
+def gravar_gpkg(municipio: gpd.GeoDataFrame, destino: Path, carimbo: str,
+                exigir_conteudo: str | None = None) -> bool:
+    """Grava o GeoPackage com carimbo fixo; devolve True se substituiu o existente.
+
+    Se o existente já tem o mesmo CONTEÚDO (sha256_conteudo), NÃO é
+    substituído, e o sha256 conferido continua valendo.
+
+    Args:
+        exigir_conteudo: se dado, o GeoPackage em disco E o gerado têm de ter
+            este sha256_conteudo; senão `ConteudoDivergente`, sem gravar nada.
+    """
     destino.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=destino.parent) as tmp:
         novo = Path(tmp) / destino.name
-        pyogrio.set_gdal_config_options({"OGR_CURRENT_DATE": carimbo})
-        try:
-            municipio.to_file(novo, driver="GPKG", layer="limite_municipal")
-        finally:
-            pyogrio.set_gdal_config_options({"OGR_CURRENT_DATE": None})
-        if destino.exists() and sha256_conteudo(destino) == sha256_conteudo(novo):
+        _gravar(municipio, novo, carimbo)
+        conteudo_novo = sha256_conteudo(novo)
+        conteudo_disco = sha256_conteudo(destino) if destino.exists() else None
+        if exigir_conteudo is not None:
+            problemas = []
+            if conteudo_disco != exigir_conteudo:
+                problemas.append(f"em disco {str(conteudo_disco)[:12]}…")
+            if conteudo_novo != exigir_conteudo:
+                problemas.append(f"gerado do ZIP {conteudo_novo[:12]}…")
+            if problemas:
+                raise ConteudoDivergente(
+                    f"{paths.relativo(destino)}: sha256_conteudo registrado "
+                    f"{exigir_conteudo[:12]}…, mas {' e '.join(problemas)}. Nada foi gravado."
+                )
+        if conteudo_disco == conteudo_novo:
             return False
         novo.replace(destino)
     return True
 
 
-def verificar_sem_gravar(caminho_zip: Path, codigo: str, ano: str) -> None:
-    """Gera o gpkg fora do repositório e compara o CONTEÚDO com `limite_municipal`."""
-    from scripts.utils import catalogo
+# --------------------------------------------------------------------------
+# metadado
+# --------------------------------------------------------------------------
 
-    if not caminho_zip.exists():
-        raise SystemExit(f"--verificar exige o ZIP já baixado: {paths.relativo(caminho_zip)}")
-    linha, conferido = catalogo.camada_conferida("limite_municipal")
-    registrado = json.loads(conferido.with_suffix(".json").read_text(encoding="utf-8")) \
-        .get("sha256_conteudo")
-    referencia = registrado or sha256_conteudo(conferido)
+def _linha_catalogo(destino: Path) -> dict | None:
+    rel = paths.relativo(destino)
+    return next((l for l in catalogo.ler("catalogo_camadas") if l["arquivo"] == rel), None)
 
+
+def _fonte(fonte_id: str) -> dict:
+    fonte = next((l for l in catalogo.ler("catalogo_fontes") if l["id_fonte"] == fonte_id), None)
+    if fonte is None:
+        raise RuntimeError(f"fonte '{fonte_id}' não está em catalogo_fontes.csv")
+    return fonte
+
+
+def antigo_para_reconciliar(antigo: dict | None, linha: dict | None) -> dict | None:
+    """Estado anterior para `metadados.reconciliar`.
+
+    `.json` de esquema antigo não tem status: a conferência dele estava na linha
+    do catálogo, e é de lá que vêm status, pode_publicar e a nota.
+    """
+    if antigo is None or "status_conferencia" in antigo or linha is None:
+        return antigo
+    return {**antigo,
+            "status_conferencia": linha["status_conferencia"],
+            "pode_publicar": linha["pode_publicar"].strip().lower() == "true",
+            "observacoes": linha["observacoes"]}
+
+
+def complementos_de(antigo: dict | None) -> dict:
+    """Campos do `.json` anterior que este script não gera — preservados."""
+    if not antigo:
+        return {}
+    conhecidos = set(metadados.CAMPOS) | set(metadados.CAMPOS_OPCIONAIS) | LEGADO_COBERTO
+    extras = {k: v for k, v in antigo.items() if k not in conhecidos}
+    return {**(antigo.get("complementos") or {}), **extras}
+
+
+def montar_metadado(destino: Path, municipio: gpd.GeoDataFrame, codigo: str,
+                    caminho_zip: Path, meta_zip: dict, edicao: str,
+                    linha: dict | None, fonte: dict, antigo: dict | None) -> dict:
+    geometria = municipio.geometry.iloc[0]
+    area_km2 = medidas.area_m2(geometria) / 1e6            # CRS de área (equivalente)
+    oficial = float(municipio["AREA_KM2"].iloc[0]) if "AREA_KM2" in municipio.columns else None
+    nome = next((str(municipio[c].iloc[0]) for c in ("NM_MUN", "NM_MUNICIP")
+                 if c in municipio.columns), None)
+
+    dados = metadados.montar(
+        destino, tema=TEMA, fonte_id=meta_zip["fonte_id"],
+        versao=(linha["versao"] if linha else edicao), crs=CRS_PADRAO,
+        licenca=fonte["licenca"],
+        autorizacao_fonte=fonte["autorizacao_fonte"].strip().lower() == "true",
+        pode_publicar=False, status_conferencia="pendente",
+        url_origem=meta_zip.get("url_origem"),
+        observacoes=(
+            f"Limite municipal de {nome} ({codigo}) — cópia principal do ACERVO. "
+            f"Feição do código {codigo} na malha municipal do IBGE ({edicao}, UF "
+            f"inteira, {paths.relativo(caminho_zip)}), reprojetada para {CRS_PADRAO}. "
+            "Área em ESRI:102033 (equivalente); perímetro no CRS de produção. "
+            "pode_publicar só vira true na promoção, depois da conferência visual. "
+            "Citar: IBGE, Malhas Territoriais. Script: scripts/download/vetor_ibge.py."
+        ),
+    )
+    dados["edicao"] = edicao
+    dados["sha256_conteudo"] = sha256_conteudo(destino)
+    dados["medidas"] = {
+        "area_km2": round(area_km2, 3),
+        "crs_medicao_area": medidas.crs_medicao_area(),
+        "perimetro_km": round(geometria.length / 1e3, 3),
+        "crs_medicao_distancia": CRS_PADRAO,
+        "area_km2_oficial_ibge": oficial,
+        "area_menos_oficial_km2": (round(area_km2 - oficial, 3) if oficial else None),
+    }
+    dados["verificacoes"] = {
+        "codigo_ibge": codigo,
+        "municipio": nome,
+        "n_feicoes": int(len(municipio)),
+        "geometria_valida": bool(geometria.is_valid),
+        "colunas": [c for c in municipio.columns if c != "geometry"],
+        "transformacao_aplicada": (f"seleção da feição de código {codigo} na malha da UF + "
+                                   f"reprojeção para {CRS_PADRAO}"),
+        "origem_bruta": {
+            "arquivo": paths.relativo(caminho_zip),
+            "sha256": meta_zip["sha256"],
+            "crs": meta_zip.get("crs"),
+            "last_modified_origem": last_modified_de(meta_zip),
+            "data_acesso": meta_zip.get("data_producao"),
+        },
+    }
+    complementos = complementos_de(antigo)
+    if complementos:
+        dados["complementos"] = complementos
+    return dados
+
+
+# --------------------------------------------------------------------------
+
+def verificar_sem_gravar(caminho_zip: Path, meta_zip: dict, codigo: str,
+                         destino: Path) -> None:
+    """Gera o gpkg fora do repositório e compara o CONTEÚDO com o registrado."""
+    registrado = json.loads(destino.with_suffix(".json").read_text(encoding="utf-8")) \
+        .get("sha256_conteudo") if destino.with_suffix(".json").is_file() else None
+    referencia = registrado or sha256_conteudo(destino)
     municipio = recortar_municipio(caminho_zip, codigo)
     with tempfile.TemporaryDirectory(prefix="vetor_ibge_verificar_") as tmp:
-        gerado = Path(tmp) / f"limite-municipal_ibge_{ano}_municipal.gpkg"
-        municipio.to_file(gerado, driver="GPKG", layer="limite_municipal")
+        gerado = Path(tmp) / destino.name
+        _gravar(municipio, gerado, carimbo_gpkg(last_modified_de(meta_zip)))
         conteudo_gerado = sha256_conteudo(gerado)
-        sha_gerado = sha256_arquivo(gerado)
-
     print()
-    print(f"camada conferida ........ {linha['arquivo']}")
+    print(f"camada .................. {paths.relativo(destino)}")
     print(f"sha256_conteudo esperado  {referencia} "
-          f"({'do .json irmão' if registrado else 'recalculado do arquivo conferido'})")
+          f"({'do .json irmão' if registrado else 'recalculado do arquivo'})")
     print(f"sha256_conteudo gerado .. {conteudo_gerado}  "
           f"{'IGUAL — mesmo dado' if conteudo_gerado == referencia else 'DIFERENTE — o dado mudou'}")
-    print(f"(sha256 do arquivo, só informativo: conferido {linha['sha256'][:12]}…, "
-          f"gerado {sha_gerado[:12]}…)")
     print("nada foi gravado no repositório.")
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Baixa a malha municipal do IBGE (geoftp) e gera a área de estudo."
+        description="Gera a camada limite_municipal a partir da malha municipal do IBGE."
     )
     parser.add_argument("--codigo-ibge", default=CODIGO_IBGE_DEFAULT,
                         help=f"Código IBGE do município (default: {CODIGO_IBGE_DEFAULT}, "
                              f"{paths.nome_municipio()}/{paths.uf()} — vem do config)")
     parser.add_argument("--ano", default=None,
-                        help="Edição da malha (default: a mais recente listada no geoftp)")
+                        help="Edição da malha (default: a mais recente — listada no geoftp, "
+                             "ou presente em data/raw/ com --local)")
+    parser.add_argument("--local", action="store_true",
+                        help="Não acessa a rede: usa o ZIP já em data/raw/ e aborta se o "
+                             "conteúdo divergir do registrado")
     parser.add_argument("--forcar", action="store_true",
-                        help="Rebaixa o ZIP e regrava as saídas mesmo se já existirem")
+                        help="Rebaixa o ZIP mesmo se a origem mudou (ver baixar_malhas_ibge.py)")
     parser.add_argument("--verificar", action="store_true",
-                        help="Não grava nada: compara o gpkg que seria gerado com a camada conferida")
+                        help="Não grava nada: compara o gpkg que seria gerado com o registrado")
     args = parser.parse_args()
 
     codigo = str(args.codigo_ibge).strip()
+    uf = uf_de(codigo)
+    if not (args.local or args.verificar):
+        obter_bruto(uf, args.ano, args.forcar)
+    caminho_zip, meta_zip, edicao = zip_local(uf, args.ano)
+    ano = edicao.rsplit("_", 1)[-1]
+    destino = DIR_ACERVO_LIMITES / f"limite-municipal_ibge_{ano}_municipal.gpkg"
 
-    url_zip, nome_zip, ano = resolver_url_malha(codigo, args.ano)
-    caminho_zip = DIR_RAW_VETOR / nome_zip
     if args.verificar:
-        verificar_sem_gravar(caminho_zip, codigo, ano)
+        verificar_sem_gravar(caminho_zip, meta_zip, codigo, destino)
         return
-    coleta = baixar(url_zip, caminho_zip, args.forcar)
-    escrever_metadado(caminho_zip, {
-        "descricao": f"Malha municipal do IBGE, UF inteira, edição {ano} (arquivo bruto).",
-        "fonte": "IBGE — Malhas Territoriais (geoftp)",
-        "navegacao": "listagens do geoftp, a partir de organizacao_do_territorio/",
-        "edicao": ano,
-        **coleta,
-    })
+
+    irmao = destino.with_suffix(".json")
+    antigo = json.loads(irmao.read_text(encoding="utf-8")) if irmao.is_file() else None
+    exigir = None
+    if args.local and antigo and destino.exists():
+        exigir = antigo.get("sha256_conteudo") or sha256_conteudo(destino)
 
     municipio = recortar_municipio(caminho_zip, codigo)
+    try:
+        regravou = gravar_gpkg(municipio, destino, carimbo_gpkg(last_modified_de(meta_zip)),
+                               exigir_conteudo=exigir)
+    except ConteudoDivergente as erro:
+        raise SystemExit(f"ABORTADO: {erro}") from erro
 
-    # área no CRS equivalente (crs.area), nunca no UTM de produção
-    area_km2_geometrica = medidas.area_m2(municipio.geometry.iloc[0]) / 1e6
-    area_km2_oficial = float(municipio["AREA_KM2"].iloc[0]) if "AREA_KM2" in municipio.columns else None
-    nome_municipio = next(
-        (str(municipio[c].iloc[0]) for c in ("NM_MUN", "NM_MUNICIP") if c in municipio.columns),
-        None,
-    )
+    linha = _linha_catalogo(destino)
+    fonte = _fonte(meta_zip["fonte_id"])
+    anterior = antigo_para_reconciliar(antigo, linha)
+    dados = montar_metadado(destino, municipio, codigo, caminho_zip, meta_zip, edicao,
+                            linha, fonte, antigo)
+    teto = fonte["pode_publicar"].strip().lower() == "true"
+    dados = metadados.reconciliar(anterior, dados, teto_publicacao=teto)
+    mesmo = bool(anterior) and metadados.mesmo_conteudo(anterior, dados)
 
-    metadados_comuns = {
-        "descricao": "Limite municipal — área de estudo de referência do acervo.",
-        "municipio": nome_municipio,
-        "codigo_ibge": codigo,
-        "fonte": "IBGE — Malhas Territoriais (geoftp)",
-        "url_origem": url_zip,
-        "edicao_malha": ano,
-        "sha256_origem": coleta["sha256"],
-        "last_modified_origem": coleta["last_modified_origem"],
-        "data_acesso": coleta["data_acesso"],
-        "crs_origem": "EPSG:4674 (SIRGAS 2000)",
-        "crs_saida": CRS_PADRAO,
-        "transformacao_aplicada": (
-            f"seleção da feição de código {codigo} na malha da UF + "
-            f"reprojeção para {CRS_PADRAO} (SIRGAS 2000 / UTM 21S)"
-        ),
-        "n_features": int(len(municipio)),
-        "area_km2_geometrica": round(area_km2_geometrica, 3),
-        "crs_medicao_area": medidas.crs_medicao_area(),
-        "area_km2_oficial_ibge": area_km2_oficial,
-        "colunas": [c for c in municipio.columns if c != "geometry"],
-        "data_processamento": datetime.now(timezone.utc).isoformat(),
-    }
-    # cópia do ACERVO (GeoPackage, CRS de produção). A publicação
-    #    (GeoJSON do portal) é gerada à parte por scripts/geoportal/.
-    caminho_gpkg = DIR_ACERVO_LIMITES / f"limite-municipal_ibge_{ano}_municipal.gpkg"
-    irmao = caminho_gpkg.with_suffix(".json")
-    conteudo_antigo = (json.loads(irmao.read_text(encoding="utf-8")).get("sha256_conteudo")
-                       if irmao.is_file() else None)
-    regravou = gravar_gpkg(municipio, caminho_gpkg, carimbo_gpkg(coleta["last_modified_origem"]))
-    conteudo_novo = sha256_conteudo(caminho_gpkg)
-    sha_novo = sha256_arquivo(caminho_gpkg)
-    escrever_metadado(caminho_gpkg, {
-        **metadados_comuns,
-        "descricao": "Limite municipal — cópia principal do ACERVO (GeoPackage).",
-        "sha256": sha_novo,
-        "sha256_conteudo": conteudo_novo,
-    })
-    # a conferência de `limite_municipal` vive na linha do catálogo: mesmo
-    # CONTEÚDO preserva status, pode_publicar e o bloco "--- conferência ---";
-    # dado novo despromove (catalogo.reconciliar_linha). O script nunca promove.
-    from scripts.utils import catalogo
-    afetada = catalogo.registrar_regravacao(caminho_gpkg, sha_novo,
-                                            mesmo_conteudo=conteudo_antigo == conteudo_novo)
-    if afetada and conteudo_antigo != conteudo_novo:
+    sem_data = lambda d: {k: v for k, v in (d or {}).items() if k != "data_producao"}  # noqa: E731
+    if sem_data(antigo) != sem_data(dados):
+        metadados.escrever(destino, dados, sobrescrever=True, teto_publicacao=teto,
+                           antigo_conferencia=anterior)
+        logger.info("metadado: %s", paths.relativo(irmao))
+    else:
+        logger.info("metadado sem mudança: %s", paths.relativo(irmao))
+
+    # a conferência de `limite_municipal` também vive na linha do catálogo:
+    # mesma regra (catalogo.reconciliar_linha). O script nunca promove.
+    afetada = catalogo.registrar_regravacao(destino, dados["sha256"], mesmo_conteudo=mesmo)
+    if afetada and not mesmo:
         logger.warning("%s: o DADO mudou — '%s' volta a pendente e pode_publicar=false "
-                       "até nova conferência no mapa", paths.relativo(caminho_gpkg), afetada)
-    logger.info("acervo: %s (%s)", paths.relativo(caminho_gpkg),
-                "gravado" if regravou else "mesmo conteúdo — arquivo mantido")
+                       "até nova conferência no mapa", paths.relativo(destino), afetada)
 
     print()
-    print(f"município ....... {nome_municipio} ({codigo})")
-    print(f"edição da malha . {ano}")
-    print(f"feições ......... {len(municipio)}")
-    print(f"CRS ............. {municipio.crs.to_string()}")
-    print(f"área geométrica . {area_km2_geometrica:,.3f} km² (calculada em {paths.crs_area()})")
-    if area_km2_oficial is not None:
-        diferenca = abs(area_km2_geometrica - area_km2_oficial)
-        print(f"área oficial IBGE {area_km2_oficial:,.3f} km² (atributo AREA_KM2 da malha)")
-        print(f"diferença ....... {diferenca:,.3f} km² ({diferenca / area_km2_oficial * 100:.3f}%)")
+    print(f"camada .......... {paths.relativo(destino)} "
+          f"({'regravada' if regravou else 'mesmo conteúdo — arquivo mantido'})")
+    print(f"bruto ........... {paths.relativo(caminho_zip)} ({edicao})")
+    print(f"sha256_conteudo . {dados['sha256_conteudo']}")
+    print(f"conferência ..... {dados['status_conferencia']} "
+          f"(pode_publicar={str(dados['pode_publicar']).lower()})")
+    print(f"área ............ {dados['medidas']['area_km2']:,.3f} km² "
+          f"(em {paths.crs_area()}; oficial IBGE {dados['medidas']['area_km2_oficial_ibge']} km²)")
 
 
 if __name__ == "__main__":

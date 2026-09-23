@@ -45,6 +45,7 @@ caminho literal fora do YAML, é bug.**
 | `indice.py` | gera `docs/indice_camadas_estudos.md` |
 | `validar_catalogos.py` | coerência dos catálogos |
 | `verificar_publicacao.py` | barreira de pre-commit |
+| `promover.py` | promoção a conferido (linha de comando): confere hash e fonte, grava a nota |
 
 ## As regras que mais pegam
 
@@ -52,8 +53,9 @@ caminho literal fora do YAML, é bug.**
    conferência visual no mapa → cópia para `data/acervo/<tema>/` → linha no
    catálogo com `status_conferencia=conferido`.
 2. **`pode_publicar` propaga pelo mais restritivo.** Uma camada ou uma fonte
-   bruta `false` torna a saída inteira `false`. Manifesto sem camadas declaradas resolve para
-   `false` — o vácuo é "não sei", e "não sei" não autoriza publicar.
+   bruta `false` torna a saída inteira `false`. Manifesto sem nenhuma entrada
+   (nem camadas, nem fontes brutas) resolve para `false` — o vácuo é "não sei",
+   e "não sei" não autoriza publicar.
 3. **Dado não é versionado; o rastro é.** `.json` irmão + linha no catálogo +
    sha256. A barreira de pre-commit recusa arquivo de dado estagiado.
 4. **Camada de outro projeto entra por CÓPIA**, com versão e sha256 fixados —
@@ -65,8 +67,8 @@ caminho literal fora do YAML, é bug.**
    documentadas, para que mudança na fonte **falhe** em vez de baixar outra
    coisa em silêncio.
 7. **A nota de conferência é do responsável.** Fica no bloco
-   `--- conferência ---` de `observacoes`, gravado por `metadados.promover()` +
-   `catalogo.promover()`. Regravar o mesmo conteúdo a preserva; conteúdo novo
+   `--- conferência ---` de `observacoes`, gravado só pelo comando
+   `scripts/utils/promover.py --id … --nota …`. Regravar o mesmo conteúdo a preserva; conteúdo novo
    despromove (pendente, `pode_publicar=false`, sem nota). Regravação nunca promove.
 8. **Arquivos gerados não se editam à mão:** `bibliografia/bage.bib` (Zotero),
    `bibliografia/indice.md`, `docs/indice_camadas_estudos.md`,

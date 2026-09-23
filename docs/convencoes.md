@@ -43,9 +43,8 @@ com `status_conferencia = pendente`.
 ### Nota de conferência
 
 A conferência é registrada em `observacoes`, no `.json` irmão e na linha do
-catálogo, num **bloco delimitado** gravado na promoção
-(`metadados.promover()` e depois `catalogo.promover()`, que conferem antes
-que o arquivo em disco é o registrado):
+catálogo, num **bloco delimitado** gravado na promoção (ver "Comando de
+promoção", abaixo):
 
 ```
 <texto do script produtor> --- conferência --- <nota do responsável> --- fim da conferência ---
@@ -65,6 +64,35 @@ linha de catálogo passa pela mesma regra (`metadados.reconciliar()`,
 
 `validar_catalogos.py` recusa bloco de conferência em produto pendente
 (conferência 8). `testar_validador.py` tem os controles (C1–C8).
+
+### Comando de promoção
+
+A promoção se faz **só** pelo comando
+[`scripts/utils/promover.py`](../scripts/utils/promover.py), depois da
+conferência visual:
+
+```bash
+python scripts/utils/promover.py --id setores_2022 --nota "Conferido no QGIS sobre imagem de satélite em AAAA-MM-DD: ..."
+python scripts/utils/promover.py --id config/area_estudo.geojson --nota "..."
+```
+
+`--id` é o `id_camada` do catálogo ou o caminho de um produto fora do catálogo
+(com `.json` irmão). Antes de gravar qualquer coisa, o comando confere:
+
+| conferência | se falhar |
+| --- | --- |
+| produto existe (catálogo ou disco) e tem `.json` irmão | recusa: produto inexistente |
+| `sha256_conteudo` registrado bate com o arquivo em disco; `sha256` dos bytes também | recusa: hash divergente |
+| linha do catálogo registra o mesmo `sha256` do `.json` | recusa: hash divergente |
+| toda fonte (`fonte_id`) tem `autorizacao_fonte=true` no catálogo de fontes | recusa: fonte não autoriza |
+| produto derivado (`camada_origem`): a camada de origem está conferida | recusa |
+| produto já conferido | recusa, salvo `--substituir-nota` |
+
+Grava `status_conferencia=conferido`, `pode_publicar` e a nota no bloco, no
+`.json` e (se há) na linha do catálogo. **`pode_publicar` sai da fonte e nunca
+é mais permissivo que ela**: `true` só se todas as fontes, e a camada de origem
+quando há, têm `pode_publicar=true`. Recusa sai com rc=1 e nada gravado.
+Controles em `testar_validador.py` (PR1–PR5).
 
 ### Camadas de outros projetos entram por CÓPIA
 
@@ -165,7 +193,14 @@ produto**. Gerado por
 | `referencias_bib` | lista de chaves de `bibliografia/bage.bib` |
 | `campos_removidos` | lista de campos suprimidos (ex.: dado pessoal) |
 | `status_conferencia` | `pendente` \| `conferido` |
-| `observacoes` | texto livre |
+| `observacoes` | texto livre (com o bloco de conferência, quando conferido) |
+
+Opcionais, gravados só quando existem: procedência (`repo_origem`, `commit`,
+`url_origem`, `data_commit`, `nome_original`), derivação e medida (`edicao`,
+`camada_origem`, `medidas`, `verificacoes`, `sha256_conteudo`) e
+**`complementos`**: campos que um `.json` anterior tinha e que o produtor atual
+não gera (anotação à mão, esquema antigo). O produtor os **preserva** ali, em
+vez de descartá-los.
 
 Formato: **UTF-8, `indent=2`, chaves ordenadas**. `escrever()` **não
 sobrescreve** um `.json` existente sem `sobrescrever=True` — metadado apagado
@@ -314,9 +349,12 @@ transformado que esteja.
 Dois pontos deliberados em
 [`scripts/utils/publicacao.py`](../scripts/utils/publicacao.py):
 
-1. **Manifesto sem camadas devolve `false`**, não `true`. Quem não declarou
+1. **Manifesto sem nenhuma entrada devolve `false`**, não `true`. Vazio é
+   `camadas:` E `fontes_brutas:` vazios ao mesmo tempo. Quem não declarou
    entradas não provou que pode publicar; o vácuo é "não sei", e "não sei" não
-   autoriza publicação em repositório público.
+   autoriza publicação em repositório público. Manifesto só com fontes brutas,
+   todas publicáveis, resolve para `true` (regra ajustada em 2026-09-22; antes,
+   faltar `camadas:` bastava para `false`).
 2. **Entrada `divergente` ou `ausente` também bloqueia**, seja camada ou
    fonte bruta. Se o acervo mudou desde que o estudo fixou o sha256, não dá
    para afirmar sob qual licença a saída foi produzida.

@@ -147,7 +147,8 @@ def main() -> None:
         "versao": linha["versao"],
         "status_conferencia": linha["status_conferencia"],
         "url_origem": meta_origem.get("url_origem"),
-        "sha256_malha_bruta": meta_origem.get("sha256_origem"),
+        "sha256_malha_bruta": (meta_origem.get("verificacoes", {}).get("origem_bruta", {})
+                               .get("sha256") or meta_origem.get("sha256_origem")),
     }
     oficial = float(municipio["AREA_KM2"].iloc[0]) if "AREA_KM2" in municipio else None
     dados["medidas"] = {

@@ -429,7 +429,156 @@ def controles_de_publicacao(tmp: Path, campos_fontes: list[str], fontes: list[di
     resultados.append(("NEGATIVO P2: fonte bruta com pode_publicar=false bloqueia o estudo",
                        "pode_publicar=false, bloqueio na fonte", ok, 0,
                        f"{d.motivo} | {d.bloqueios}"))
+
+    # regra do vácuo: vazio é camadas E fontes_brutas vazios
+    def so_fontes(nome: str, entradas: list[dict]) -> Path:
+        m = tmp / f"pub_{nome}.yaml"
+        m.write_text(yaml.safe_dump({"estudo": "teste", "pergunta": "-", "status": "planejado",
+                                     "camadas": [], "fontes_brutas": entradas}),
+                     encoding="utf-8")
+        return m
+    entrada = {"fonte_id": fonte_id, "arquivo": arquivo, "versao": rastro["versao"],
+               "sha256": rastro["sha256"]}
+    if str(base.get("pode_publicar", "")).strip().lower() == "true":
+        d = publicacao.pode_publicar_estudo("teste", caminho=so_fontes("so_fontes", [entrada]))
+        resultados.append(("POSITIVO V1: só fontes brutas, todas publicáveis", "pode_publicar=true",
+                           d.pode_publicar, 0, d.motivo))
+    d = publicacao.pode_publicar_estudo("teste", caminho=so_fontes("vazio", []))
+    resultados.append(("NEGATIVO V2: camadas E fontes_brutas vazios (vácuo)", "pode_publicar=false",
+                       not d.pode_publicar and "nenhuma entrada" in d.motivo, 0, d.motivo))
     return resultados
+
+
+def controles_de_promocao(tmp: Path) -> list[tuple]:
+    """scripts/utils/promover.py por linha de comando, num repositório temporário.
+
+    Copia scripts/, config/, os dois catálogos e os produtos usados (distritos
+    e área de estudo) para uma raiz temporária — `paths.RAIZ` sai da posição
+    do código, então o comando roda contra a cópia. Nada real é tocado.
+    """
+    sys.path.insert(0, str(RAIZ_PROJETO))
+    from scripts.utils import metadados
+
+    distritos = "data/acervo/limites/distritos_ibge-censo_2022_distrito.gpkg"
+    area = "config/area_estudo.geojson"
+
+    def repo(nome: str) -> Path:
+        raiz = tmp / f"prom_{nome}"
+        shutil.copytree(RAIZ_PROJETO / "scripts", raiz / "scripts",
+                        ignore=shutil.ignore_patterns("__pycache__"))
+        shutil.copytree(RAIZ_PROJETO / "config", raiz / "config")
+        for rel in ("data/catalogo_camadas.csv", "data/catalogo_fontes.csv", distritos,
+                    str(Path(distritos).with_suffix(".json"))):
+            (raiz / rel).parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(RAIZ_PROJETO / rel, raiz / rel)
+        # despromove as cópias: é o estado de quem vai ser promovido
+        for rel in (distritos, area):
+            j = (raiz / rel).with_suffix(".json")
+            m = json.loads(j.read_text(encoding="utf-8"))
+            m.update(status_conferencia="pendente", pode_publicar=False,
+                     observacoes=metadados.sem_bloco(m["observacoes"]))
+            j.write_text(json.dumps(m, ensure_ascii=False), encoding="utf-8")
+        caminho = raiz / "data/catalogo_camadas.csv"
+        campos, linhas = ler(caminho)
+        for l in linhas:
+            if l["id_camada"] == "distritos_2022":
+                l.update(status_conferencia="pendente", pode_publicar="false",
+                         observacoes=metadados.sem_bloco(l["observacoes"]))
+        escrever(caminho, campos, linhas)
+        return raiz
+
+    def promover(raiz: Path, ident: str, nota: str = "nota de teste") -> tuple[int, str]:
+        p = subprocess.run([sys.executable, str(raiz / "scripts/utils/promover.py"),
+                            "--id", ident, "--nota", nota], capture_output=True, text=True)
+        return p.returncode, p.stdout + p.stderr
+
+    def estado(raiz: Path, rel: str, id_camada: str | None) -> tuple:
+        m = json.loads((raiz / rel).with_suffix(".json").read_text(encoding="utf-8"))
+        linha = None
+        if id_camada:
+            linha = next(l for l in ler(raiz / "data/catalogo_camadas.csv")[1]
+                         if l["id_camada"] == id_camada)
+        return (m["status_conferencia"], m["pode_publicar"],
+                metadados.bloco_conferencia(m["observacoes"]),
+                linha and (linha["status_conferencia"], linha["pode_publicar"],
+                           metadados.bloco_conferencia(linha["observacoes"])))
+
+    resultados = []
+    bloco = metadados.montar_bloco("nota de teste")
+
+    # (PR1) promoção válida de camada do catálogo
+    raiz = repo("valida")
+    rc, saida = promover(raiz, "distritos_2022")
+    obtido = estado(raiz, distritos, "distritos_2022")
+    resultados.append(("POSITIVO PR1: promoção válida (camada do catálogo)",
+                       "rc=0; .json e catálogo conferidos, true, com a nota",
+                       rc == 0 and obtido == ("conferido", True, bloco, ("conferido", "true", bloco)),
+                       rc, f"{saida.strip()} | {obtido[:2]} cat={obtido[3] and obtido[3][:2]}"))
+
+    # (PR2) promoção válida de produto fora do catálogo, por caminho
+    rc, saida = promover(raiz, area)
+    obtido = estado(raiz, area, None)
+    resultados.append(("POSITIVO PR2: promoção válida (config/area_estudo.geojson)",
+                       "rc=0; .json conferido, true, com a nota",
+                       rc == 0 and obtido[:3] == ("conferido", True, bloco), rc,
+                       f"{saida.strip()} | {obtido[:2]}"))
+
+    # (PR3) hash divergente: sha256_conteudo do .json adulterado
+    raiz = repo("hash")
+    j = (raiz / distritos).with_suffix(".json")
+    m = json.loads(j.read_text(encoding="utf-8"))
+    m["sha256_conteudo"] = "0" * 64
+    j.write_text(json.dumps(m, ensure_ascii=False), encoding="utf-8")
+    antes = estado(raiz, distritos, "distritos_2022")
+    rc, saida = promover(raiz, "distritos_2022")
+    resultados.append(("NEGATIVO PR3: hash divergente", "rc=1, 'hash divergente', nada gravado",
+                       rc == 1 and "hash divergente" in saida
+                       and estado(raiz, distritos, "distritos_2022") == antes, rc, saida))
+
+    # (PR4) fonte com autorizacao_fonte=false
+    raiz = repo("fonte")
+    caminho = raiz / "data/catalogo_fontes.csv"
+    campos, linhas = ler(caminho)
+    for l in linhas:
+        if l["id_fonte"] == "ibge_malha_distritos_2022":
+            l["autorizacao_fonte"] = "false"
+    escrever(caminho, campos, linhas)
+    antes = estado(raiz, distritos, "distritos_2022")
+    rc, saida = promover(raiz, "distritos_2022")
+    resultados.append(("NEGATIVO PR4: fonte com autorizacao_fonte=false",
+                       "rc=1, 'autorizacao_fonte=false', nada gravado",
+                       rc == 1 and "autorizacao_fonte=false" in saida
+                       and estado(raiz, distritos, "distritos_2022") == antes, rc, saida))
+
+    # (PR5) produto inexistente
+    rc, saida = promover(raiz, "camada_que_nao_existe")
+    resultados.append(("NEGATIVO PR5: produto inexistente", "rc=1, 'produto inexistente'",
+                       rc == 1 and "produto inexistente" in saida, rc, saida))
+    return resultados
+
+
+def controles_de_vetor_ibge(tmp: Path) -> list[tuple]:
+    """vetor_ibge.py --local: conteúdo divergente do registrado ABORTA sem gravar."""
+    sys.path.insert(0, str(RAIZ_PROJETO))
+    from scripts.download import vetor_ibge
+    from scripts.utils import paths
+    from scripts.utils.hashes import sha256_arquivo
+
+    caminho_zip, meta_zip, _ = vetor_ibge.zip_local(vetor_ibge.uf_de(paths.codigo_ibge()), None)
+    municipio = vetor_ibge.recortar_municipio(caminho_zip, paths.codigo_ibge())
+    destino = tmp / "vetor_ibge" / "limite.gpkg"
+    destino.parent.mkdir()
+    vetor_ibge._gravar(municipio, destino, "2003-01-01T00:00:00.000Z")
+    sha_antes = sha256_arquivo(destino)
+    try:
+        vetor_ibge.gravar_gpkg(municipio, destino,
+                               vetor_ibge.carimbo_gpkg(vetor_ibge.last_modified_de(meta_zip)),
+                               exigir_conteudo="0" * 64)
+        abortou, msg = False, "não abortou"
+    except vetor_ibge.ConteudoDivergente as erro:
+        abortou, msg = True, str(erro)
+    return [("NEGATIVO VI1: vetor_ibge --local com conteúdo divergente", "aborta, nada gravado",
+             abortou and sha256_arquivo(destino) == sha_antes, 0, msg)]
 
 
 def main() -> None:
@@ -492,6 +641,8 @@ def main() -> None:
         resultados += controles_de_fontes_brutas(tmp)
         resultados += controles_de_conferencia(tmp, campos_camadas, camadas)
         resultados += controles_de_publicacao(tmp, campos_fontes, fontes)
+        resultados += controles_de_promocao(tmp)
+        resultados += controles_de_vetor_ibge(tmp)
 
     print("=" * 78)
     print("CONTROLES DO VALIDADOR DE CATÁLOGOS")

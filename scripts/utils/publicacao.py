@@ -15,10 +15,12 @@ processamento.
 
 Dois pontos deliberados:
 
-1. **Lista de camadas vazia devolve `False`**, não `True`. Um estudo que não
-   declarou nenhuma camada não provou que pode publicar; o vácuo é tratado
+1. **Manifesto sem NENHUMA entrada devolve `False`**, não `True` — vazio é
+   `camadas:` E `fontes_brutas:` vazios ao mesmo tempo. Um estudo que não
+   declarou entrada alguma não provou que pode publicar; o vácuo é tratado
    como "não sei", e "não sei" não autoriza publicação num repositório
    público. Estudo em reconhecimento fica assim até declarar suas entradas.
+   Manifesto só com fontes brutas, todas publicáveis, resolve para `True`.
 2. **Entrada divergente ou ausente também bloqueia** (camada ou fonte bruta). Se o acervo mudou desde
    que o estudo fixou o sha256, não dá para afirmar sob qual licença a saída
    foi produzida.
@@ -103,11 +105,12 @@ def pode_publicar_estudo(estudo: str, caminho: Path | str | None = None,
     except mod_manifesto.ManifestoInvalido as erro:
         return Decisao(False, f"manifesto de '{estudo}' ilegível: {erro}", [estudo])
 
-    if not relatorio.camadas:
+    if not relatorio.camadas and not relatorio.fontes_brutas:
         return Decisao(
             False,
-            f"estudo '{estudo}' não declara nenhuma camada no manifesto — sem entradas "
-            "declaradas não há como afirmar que a saída pode ser publicada",
+            f"estudo '{estudo}' não declara nenhuma entrada no manifesto (nem camadas, "
+            "nem fontes brutas) — sem entradas declaradas não há como afirmar que a "
+            "saída pode ser publicada",
             [],
         )
 

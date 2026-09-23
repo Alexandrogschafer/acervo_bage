@@ -80,6 +80,23 @@ Sem esse `git config`, o repositório funciona **sem a barreira de publicação*
 — e é nesse estado que o commit distraído passa. Conferir com
 `git config --get core.hooksPath`.
 
+### Promoção (depois da conferência no mapa)
+
+Um produto só passa a `conferido` pelo comando de promoção, depois que o
+responsável o conferiu **no mapa**:
+
+```bash
+python scripts/utils/promover.py --id setores_2022 --nota "Conferido no QGIS sobre imagem de satélite em AAAA-MM-DD: ..."
+python scripts/utils/promover.py --id config/area_estudo.geojson --nota "..."
+```
+
+O comando confere o arquivo em disco contra o `sha256_conteudo` registrado.
+Depois grava `status_conferencia=conferido`, `pode_publicar` (nunca mais
+permissivo que a fonte) e a nota no bloco `--- conferência ---`, no `.json` e
+no catálogo. Ele recusa, sem gravar nada, nestes casos: produto inexistente,
+hash divergente, fonte com `autorizacao_fonte=false`. Regras completas em
+[`docs/convencoes.md`](docs/convencoes.md) § 1.
+
 ### Comandos
 
 ```bash
@@ -87,8 +104,10 @@ python scripts/utils/indice.py            # docs/indice_camadas_estudos.md
 python scripts/utils/validar_catalogos.py # coerência dos catálogos
 python scripts/utils/testar_validador.py  # controles do validador
 python scripts/utils/verificar_publicacao.py   # barreira, fora do hook
+python scripts/utils/promover.py --id <id_camada|caminho> --nota "<conferência>"   # promoção
 
 python scripts/download/vetor_ibge.py     # limite municipal (IBGE, geoftp) — camada limite_municipal
+python scripts/download/vetor_ibge.py --local   # idem, sem rede: usa o ZIP já em data/raw/
 python scripts/download/baixar_malhas_ibge.py   # malhas brutas: municipal (mais recente e 2022) + setores e distritos 2022
 python scripts/processamento/area_estudo.py     # config/area_estudo.geojson a partir de limite_municipal
 python scripts/processamento/limites_ibge.py    # setores_2022 e distritos_2022 em data/acervo/limites/
@@ -119,8 +138,9 @@ npm run test:geoportal                    # teste headless do portal
 >   `pode_publicar=true` no catálogo e tiver passado por conferência visual.
 >   A barreira de pre-commit recusa o resto.
 > - **Saídas de estudo:** herdam a restrição **mais restritiva** entre as
->   camadas declaradas no manifesto. Manifesto sem camadas declaradas resolve
->   para `false` — ver [`docs/convencoes.md`](docs/convencoes.md) § 7.
+>   entradas declaradas no manifesto (camadas e fontes brutas). Manifesto sem
+>   nenhuma entrada resolve para `false` — ver
+>   [`docs/convencoes.md`](docs/convencoes.md) § 7.
 >
 > **Não publicar no GitHub Pages** enquanto esta seção estiver como pendente.
 
