@@ -280,6 +280,40 @@ def mecanismo_nova(g: pd.DataFrame, k: float) -> pd.Series:
         "sem face residencial de 2010 ligada: rua ou ocupação nova"), index=g.index)
 
 
+FENOMENO = {
+    "some com o reposicionamento (os endereços da face estão em outra célula em 2022)":
+        "deslocamento_por_reparticao",
+    "face sem nenhum domicílio no CNEFE 2022 (a face perdeu os endereços)":
+        "esvaziamento_medido_face_perdeu_os_enderecos",
+}
+
+
+def fenomenos_das_extintas(ext: gpd.GeoDataFrame, k: float, agrup: pd.Series) -> dict:
+    """As extintas urbanas separadas pelos dois fenômenos (decisão de 2026-09-23), com a
+    geografia do resultados_s1 § 5.1 (distância à área urbanizada de 2022) e a lista."""
+    from s1_geografias import FAIXAS_BORDA_M, area_urbanizada
+    e = ext.copy()
+    e["fenomeno"] = mecanismo_extinta(e, k).map(FENOMENO).fillna("outros")
+    e["dist_au_m"] = e.geometry.distance(area_urbanizada(e.crs))
+    e["faixa"] = pd.cut(e["dist_au_m"], FAIXAS_BORDA_M, right=False,
+                        labels=["dentro ou tocando", "até 500 m", "500 m a 1 km", "1 a 2 km", "> 2 km"])
+    out = {}
+    for nome, g in e.groupby("fenomeno"):
+        out[nome] = {
+            "unidades": int(len(g)), "dom_10": int(g["dom_10"].sum()), "pop_10": int(g["pop_10"].sum()),
+            "no_agrupamento_053_054": {"unidades": int(g["unidade"].isin(agrup).sum()),
+                                       "dom_10": int(g.loc[g["unidade"].isin(agrup), "dom_10"].sum())},
+            "por_distancia_a_area_urbanizada_2022": {
+                str(f): {"unidades": int(len(x)), "dom_10": int(x["dom_10"].sum())}
+                for f, x in g.groupby("faixa", observed=False)},
+            "fora_da_area_urbanizada_a_menos_de_1_km": {
+                "unidades": int(((g["dist_au_m"] > 0) & (g["dist_au_m"] < 1000)).sum()),
+                "dom_10": int(g.loc[(g["dist_au_m"] > 0) & (g["dist_au_m"] < 1000), "dom_10"].sum())},
+            "unidades_lista": sorted(g["unidade"].tolist()),
+        }
+    return out
+
+
 def resumo_grupo(g: gpd.GeoDataFrame, u, viz, pts, o, f, k, mec) -> dict:
     maior = o[o["frac"] > 0].drop_duplicates("fi").set_index("fi")["cel_maior"]
     idx_de = {c: i for i, c in enumerate(u["unidade"])}
@@ -452,6 +486,12 @@ def main() -> None:
             "tot_res_pelos_pontos_2022": round(float(agrup["alloc_p"].sum()), 1),
             "por_mecanismo": {str(n): int(len(s)) for n, s in agrup.groupby(mecanismo_extinta(agrup, k))},
             "faces_2010_x_cnefe_2022": faces_vs_2022(agrup["unidade"], o, pts, f),
+        },
+        "extintas_urbanas_por_fenomeno": {
+            "decisao": "2026-09-23: classes mantidas; os dois fenômenos separados no texto "
+                       "(resultados_s1.md § 12.4); outros = sem face residencial de 2010 ou "
+                       "com ponto de 2022 na própria unidade",
+            **fenomenos_das_extintas(ext, k, agrup["unidade"]),
         },
         "extintas_200m_em_setor_rural_2010": {
             "unidades": int(len(ext_rural200)), "dom_10": int(ext_rural200["dom_10"].sum()),

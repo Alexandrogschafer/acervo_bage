@@ -81,9 +81,10 @@ dispersão entre setores.
 - O documento traz também as geografias das unidades novas, adensadas e extintas e a
   investigação das extintas (§ 10).
 - **§ 12 (2026-09-23):** a conferência visual do responsável e o teste do deslocamento
-  por face na grade de 2010. A repartição pela face está confirmada no dado. A proposta
-  de tratamento das extintas urbanas está pendente de decisão; o efeito na faixa é de
-  +0,5 a +1,0 ponto.
+  por face na grade de 2010. A repartição pela face está confirmada no dado. Decisão do
+  responsável: classes mantidas, reposicionamento como sensibilidade (17,1–26,6 %) e
+  a repartição como quarto achado de método. Nas extintas urbanas, 23 (244
+  domicílios) são esvaziamento medido e 29 (95) indício de deslocamento.
 
 *Corrigido em 2026-09-23. O texto anterior era: "a subordinada 1: expansão entre
 15,6 % e 30,1 % do ganho bruto de domicílios, na unidade harmonizada da grade, com as

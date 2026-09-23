@@ -373,8 +373,20 @@ urbano com correlação de **0,989**.
   célula cerca de **2,1 mil domicílios (6,5 %)**. É um limite superior, porque inclui
   crescimento e demolição ao longo da face.
 - A repartição cria **extintas e novas de borda** que o endereço de 2022 não sustenta.
-  No A03, 29 das 56 extintas urbanas (95 domicílios) somem com o reposicionamento
-  (`resultados_s1.md` § 12).
+  No A03, das 56 extintas urbanas, 29 (95 domicílios) têm indício de deslocamento por
+  repartição e somem com o reposicionamento; outras 23 (244 domicílios) estão em faces
+  que perderam os endereços, e são esvaziamento medido (`resultados_s1.md` § 12).
+
+**Consequência, geral:** no urbano, a grade de 2010 e a de 2022 **não são comparáveis
+célula a célula**, porque o posicionamento mudou de método — face repartida em 2010,
+endereço em 2022. Isso vale para **qualquer município**, não só Bagé: a regra de 2010 é
+nacional (Grade Estatística, 2016, p. 18–19), e a de 2022 também (Notas metodológicas
+01/2025, p. 6–7). O tamanho do efeito (57,8 % e 6,5 % aqui) é de Bagé; o de outro
+município depende do comprimento das faces diante da célula de 200 m.
+
+No A03 é o **quarto achado de método** (manifesto, `metodo_previsto`). Decisão do
+responsável (2026-09-23): as classes ficam como a grade publica, e o reposicionamento
+pela face é sensibilidade declarada, não classificação.
 
 > **REGRA DE USO:** ao comparar célula a célula a grade de 2010 com a de 2022 no
 > urbano, a posição de 2010 é a da face e não a do endereço. Mudança numa célula de

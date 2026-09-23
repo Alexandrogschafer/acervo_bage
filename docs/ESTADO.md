@@ -5,6 +5,37 @@ pendente. Entrada nova no topo.
 
 ---
 
+## 2026-09-23 — A03: classes mantidas; repartição por face como quarto achado; detalhe da divergência
+
+- **Decisão do responsável:** MANTER as classes. O reposicionamento pela face é
+  sensibilidade declarada (17,1–26,6 %, contra 16,6–25,6 % adotado), não
+  classificação. Registrada em `resultados_s1.md` § 12.4 e no manifesto (comentário
+  da subordinada 1). Nenhum número adotado muda.
+- **Quarto achado de método:** repartição do domicílio urbano pela face de logradouro
+  em 2010 (correlação 0,989; 57,8 % dos endereços em face que cruza célula; ~2,1 mil
+  domicílios, 6,5 %, mudam de célula).
+  - Entrou em `metodo_previsto`, em `resultados_s1.md` §§ 11.2–11.3 e na ressalva
+    geral (`docs/ressalvas_censo_bage.md` § 10).
+  - A consequência está escrita: no urbano, as grades de 2010 e 2022 não são
+    comparáveis célula a célula. Vale para qualquer município.
+- **Extintas urbanas separadas em toda parte** (§§ 5.1, 5.2, 10.5, 10.7, 11.1, 12.4):
+  - 23 unidades (244 domicílios) de esvaziamento medido, em faces que perderam os
+    endereços. O agrupamento 053/054 pertence a este grupo (8 das 10 unidades), e a
+    conferência visual é consistente com ele;
+  - 29 (95) com indício de deslocamento por repartição;
+  - 4 outras (5).
+  - O `s1_faces_2010.json` ganhou o bloco `extintas_urbanas_por_fenomeno`, com a lista
+    das unidades; o resto do JSON ficou igual.
+- **`resultados_s2.md`:** a conferência estimou 5 rurais remotas, a medida deu 8, com o
+  critério de cada uma.
+- **Conferência dos dois maiores agrupamentos da divergência preparada**
+  (`scripts/s2_agrupamentos.py`):
+  - figuras `saidas/s2_detalhe_agrupamento_{1,2}.png`, com fundo vetorial (não há
+    imagem de satélite no acervo);
+  - camada `saidas/s2_agrupamentos_divergencia.gpkg`, para abrir no QGIS sobre a
+    imagem;
+  - lista em `derivados/s2_agrupamentos_divergencia.{json,csv}`.
+
 ## 2026-09-23 — A03: conferência visual; deslocamento por face em 2010; caracteriza a divergência
 
 - **Conferência visual do responsável** (QGIS, imagem de satélite) sobre a camada de

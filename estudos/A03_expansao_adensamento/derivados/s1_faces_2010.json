@@ -205,6 +205,176 @@
       "tot_res_2010_nas_faces_sem_domicilio_2022": 91
     }
   },
+  "extintas_urbanas_por_fenomeno": {
+    "decisao": "2026-09-23: classes mantidas; os dois fenômenos separados no texto (resultados_s1.md § 12.4); outros = sem face residencial de 2010 ou com ponto de 2022 na própria unidade",
+    "deslocamento_por_reparticao": {
+      "unidades": 29,
+      "dom_10": 95,
+      "pop_10": 310,
+      "no_agrupamento_053_054": {
+        "unidades": 2,
+        "dom_10": 6
+      },
+      "por_distancia_a_area_urbanizada_2022": {
+        "dentro ou tocando": {
+          "unidades": 16,
+          "dom_10": 62
+        },
+        "até 500 m": {
+          "unidades": 12,
+          "dom_10": 30
+        },
+        "500 m a 1 km": {
+          "unidades": 1,
+          "dom_10": 3
+        },
+        "1 a 2 km": {
+          "unidades": 0,
+          "dom_10": 0
+        },
+        "> 2 km": {
+          "unidades": 0,
+          "dom_10": 0
+        }
+      },
+      "fora_da_area_urbanizada_a_menos_de_1_km": {
+        "unidades": 13,
+        "dom_10": 33
+      },
+      "unidades_lista": [
+        "200ME49854N78684",
+        "200ME49856N78668",
+        "200ME49856N78714",
+        "200ME49860N78684",
+        "200ME49866N78688",
+        "200ME49870N78698",
+        "200ME49872N78696",
+        "200ME49878N78666",
+        "200ME49882N78662",
+        "200ME49882N78678",
+        "200ME49882N78696",
+        "200ME49888N78670",
+        "200ME49890N78670",
+        "200ME49892N78670",
+        "200ME49894N78664",
+        "200ME49894N78670",
+        "200ME49900N78710",
+        "200ME49902N78712",
+        "200ME49916N78670",
+        "200ME49916N78672",
+        "200ME49922N78724",
+        "200ME49924N78688",
+        "200ME49924N78726",
+        "200ME49924N78728",
+        "200ME49926N78684",
+        "200ME49926N78724",
+        "200ME49926N78728",
+        "200ME49926N78730",
+        "200ME49928N78678"
+      ]
+    },
+    "esvaziamento_medido_face_perdeu_os_enderecos": {
+      "unidades": 23,
+      "dom_10": 244,
+      "pop_10": 784,
+      "no_agrupamento_053_054": {
+        "unidades": 8,
+        "dom_10": 105
+      },
+      "por_distancia_a_area_urbanizada_2022": {
+        "dentro ou tocando": {
+          "unidades": 13,
+          "dom_10": 150
+        },
+        "até 500 m": {
+          "unidades": 10,
+          "dom_10": 94
+        },
+        "500 m a 1 km": {
+          "unidades": 0,
+          "dom_10": 0
+        },
+        "1 a 2 km": {
+          "unidades": 0,
+          "dom_10": 0
+        },
+        "> 2 km": {
+          "unidades": 0,
+          "dom_10": 0
+        }
+      },
+      "fora_da_area_urbanizada_a_menos_de_1_km": {
+        "unidades": 11,
+        "dom_10": 117
+      },
+      "unidades_lista": [
+        "200ME49866N78686",
+        "200ME49866N78714",
+        "200ME49872N78688",
+        "200ME49872N78698",
+        "200ME49872N78700",
+        "200ME49874N78664",
+        "200ME49874N78698",
+        "200ME49874N78700",
+        "200ME49876N78698",
+        "200ME49876N78700",
+        "200ME49876N78702",
+        "200ME49878N78700",
+        "200ME49880N78666",
+        "200ME49880N78670",
+        "200ME49888N78672",
+        "200ME49896N78712",
+        "200ME49898N78666",
+        "200ME49902N78664",
+        "200ME49904N78688",
+        "200ME49916N78716",
+        "200ME49924N78722",
+        "200ME49928N78724",
+        "200ME49930N78724"
+      ]
+    },
+    "outros": {
+      "unidades": 4,
+      "dom_10": 5,
+      "pop_10": 13,
+      "no_agrupamento_053_054": {
+        "unidades": 0,
+        "dom_10": 0
+      },
+      "por_distancia_a_area_urbanizada_2022": {
+        "dentro ou tocando": {
+          "unidades": 2,
+          "dom_10": 3
+        },
+        "até 500 m": {
+          "unidades": 2,
+          "dom_10": 2
+        },
+        "500 m a 1 km": {
+          "unidades": 0,
+          "dom_10": 0
+        },
+        "1 a 2 km": {
+          "unidades": 0,
+          "dom_10": 0
+        },
+        "> 2 km": {
+          "unidades": 0,
+          "dom_10": 0
+        }
+      },
+      "fora_da_area_urbanizada_a_menos_de_1_km": {
+        "unidades": 2,
+        "dom_10": 2
+      },
+      "unidades_lista": [
+        "200ME49856N78674",
+        "200ME49890N78668",
+        "200ME49902N78714",
+        "200ME49912N78714"
+      ]
+    }
+  },
   "extintas_200m_em_setor_rural_2010": {
     "unidades": 19,
     "dom_10": 50,

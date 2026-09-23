@@ -71,8 +71,26 @@ Os cinco maiores agrupamentos:
   - Quase metade (63) está em 6 agrupamentos de 5 ou mais unidades.
   - Os dois maiores somam 39 unidades, a oeste e a noroeste, a cerca de 2 km do
     centro.
-  - *Proposta:* olhar esses dois agrupamentos no mapa na próxima conferência. A
-    leitura "não contíguas" vale para o conjunto, não para eles.
+  - A leitura "não contíguas" vale para o conjunto, não para eles.
+  - **Conferência preparada** (2026-09-23), por `scripts/s2_agrupamentos.py`:
+
+    | agrupamento | unidades | onde | domicílios 2010 → 2022 | moradores 2010 → 2022 | razão agregada |
+    | --- | ---: | --- | --- | --- | --- |
+    | 1 | 21 | 1,7 km ao norte do centro (a maior parte das unidades no setor noroeste) | 1.134 → 1.280 | 3.501 → 3.240 | 3,09 → 2,53 |
+    | 2 | 18 | 1,9 km a oeste | 1.115 → 1.221 | 3.371 → 3.023 | 3,02 → 2,48 |
+
+    - Todas as 39 unidades são de 200 m; 21 e 17 estão na área urbanizada densa do
+      IBGE.
+    - A lista por unidade (domicílios, moradores e razão nos dois anos, com o número
+      usado na figura) está em `derivados/s2_agrupamentos_divergencia.json` e, em
+      tabela, em `derivados/s2_agrupamentos_divergencia.csv`.
+    - As figuras de detalhe são `saidas/s2_detalhe_agrupamento_1.png` e `_2.png`.
+    - **Sem imagem de fundo:** o acervo não tem imagem de satélite, e trazer uma
+      seria fonte nova, com licença e procedência a registrar. O fundo é vetorial:
+      ruas (faces de logradouro de 2010), área urbanizada de 2022 (densa e pouco
+      densa) e as demais unidades. Para ver sobre a imagem, abrir
+      `saidas/s2_agrupamentos_divergencia.gpkg` no QGIS, como na conferência de
+      2026-09-23.
 
 ---
 
@@ -103,9 +121,18 @@ Pela geografia medida (distância à área urbanizada de 2022 do IBGE):
   | 1KME4984N7871 | 1 km | 9 → 13 | 28 → 24 | 5,9 km | noroeste | 192 m |
   | 1KME4988N7863 | 1 km (2022 em 200 m) | 52 → 76 | 189 → 151 | 6,1 km | sul | toca |
 
-- **As rurais remotas são 8, não 5.** São as 8 que a figura 7 deixa fora do recorte
-  (`resultados_s1.md` § 6). Três delas ficam a 61–64 km, no extremo nordeste do
-  município. A diferença para a contagem da conferência não foi resolvida aqui.
+- **As rurais remotas: a conferência estimou 5, a medida deu 8.** Registrado em
+  2026-09-23, com o critério de cada uma:
+
+  | | quantas | critério |
+  | --- | ---: | --- |
+  | conferência visual do responsável | **5** | estimativa a olho, no QGIS sobre imagem de satélite, das unidades rurais divergentes afastadas da cidade |
+  | medida (`scripts/s2_divergencia.py`) | **8** | unidade de 1 km divergente, fora do setor 136, a 1 km ou mais da área urbanizada de 2022 do IBGE (distância da borda da unidade, EPSG:31981) |
+
+  - As 8 são as que a figura 7 deixa fora do recorte urbano (`resultados_s1.md` § 6).
+  - Três delas ficam a 61–64 km, no extremo nordeste do município; é provável que
+    tenham ficado fora da vista da conferência. Isto é hipótese, não foi conferido.
+  - A diferença fica registrada, sem correção de nenhum dos dois lados.
   - Todas têm de 1 a 7 domicílios. Juntas, ganharam 9 domicílios e perderam 22
     moradores.
 
@@ -211,8 +238,9 @@ geocodificação (a coordenada original).
 
 - A resposta da subordinada ainda não está escrita. Faltam:
   - o fechamento da pergunta "centro? bairros antigos?", com o que os §§ 1 e 4 mediram;
-  - a decisão sobre olhar os dois agrupamentos maiores no mapa (§ 1).
-- A diferença entre as "5 unidades rurais" da conferência e as 8 remotas medidas (§ 2).
+  - a conferência visual dos dois agrupamentos maiores, já preparada (§ 1).
+- A diferença entre as 5 rurais remotas da conferência e as 8 medidas fica registrada
+  (§ 2), sem correção.
 - **Ressalva herdada da subordinada 1** (`resultados_s1.md` § 12). Em 2010, o
   domicílio urbano está na face repartida por extensão. A divergência usa domicílios e
   população de 2010, e a posição deles tem essa incerteza. O reposicionamento do § 12

@@ -71,6 +71,10 @@ subordinadas:
   #   domicílio — a expansão fica entre 15,6 % e 30,1 % do ganho bruto de 12.099
   #   domicílios. Caracterizar essas duas geografias — onde estão, que densidade
   #   têm e quanto de população acompanhou (4.604 moradores nas unidades novas)."
+  # 2026-09-23 (resultados_s1.md § 12.4): decisão do responsável — MANTER as
+  # classes; o reposicionamento pela face de logradouro de 2010 fica como
+  # sensibilidade declarada (17,1–26,6 %), não como classificação. Os números
+  # abaixo não mudam.
   - >-
     1. [CONCLUÍDA em 2026-09-23 — resultados_s1.md § 11] Quanto do crescimento
     é expansão e quanto é adensamento? Pela grade estatística, na unidade
@@ -148,8 +152,9 @@ recorte_espacial:
     ou a própria grade), NUNCA pelo rótulo de situação do setor — ver
     metodo_previsto.
 
-# Não são perguntas subordinadas: são os três resultados metodológicos do artigo.
-# (Até 2026-09-23: "os dois"; o terceiro, grade de 2010 híbrida, entrou nesse dia.)
+# Não são perguntas subordinadas: são os quatro resultados metodológicos do artigo.
+# (Até 2026-09-23: "os dois"; o terceiro, grade de 2010 híbrida, e o quarto, repartição
+# pela face de logradouro, entraram nesse dia.)
 metodo_previsto:
   - >-
     A reclassificação de 13 setores rurais de 2010 em setores urbanos de 2022
@@ -189,6 +194,24 @@ metodo_previsto:
     extintas). Pedido ao IBGE redigido em
     docs/pedido_ibge_grade_2010_abordagem.md; regra geral em
     docs/ressalvas_censo_bage.md § 8.
+  # Acrescentado em 2026-09-23 por decisão do responsável (resultados_s1.md § 12).
+  - >-
+    No urbano, a grade de 2010 posiciona o domicílio pela FACE DE LOGRADOURO,
+    repartida pela extensão da face supondo distribuição uniforme (Grade
+    Estatística, 2016, p. 18–19); a de 2022, pelo endereço do CNEFE. Entra como
+    SEÇÃO DE MÉTODO, quarto achado metodológico do artigo. Em Bagé: a
+    reconstrução pela face reproduz a grade de 2010 nas células urbanas com
+    correlação de 0,989; 57,8 % dos endereços urbanos de 2010 estão em face que
+    cruza célula; cerca de 2,1 mil domicílios (6,5 %) mudam de célula quando a
+    posição vem do endereço. CONSEQUÊNCIA: no urbano, a grade de 2010 e a de
+    2022 NÃO são comparáveis célula a célula, porque o posicionamento mudou de
+    método — vale para qualquer município, não só Bagé. Tratamento (decisão de
+    2026-09-23): classes mantidas; o reposicionamento pela face fica como
+    sensibilidade declarada (expansão 17,1–26,6 %, contra 16,6–25,6 % adotado);
+    nas 56 extintas urbanas o texto separa 23 unidades (244 domicílios) de
+    esvaziamento medido, em faces que perderam os endereços, de 29 (95) com
+    indício de deslocamento por repartição. Medido por
+    scripts/s1_faces_2010.py; regra geral em docs/ressalvas_censo_bage.md § 10.
 
 # Decisões, não pendências.
 fora_do_escopo:

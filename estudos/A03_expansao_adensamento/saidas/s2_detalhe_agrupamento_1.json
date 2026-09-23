@@ -1,0 +1,17 @@
+{
+  "arquivo": "estudos/A03_expansao_adensamento/saidas/s2_detalhe_agrupamento_1.png",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "EPSG:31981",
+  "data_producao": "2026-09-23T18:13:39.886841-03:00",
+  "fonte_id": "ibge_grade_estatistica_2010;ibge_grade_estatistica_2022;ibge_censo2010_faces_logradouros;ibge_areas_urbanizadas_2022",
+  "licenca": "IBGE — uso livre com citação da fonte",
+  "observacoes": "Figura de detalhe do agrupamento 1 da divergência de sinal (A03, subordinada 2), para a conferência visual do responsável. Fundo vetorial (sem imagem de satélite no acervo). Script: estudos/A03_expansao_adensamento/scripts/s2_agrupamentos.py.",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "sha256": "f4940294ffeeb7795e180d9de462af2cd42824a1fdabac8135fc5f87b33eb977",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 930074,
+  "tema": "censo",
+  "versao": "s2-v1"
+}

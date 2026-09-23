@@ -302,6 +302,21 @@ adotado trouxe, e o anterior escondia. Números em `derivados/s1_geografias.json
   dessas extintas de borda tem, portanto, a incerteza da grade de 2010.
   - Das 56, 41 não têm nenhum endereço no CNEFE 2022 (§ 10.5).
   - A leitura "urbano de borda" vale para o conjunto; célula a célula, é indício.
+- **As 56 extintas urbanas são dois fenômenos** (§ 12; classes mantidas por decisão
+  do responsável em 2026-09-23). Números em `derivados/s1_faces_2010.json`, bloco
+  `extintas_urbanas_por_fenomeno`.
+
+  | extintas urbanas (56; 344 dom.) | unidades | domicílios 2010 | dentro ou tocando a área urbanizada | fora dela, a menos de 1 km |
+  | --- | ---: | ---: | --- | --- |
+  | **esvaziamento medido:** faces que perderam os endereços | **23** | **244** | 13 un. / 150 dom. | 11 un. / 117 dom. |
+  | **indício de deslocamento por repartição da face** | **29** | **95** | 16 un. / 62 dom. | 13 un. / 33 dom. |
+  | outras (sem face residencial de 2010, ou com endereço de 2022 na própria unidade) | 4 | 5 | 2 un. / 3 dom. | 2 un. / 2 dom. |
+
+  - O "urbano de borda" que é **esvaziamento medido** são os 244 domicílios. Os 95 do
+    deslocamento não são perda: são indício de que a repartição de 2010 pôs na
+    célula casas que estão na vizinha.
+  - O agrupamento 053/054 pertence ao esvaziamento medido: 8 das 10 unidades, 105 dos
+    111 domicílios (as outras 2, com 6 domicílios, são de deslocamento).
 
 ### 5.2 Contiguidade
 
@@ -339,6 +354,9 @@ concentram a maior parte: um só deles tem 276 domicílios.
   unidades, 203 domicílios).
   - Passa a ser o urbano dos setores 053 e 054: 10 unidades de 200 m, 111 domicílios,
     19,2 % dos da classe. É o esvaziamento urbano de borda do § 5.1.
+  - Pelo § 12, é **esvaziamento medido**: 8 das 10 unidades (105 domicílios) estão em
+    faces que perderam os endereços. A conferência visual do responsável (sem
+    ocupação, ruínas de uma casa) é consistente com isso.
 
 ### 5.3 Densidade de domicílios
 
@@ -882,6 +900,10 @@ centroide da unidade:
 - **Extintas de 200 m em setor urbano de 2010.** São 56 unidades e 344 domicílios,
   43 % dos 807. O domicílio de setor urbano **não tinha coordenada** em 2010 (§ 10.4),
   então a posição dele na grade de 2010 veio de alguma alocação que não conhecemos.
+  - *Nota de 2026-09-23:* a alocação é a face de quadra repartida pela extensão
+    (§ 12). As 56 se separam em **23 de esvaziamento medido** (faces que perderam os
+    endereços; 244 domicílios), **29 com indício de deslocamento por repartição** (95)
+    e 4 outras (5).
 - **Maior agrupamento de extintas** (18 unidades de 1 km, 203 domicílios):
   - 15 das 18 unidades estão sem nenhum endereço no CNEFE 2022;
   - o agrupamento cai quase todo no **setor rural 430160205000136** de 2010 (situação 8);
@@ -895,6 +917,8 @@ centroide da unidade:
     prova.
 - **Segundo maior agrupamento:** 10 unidades de 200 m e 111 domicílios nos setores
   urbanos 053 e 054; 9 dessas unidades estão sem endereço.
+  - *Nota de 2026-09-23:* esvaziamento medido (§ 12): 8 das 10 estão em faces que
+    perderam os endereços; a conferência visual não viu ocupação.
 
 ### 10.6 Detecção indireta da desagregação na grade de 2010
 
@@ -1067,6 +1091,9 @@ medido, nada aplicado):
   - A grade de 2010 é híbrida por método (§ 10.4). O bloco do setor 136 tem a marca
     da desagregação (§ 10.6). Os 344 domicílios de setor urbano de 2010 estão, no
     melhor caso, na face de quadra e não no endereço.
+    - *Nota de 2026-09-23 (§ 12):* nas 56 extintas urbanas, 23 (244 domicílios) são
+      esvaziamento medido, em faces que perderam os endereços, e 29 (95) são indício
+      de deslocamento pela repartição da face.
   - Sem a variável de abordagem por célula, o dado só mostra um piso do viés: um
     setor, 229 domicílios extintos.
   - O teste que decidiria unidade a unidade é **imagem de ~2010**: se houve construção
@@ -1163,21 +1190,26 @@ parte, e as unidades dele mantêm as suas classes.*
   mas **parte do esvaziamento é urbano de borda, não só rural**. É leitura que o
   cenário adotado trouxe e que o anterior escondia (§ 5.1).
   - O maior agrupamento passa a ser urbano: 10 unidades de 200 m, 111 domicílios, nos
-    setores 053 e 054. Antes eram as 18 unidades de 1 km do setor rural 136.
+    setores 053 e 054. Antes eram as 18 unidades de 1 km do setor rural 136. É
+    esvaziamento medido (8 das 10 em faces que perderam os endereços, § 12), e a
+    conferência visual, sem ocupação e com ruínas, é consistente com ele.
   - A mediana ponderada da distância ao centro cai de 4,74 para 3,89 km.
   - 59,5 % dos domicílios extintos estavam em setores urbanos de 2010 (42,6 % com todas
     as unidades).
   - 71,1 % estão em unidades a até 1 km da área urbanizada de 2022.
   - A posição fina dessas extintas urbanas tem a incerteza da grade de 2010 (face de
-    quadra, § 10.4).
+    quadra, § 10.4). Pelo § 12 elas são dois fenômenos: **23 unidades (244
+    domicílios) de esvaziamento medido**, em faces que perderam os endereços, e **29
+    (95) com indício de deslocamento por repartição** — estas não são perda.
   - Pelo § 10, 62 são desocupação com a construção de pé.
   - As demais não se separam da posição modelada da grade de 2010.
 - **Densidade** (§ 5.3): as novas de 200 m chegam a 389 domicílios/km², menos de um
   terço das adensadas (1.337), nos dois cenários.
 
-### 11.2 As três ressalvas metodológicas
+### 11.2 As quatro ressalvas metodológicas
 
-São as três do `metodo_previsto` do manifesto. As três têm a mesma forma: um
+São as quatro do `metodo_previsto` do manifesto (a quarta entrou em 2026-09-23; até
+então eram três). As quatro têm a mesma forma: um
 procedimento do IBGE que, lido como se o dado fosse homogêneo, vira mudança no
 território.
 
@@ -1200,6 +1232,20 @@ território.
        dasimétrico binário em bloco homogêneo deixam rastro;
      - o teste pela razão do setor, descartado pelo controle de 2022, fica registrado
        como parte do método.
+4. **Repartição do domicílio urbano pela face de logradouro em 2010** (§ 12;
+   `docs/ressalvas_censo_bage.md` § 10). *Acrescentado em 2026-09-23, por decisão do
+   responsável.*
+   - Em 2010, o domicílio urbano está na face de quadra, repartida pela extensão; em
+     2022, no endereço. A reconstrução pela face reproduz a grade de 2010 com
+     correlação de **0,989**; **57,8 %** dos endereços urbanos de 2010 estão em face
+     que cruza célula; cerca de **2,1 mil domicílios (6,5 %)** mudam de célula quando
+     a posição vem do endereço.
+   - **Consequência:** no urbano, a grade de 2010 e a de 2022 **não são comparáveis
+     célula a célula**, porque o posicionamento mudou de método. Vale para qualquer
+     município, não só para Bagé.
+   - **Tratamento:** classes mantidas; reposicionamento como sensibilidade declarada
+     (17,1–26,6 % contra 16,6–25,6 %); nas extintas urbanas, esvaziamento medido (23;
+     244) separado do indício de deslocamento (29; 95).
 
 Além delas, entram na seção de ressalvas do artigo:
 - a grade de 2010 fica 1,6 % abaixo do município (§ 2);
@@ -1215,11 +1261,13 @@ Além delas, entram na seção de ressalvas do artigo:
   - as geografias do § 5, no cenário adotado, com a sensibilidade ao lado;
   - as sete figuras do § 6, com o setor 136 hachurado. A figura 7 é o primeiro mapa
     da subordinada 2.
-- **Seção de método:** os três achados do § 11.2, com os números que os medem.
+- **Seção de método:** os quatro achados do § 11.2, com os números que os medem.
   - Troca de resolução: 40 % pela junção por ID, 15,6–30,1 % na unidade harmonizada
     com todas as unidades. É essa a comparação que mede o achado. O número adotado do
     resultado é 16,6–25,6 %, com o setor 136 à parte.
   - Grade híbrida: setor 136, 968 domicílios, 31 extintas, piso.
+  - Repartição pela face: correlação de 0,989, 57,8 % dos endereços urbanos em face
+    que cruza célula, ~2,1 mil domicílios (6,5 %) que mudam de célula.
 - **O que o artigo NÃO afirma:**
   - o tamanho total da desagregação em Bagé, que não se mede sem a variável do IBGE;
   - a causa de cada uma das 170 extintas sem domicílio no CNEFE;
@@ -1236,8 +1284,8 @@ Além delas, entram na seção de ressalvas do artigo:
   foram refeitas com os números adotados.
 - **A camada de trabalho** teve a conferência visual em 2026-09-23 (§ 12.1) e segue
   pendente de promoção. Nada foi para o acervo.
-- **Deslocamento por face em 2010** (§ 12): a proposta do § 12.4 está pendente de
-  decisão do responsável.
+- ~~Deslocamento por face em 2010~~: **decidido** em 2026-09-23 (§ 12.4): classes
+  mantidas, reposicionamento como sensibilidade, quarto achado de método.
 
 ---
 
@@ -1434,7 +1482,29 @@ não viu ocupação):
   **2,1 mil domicílios**, 6,5 % do urbano. É o limite superior desse efeito, porque
   inclui crescimento real ao longo da face.
 
-### 12.4 Proposta para as extintas urbanas (para decisão do responsável; nada aplicado)
+### 12.4 Tratamento das extintas urbanas: DECIDIDO
+
+> **Decisão do responsável (2026-09-23): MANTER as classes como estão.** O
+> reposicionamento pela face fica como **sensibilidade declarada**, não como
+> classificação.
+> - Os números adotados continuam os do § 11: faixa da expansão de **16,6–25,6 %**,
+>   201 extintas com 578 domicílios, perda bruta de 4.248.
+> - Ao lado, como sensibilidade: 17,1–26,6 % (todas as faces) e 17,3–26,6 %
+>   (variante conservadora).
+> - Nas 56 extintas urbanas o texto separa, em toda parte, os dois fenômenos:
+>   - **23 unidades (244 domicílios) de esvaziamento medido**: faces que perderam os
+>     endereços. O agrupamento 053/054 pertence a este grupo (8 das 10 unidades, 105
+>     domicílios), e a conferência visual do responsável (ruínas, sem ocupação) é
+>     consistente com ele;
+>   - **29 unidades (95 domicílios) com indício de deslocamento por repartição** da
+>     face, que não são tratadas como perda no texto, embora continuem na classe
+>     extinta;
+>   - 4 outras (5 domicílios).
+> - A repartição pela face entra como **quarto achado de método** (manifesto,
+>   `metodo_previsto`; `docs/ressalvas_censo_bage.md` § 10).
+> - Foi o caminho 1 abaixo. O texto da proposta fica como estava.
+
+*Proposta, como foi apresentada (para decisão do responsável; nada aplicado):*
 
 **Efeito medido** nos números adotados, pela sensibilidade do reposicionamento (bloco
 `sensibilidade_reposicionado` e variante conservadora; cenário adotado, população não
