@@ -7,7 +7,7 @@
 > (bloco `camadas:`) e `data/catalogo_fontes.csv` + o `.json` irmão de cada
 > arquivo (bloco `fontes_brutas:`).
 
-- **Gerado em:** 2026-09-23 14:06:48 -0300
+- **Gerado em:** 2026-09-23 15:38:14 -0300
 - **Estudos encontrados:** 3
 
 `camadas:` é produto curado do acervo (`data/catalogo_camadas.csv`);
@@ -27,6 +27,7 @@ A diferença está em `docs/convencoes.md`.
 | --- | ---: | --- | --- |
 | `ibge_areas_urbanizadas_2022` | 1 | `ACERVO_BAGE-A03_expansao_adensamento` | ok |
 | `ibge_censo2010_agregados_setores` | 1 | `ACERVO_BAGE-A03_expansao_adensamento` | ok |
+| `ibge_censo2010_faces_logradouros` | 5 | `ACERVO_BAGE-A03_expansao_adensamento` | ok |
 | `ibge_censo2010_malha_setores` | 1 | `ACERVO_BAGE-A03_expansao_adensamento` | ok |
 | `ibge_censo2022_agregados_setores` | 3 | `ACERVO_BAGE-A03_expansao_adensamento` | ok |
 | `ibge_censo2022_entorno_setores` | 2 | `ACERVO_BAGE-A03_expansao_adensamento` | ok |
@@ -99,4 +100,9 @@ Nenhuma fonte bruta declarada.
 | `ibge_censo2010_malha_setores` | `data/raw/vetor/ibge/censo_2010/rs_setores_censitarios.zip` | censo_2010 | ok | confere (por sha256 do arquivo) |
 | `ibge_grade_estatistica_2010` | `data/raw/tabular/ibge/censo_2010/doc/grade_estatistica.pdf` | censo_2010 | ok | confere (por sha256 do arquivo) |
 | `ibge_grade_estatistica_2022` | `data/raw/tabular/ibge/censo_2022/doc/Notas_metodologicas_grade_estatistica_2022.pdf` | censo_2022 | ok | confere (por sha256 do arquivo) |
+| `ibge_censo2010_faces_logradouros` | `data/raw/vetor/ibge/censo_2010/faces_logradouros/43016020500.zip` | censo_2010 | ok | confere (por sha256 do arquivo) |
+| `ibge_censo2010_faces_logradouros` | `data/raw/vetor/ibge/censo_2010/faces_logradouros/43016021700.zip` | censo_2010 | ok | confere (por sha256 do arquivo) |
+| `ibge_censo2010_faces_logradouros` | `data/raw/vetor/ibge/censo_2010/faces_logradouros/43016022000.zip` | censo_2010 | ok | confere (por sha256 do arquivo) |
+| `ibge_censo2010_faces_logradouros` | `data/raw/vetor/ibge/censo_2010/faces_logradouros/43016022100.zip` | censo_2010 | ok | confere (por sha256 do arquivo) |
+| `ibge_censo2010_faces_logradouros` | `data/raw/vetor/ibge/censo_2010/faces_logradouros/43016022200.zip` | censo_2010 | ok | confere (por sha256 do arquivo) |
 

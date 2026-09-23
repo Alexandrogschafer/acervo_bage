@@ -93,6 +93,11 @@ subordinadas:
   # §§ 8 e 11). Nenhuma das 137 unidades está no setor 136: muda só o denominador.
   # Texto anterior: "As 137 unidades da grade (8,0 % das 1.707 com domicílio, na
   # unidade harmonizada) que ganham domicílio e perdem população [...]"
+  # 2026-09-23: conferência visual do responsável ("dispersas, não contíguas") e
+  # medida em resultados_s2.md (scripts/s2_divergencia.py): 59 agrupamentos, 40
+  # isoladas, mas 63 das 137 em 6 agrupamentos de 5 ou mais unidades e pares
+  # contíguos acima do acaso entre as adensadas (95 contra 59,7; p = 0,0001).
+  # Texto da subordinada sem mudança; a resposta fica para o fechamento dela.
   - >-
     2. Onde domicílio e população andam em direções opostas? As 137 unidades da
     grade (8,3 % das 1.660 com domicílio no cenário adotado, com o setor de 2010
@@ -301,5 +306,29 @@ fontes_brutas:
     arquivo: data/raw/tabular/ibge/censo_2022/doc/Notas_metodologicas_grade_estatistica_2022.pdf
     versao: censo_2022
     sha256: ce520fad239c3784efa31f0a43d3438cbb07dfb58f8847ce8fcc09fcfb56bd2d
+
+  # faces de logradouro de 2010 (resultados_s1.md § 12; 2026-09-23): repartição do
+  # domicílio urbano pela extensão da face na grade de 2010 (scripts/s1_faces_2010.py).
+  # Só o distrito-sede (05) tem atributos; os outros 4 são lidos e conferidos também.
+  - fonte_id: ibge_censo2010_faces_logradouros
+    arquivo: data/raw/vetor/ibge/censo_2010/faces_logradouros/43016020500.zip
+    versao: censo_2010
+    sha256: e7383d9be0acf66225328a5d83de344b33f79ee93107beefa4b61157f5da2d9a
+  - fonte_id: ibge_censo2010_faces_logradouros
+    arquivo: data/raw/vetor/ibge/censo_2010/faces_logradouros/43016021700.zip
+    versao: censo_2010
+    sha256: 7fee484561569bb87a0c79c28b03ea1665b9c5d3b11dcc86bdb9ad81f2733c9e
+  - fonte_id: ibge_censo2010_faces_logradouros
+    arquivo: data/raw/vetor/ibge/censo_2010/faces_logradouros/43016022000.zip
+    versao: censo_2010
+    sha256: 5795b5c8ff3962c39243164a2698ff6f3bb1ac3cf7219f0d577a47fee9545f07
+  - fonte_id: ibge_censo2010_faces_logradouros
+    arquivo: data/raw/vetor/ibge/censo_2010/faces_logradouros/43016022100.zip
+    versao: censo_2010
+    sha256: 389fe042fb0e8bc5f981e08e99a078915ddc0ce6e01105db13ddea38ecfff608
+  - fonte_id: ibge_censo2010_faces_logradouros
+    arquivo: data/raw/vetor/ibge/censo_2010/faces_logradouros/43016022200.zip
+    versao: censo_2010
+    sha256: 2970539badcfdcfffbe48175095861bbde919cb174248d6c01372d88f1ed6563
 
 referencias_bib: []

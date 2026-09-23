@@ -1,0 +1,468 @@
+{
+  "objeto": "divergência de sinal (ganha domicílio e perde população), cenário adotado",
+  "camada": {
+    "arquivo": "estudos/A03_expansao_adensamento/saidas/s1_celulas_2010_2022.gpkg",
+    "sha256_conteudo_conferido": "f323c4ba030122677c022aa8ffe49dac6569504c091a38b8275080ab5c0b9d21"
+  },
+  "divergentes": {
+    "unidades": 137,
+    "d_dom": 843,
+    "d_pop": -2095,
+    "no_setor_136": 0
+  },
+  "1_contiguidade": {
+    "divergentes": 137,
+    "agrupamentos": 59,
+    "isoladas": 40,
+    "agrupamentos_de_2_a_4": 13,
+    "agrupamentos_de_5_ou_mais": 6,
+    "maior_agrupamento": 21,
+    "maiores_agrupamentos": [
+      {
+        "unidades": 21,
+        "dom_10": 1134,
+        "d_dom": 146,
+        "d_pop": -261,
+        "distancia_ao_centro_km_mediana": 1.7,
+        "rumo_mais_frequente": "noroeste"
+      },
+      {
+        "unidades": 18,
+        "dom_10": 1115,
+        "d_dom": 106,
+        "d_pop": -348,
+        "distancia_ao_centro_km_mediana": 1.9,
+        "rumo_mais_frequente": "oeste"
+      },
+      {
+        "unidades": 8,
+        "dom_10": 538,
+        "d_dom": 32,
+        "d_pop": -120,
+        "distancia_ao_centro_km_mediana": 0.9,
+        "rumo_mais_frequente": "oeste"
+      },
+      {
+        "unidades": 6,
+        "dom_10": 250,
+        "d_dom": 38,
+        "d_pop": -112,
+        "distancia_ao_centro_km_mediana": 0.5,
+        "rumo_mais_frequente": "sudeste"
+      },
+      {
+        "unidades": 5,
+        "dom_10": 273,
+        "d_dom": 32,
+        "d_pop": -92,
+        "distancia_ao_centro_km_mediana": 4.4,
+        "rumo_mais_frequente": "sul"
+      }
+    ],
+    "unidades_em_agrupamento_de_5_ou_mais": 63,
+    "pares_rainha_divergente_divergente_entre_as_adensadas": {
+      "adensadas": 586,
+      "das_quais_divergentes": 137,
+      "observados": 95,
+      "esperado_media": 59.7,
+      "p5_p95": [
+        48.0,
+        72.0
+      ],
+      "p_mais_que_o_acaso": 0.0001,
+      "permutacoes": 9999,
+      "semente": 20260923
+    }
+  },
+  "2_grupos": {
+    "rural (1 km) junto à borda, a menos de 1000 m da área urbanizada": {
+      "unidades": 6,
+      "por_resolucao": {
+        "1 km (2022 em 200 m)": 5,
+        "1 km": 1
+      },
+      "dom_10": 97,
+      "dom_22": 140,
+      "pop_10": 349,
+      "pop_22": 294,
+      "dentro_da_area_urbanizada": 0,
+      "distancia_ao_centro_km_min_mediana_max": [
+        4.2,
+        5.4,
+        6.1
+      ],
+      "por_rumo": {
+        "sul": 3,
+        "noroeste": 1,
+        "norte": 1,
+        "leste": 1
+      },
+      "unidades_lista": [
+        {
+          "unidade": "1KME4994N7869",
+          "resolucao": "1 km (2022 em 200 m)",
+          "dom_10": 12,
+          "dom_22": 14,
+          "pop_10": 34,
+          "pop_22": 30,
+          "dist_centro_km": 4.2,
+          "rumo": "leste",
+          "dist_area_urbanizada_m": 43.0
+        },
+        {
+          "unidade": "1KME4990N7864",
+          "resolucao": "1 km (2022 em 200 m)",
+          "dom_10": 3,
+          "dom_22": 4,
+          "pop_10": 12,
+          "pop_22": 8,
+          "dist_centro_km": 4.9,
+          "rumo": "sul",
+          "dist_area_urbanizada_m": 179.0
+        },
+        {
+          "unidade": "1KME4991N7864",
+          "resolucao": "1 km (2022 em 200 m)",
+          "dom_10": 11,
+          "dom_22": 18,
+          "pop_10": 43,
+          "pop_22": 41,
+          "dist_centro_km": 5.1,
+          "rumo": "sul",
+          "dist_area_urbanizada_m": 0.0
+        },
+        {
+          "unidade": "1KME4988N7874",
+          "resolucao": "1 km (2022 em 200 m)",
+          "dom_10": 10,
+          "dom_22": 15,
+          "pop_10": 43,
+          "pop_22": 40,
+          "dist_centro_km": 5.8,
+          "rumo": "norte",
+          "dist_area_urbanizada_m": 0.0
+        },
+        {
+          "unidade": "1KME4984N7871",
+          "resolucao": "1 km",
+          "dom_10": 9,
+          "dom_22": 13,
+          "pop_10": 28,
+          "pop_22": 24,
+          "dist_centro_km": 5.9,
+          "rumo": "noroeste",
+          "dist_area_urbanizada_m": 192.0
+        },
+        {
+          "unidade": "1KME4988N7863",
+          "resolucao": "1 km (2022 em 200 m)",
+          "dom_10": 52,
+          "dom_22": 76,
+          "pop_10": 189,
+          "pop_22": 151,
+          "dist_centro_km": 6.1,
+          "rumo": "sul",
+          "dist_area_urbanizada_m": 0.0
+        }
+      ]
+    },
+    "rural (1 km) remota, a 1000 m ou mais da área urbanizada": {
+      "unidades": 8,
+      "por_resolucao": {
+        "1 km": 8
+      },
+      "dom_10": 22,
+      "dom_22": 31,
+      "pop_10": 83,
+      "pop_22": 61,
+      "dentro_da_area_urbanizada": 0,
+      "distancia_ao_centro_km_min_mediana_max": [
+        12.0,
+        22.5,
+        63.6
+      ],
+      "por_rumo": {
+        "oeste": 3,
+        "nordeste": 3,
+        "sudoeste": 1,
+        "sudeste": 1
+      },
+      "unidades_lista": [
+        {
+          "unidade": "1KME4977N7869",
+          "resolucao": "1 km",
+          "dom_10": 1,
+          "dom_22": 3,
+          "pop_10": 4,
+          "pop_22": 3,
+          "dist_centro_km": 12.0,
+          "rumo": "oeste",
+          "dist_area_urbanizada_m": 6819.0
+        },
+        {
+          "unidade": "1KME4980N7861",
+          "resolucao": "1 km",
+          "dom_10": 1,
+          "dom_22": 2,
+          "pop_10": 6,
+          "pop_22": 2,
+          "dist_centro_km": 12.2,
+          "rumo": "sudoeste",
+          "dist_area_urbanizada_m": 6675.0
+        },
+        {
+          "unidade": "1KME4969N7872",
+          "resolucao": "1 km",
+          "dom_10": 6,
+          "dom_22": 7,
+          "pop_10": 9,
+          "pop_22": 7,
+          "dist_centro_km": 20.0,
+          "rumo": "oeste",
+          "dist_area_urbanizada_m": 14484.0
+        },
+        {
+          "unidade": "1KME4967N7874",
+          "resolucao": "1 km",
+          "dom_10": 1,
+          "dom_22": 2,
+          "pop_10": 11,
+          "pop_22": 4,
+          "dist_centro_km": 22.3,
+          "rumo": "oeste",
+          "dist_area_urbanizada_m": 16690.0
+        },
+        {
+          "unidade": "1KME5007N7854",
+          "resolucao": "1 km",
+          "dom_10": 4,
+          "dom_22": 5,
+          "pop_10": 19,
+          "pop_22": 18,
+          "dist_centro_km": 22.7,
+          "rumo": "sudeste",
+          "dist_area_urbanizada_m": 14703.0
+        },
+        {
+          "unidade": "1KME5036N7909",
+          "resolucao": "1 km",
+          "dom_10": 1,
+          "dom_22": 2,
+          "pop_10": 5,
+          "pop_22": 4,
+          "dist_centro_km": 61.3,
+          "rumo": "nordeste",
+          "dist_area_urbanizada_m": 55826.0
+        },
+        {
+          "unidade": "1KME5038N7910",
+          "resolucao": "1 km",
+          "dom_10": 1,
+          "dom_22": 2,
+          "pop_10": 8,
+          "pop_22": 7,
+          "dist_centro_km": 63.4,
+          "rumo": "nordeste",
+          "dist_area_urbanizada_m": 57948.0
+        },
+        {
+          "unidade": "1KME5035N7913",
+          "resolucao": "1 km",
+          "dom_10": 7,
+          "dom_22": 8,
+          "pop_10": 21,
+          "pop_22": 16,
+          "dist_centro_km": 63.6,
+          "rumo": "nordeste",
+          "dist_area_urbanizada_m": 58066.0
+        }
+      ]
+    },
+    "urbana (200 m)": {
+      "unidades": 123,
+      "por_resolucao": {
+        "200 m": 123
+      },
+      "dom_10": 7076,
+      "dom_22": 7867,
+      "pop_10": 21834,
+      "pop_22": 19816,
+      "dentro_da_area_urbanizada": 119,
+      "distancia_ao_centro_km_min_mediana_max": [
+        0.1,
+        2.0,
+        4.8
+      ],
+      "por_rumo": {
+        "noroeste": 22,
+        "oeste": 20,
+        "sudoeste": 18,
+        "sul": 16,
+        "sudeste": 16,
+        "nordeste": 13,
+        "norte": 12,
+        "leste": 6
+      }
+    }
+  },
+  "3_razao_moradores_por_domicilio": {
+    "razao_da_cidade": {
+      "2010": 3.017,
+      "2022": 2.591
+    },
+    "regra": "unidades ocupadas nos dois anos; restante = ocupadas não divergentes",
+    "rurais (1 km)": {
+      "divergentes": {
+        "unidades": 14,
+        "mediana_2010": 4.0,
+        "mediana_2022": 2.0,
+        "agregada_2010": 3.63,
+        "agregada_2022": 2.08,
+        "pct_acima_da_razao_da_cidade_2010": 78.6,
+        "mediana_da_queda_da_razao": 1.64
+      },
+      "restante": {
+        "unidades": 270,
+        "mediana_2010": 2.5,
+        "mediana_2022": 2.0,
+        "agregada_2010": 3.1,
+        "agregada_2022": 2.72,
+        "pct_acima_da_razao_da_cidade_2010": 24.8,
+        "mediana_da_queda_da_razao": 0.5
+      },
+      "teste_2010": {
+        "diferenca_de_medianas": 1.5,
+        "p_divergentes_acima": 0.0005,
+        "p_divergentes_abaixo": 1.0
+      },
+      "teste_2022": {
+        "diferenca_de_medianas": 0.0,
+        "p_divergentes_acima": 0.8401,
+        "p_divergentes_abaixo": 0.6928
+      },
+      "divergentes_que_convergem": {
+        "partem_acima_da_cidade_e_terminam_mais_perto": 9,
+        "partem_acima_da_cidade": 11,
+        "partem_na_razao_da_cidade_ou_abaixo": 3
+      }
+    },
+    "urbanas (200 m)": {
+      "divergentes": {
+        "unidades": 123,
+        "mediana_2010": 3.13,
+        "mediana_2022": 2.52,
+        "agregada_2010": 3.09,
+        "agregada_2022": 2.52,
+        "pct_acima_da_razao_da_cidade_2010": 68.3,
+        "mediana_da_queda_da_razao": 0.61
+      },
+      "restante": {
+        "unidades": 698,
+        "mediana_2010": 3.06,
+        "mediana_2022": 2.68,
+        "agregada_2010": 2.99,
+        "agregada_2022": 2.61,
+        "pct_acima_da_razao_da_cidade_2010": 54.3,
+        "mediana_da_queda_da_razao": 0.4
+      },
+      "teste_2010": {
+        "diferenca_de_medianas": 0.072,
+        "p_divergentes_acima": 0.0429,
+        "p_divergentes_abaixo": 0.9572
+      },
+      "teste_2022": {
+        "diferenca_de_medianas": -0.156,
+        "p_divergentes_acima": 0.9999,
+        "p_divergentes_abaixo": 0.0002
+      },
+      "divergentes_que_convergem": {
+        "partem_acima_da_cidade_e_terminam_mais_perto": 58,
+        "partem_acima_da_cidade": 84,
+        "partem_na_razao_da_cidade_ou_abaixo": 39
+      }
+    }
+  },
+  "4_area_consolidada_mais_densa": {
+    "quartil_superior_dom_10_limiar": 59.0,
+    "densa_ibge": {
+      "unidades_200m_ocupadas_em_2010_na_zona": 626,
+      "adensadas_200m_na_zona": 386,
+      "divergentes_200m_na_zona": 112,
+      "divergentes_200m": 123,
+      "esperado_pela_fracao_das_adensadas": 95.7,
+      "pct_das_divergentes_na_zona": 91.1,
+      "pct_das_adensadas_na_zona": 77.8
+    },
+    "quartil_superior_dom_10": {
+      "unidades_200m_ocupadas_em_2010_na_zona": 237,
+      "adensadas_200m_na_zona": 108,
+      "divergentes_200m_na_zona": 57,
+      "divergentes_200m": 123,
+      "esperado_pela_fracao_das_adensadas": 26.8,
+      "pct_das_divergentes_na_zona": 46.3,
+      "pct_das_adensadas_na_zona": 21.8
+    },
+    "miolo_central_ate_1_km_do_centro": {
+      "unidades_200m_ocupadas_em_2010_na_zona": 82,
+      "adensadas_200m_na_zona": 41,
+      "divergentes_200m_na_zona": 22,
+      "divergentes_200m": 123,
+      "esperado_pela_fracao_das_adensadas": 10.2,
+      "pct_das_divergentes_na_zona": 17.9,
+      "pct_das_adensadas_na_zona": 8.3
+    },
+    "miolo_central_ate_1,5_km_do_centro": {
+      "unidades_200m_ocupadas_em_2010_na_zona": 174,
+      "adensadas_200m_na_zona": 93,
+      "divergentes_200m_na_zona": 37,
+      "divergentes_200m": 123,
+      "esperado_pela_fracao_das_adensadas": 23.1,
+      "pct_das_divergentes_na_zona": 30.1,
+      "pct_das_adensadas_na_zona": 18.8
+    }
+  },
+  "5_unidade_rural_a_leste": {
+    "unidade": "1KME4994N7869",
+    "resolucao": "1 km (2022 em 200 m)",
+    "dom_10": 12,
+    "dom_22": 14,
+    "pop_10": 34,
+    "pop_22": 30,
+    "razao_2010": 2.83,
+    "razao_2022": 2.14,
+    "dist_centro_km": 4.2,
+    "rumo": "leste",
+    "dist_area_urbanizada_m": 43.0,
+    "fracao_na_area_urbanizada": 0.0,
+    "isolada_de_outras_divergentes": true,
+    "cnefe_2022": {
+      "enderecos": 36,
+      "por_especie": {
+        "domicilio_particular": 21,
+        "estab_agropecuario": 11,
+        "estab_outras_finalidades": 3,
+        "edificacao_em_construcao": 1
+      },
+      "tipo_de_edificacao_dos_domicilios": {
+        "101": 21
+      },
+      "localidades": {
+        "QUEBRACHINHO": 33,
+        "PRADO VELHO": 3
+      },
+      "setores_2022": {
+        "430160205000160P": 34,
+        "430160205000162P": 2
+      },
+      "nivel_de_geocodificacao": {
+        "1": 36
+      }
+    }
+  },
+  "centro_EPSG31981": [
+    776002.0,
+    6530803.0
+  ],
+  "crs_medicao_distancia": "EPSG:31981",
+  "crs_medicao_area": "ESRI:102033"
+}

@@ -45,6 +45,22 @@
         }
       }
     },
+    "conferencias_visuais_do_responsavel": [
+      {
+        "como": "QGIS, sobre imagem de satélite",
+        "data": "2026-09-23",
+        "efeito": "nenhuma classe reclassificada; a camada segue pendente, sem promoção e sem cópia para o acervo",
+        "objeto": "saidas/s1_celulas_2010_2022.gpkg (sha256_conteudo f323c4ba…) e as sete figuras s1-v2",
+        "por_que_aqui": "decisão do responsável (2026-09-23): registro fora do bloco '--- conferência ---' de observacoes, que só scripts/utils/promover.py grava e que promoveria a camada; s1_expansao_adensamento.py preserva este campo",
+        "quem": "responsável pelo estudo",
+        "resultado": [
+          "extintas urbanas do agrupamento dos setores de 2010 053/054: sem ocupação visível nas células; ruínas de uma casa entre dois quadrados que caem parcialmente no setor",
+          "unidades novas: todas com residência visível",
+          "as 137 da divergência de sinal: dispersas pela cidade, não contíguas; 5 unidades rurais e 6 grandes rurais junto à borda urbana; as urbanas, menores, espalhadas; poucas no miolo central mais denso"
+        ],
+        "texto_e_testes": "estudos/A03_expansao_adensamento/resultados_s1.md § 12; derivados/s1_faces_2010.json e derivados/s2_divergencia.json"
+      }
+    ],
     "crs_medicao_area": "ESRI:102033",
     "unidades": 1707,
     "unidades_a_parte_setor_136": 47

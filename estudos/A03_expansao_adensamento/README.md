@@ -80,13 +80,24 @@ dispersão entre setores.
 - **Sensibilidade com todas as unidades:** 15,6–30,1 % de 12.099.
 - O documento traz também as geografias das unidades novas, adensadas e extintas e a
   investigação das extintas (§ 10).
+- **§ 12 (2026-09-23):** a conferência visual do responsável e o teste do deslocamento
+  por face na grade de 2010. A repartição pela face está confirmada no dado. A proposta
+  de tratamento das extintas urbanas está pendente de decisão; o efeito na faixa é de
+  +0,5 a +1,0 ponto.
 
 *Corrigido em 2026-09-23. O texto anterior era: "a subordinada 1: expansão entre
 15,6 % e 30,1 % do ganho bruto de domicílios, na unidade harmonizada da grade, com as
 geografias das unidades novas, adensadas e extintas."*
 
+**[`resultados_s2.md`](resultados_s2.md)** — a subordinada 2, **em andamento**
+(primeira caracterização em 2026-09-23, depois da conferência visual do responsável):
+a divergência é difusa na cidade, mas com pares contíguos acima do acaso. Nas urbanas,
+há convergência e esvaziamento; nas rurais, convergência. As divergentes estão acima do
+esperado no miolo denso.
+
 Os scripts que reproduzem cada número estão em [`scripts/`](scripts/) — `r00`–`r08`
-para o reconhecimento, `d01`–`d04` para o dimensionamento, `s1_*` para a subordinada 1
+para o reconhecimento, `d01`–`d04` para o dimensionamento, `s1_*` para a subordinada 1,
+`s2_*` para a subordinada 2
 (`grade_estatistica.py` é a leitura da grade, comum a eles).
 
 > **`scripts/d03_grade.py` está SUPERADO** desde 2026-09-23 por

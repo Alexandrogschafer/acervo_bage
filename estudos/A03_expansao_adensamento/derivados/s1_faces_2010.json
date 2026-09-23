@@ -1,0 +1,589 @@
+{
+  "objeto": "deslocamento de domicílios entre células pela repartição uniforme ao longo da face de quadra na grade de 2010 (Grade Estatística, 2016, p. 18–19)",
+  "camada": {
+    "arquivo": "estudos/A03_expansao_adensamento/saidas/s1_celulas_2010_2022.gpkg",
+    "sha256_conteudo_conferido": "f323c4ba030122677c022aa8ffe49dac6569504c091a38b8275080ab5c0b9d21"
+  },
+  "faces_2010": {
+    "arquivos": {
+      "43016020500.zip": {
+        "faces": 7267,
+        "com_TOT_RES": 5229,
+        "TOT_RES": 35174
+      },
+      "43016021700.zip": {
+        "faces": 41,
+        "com_TOT_RES": 0,
+        "TOT_RES": 0
+      },
+      "43016022000.zip": {
+        "faces": 189,
+        "com_TOT_RES": 0,
+        "TOT_RES": 0
+      },
+      "43016022100.zip": {
+        "faces": 5,
+        "com_TOT_RES": 0,
+        "TOT_RES": 0
+      },
+      "43016022200.zip": {
+        "faces": 2,
+        "com_TOT_RES": 0,
+        "TOT_RES": 0
+      }
+    },
+    "nota": "só o distrito-sede (05) tem atributos; os outros 4 trazem só geometria"
+  },
+  "cnefe_2022": {
+    "domicilios_especie_1_ou_2": 53716,
+    "raio_de_ligacao_a_face_m": 40,
+    "distancia_a_face_residencial_2010_nas_200m_de_setor_urbano_p50_p75_p90_p95_p99": [
+      9.9,
+      18.3,
+      37.0,
+      54.8,
+      122.1
+    ],
+    "ligados_a_alguma_face": 40047
+  },
+  "validacao_do_modelo_uniforme": {
+    "200 m / setor RURAL de 2010": {
+      "celulas": 620,
+      "dom_10_grade": 1875,
+      "tot_res_repartido_uniforme": 67.6,
+      "correlacao_dom_10_x_uniforme": 0.123,
+      "com_dom_10_e_uniforme_menor_que_0,5": 97,
+      "sem_dom_10_e_uniforme_>=_1": 0
+    },
+    "200 m / setor URBANO de 2010": {
+      "celulas": 1053,
+      "dom_10_grade": 32600,
+      "tot_res_repartido_uniforme": 35106.4,
+      "correlacao_dom_10_x_uniforme": 0.989,
+      "com_dom_10_e_uniforme_menor_que_0,5": 10,
+      "sem_dom_10_e_uniforme_>=_1": 0
+    }
+  },
+  "k": 0.929,
+  "extintas_urbanas": {
+    "definicao": "extintas de 200 m com centroide em setor urbano de 2010, fora do setor 430160205000136 (cenário adotado)",
+    "unidades": 56,
+    "dom_10": 344,
+    "dom_22": 0,
+    "atravessadas_por_face_residencial_de_2010": 53,
+    "atravessadas_por_face_cuja_maior_parte_cai_em_outra_celula": 47,
+    "das_quais_a_celula_maior_e_vizinha_rainha_em_todas_as_faces": 33,
+    "todo_o_uniforme_vem_de_face_de_fora": 25,
+    "tot_res_uniforme": 347.0,
+    "tot_res_uniforme_de_face_de_fora": 117.2,
+    "pct_do_uniforme_de_face_de_fora": 33.8,
+    "tot_res_pelos_pontos_2022": 216.6,
+    "dom_10_reposicionado_estimado_(k)": 201.1,
+    "unidades_com_dom_10_zero_se_reposicionado": {
+      "substituicao_k_x_alloc_p_<_0,5": 32,
+      "substituicao_variante_faces_sem_crescimento": 21,
+      "aditivo_dom_10_+_k_x_(alloc_p_-_alloc_u)": 18,
+      "aditivo_variante_faces_sem_crescimento": 13
+    },
+    "por_mecanismo": {
+      "face sem nenhum domicílio no CNEFE 2022 (a face perdeu os endereços)": {
+        "unidades": 23,
+        "dom_10": 244
+      },
+      "permanece: pontos de 2022 da face na própria unidade": {
+        "unidades": 1,
+        "dom_10": 2
+      },
+      "sem face residencial de 2010": {
+        "unidades": 3,
+        "dom_10": 3
+      },
+      "some com o reposicionamento (os endereços da face estão em outra célula em 2022)": {
+        "unidades": 29,
+        "dom_10": 95
+      }
+    },
+    "faces_2010_x_cnefe_2022": {
+      "faces": 139,
+      "tot_res_2010": 828,
+      "domicilios_cnefe_2022_ligados": 460,
+      "faces_com_cnefe_2022_>=_tot_res_2010": 27,
+      "faces_sem_nenhum_domicilio_cnefe_2022": 74,
+      "tot_res_2010_nas_faces_sem_domicilio_2022": 321
+    },
+    "cnefe_2022_em_volta": {
+      "vizinhas_rainha": {
+        "domicilios_cnefe_2022": 7219,
+        "mediana_por_unidade": 85.0,
+        "unidades_sem_nenhum_nas_vizinhas": 2,
+        "distancia_a_unidade_m_p10_p25_p50_p75_p90": [
+          74.0,
+          122.0,
+          172.0,
+          214.0,
+          750.0
+        ],
+        "por_faixa_de_distancia": {
+          "até 25 m": 146,
+          "25–50 m": 228,
+          "50–100 m": 841,
+          "100–200 m": 3750,
+          "> 200 m": 2254
+        }
+      },
+      "nas_faces_de_2010_que_atravessam_a_unidade": {
+        "domicilios_cnefe_2022": 608,
+        "dentro_da_propria_unidade": 1,
+        "fora_dela": 607,
+        "distancia_dos_de_fora_a_unidade_m_p10_p25_p50_p75_p90": [
+          25.0,
+          63.0,
+          138.0,
+          313.0,
+          488.0
+        ],
+        "por_faixa_de_distancia": {
+          "até 25 m": 61,
+          "25–50 m": 66,
+          "50–100 m": 102,
+          "100–200 m": 139,
+          "> 200 m": 239
+        }
+      }
+    },
+    "linha_de_base_outras_classes_urbanas": {
+      "adensada": {
+        "unidades": 447,
+        "com_face_de_fora": 424,
+        "todo_o_uniforme_vem_de_face_de_fora": 30,
+        "pct_do_uniforme_de_face_de_fora": 17.4
+      },
+      "esvaziada": {
+        "unidades": 265,
+        "com_face_de_fora": 257,
+        "todo_o_uniforme_vem_de_face_de_fora": 12,
+        "pct_do_uniforme_de_face_de_fora": 15.1
+      },
+      "estavel": {
+        "unidades": 32,
+        "com_face_de_fora": 29,
+        "todo_o_uniforme_vem_de_face_de_fora": 7,
+        "pct_do_uniforme_de_face_de_fora": 23.0
+      }
+    }
+  },
+  "agrupamento_053_054": {
+    "unidades": [
+      "200ME49872N78696",
+      "200ME49870N78698",
+      "200ME49872N78698",
+      "200ME49874N78698",
+      "200ME49876N78698",
+      "200ME49872N78700",
+      "200ME49874N78700",
+      "200ME49876N78700",
+      "200ME49878N78700",
+      "200ME49876N78702"
+    ],
+    "dom_10": 111,
+    "setores_2010_das_faces": {
+      "430160205000054": 32,
+      "430160205000053": 1
+    },
+    "tot_res_uniforme": 110.6,
+    "tot_res_pelos_pontos_2022": 86.6,
+    "por_mecanismo": {
+      "face sem nenhum domicílio no CNEFE 2022 (a face perdeu os endereços)": 8,
+      "some com o reposicionamento (os endereços da face estão em outra célula em 2022)": 2
+    },
+    "faces_2010_x_cnefe_2022": {
+      "faces": 33,
+      "tot_res_2010": 143,
+      "domicilios_cnefe_2022_ligados": 46,
+      "faces_com_cnefe_2022_>=_tot_res_2010": 3,
+      "faces_sem_nenhum_domicilio_cnefe_2022": 23,
+      "tot_res_2010_nas_faces_sem_domicilio_2022": 91
+    }
+  },
+  "extintas_200m_em_setor_rural_2010": {
+    "unidades": 19,
+    "dom_10": 50,
+    "atravessadas_por_face_residencial_de_2010": 3,
+    "tot_res_uniforme": 1.7
+  },
+  "novas_urbanas": {
+    "definicao": "novas de 200 m com centroide em setor urbano de 2010, fora do setor 136",
+    "unidades": 47,
+    "dom_10": 0,
+    "dom_22": 751,
+    "atravessadas_por_face_residencial_de_2010": 13,
+    "atravessadas_por_face_cuja_maior_parte_cai_em_outra_celula": 13,
+    "das_quais_a_celula_maior_e_vizinha_rainha_em_todas_as_faces": 10,
+    "todo_o_uniforme_vem_de_face_de_fora": 13,
+    "tot_res_uniforme": 4.1,
+    "tot_res_uniforme_de_face_de_fora": 4.1,
+    "pct_do_uniforme_de_face_de_fora": 100.0,
+    "tot_res_pelos_pontos_2022": 29.0,
+    "dom_10_reposicionado_estimado_(k)": 26.9,
+    "unidades_com_dom_10_zero_se_reposicionado": {
+      "substituicao_k_x_alloc_p_<_0,5": 36,
+      "substituicao_variante_faces_sem_crescimento": 44,
+      "aditivo_dom_10_+_k_x_(alloc_p_-_alloc_u)": 36,
+      "aditivo_variante_faces_sem_crescimento": 44
+    },
+    "por_mecanismo": {
+      "cauda de face de 2010, sem endereço de 2022 ligado: continua nova": {
+        "unidades": 7,
+        "dom_22": 188
+      },
+      "sem face residencial de 2010 ligada: rua ou ocupação nova": {
+        "unidades": 29,
+        "dom_22": 423
+      },
+      "teria domicílio em 2010 com o reposicionamento (endereços de 2022 em face de 2010)": {
+        "unidades": 11,
+        "dom_22": 140
+      }
+    },
+    "faces_2010_x_cnefe_2022": {
+      "faces": 16,
+      "tot_res_2010": 117,
+      "domicilios_cnefe_2022_ligados": 181,
+      "faces_com_cnefe_2022_>=_tot_res_2010": 10,
+      "faces_sem_nenhum_domicilio_cnefe_2022": 0,
+      "tot_res_2010_nas_faces_sem_domicilio_2022": 0
+    },
+    "cnefe_2022_em_volta": {
+      "vizinhas_rainha": {
+        "domicilios_cnefe_2022": 11560,
+        "mediana_por_unidade": 182.0,
+        "unidades_sem_nenhum_nas_vizinhas": 2,
+        "distancia_a_unidade_m_p10_p25_p50_p75_p90": [
+          45.0,
+          92.0,
+          152.0,
+          209.0,
+          860.0
+        ],
+        "por_faixa_de_distancia": {
+          "até 25 m": 671,
+          "25–50 m": 604,
+          "50–100 m": 1983,
+          "100–200 m": 5053,
+          "> 200 m": 3249
+        }
+      },
+      "nas_faces_de_2010_que_atravessam_a_unidade": {
+        "domicilios_cnefe_2022": 181,
+        "dentro_da_propria_unidade": 16,
+        "fora_dela": 165,
+        "distancia_dos_de_fora_a_unidade_m_p10_p25_p50_p75_p90": [
+          20.0,
+          45.0,
+          89.0,
+          233.0,
+          729.0
+        ],
+        "por_faixa_de_distancia": {
+          "até 25 m": 24,
+          "25–50 m": 20,
+          "50–100 m": 46,
+          "100–200 m": 29,
+          "> 200 m": 46
+        }
+      }
+    }
+  },
+  "escala_no_urbano": {
+    "faces_residenciais": 5073,
+    "tot_res": 35174,
+    "faces_que_cruzam_celulas": 2700,
+    "tot_res_em_faces_que_cruzam": 20330,
+    "pct_tot_res_em_faces_que_cruzam": 57.8,
+    "celulas_200m_setor_urbano": {
+      "celulas": 1053,
+      "dom_10": 32600,
+      "uniforme_em_trecho_de_face_de_fora_tot_res": 5859.2,
+      "pct_do_uniforme_em_trecho_de_face_de_fora": 16.7,
+      "domicilios_2010_que_mudam_de_celula_com_o_reposicionamento_(k)": 2108.0,
+      "pct_do_dom_10": 6.5,
+      "celulas_com_|mudanca|_>=_0,5": 711,
+      "dom_10_nessas_celulas": 30410,
+      "celulas_com_|mudanca|_>=_10_pct_do_dom_10": 421,
+      "dom_10_nessas": 13772
+    },
+    "k_dom_ocupado_por_endereco_residencial": 0.929
+  },
+  "sensibilidade_reposicionado": {
+    "regra": "dom_10 + k × (alloc_p − alloc_u), arredondado (0,5 para cima), mínimo 0; cenário adotado; população não reposicionada",
+    "adotado_atual": {
+      "unidades": 1660,
+      "por_classe": {
+        "nova": {
+          "unidades": 354,
+          "dom_10": 0,
+          "dom_22": 1883
+        },
+        "adensada": {
+          "unidades": 586,
+          "dom_10": 19296,
+          "dom_22": 28785
+        },
+        "estavel": {
+          "unidades": 163,
+          "dom_10": 910,
+          "dom_22": 910
+        },
+        "esvaziada": {
+          "unidades": 356,
+          "dom_10": 16156,
+          "dom_22": 12486
+        },
+        "extinta": {
+          "unidades": 201,
+          "dom_10": 578,
+          "dom_22": 0
+        }
+      },
+      "dom_10_total": 36940,
+      "perda_bruta": 4248,
+      "faixa_expansao": {
+        "ganho_bruto_de_domicilios": 11372,
+        "em_unidades_novas": 1883,
+        "em_unidades_adensadas": 9489,
+        "adensadas_por_resolucao": {
+          "200 m": {
+            "unidades": 496,
+            "domicilios_ganhos": 8299
+          },
+          "1 km": {
+            "unidades": 72,
+            "domicilios_ganhos": 162
+          },
+          "1 km (2022 em 200 m)": {
+            "unidades": 18,
+            "domicilios_ganhos": 1028
+          }
+        },
+        "expansao_pct_limite_inferior": 16.6,
+        "expansao_pct_limite_superior": 25.6,
+        "leitura": "inferior = só unidades novas; superior = novas + ganho das adensadas de 1 km que o IBGE subdividiu em 200 m em 2022"
+      }
+    },
+    "reposicionado": {
+      "unidades": 1641,
+      "por_classe": {
+        "nova": {
+          "unidades": 357,
+          "dom_10": 0,
+          "dom_22": 1850
+        },
+        "adensada": {
+          "unidades": 592,
+          "dom_10": 19323,
+          "dom_22": 28282
+        },
+        "estavel": {
+          "unidades": 167,
+          "dom_10": 806,
+          "dom_22": 806
+        },
+        "esvaziada": {
+          "unidades": 343,
+          "dom_10": 16383,
+          "dom_22": 13126
+        },
+        "extinta": {
+          "unidades": 182,
+          "dom_10": 462,
+          "dom_22": 0
+        }
+      },
+      "dom_10_total": 36974,
+      "perda_bruta": 3719,
+      "faixa_expansao": {
+        "ganho_bruto_de_domicilios": 10809,
+        "em_unidades_novas": 1850,
+        "em_unidades_adensadas": 8959,
+        "adensadas_por_resolucao": {
+          "200 m": {
+            "unidades": 502,
+            "domicilios_ganhos": 7769
+          },
+          "1 km": {
+            "unidades": 72,
+            "domicilios_ganhos": 162
+          },
+          "1 km (2022 em 200 m)": {
+            "unidades": 18,
+            "domicilios_ganhos": 1028
+          }
+        },
+        "expansao_pct_limite_inferior": 17.1,
+        "expansao_pct_limite_superior": 26.6,
+        "leitura": "inferior = só unidades novas; superior = novas + ganho das adensadas de 1 km que o IBGE subdividiu em 200 m em 2022"
+      }
+    },
+    "transicoes_de_classe": {
+      "adensada": {
+        "estavel": 12,
+        "esvaziada": 42,
+        "nova": 6
+      },
+      "estavel": {
+        "adensada": 14,
+        "esvaziada": 9,
+        "nova": 5
+      },
+      "esvaziada": {
+        "adensada": 43,
+        "estavel": 19,
+        "nova": 4
+      },
+      "extinta": {
+        "vazia": 19
+      },
+      "nova": {
+        "adensada": 9,
+        "estavel": 1,
+        "esvaziada": 2
+      }
+    }
+  },
+  "sensibilidade_reposicionado_faces_sem_crescimento": {
+    "regra": "dom_10 + k × (alloc_pe − alloc_u), arredondado (0,5 para cima), mínimo 0; cenário adotado; população não reposicionada",
+    "adotado_atual": {
+      "unidades": 1660,
+      "por_classe": {
+        "nova": {
+          "unidades": 354,
+          "dom_10": 0,
+          "dom_22": 1883
+        },
+        "adensada": {
+          "unidades": 586,
+          "dom_10": 19296,
+          "dom_22": 28785
+        },
+        "estavel": {
+          "unidades": 163,
+          "dom_10": 910,
+          "dom_22": 910
+        },
+        "esvaziada": {
+          "unidades": 356,
+          "dom_10": 16156,
+          "dom_22": 12486
+        },
+        "extinta": {
+          "unidades": 201,
+          "dom_10": 578,
+          "dom_22": 0
+        }
+      },
+      "dom_10_total": 36940,
+      "perda_bruta": 4248,
+      "faixa_expansao": {
+        "ganho_bruto_de_domicilios": 11372,
+        "em_unidades_novas": 1883,
+        "em_unidades_adensadas": 9489,
+        "adensadas_por_resolucao": {
+          "200 m": {
+            "unidades": 496,
+            "domicilios_ganhos": 8299
+          },
+          "1 km": {
+            "unidades": 72,
+            "domicilios_ganhos": 162
+          },
+          "1 km (2022 em 200 m)": {
+            "unidades": 18,
+            "domicilios_ganhos": 1028
+          }
+        },
+        "expansao_pct_limite_inferior": 16.6,
+        "expansao_pct_limite_superior": 25.6,
+        "leitura": "inferior = só unidades novas; superior = novas + ganho das adensadas de 1 km que o IBGE subdividiu em 200 m em 2022"
+      }
+    },
+    "reposicionado": {
+      "unidades": 1647,
+      "por_classe": {
+        "nova": {
+          "unidades": 361,
+          "dom_10": 0,
+          "dom_22": 1908
+        },
+        "adensada": {
+          "unidades": 570,
+          "dom_10": 18652,
+          "dom_22": 27772
+        },
+        "estavel": {
+          "unidades": 162,
+          "dom_10": 1030,
+          "dom_22": 1030
+        },
+        "esvaziada": {
+          "unidades": 366,
+          "dom_10": 16790,
+          "dom_22": 13354
+        },
+        "extinta": {
+          "unidades": 188,
+          "dom_10": 480,
+          "dom_22": 0
+        }
+      },
+      "dom_10_total": 36952,
+      "perda_bruta": 3916,
+      "faixa_expansao": {
+        "ganho_bruto_de_domicilios": 11028,
+        "em_unidades_novas": 1908,
+        "em_unidades_adensadas": 9120,
+        "adensadas_por_resolucao": {
+          "200 m": {
+            "unidades": 480,
+            "domicilios_ganhos": 7930
+          },
+          "1 km": {
+            "unidades": 72,
+            "domicilios_ganhos": 162
+          },
+          "1 km (2022 em 200 m)": {
+            "unidades": 18,
+            "domicilios_ganhos": 1028
+          }
+        },
+        "expansao_pct_limite_inferior": 17.3,
+        "expansao_pct_limite_superior": 26.6,
+        "leitura": "inferior = só unidades novas; superior = novas + ganho das adensadas de 1 km que o IBGE subdividiu em 200 m em 2022"
+      }
+    },
+    "transicoes_de_classe": {
+      "adensada": {
+        "estavel": 5,
+        "esvaziada": 43,
+        "nova": 5
+      },
+      "estavel": {
+        "adensada": 13,
+        "esvaziada": 8,
+        "nova": 2
+      },
+      "esvaziada": {
+        "adensada": 23,
+        "estavel": 17,
+        "nova": 3
+      },
+      "extinta": {
+        "vazia": 13
+      },
+      "nova": {
+        "adensada": 1,
+        "esvaziada": 2
+      }
+    }
+  },
+  "crs_medicao_distancia": "EPSG:31981"
+}

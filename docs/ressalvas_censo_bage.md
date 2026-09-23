@@ -355,6 +355,34 @@ Os níveis 3 (262 endereços) e 5 (2) não se decidem pelo dado.
 
 ---
 
+## 10. Grade estatística de 2010: no urbano, o domicílio está na face, repartida pela extensão
+
+*Acrescentado em 2026-09-23. Medido neste repositório:
+`estudos/A03_expansao_adensamento/scripts/s1_faces_2010.py` → `derivados/s1_faces_2010.json`,
+com a Base de Faces de Logradouros do Censo 2010 (fonte `ibge_censo2010_faces_logradouros`).*
+
+A metodologia da grade de 2010 (p. 18–19) agrega o setor urbano por face de quadra e,
+quando a face cruza células, reparte os domicílios pela extensão dela, supondo
+distribuição uniforme. Em Bagé isso está **confirmado no dado**: repartir o `TOT_RES`
+de cada face pelo comprimento reproduz o `DOM_OCU` das 1.053 células de 200 m de setor
+urbano com correlação de **0,989**.
+
+- **57,8 %** dos endereços residenciais urbanos de 2010 (20.330 de 35.174) estão em
+  face que cruza células.
+- Reposicionar o 2010 pelos endereços do CNEFE 2022 ao longo da mesma face muda de
+  célula cerca de **2,1 mil domicílios (6,5 %)**. É um limite superior, porque inclui
+  crescimento e demolição ao longo da face.
+- A repartição cria **extintas e novas de borda** que o endereço de 2022 não sustenta.
+  No A03, 29 das 56 extintas urbanas (95 domicílios) somem com o reposicionamento
+  (`resultados_s1.md` § 12).
+
+> **REGRA DE USO:** ao comparar célula a célula a grade de 2010 com a de 2022 no
+> urbano, a posição de 2010 é a da face e não a do endereço. Mudança numa célula de
+> borda de face (extinta ou nova com poucos domicílios) é indício, não fato, até
+> conferir as faces que a atravessam.
+
+---
+
 ## Corrigido em 2026-09-22
 
 Texto anterior dos §§ 1 a 3, mantido como registro. Foi substituído porque comparava

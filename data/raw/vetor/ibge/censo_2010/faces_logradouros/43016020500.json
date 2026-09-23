@@ -1,0 +1,19 @@
+{
+  "arquivo": "data/raw/vetor/ibge/censo_2010/faces_logradouros/43016020500.zip",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "EPSG:4674",
+  "data_producao": "2026-09-23T18:16:46+00:00",
+  "edicao": "censo_2010",
+  "fonte_id": "ibge_censo2010_faces_logradouros",
+  "licenca": "dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): \"Todos os arquivos aqui disponíveis são públicos.\"",
+  "observacoes": "base de faces de logradouros do Censo 2010, Bagé, distrito 05 (sede). Arquivo bruto, exatamente como veio do IBGE. Last-Modified da origem: Thu, 14 Jul 2016 10:47:52 GMT. Baixado em 2026-09-23T18:16:46+00:00 direto do IBGE (URL obtida navegando as listagens do FTP). Lista fixa em config/fontes_censo_ibge.yaml; rebaixável por scripts/download/baixar_censo_ibge.py.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "e7383d9be0acf66225328a5d83de344b33f79ee93107beefa4b61157f5da2d9a",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 496362,
+  "tema": "censo",
+  "url_origem": "https://geoftp.ibge.gov.br/recortes_para_fins_estatisticos/malha_de_setores_censitarios/censo_2010/base_de_faces_de_logradouros_versao_2010/RS/43016020500.zip",
+  "versao": "censo_2010"
+}

@@ -5,6 +5,51 @@ pendente. Entrada nova no topo.
 
 ---
 
+## 2026-09-23 — A03: conferência visual; deslocamento por face em 2010; caracteriza a divergência
+
+- **Conferência visual do responsável** (QGIS, imagem de satélite) sobre a camada de
+  trabalho e as sete figuras.
+  - Resultado: extintas de 053/054 sem ocupação visível (ruína de uma casa); novas,
+    todas com residência; a divergência dispersa, com 5 rurais e 6 grandes rurais
+    junto à borda, e poucas no miolo.
+  - Registrada em `resultados_s1.md` § 12.1 e no `.json` da camada, em
+    `verificacoes.conferencias_visuais_do_responsavel`.
+  - **Não** no bloco `--- conferência ---`: por decisão do responsável, a camada não
+    foi promovida. O `s1_expansao_adensamento.py` passa a preservar o campo.
+  - A camada segue pendente; o `sha256_conteudo` não mudou (`f323c4ba…`).
+- **Faces de logradouro de 2010 baixadas pela lista fixa** (7ª leva de
+  `config/fontes_censo_ibge.yaml`): os 5 distritos de Bagé e o leia-me, com URLs lidas
+  nas listagens do geoftp e sha256 fixados. A fonte nova é
+  `ibge_censo2010_faces_logradouros`, no catálogo e no manifesto.
+- **`scripts/s1_faces_2010.py`** → `derivados/s1_faces_2010.json` (`resultados_s1.md`
+  §§ 12.2–12.4).
+  - A repartição uniforme pela face reproduz a grade de 2010 no urbano (correlação
+    0,989).
+  - Das 56 extintas urbanas, 47 são atravessadas por face cuja maior parte cai em
+    outra célula. Das 608 casas do CNEFE 2022 nessas faces, 607 estão fora da
+    extinta, com mediana de 138 m.
+  - Pelo mecanismo: 29 somem com o reposicionamento (95 domicílios), e 23 estão em
+    face que perdeu os endereços (244), entre elas 8 das 10 de 053/054.
+  - 57,8 % dos endereços urbanos de 2010 estão em face que cruza células, e cerca de
+    2,1 mil domicílios (6,5 %) mudam de célula.
+  - Efeito na faixa da expansão: 16,6–25,6 % → 17,1–26,6 % (17,3–26,6 % na variante
+    conservadora).
+  - **Proposta pendente de decisão** (§ 12.4): manter as classes e declarar a
+    repartição como quarto achado de método. Ressalva geral em
+    `docs/ressalvas_censo_bage.md` § 10.
+- **`scripts/s2_divergencia.py`** → `derivados/s2_divergencia.json`, e o novo
+  `resultados_s2.md` (subordinada 2, em andamento).
+  - Contiguidade: 40 isoladas, mas 63 em 6 agrupamentos de 5 ou mais, e pares acima
+    do acaso (95 contra 59,7).
+  - Rurais: 6 junto à borda (5 harmonizadas) e 8 remotas.
+  - Razão: as rurais convergem (4,0 → 2,0); nas urbanas há as duas coisas (3,13 →
+    2,52, contra 3,06 → 2,68).
+  - As divergentes estão acima do esperado no miolo, 22 contra 10,2 esperadas a até
+    1 km do centro. A unidade a leste é o núcleo rural de Quebrachinho.
+- **Nada reclassificado.**
+
+---
+
 ## 2026-09-23 — A03: unidades à parte marcadas na camada; subordinada 2 no cenário adotado
 
 - **Camada de trabalho:** ganhou o campo booleano `a_parte_setor_136` (47 unidades).

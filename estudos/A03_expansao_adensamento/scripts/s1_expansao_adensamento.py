@@ -96,6 +96,7 @@ FAIXAS_KM = [0, 1, 2, 3, 4, 6, 10, np.inf]
 CLASSES = ["nova", "adensada", "estavel", "esvaziada", "extinta"]
 DESAG = DERIV / "s1_desagregacao_2010.json"
 CAMPO_A_PARTE = "a_parte_setor_136"
+CHAVE_CONFERENCIAS = "conferencias_visuais_do_responsavel"
 FONTES = "ibge_grade_estatistica_2010;ibge_grade_estatistica_2022"
 
 
@@ -405,6 +406,21 @@ def densidade(u: gpd.GeoDataFrame) -> list[dict]:
 
 # --------------------------------------------------------------------------
 
+def conferencias_visuais_anteriores() -> dict:
+    """Registro das conferências visuais do responsável, preservado entre execuções.
+
+    Decisão do responsável (2026-09-23): a conferência visual da camada de trabalho
+    fica em `verificacoes.conferencias_visuais_do_responsavel`, e NÃO no bloco
+    "--- conferência ---" de `observacoes`, que só `scripts/utils/promover.py`
+    grava e que promoveria a camada. O registro é do responsável: o script o
+    carrega do `.json` anterior sem alterar, seja qual for o conteúdo novo.
+    """
+    if not metadados.caminho_irmao(CAMADA).exists():
+        return {}
+    anteriores = metadados.ler(CAMADA).get("verificacoes", {}).get(CHAVE_CONFERENCIAS)
+    return {CHAVE_CONFERENCIAS: anteriores} if anteriores else {}
+
+
 def marca_a_parte(unidades: pd.Series) -> pd.Series:
     """Unidades à parte no cenário adotado, lidas de s1_desagregacao_2010.json."""
     if not DESAG.exists():
@@ -571,7 +587,8 @@ def main() -> None:
     dados["verificacoes"] = {"unidades": int(len(saida)),
                              "unidades_a_parte_setor_136": int(saida[CAMPO_A_PARTE].sum()),
                              "conferencia_contra_o_municipio": conferencia,
-                             "crs_medicao_area": medidas.crs_medicao_area()}
+                             "crs_medicao_area": medidas.crs_medicao_area(),
+                             **conferencias_visuais_anteriores()}
     metadados.escrever(CAMADA, dados, sobrescrever=True)
 
     print("harmonização:", harmonizacao)

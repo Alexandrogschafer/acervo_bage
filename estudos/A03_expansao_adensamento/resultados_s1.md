@@ -5,8 +5,10 @@
 
 Medido por `scripts/s1_expansao_adensamento.py` (números em
 `derivados/s1_caracterizacao.json`) e desenhado por `scripts/s1_figuras.py`. A camada de
-trabalho é `saidas/s1_celulas_2010_2022.gpkg` e as figuras estão em `saidas/`. Nada disso
-está conferido no mapa, e nada foi para `data/acervo/` nem para `data/geoportal/`.
+trabalho é `saidas/s1_celulas_2010_2022.gpkg` e as figuras estão em `saidas/`. A camada e
+as figuras tiveram **conferência visual do responsável em 2026-09-23** (§ 12), sem
+promoção. Nada foi para `data/acervo/` nem para `data/geoportal/`. *(Até 2026-09-23:
+"Nada disso está conferido no mapa".)*
 
 Este documento **descreve**. Não tira conclusão de planejamento urbano.
 
@@ -431,7 +433,9 @@ O que os mapas mostram, sem interpretar:
 - na figura 7, as unidades da divergência de sinal se espalham pelo tecido urbano,
   sem formar mancha.
   - *Isto é descrição do mapa. Se elas formam área contígua é pergunta da subordinada
-    2, ainda não medida.*
+    2, ainda não medida.* Medido em 2026-09-23, em [`resultados_s2.md`](resultados_s2.md).
+    Há 40 isoladas, mas também 6 agrupamentos de 5 ou mais unidades, e mais pares
+    contíguos que o acaso.
 
 ---
 
@@ -451,8 +455,10 @@ O que os mapas mostram, sem interpretar:
 5. **Moradores:** `POP` (2010) e `TOTAL` (2022) são a população residente da célula;
    `DOM_OCU` e `TOTAL_DOM`, os domicílios ocupados. A leitura dos campos segue o d03 e o
    reconhecimento (§ 3.4).
-6. **A camada de trabalho não está conferida.** Ela só vai para o acervo depois da
-   conferência visual do responsável e da promoção (`scripts/utils/promover.py`).
+6. **A camada de trabalho não está promovida.** A conferência visual do responsável foi
+   feita em 2026-09-23 (§ 12.1) e está registrada fora do bloco de conferência. A camada
+   só vai para o acervo depois da promoção (`scripts/utils/promover.py`). *(Até
+   2026-09-23: "não está conferida".)*
 7. **O d03 está SUPERADO** por `scripts/s1_expansao_adensamento.py` (docstring do
    `d03_grade.py`), e os números da junção por ID (573 / 5.709 / 15.385) foram
    corrigidos em 2026-09-23 no dimensionamento (§§ 3 e 5), na subordinada 1 e no
@@ -1228,5 +1234,268 @@ Além delas, entram na seção de ressalvas do artigo:
   (§ 10.7, item 1).
 - ~~Marcar o setor 136 nas figuras~~: **feito** em 2026-09-23 (§ 6). As sete figuras
   foram refeitas com os números adotados.
-- **A camada de trabalho** segue pendente de conferência visual e promoção. Nada foi
-  para o acervo.
+- **A camada de trabalho** teve a conferência visual em 2026-09-23 (§ 12.1) e segue
+  pendente de promoção. Nada foi para o acervo.
+- **Deslocamento por face em 2010** (§ 12): a proposta do § 12.4 está pendente de
+  decisão do responsável.
+
+---
+
+## 12. Conferência visual de 2026-09-23 e deslocamento por face na grade de 2010
+
+*Acrescentado em 2026-09-23. **Nada foi reclassificado.** A camada de trabalho segue
+pendente, sem promoção e sem cópia para o acervo. O `sha256_conteudo` dela
+(`f323c4ba…`) é conferido pelos dois scripts novos antes de ler.*
+
+### 12.1 A conferência
+
+**Feita pelo responsável em 2026-09-23**, no QGIS, sobre imagem de satélite. Objeto:
+`saidas/s1_celulas_2010_2022.gpkg` e as sete figuras (`s1-v2`).
+
+| o que foi olhado | resultado da conferência |
+| --- | --- |
+| extintas urbanas do agrupamento dos setores de 2010 053/054 (§ 5.2) | **sem ocupação visível** nas células; ruínas de uma casa entre dois quadrados que caem parcialmente no setor |
+| unidades novas | **todas com residência visível** |
+| as 137 da divergência de sinal (figura 7) | dispersas pela cidade, não contíguas; 5 unidades rurais e 6 grandes rurais junto à borda urbana; as urbanas, menores, espalhadas; poucas no miolo central mais denso |
+
+**Onde fica registrada:**
+- aqui;
+- no `.json` irmão da camada, em `verificacoes.conferencias_visuais_do_responsavel`,
+  com a data.
+  - **Não** fica no bloco `--- conferência ---` de `observacoes`. Esse bloco só é
+    gravado por `scripts/utils/promover.py`, que promoveria a camada a `conferido` e
+    recalcularia `pode_publicar`. Decisão do responsável em 2026-09-23: campo à parte,
+    status pendente.
+  - O `s1_expansao_adensamento.py` preserva esse campo quando regrava o `.json`.
+
+O que a conferência pediu, e onde está:
+- o teste de deslocamento por face (§§ 12.2–12.4);
+- a caracterização da divergência de sinal, em
+  [`resultados_s2.md`](resultados_s2.md), que é o documento da subordinada 2.
+
+### 12.2 A hipótese e o método
+
+**Hipótese.** No urbano, a grade de 2010 agrega por face de quadra. Quando a face
+cruza células, os domicílios são repartidos pela extensão da face, supondo
+distribuição uniforme (Grade Estatística, 2016, p. 18–19; § 10.4). Isso desloca
+domicílio entre células mesmo sem desagregação. A grade de 2022 posiciona pelo endereço
+do CNEFE.
+- Uma célula atravessada só pela "cauda" de uma face recebe parte dos domicílios dela
+  em 2010. Se as casas estão na outra ponta da face, a célula fica sem domicílio em 2022
+  e vira **extinta**.
+- A vizinha pode ter o inverso e virar **nova**.
+
+**Faces de 2010.** A *Base de Faces de Logradouros do Censo 2010* não estava em
+`data/raw/`. Ela entrou pela lista fixa em 2026-09-23 (7ª leva de
+`config/fontes_censo_ibge.yaml`, fonte nova `ibge_censo2010_faces_logradouros`).
+- Os arquivos são os 5 distritos de Bagé (`4301602{05,17,20,21,22}00.zip`) e o
+  leia-me, com URLs lidas nas listagens do geoftp.
+- Só o distrito-sede (05) tem atributos. Os outros 4 trazem só a geometria.
+- **`TOT_RES` = total de espécies residenciais da face**: endereços do CNEFE 2010,
+  ocupados ou não. São 5.073 faces com residência, com 35.174 endereços.
+
+**Script:** `scripts/s1_faces_2010.py`. **Números:** `derivados/s1_faces_2010.json`.
+1. **Recorte face × unidade.** Para cada face, a fração do comprimento em cada célula.
+   A célula **maior** da face é a que tem a maior fração. Um trecho **de fora** é o
+   trecho de face cuja maior parte cai em outra célula.
+2. **Modelo uniforme** (o do IBGE): cada célula recebe `TOT_RES` × fração do
+   comprimento.
+3. **Modelo pelos pontos de 2022.** Cada domicílio do CNEFE 2022 (espécie 1 ou 2) é
+   ligado à face residencial de 2010 mais próxima, até 40 m. É o p90 da distância
+   medida nas células de 200 m de setor urbano: p50 9,9 m, p75 18,3 m, p90 37,0 m.
+   - Cada célula recebe `TOT_RES` × a fração dos pontos de 2022 da face que cai
+     nela.
+   - Face sem nenhum ponto de 2022 fica com a repartição uniforme.
+   - É o 2010 "reposicionado pelos endereços de 2022".
+4. **Escala k = 0,929**, domicílios ocupados de 2010 por endereço residencial, nas
+   células de 200 m de setor urbano.
+5. **Extintas urbanas** = extintas de 200 m com centroide em setor urbano de 2010, fora
+   do setor 136: são as **56** unidades com **344** domicílios do § 5.1.
+   - O critério é o do setor porque a regra do IBGE é por setor, e só o setor urbano
+     tem face.
+   - As 19 extintas de 200 m em setor rural de 2010 (50 domicílios) quase não têm
+     face: 3 são atravessadas, com 1,7 endereço.
+
+**Validação do modelo uniforme.** Ele **reproduz a grade de 2010** nas células de
+200 m de setor urbano.
+
+| células de 200 m | células | DOM_OCU 2010 | `TOT_RES` repartido | correlação | com domicílio e modelo < 0,5 | sem domicílio e modelo ≥ 1 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| setor urbano de 2010 | 1.053 | 32.600 | 35.106 | **0,989** | 10 | **0** |
+| setor rural de 2010 | 620 | 1.875 | 68 | 0,123 | 97 | 0 |
+
+- A repartição pela face é, portanto, o mecanismo da grade de 2010 no urbano de Bagé.
+- Nenhuma célula a que o modelo dá 1 endereço ou mais ficou sem domicílio na grade.
+- No setor rural de 2010 a face não explica nada. Ali é a coordenada ou a
+  desagregação (§ 10.4).
+
+**Limite do teste, declarado.** O modelo pelos pontos supõe que os endereços da face
+ficaram no mesmo lugar entre 2010 e 2022. Duas situações dão o mesmo resultado, e o
+dado não as separa:
+- a casa demolida numa ponta da face;
+- a repartição uniforme que pôs a casa na ponta errada.
+
+Pelo mesmo motivo, uma face que **ganhou** endereços puxa o 2010 para onde houve
+crescimento. Por isso há uma **variante conservadora**: só são reposicionadas as faces
+com domicílios do CNEFE 2022 ≤ `TOT_RES` de 2010. As demais ficam uniformes.
+
+### 12.3 O que o teste mostra
+
+**Extintas urbanas (56 unidades, 344 domicílios).**
+
+| medida | extintas urbanas | adensadas | esvaziadas | estáveis |
+| --- | ---: | ---: | ---: | ---: |
+| unidades | 56 | 447 | 265 | 32 |
+| atravessadas por face residencial de 2010 | 53 | — | — | — |
+| **atravessadas por face cuja maior parte cai em outra célula** | **47** | 424 | 257 | 29 |
+| · com a célula maior vizinha rainha, em todas essas faces | 33 | — | — | — |
+| **todo o domicílio de 2010 vem de cauda de face** | **25** | 30 | 12 | 7 |
+| % do repartido que vem de cauda de face | **33,8 %** | 17,4 % | 15,1 % | 23,0 % |
+
+- A cauda de face pesa o **dobro** nas extintas urbanas do que nas adensadas e nas
+  esvaziadas.
+- Em 25 das 56, todo o domicílio de 2010 veio de trecho de face cuja maior parte está
+  em outra célula.
+
+**CNEFE 2022 em volta das extintas urbanas:**
+- **Nas faces de 2010 que atravessam as 56:** 608 domicílios do CNEFE 2022.
+  - **1 cai dentro de uma extinta; 607 caem fora.**
+  - Distância à extinta: p10 25 m, p25 63 m, **mediana 138 m**, p75 313 m, p90 488 m.
+  - 61 estão a até 25 m, 66 entre 25 e 50 m, 102 entre 50 e 100 m, 139 entre 100 e
+    200 m, e 239 a mais de 200 m.
+- **Nas vizinhas rainha:** 7.219 domicílios, mediana de 85 por extinta. Só 2 extintas
+  não têm nenhum.
+  - Distância: mediana de 172 m; 146 estão a até 25 m da extinta e 374 a até 50 m.
+- **Balanço das faces:** as 139 faces que atravessam as extintas tinham 828 endereços
+  residenciais em 2010 e têm 460 domicílios ligados no CNEFE 2022.
+  - **74 faces não têm nenhum domicílio em 2022.** Elas somavam 321 endereços em 2010.
+  - Só 27 faces têm em 2022 tantos domicílios quanto em 2010, ou mais.
+
+**As 56, por mecanismo** (modelo pelos pontos, escala k):
+
+| mecanismo | unidades | domicílios 2010 |
+| --- | ---: | ---: |
+| **some com o reposicionamento:** os endereços de 2022 da face estão em outra célula | **29** | **95** |
+| **a face perdeu os endereços:** a maior parte vem de face sem nenhum domicílio no CNEFE 2022 | **23** | **244** |
+| sem face residencial de 2010 | 3 | 3 |
+| permanece: há ponto de 2022 da face na própria unidade | 1 | 2 |
+
+Quantas das 56 ficariam **sem domicílio em 2010** com o reposicionamento, pelos quatro
+estimadores:
+
+| estimador | todas as faces | variante conservadora |
+| --- | ---: | ---: |
+| substituição: k × modelo pelos pontos < 0,5 | 32 | 21 |
+| aditivo: DOM_OCU + k × (pontos − uniforme), arredondado | 18 | 13 |
+
+**O agrupamento dos setores 053/054** (10 unidades, 111 domicílios; a conferência
+não viu ocupação):
+- 33 faces o atravessam, 32 do setor 054. Elas tinham **143** endereços residenciais
+  em 2010 e têm **46** domicílios ligados no CNEFE 2022.
+- **23 dessas faces não têm nenhum domicílio em 2022.** Elas somavam 91 endereços em
+  2010.
+- Dos 46 domicílios de 2022 nessas faces, só 1 cai dentro do agrupamento.
+- Pelo mecanismo: **8 das 10 unidades** estão em "a face perdeu os endereços", e 2 em
+  "some com o reposicionamento".
+- Não é, portanto, a repartição pela face. **É a face inteira que perdeu os
+  endereços.** Isso é compatível com o que a conferência viu (nenhuma ocupação, ruína
+  de uma casa), e não se separa da remoção sem imagem de ~2010.
+
+**Novas urbanas (47 unidades, 751 domicílios de 2022)** — o outro lado:
+
+| mecanismo | unidades | domicílios 2022 |
+| --- | ---: | ---: |
+| **sem face residencial de 2010 ligada:** rua ou ocupação nova | **29** | **423** |
+| cauda de face de 2010, sem endereço de 2022 ligado: continua nova | 7 | 188 |
+| **teria domicílio em 2010 com o reposicionamento:** há endereço de 2022 em face de 2010 | **11** | **140** |
+
+- Na variante conservadora, só 3 das 47 teriam domicílio em 2010.
+- 13 novas são atravessadas por face de 2010, todas só pela cauda (4,1 endereços
+  repartidos, que o arredondamento zera). Nas faces que as atravessam há 181
+  domicílios de 2022; 16 caem na própria nova e 165 fora, com mediana de 89 m.
+- A conferência viu residência em **todas** as novas. É o que os dois lados dizem:
+  - a maioria das novas urbanas está onde não havia face residencial em 2010;
+  - 11, com 140 domicílios, podem ser domicílio de 2010 que a repartição pôs na
+    vizinha.
+
+**A escala no urbano de Bagé.** O teste confirma o mecanismo, e a medida é esta:
+
+| medida (células de 200 m de setor urbano de 2010) | valor |
+| --- | ---: |
+| endereços residenciais de 2010 em face que cruza células | **20.330 de 35.174 (57,8 %)** |
+| repartido que cai em cauda de face | 5.859 (16,7 %) |
+| **domicílios de 2010 que mudam de célula com o reposicionamento** (k) | **≈ 2.108 de 32.600 (6,5 %)** |
+| células com mudança ≥ 0,5 domicílio e ≥ 10 % do DOM_OCU | 421, com 13.772 domicílios de 2010 |
+| células com qualquer mudança ≥ 0,5 | 711, com 30.410 domicílios de 2010 |
+
+- **Mais da metade dos endereços urbanos de 2010 está em face que cruza células.** A
+  posição deles na grade depende da repartição.
+- O que efetivamente muda de célula quando a posição vem do endereço é da ordem de
+  **2,1 mil domicílios**, 6,5 % do urbano. É o limite superior desse efeito, porque
+  inclui crescimento real ao longo da face.
+
+### 12.4 Proposta para as extintas urbanas (para decisão do responsável; nada aplicado)
+
+**Efeito medido** nos números adotados, pela sensibilidade do reposicionamento (bloco
+`sensibilidade_reposicionado` e variante conservadora; cenário adotado, população não
+reposicionada):
+
+| | adotado (§ 11) | reposicionado, todas as faces | reposicionado, variante conservadora |
+| --- | ---: | ---: | ---: |
+| unidades com domicílio em algum ano | 1.660 | 1.641 | 1.647 |
+| novas (domicílios 2022) | 354 (1.883) | 357 (1.850) | 361 (1.908) |
+| extintas (domicílios 2010) | 201 (578) | 182 (462) | 188 (480) |
+| ganho bruto | 11.372 | 10.809 | 11.028 |
+| perda bruta | 4.248 | 3.719 | 3.916 |
+| **faixa da expansão** | **16,6–25,6 %** | **17,1–26,6 %** | **17,3–26,6 %** |
+
+- **O efeito na faixa da expansão é pequeno: +0,5 a +1,0 ponto.**
+  - A repartição desloca domicílio para os dois lados. O ganho bruto e a perda bruta
+    encolhem juntos (−563 e −529, com todas as faces).
+  - As novas quase não mudam: 12 deixam de ser novas e 15 passam a ser, com todas
+    as faces.
+- O que muda é o **movimento bruto**, 15.620 → 14.528 (14.944 na variante conservadora), e a contagem de extintas:
+  - 19 das 201 extintas deixam de ter domicílio em 2010 (13 na variante
+    conservadora);
+  - 139 transições entre adensada, estável e esvaziada, com todas as faces.
+
+**Três caminhos:**
+1. **Manter as classes como a grade publica e declarar a repartição pela face como
+   ressalva de método** (recomendado).
+   - A faixa de 16,6–25,6 % fica, com o reposicionamento ao lado como sensibilidade:
+     17,1–26,6 %.
+   - Das 56 extintas urbanas, o texto separa:
+     - as **23 unidades (244 domicílios) em que a face perdeu os endereços**. É
+       esvaziamento real até prova em contrário, e é o que a conferência viu em
+       053/054;
+     - as **29 (95 domicílios) que somem com o reposicionamento**, registradas como
+       **indício** de deslocamento por face, não como perda.
+   - A leitura "urbano de borda" do § 5.1 continua, com peso menor. Os domicílios
+     extintos de setor urbano em que ela se apoia caem de 344 para 249 sem as 29 de
+     cauda de face, ou para 244 contando só as de face que perdeu os endereços.
+2. **Pôr à parte as 29 extintas de cauda de face**, como o setor 136.
+   - É coerente com o § 11, mas pede o simétrico: as 11 novas que teriam domicílio em
+     2010.
+   - A marca é por estimador. O número vai de 13 a 32 conforme o estimador (§ 12.3),
+     e o "à parte" ficaria menos firme que o do setor 136, que tem assinatura no dado.
+3. **Adotar o 2010 reposicionado como número principal.** Não recomendado.
+   - O modelo pelos pontos mistura crescimento e demolição ao longo da face com a
+     repartição, e desloca 6,5 % do urbano com uma suposição que não se testa.
+   - Ele serve de sensibilidade, não de dado.
+
+**Em qualquer dos três**, entra na seção de método um **quarto achado**, da mesma forma
+que os outros três (§ 11.2):
+- em 2010, a posição do domicílio urbano é a face repartida por extensão;
+- em 2022, é o endereço;
+- 57,8 % dos endereços urbanos de 2010 estão em face que cruza células.
+- A repartição cria extintas e novas de borda que o dado de 2022 não sustenta. Em Bagé
+  o efeito na faixa da expansão é de +0,5 a +1,0 ponto, e no movimento bruto de
+  cerca de 1,1 mil domicílios.
+
+> *A conferência visual (§ 12.1) também alcança dois pontos anteriores:*
+> - *o cabeçalho deste documento dizia "Nada disso está conferido no mapa";*
+> - *a ressalva 6 do § 7 e o fim do § 11.3 diziam que a camada "segue pendente de
+>   conferência visual".*
+>
+> *Desde 2026-09-23 a conferência visual foi feita e registrada. A camada continua
+> **pendente de promoção**, e nada foi para o acervo.*

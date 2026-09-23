@@ -43,6 +43,12 @@
 # URLs lidas nas listagens de .../grade_estatistica/censo_2010/ e .../censo_2022/;
 # bytes e Last-Modified por HEAD. Mesmas fontes da grade (documentação dela).
 #
+# Acrescentados em 2026-09-23 (7ª leva, mesmo procedimento da 1ª): base de faces
+# de logradouros do Censo 2010 de Bagé (os 5 distritos, 4301602{05,17,20,21,22}00.zip)
+# e o leia-me, para o A03 (repartição do domicílio urbano pela face na grade de
+# 2010). URLs lidas nas listagens de .../censo_2010/base_de_faces_de_logradouros_versao_2010/;
+# bytes e Last-Modified por HEAD.
+#
 # Ficou de fora a malha territorial de setores 2022 do geoftp
 # (RS_setores_CD2022.gpkg, sha256 3816950f…): ela é baixada por
 # scripts/download/baixar_malhas_ibge.py (fonte ibge_malha_setores_2022).
@@ -1032,6 +1038,97 @@ arquivos:
   last_modified: Thu, 12 Jun 2025 13:13:13 GMT
   baixado_em: '2026-09-23T12:41:15+00:00'
   descricao: notas metodológicas da grade estatística 2022 (Notas metodológicas 01/2025)
+- ano: '2010'
+  categoria: malha
+  fonte_id: ibge_censo2010_faces_logradouros
+  url: https://geoftp.ibge.gov.br/recortes_para_fins_estatisticos/malha_de_setores_censitarios/censo_2010/base_de_faces_de_logradouros_versao_2010/RS/43016020500.zip
+  arquivo: 43016020500.zip
+  destino:
+    base: raw_vetor
+    subdir: ibge/censo_2010/faces_logradouros
+  bytes: 496362
+  sha256: e7383d9be0acf66225328a5d83de344b33f79ee93107beefa4b61157f5da2d9a
+  last_modified: Thu, 14 Jul 2016 10:47:52 GMT
+  baixado_em: '2026-09-23T18:16:46+00:00'
+  descricao: base de faces de logradouros do Censo 2010, Bagé, distrito 05 (sede)
+- ano: '2010'
+  categoria: malha
+  fonte_id: ibge_censo2010_faces_logradouros
+  url: https://geoftp.ibge.gov.br/recortes_para_fins_estatisticos/malha_de_setores_censitarios/censo_2010/base_de_faces_de_logradouros_versao_2010/RS/43016021700.zip
+  arquivo: 43016021700.zip
+  destino:
+    base: raw_vetor
+    subdir: ibge/censo_2010/faces_logradouros
+  bytes: 80311
+  sha256: 7fee484561569bb87a0c79c28b03ea1665b9c5d3b11dcc86bdb9ad81f2733c9e
+  last_modified: Thu, 14 Jul 2016 10:47:52 GMT
+  baixado_em: '2026-09-23T18:16:46+00:00'
+  descricao: base de faces de logradouros do Censo 2010, Bagé, distrito 17
+- ano: '2010'
+  categoria: malha
+  fonte_id: ibge_censo2010_faces_logradouros
+  url: https://geoftp.ibge.gov.br/recortes_para_fins_estatisticos/malha_de_setores_censitarios/censo_2010/base_de_faces_de_logradouros_versao_2010/RS/43016022000.zip
+  arquivo: 43016022000.zip
+  destino:
+    base: raw_vetor
+    subdir: ibge/censo_2010/faces_logradouros
+  bytes: 68325
+  sha256: 5795b5c8ff3962c39243164a2698ff6f3bb1ac3cf7219f0d577a47fee9545f07
+  last_modified: Thu, 14 Jul 2016 10:47:52 GMT
+  baixado_em: '2026-09-23T18:16:46+00:00'
+  descricao: base de faces de logradouros do Censo 2010, Bagé, distrito 20
+- ano: '2010'
+  categoria: malha
+  fonte_id: ibge_censo2010_faces_logradouros
+  url: https://geoftp.ibge.gov.br/recortes_para_fins_estatisticos/malha_de_setores_censitarios/censo_2010/base_de_faces_de_logradouros_versao_2010/RS/43016022100.zip
+  arquivo: 43016022100.zip
+  destino:
+    base: raw_vetor
+    subdir: ibge/censo_2010/faces_logradouros
+  bytes: 93992
+  sha256: 389fe042fb0e8bc5f981e08e99a078915ddc0ce6e01105db13ddea38ecfff608
+  last_modified: Thu, 14 Jul 2016 10:47:52 GMT
+  baixado_em: '2026-09-23T18:16:46+00:00'
+  descricao: base de faces de logradouros do Censo 2010, Bagé, distrito 21
+- ano: '2010'
+  categoria: malha
+  fonte_id: ibge_censo2010_faces_logradouros
+  url: https://geoftp.ibge.gov.br/recortes_para_fins_estatisticos/malha_de_setores_censitarios/censo_2010/base_de_faces_de_logradouros_versao_2010/RS/43016022200.zip
+  arquivo: 43016022200.zip
+  destino:
+    base: raw_vetor
+    subdir: ibge/censo_2010/faces_logradouros
+  bytes: 61270
+  sha256: 2970539badcfdcfffbe48175095861bbde919cb174248d6c01372d88f1ed6563
+  last_modified: Thu, 14 Jul 2016 10:47:52 GMT
+  baixado_em: '2026-09-23T18:16:46+00:00'
+  descricao: base de faces de logradouros do Censo 2010, Bagé, distrito 22
+- ano: '2010'
+  categoria: documentacao
+  fonte_id: ibge_censo2010_faces_logradouros
+  url: https://geoftp.ibge.gov.br/recortes_para_fins_estatisticos/malha_de_setores_censitarios/censo_2010/base_de_faces_de_logradouros_versao_2010/1_Leia_me/Base_de_Faces_de_Logradouros_do_CD_2010.pdf
+  arquivo: Base_de_Faces_de_Logradouros_do_CD_2010.pdf
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2010/doc
+  bytes: 68168
+  sha256: f7070bf78f22710ab61cc34ebc2cabdaa4045a34d9b19deea570c963cf7568af
+  last_modified: Thu, 14 Jul 2016 10:46:25 GMT
+  baixado_em: '2026-09-23T18:16:46+00:00'
+  descricao: leia-me da base de faces de logradouros do Censo 2010
+- ano: '2010'
+  categoria: documentacao
+  fonte_id: ibge_censo2010_faces_logradouros
+  url: https://geoftp.ibge.gov.br/recortes_para_fins_estatisticos/malha_de_setores_censitarios/censo_2010/base_de_faces_de_logradouros_versao_2010/1_Leia_me/composicao_dos_arquivos_da_Base_de_Faces_de_Logradouros_do_CD2010.xls
+  arquivo: composicao_dos_arquivos_da_Base_de_Faces_de_Logradouros_do_CD2010.xls
+  destino:
+    base: raw_tabular
+    subdir: ibge/censo_2010/doc
+  bytes: 1839616
+  sha256: a40a26d57e1707e1d45a3d7fa34aeca1887cf20398ab71ef5bd08793529ee943
+  last_modified: Thu, 14 Jul 2016 10:46:26 GMT
+  baixado_em: '2026-09-23T18:16:46+00:00'
+  descricao: composição dos arquivos da base de faces de logradouros do Censo 2010 (campos)
 fontes:
 - id_fonte: ibge_censo2022_renda_responsavel_setores
   nome: Censo Demográfico 2022 — Agregados por Setores Censitários, Rendimento do Responsável (BR)
@@ -1126,3 +1223,12 @@ fontes:
   autorizacao_fonte: 'true'
   pode_publicar: 'true'
   observacoes: '[tema: territorio | resolução/escala: polígonos de área urbanizada, Brasil | período: 2022 (arquivo de 2026-08-17) | script: scripts/download/baixar_censo_ibge.py] URL obtida navegando as listagens do geoftp a partir de organizacao_do_territorio/tipologias_do_territorio/areas_urbanizadas_do_brasil/2022/Shapefile/. Não processado.'
+- id_fonte: ibge_censo2010_faces_logradouros
+  nome: Base de Faces de Logradouros do Censo 2010 — Bagé (5 distritos)
+  url: https://geoftp.ibge.gov.br/recortes_para_fins_estatisticos/malha_de_setores_censitarios/censo_2010/base_de_faces_de_logradouros_versao_2010/RS/43016020500.zip
+  instituicao: IBGE
+  licenca: 'dados públicos do IBGE — declaração literal na raiz dos dois hosts que serviram os arquivos, https://ftp.ibge.gov.br/ e https://geoftp.ibge.gov.br/ (HTTP 200, conferido em 2026-09-20): "Todos
+    os arquivos aqui disponíveis são públicos."'
+  autorizacao_fonte: 'true'
+  pode_publicar: 'true'
+  observacoes: '[tema: territorio | resolução/escala: face de logradouro, por distrito | período: Censo 2010 (arquivos de 2016-07-14) | script: scripts/download/baixar_censo_ibge.py] sha256 é o do distrito sede (05); acompanham os distritos 17, 20, 21 e 22 e o leia-me (1_Leia_me/). Usada no A03 para testar a repartição dos domicílios urbanos pela extensão da face na grade de 2010 (Grade Estatística, 2016, p. 18-19). URL obtida navegando as listagens do geoftp a partir de recortes_para_fins_estatisticos/malha_de_setores_censitarios/censo_2010/base_de_faces_de_logradouros_versao_2010/RS/. Não processado.'
