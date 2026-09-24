@@ -18,6 +18,16 @@ Arquitetura: **acervo compartilhado + estudos derivados**.
 - `estudos/<id>/` **consome** o acervo e **nunca escreve nele**, declarando em
   `manifesto.yaml` quais camadas usa, em que versão e sha256.
 
+## Licença (decidida em 2026-09-24)
+
+- **Código: MIT** (`LICENSE`). **Documentação e produtos próprios** (catálogos,
+  metadados, textos dos estudos, figuras): **CC BY 4.0** (`LICENSE-DOCS.md`).
+- **Dados: a licença de cada fonte**, registrada no catálogo. Nenhuma saída é mais
+  permissiva que a fonte dela, e as camadas sem autorização continuam
+  `pode_publicar=false`.
+- Publicar no GitHub Pages é permitido, mas **só o que tem `pode_publicar=true`**. O
+  push em si é decisão do responsável.
+
 ## Parâmetros: só em `config/config.yaml`
 
 Município, CRS e caminhos saem de `config/config.yaml`, lido por
@@ -89,8 +99,6 @@ python scripts/utils/indice.py
 
 ## Pendências conhecidas
 
-- **Sem `LICENSE`** e sem decisão de licenciamento — ver a seção "Licença e
-  publicação" do README. Não publicar no GitHub Pages até resolver.
 - `bibliografia/bage.bib` ainda é um exemplo de uma entrada; será substituído
   pela exportação do Zotero.
 - A03 (`expansao_adensamento`) está `planejado`, com pergunta definida,

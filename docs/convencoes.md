@@ -359,6 +359,25 @@ Dois pontos deliberados em
    fonte bruta. Se o acervo mudou desde que o estudo fixou o sha256, não dá
    para afirmar sob qual licença a saída foi produzida.
 
+### Licença do repositório × licença do dado
+
+Decidido pelo responsável em 2026-09-24. Substitui a regra anterior, que proibia
+publicar no GitHub Pages enquanto não houvesse licença.
+
+| o quê | licença | arquivo |
+| --- | --- | --- |
+| código (scripts, geoportal, testes) | MIT | `LICENSE` |
+| documentação e produtos próprios (catálogos, metadados, textos dos estudos, figuras produzidas aqui) | CC BY 4.0 | `LICENSE-DOCS.md` |
+| **dados** | **a de cada fonte**, registrada camada a camada no catálogo | `data/catalogo_fontes.csv`, `data/catalogo_camadas.csv`, `.json` irmão |
+
+- A licença do repositório **não relicencia** dado de terceiro.
+- **Nenhuma saída é mais permissiva que a fonte dela**: vale a propagação desta seção.
+  Uma figura ou tabela que incorpora dado de fonte restrita herda a restrição.
+- **Publicar no GitHub Pages está permitido**, mas condicionado ao `pode_publicar` de
+  cada camada, pela barreira do § 8.
+  - As camadas sem autorização de republicação seguem `pode_publicar=false` e fora
+    do repositório.
+
 ---
 
 ## 8. Barreira de publicação (hook de pre-commit)

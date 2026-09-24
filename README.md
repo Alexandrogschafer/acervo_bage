@@ -124,25 +124,31 @@ npm run test:geoportal                    # teste headless do portal
 
 ## Licença e publicação
 
-> **PENDENTE.**
->
-> O repositório **ainda não tem `LICENSE`** e nenhuma decisão de licenciamento
-> foi tomada. Até que seja, vale o seguinte:
->
-> - **Código e documentação:** sem licença declarada. Sem licença explícita,
->   o padrão legal é "todos os direitos reservados" — ou seja, terceiros não
->   têm permissão de uso garantida. Definir antes de qualquer divulgação.
-> - **Dados:** a licença é sempre a da **fonte**, registrada por linha em
->   `data/catalogo_fontes.csv`. O acervo não relicencia dado de terceiro.
-> - **Publicação:** só vai para o repositório público o que tiver
->   `pode_publicar=true` no catálogo e tiver passado por conferência visual.
->   A barreira de pre-commit recusa o resto.
-> - **Saídas de estudo:** herdam a restrição **mais restritiva** entre as
->   entradas declaradas no manifesto (camadas e fontes brutas). Manifesto sem
->   nenhuma entrada resolve para `false` — ver
->   [`docs/convencoes.md`](docs/convencoes.md) § 7.
->
-> **Não publicar no GitHub Pages** enquanto esta seção estiver como pendente.
+Decidido pelo responsável em 2026-09-24. São três regras:
+
+1. **Código: [MIT](LICENSE).** Titular: Alexandro Schafer / UNIPAMPA, 2026.
+2. **Documentação e produtos próprios do acervo: [CC BY 4.0](LICENSE-DOCS.md).** Isso
+   inclui:
+   - os catálogos e os metadados (`.json` irmãos, manifestos, procedência);
+   - os textos dos estudos;
+   - as figuras produzidas aqui.
+3. **Dados: a licença de cada fonte.** Ela está registrada camada a camada em
+   `data/catalogo_fontes.csv` e `data/catalogo_camadas.csv`.
+   - O acervo não relicencia dado de terceiro.
+   - **Nenhuma saída é mais permissiva que a fonte dela.** Uma saída de estudo herda
+     a restrição **mais restritiva** entre as entradas do manifesto, camadas e fontes
+     brutas. Manifesto sem nenhuma entrada resolve para `false` (ver
+     [`docs/convencoes.md`](docs/convencoes.md) § 7).
+   - Nada muda no regime das camadas sem autorização de republicação (geobage,
+     GeoDataBase, bairros e loteamentos revisados, evolução urbana do IPHAN). Elas
+     seguem `pode_publicar=false` e fora do repositório.
+
+**Publicar no GitHub Pages continua condicionado ao `pode_publicar` de cada camada.**
+- Só vai para o repositório público, e portanto para o portal, o que tiver
+  `pode_publicar=true` no catálogo e tiver passado por conferência visual.
+- A barreira de pre-commit recusa o resto.
+- A licença do repositório não autoriza publicar nenhuma camada que a fonte não
+  autorize.
 
 ## Município de referência
 

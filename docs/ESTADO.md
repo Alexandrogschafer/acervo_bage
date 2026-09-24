@@ -5,6 +5,49 @@ pendente. Entrada nova no topo.
 
 ---
 
+## 2026-09-24 — Licença decidida; e-mail dos commits trocado; auditoria registrada
+
+- **B1, licença (decisão do responsável):**
+  - **código:** MIT (`LICENSE`), titular Alexandro Schafer / UNIPAMPA, 2026;
+  - **documentação e produtos próprios** (catálogos, metadados, textos dos estudos,
+    figuras): CC BY 4.0 (`LICENSE-DOCS.md`);
+  - **dados:** a licença de cada fonte, e nenhuma saída mais permissiva que a fonte.
+  - O README perdeu o "PENDENTE". O `CLAUDE.md` e o `docs/convencoes.md` § 7 foram
+    atualizados. **Publicar no GitHub Pages está permitido, mas condicionado ao
+    `pode_publicar` de cada camada.**
+  - Nada muda nas camadas sem autorização.
+- **C1, e-mail (decisão do responsável).** O e-mail de autor, committer e tagger dos
+  40 commits e das 2 tags anotadas foi trocado pelo endereço `noreply` do GitHub.
+  - Ferramenta: `git filter-repo --mailmap`. O `.mailmap` ficou **fora** do
+    repositório, porque contém o e-mail antigo.
+  - `user.email` do repositório foi configurado com o mesmo `noreply`.
+  - **Todos os 40 hashes mudaram.** Árvores, nomes, datas e mensagens são idênticos
+    (conferido commit a commit pela árvore e por `diff` do `git log`).
+  - Correspondência dos commits citados neste diário:
+
+  | antes desta reescrita | agora | mensagem |
+  | --- | --- | --- |
+  | `2284b90` (originalmente `d312258`) | `4e779c4` | A03: bairros e loteamentos revisados, para interpretacao |
+  | `fca509b` (originalmente `3fb40c5`) | `2d36fce` | legislacao: plano diretor, leis municipais e material do SICG no acervo |
+  | `b264a7d` (originalmente `3aad483`) | `2a3f803` | A03: evolucao urbana por copia para datacao; pedido a Prefeitura |
+  | `6ee1433` (originalmente `9264846`) | `9ba07cc` | A03: datacao por evolucao urbana nos resultados; lista do i01 fora do git |
+  | `677bc8d` | `8e3b882` | ESTADO: registra a reescrita do historico que removeu a lista por unidade do i01 |
+  | `7ea730e` (tag `censo_v1`) | `29b28ee` | Importa o Censo… |
+  | `b5f0370` (tag `estrutura_v1`) | `40e14b8` | Estrutura inicial do acervo… |
+
+  - Os hashes citados nas entradas abaixo desta, e nas mensagens de commit, são
+    **anteriores** a esta reescrita.
+- **C2, matrículas (decisão do responsável):** MANTER. São texto de lei publicada, e
+  a correção não compensa uma reescrita.
+- **Cópia de segurança anterior a esta reescrita:**
+  `~/backups/acervo_bage_2026-09-24_pre-mailmap/`. **Contém o e-mail antigo:** não
+  publicar e não usar como remoto.
+- **Auditoria:** `docs/auditoria_pre_push.md`, com a primeira passada, as decisões e a
+  reauditoria depois da reescrita. **Sem push:** a publicação continua sendo decisão
+  do responsável.
+
+---
+
 ## 2026-09-24 — Histórico reescrito: lista por unidade do i01 removida
 
 - **O que foi removido.** A lista que ligava cada unidade da grade a um nome de bairro
