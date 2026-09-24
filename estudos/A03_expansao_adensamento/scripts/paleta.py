@@ -43,3 +43,18 @@ DIVERGENTE = LARANJA[::-1] + [CINZA_ZERO] + AZUL
 COR_DIVERGENCIA = "#9e2626"      # destaque (subordinada 2); validado contra a superfície
 COR_OUTRA_DIV = "#ec7a6a"        # demais unidades da divergência, nos detalhes
 COR_CONTEXTO = "#e4e3de"
+
+# Subordinada 3 (2026-09-24): coropleta do ENTORNO por setor (% de domicílios com o
+# item). É magnitude, não ganho–perda: por isso um terceiro matiz, violeta (OKLCH h
+# 300°), fora do eixo azul/laranja, para não colidir com as classes sobrepostas.
+# 5 degraus, L 0,77 → 0,43. Validação (validate_palette.js --mode light --ordinal,
+# superfície #fcfcfb): monotônica, ΔL ≥ 0,06, degrau claro 2,08:1, matiz único —
+# passa. O degrau claro precisa aparecer: setor SEM entorno é desenhado à parte, em
+# COR_CONTEXTO com hachura, e não pode se confundir com "perto de zero".
+VIOLETA = ["#bca8e3", "#a48ad4", "#8d6cc2", "#7550ad", "#5e3594"]   # sequencial, claro -> escuro
+
+# Comparação de dois grupos de NOVAS (subordinada 3, item 3): dois tons do mesmo braço
+# azul (os dois são ganho), com forma diferente e rótulo direto. Validado como par
+# categórico: CVD ΔE 26,1, visão normal 26,1; contraste do claro 2,61:1 (aviso) — o
+# alívio é o rótulo de valor em cada marcador.
+PAR_NOVAS = {"posterior_a_2001": AZUL[-1], "vazio_interno_1938_1960": AZUL[0]}

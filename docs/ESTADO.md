@@ -5,6 +5,29 @@ pendente. Entrada nova no topo.
 
 ---
 
+## 2026-09-24 — A03: subordinada 3 concluída (entorno de 2022 nas áreas de crescimento)
+
+- **Junção célula → setor de 2022** pela maior área de interseção. Pelo domicílio, a
+  incerteza é grande: fração média de 0,725 da área no setor atribuído, e 45 % dos
+  domicílios de 2022 em unidades com menos de 70 % da área num setor. Por isso houve
+  sensibilidade só com as unidades de 70 % ou mais, e a retirada de um setor de cada
+  vez.
+- **Resultados que se sustentam** nas duas leituras:
+  - novas: menos bueiro (−24 / −15 pontos contra a cidade), menos arborização e menos
+    calçada;
+  - extintas: menos pavimentação (−17) e menos rampa (−11);
+  - adensadas: pavimentação um pouco menor;
+  - esvaziadas: iguais à cidade.
+  - A iluminação é universal, exceto nas FCU (90,9 %).
+- **Item 3 (datação):** expansão posterior a 2001 × vazio interno de 1938–1960. **O
+  dado não separa os dois grupos**: os sinais mudam entre as leituras, e 3 setores
+  levam de 71 % a 90 % do peso. A hipótese fica em aberto.
+- **FCU:** via pavimentada ≈ 0. Nenhuma nova toca FCU; o crescimento ali é
+  adensamento.
+- **Nenhuma fonte nova:** as FCU vêm de `CD_FCU` da camada `setores_2022`.
+- **Figuras:** `saidas/s3_*.png`, com rampa violeta validada (`paleta.py`).
+- **Texto:** `resultados_s3.md`. O manifesto marca a subordinada 3 como concluída.
+
 ## 2026-09-24 — Licença decidida; e-mail dos commits trocado; auditoria registrada
 
 - **B1, licença (decisão do responsável):**

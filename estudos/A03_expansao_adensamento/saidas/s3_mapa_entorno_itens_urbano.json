@@ -1,0 +1,17 @@
+{
+  "arquivo": "estudos/A03_expansao_adensamento/saidas/s3_mapa_entorno_itens_urbano.png",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "EPSG:31981",
+  "data_producao": "2026-09-24T19:12:32.429173-03:00",
+  "fonte_id": "ibge_censo2022_entorno_setores;ibge_malha_setores_2022;ibge_grade_estatistica_2010;ibge_grade_estatistica_2022;ibge_areas_urbanizadas_2022;ibge_malhas_municipais",
+  "licenca": "IBGE — uso livre com citação da fonte",
+  "observacoes": "Mapa em painéis dos 5 itens do entorno que discriminam, por setor, com as novas e as adensadas em contorno. Figura do A03 (subordinada 3), gerada por scripts/s3_figuras.py de derivados/s3_entorno.json. Não conferida: não publicar antes da conferência do responsável.",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "sha256": "b5b64c4fa8fd142d75cf5421a41980169eb32233bc677c9a07e81b9794025397",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 1485621,
+  "tema": "censo",
+  "versao": "s3-v1"
+}

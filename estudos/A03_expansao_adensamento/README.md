@@ -98,7 +98,8 @@ esperado no miolo denso.
 
 Os scripts que reproduzem cada número estão em [`scripts/`](scripts/) — `r00`–`r08`
 para o reconhecimento, `d01`–`d04` para o dimensionamento, `s1_*` para a subordinada 1,
-`s2_*` para a subordinada 2, `i01` para a interpretação por bairro e loteamento,
+`s2_*` para a subordinada 2, `s3_*` para a subordinada 3 (entorno de 2022; resultados em
+`resultados_s3.md`), `i01` para a interpretação por bairro e loteamento,
 `i02` para a datação pela evolução urbana (`grade_estatistica.py` é a leitura da
 grade, comum a eles).
 

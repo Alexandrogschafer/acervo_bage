@@ -112,11 +112,24 @@ subordinadas:
     domiciliar no território — moradores por domicílio caiu de 3,02 para 2,59
     no município. Verificar se essas unidades formam área contígua (centro?
     bairros antigos?) ou estão dispersas.
+  # CONCLUÍDA em 2026-09-24 (resultados_s3.md; scripts/s3_entorno.py e s3_figuras.py).
+  # Junção célula -> setor de 2022 por maior área de interseção, com a incerteza
+  # medida (45 % dos domicílios de 2022 em unidades com < 70 % da área num setor) e
+  # sensibilidade só com unidades >= 70 % num setor. NENHUMA FONTE NOVA declarada:
+  # o entorno (ibge_censo2022_entorno_setores) e a camada setores_2022 já estavam
+  # aqui; as favelas e comunidades urbanas vêm da coluna CD_FCU de setores_2022
+  # (idêntica à planilha oficial). A datação das novas (item 3) vem do i02, camada de
+  # interpretação fora do manifesto (fonte não redistribuível), como o i01.
   - >-
-    3. A infraestrutura do entorno acompanha onde a cidade cresceu? Cruzar as
-    áreas de crescimento com pavimentação, bueiro, obstáculo na calçada,
-    arborização e rampa, lendo 2022 como retrato transversal. Iluminação entra
-    como controle (universal em Bagé) e ciclovia como ausência.
+    3. [CONCLUÍDA em 2026-09-24 — resultados_s3.md] A infraestrutura do entorno
+    acompanha onde a cidade cresceu? Cruzar as áreas de crescimento com
+    pavimentação, bueiro, obstáculo na calçada, arborização e rampa, lendo 2022
+    como retrato transversal. Iluminação entra como controle (universal em Bagé)
+    e ciclovia como ausência. Resposta, onde há entorno medido: as adensadas
+    acompanham a cidade (pavimentação um pouco menor); as novas estão em setores
+    com menos bueiro, calçada e árvore; as pontas de menor infraestrutura são as
+    FCU (onde cresce o adensamento) e o que fica fora da área urbanizada; a
+    datação não separa expansão pós-2001 de preenchimento de vazio interno.
 
 # Decidido pelo responsável em 2026-09-22.
 recorte_espacial:
