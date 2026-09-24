@@ -41,6 +41,7 @@ import s1_extintas as ex  # noqa: E402
 import s1_figuras as fig1  # noqa: E402
 import s1_faces_2010 as faces  # noqa: E402
 import s2_divergencia as s2  # noqa: E402
+from paleta import COR_DIVERGENCIA, COR_OUTRA_DIV  # noqa: E402
 from scripts.utils import metadados, paths  # noqa: E402
 from scripts.utils.conteudo import sha256_conteudo  # noqa: E402
 
@@ -53,7 +54,6 @@ MARGEM_M = 300
 COR_AU_DENSA = "#efeee9"
 COR_AU_POUCO = "#f6f5f1"
 COR_RUA = "#b9b8b2"
-COR_OUTRA_DIV = "#ec7a6a"
 FONTES = f"{s1.FONTES};ibge_censo2010_faces_logradouros;ibge_areas_urbanizadas_2022"
 FONTE_TXT = ("Fonte: IBGE — Grade Estatística 2010 e 2022; Base de Faces de Logradouros do "
              "Censo 2010; Áreas Urbanizadas do Brasil 2022. Unidade: célula da grade "
@@ -168,7 +168,7 @@ def desenhar(n, a, rumo, r, v, d, au, ruas):
     ruas.plot(ax=ax, color=COR_RUA, linewidth=0.5, zorder=3)
     outras = d[~d["unidade"].isin(a["unidade"])]
     outras.plot(ax=ax, facecolor=COR_OUTRA_DIV, alpha=0.45, edgecolor="none", zorder=4)
-    a.plot(ax=ax, facecolor=fig1.COR_DIVERGENCIA, alpha=0.55, edgecolor=fig1.COR_DIVERGENCIA,
+    a.plot(ax=ax, facecolor=COR_DIVERGENCIA, alpha=0.55, edgecolor=COR_DIVERGENCIA,
            linewidth=1.0, zorder=5)
     for row in a.itertuples():
         p = row.geometry.centroid
@@ -180,7 +180,7 @@ def desenhar(n, a, rumo, r, v, d, au, ruas):
     ax.set_xticks([])
     ax.set_yticks([])
     fig1.escala_e_norte(ax, ext)
-    alcas = [Patch(facecolor=fig1.COR_DIVERGENCIA, alpha=0.55, edgecolor=fig1.COR_DIVERGENCIA,
+    alcas = [Patch(facecolor=COR_DIVERGENCIA, alpha=0.55, edgecolor=COR_DIVERGENCIA,
                    label=f"agrupamento {n}: ganhou domicílios\ne perdeu moradores ({len(a)} unidades)"),
              Patch(facecolor=COR_OUTRA_DIV, alpha=0.45, edgecolor="none",
                    label="outras unidades divergentes"),

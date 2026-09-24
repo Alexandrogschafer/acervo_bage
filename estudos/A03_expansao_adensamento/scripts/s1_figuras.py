@@ -20,13 +20,11 @@ Base: limite municipal (camada `limite_municipal`, conferida) e o contorno da
 ÁREA URBANIZADA de 2022 do IBGE (Tipo = "Área urbanizada"). NÃO há perímetro
 urbano legal no acervo; a legenda diz o que a linha é.
 
-Cor (validada com o validador de paleta do skill de visualização):
-- classes: slots categóricos fixos — nova laranja, adensada azul, esvaziada
-  amarelo, extinta violeta; estável em cinza recessivo (não é série, é
-  "nada mudou"). O amarelo fica abaixo de 3:1 sobre o fundo: a legenda traz
-  rótulo e contagem, e a tabela está em resultados_s1.md.
-- variação: divergente azul (ganho) × vermelho (perda), classes discretas, zero
-  em cinza neutro.
+Cor: paleta.py (ponto único do estudo, validada com o validador de paleta do
+skill de visualização). Eixo ganho–perda: azul = ganho, laranja = perda, cinza =
+sem mudança — nas classes (nova azul escuro, adensada azul claro, estável cinza,
+esvaziada laranja claro, extinta laranja escuro) e na variação (divergente em
+classes discretas, zero em cinza neutro).
 
 Mapas no CRS de produção (EPSG:31981, métrico): a barra de escala é em metros
 reais e o norte é o da quadrícula UTM (convergência meridiana < 1° em Bagé).
@@ -56,22 +54,16 @@ from matplotlib.lines import Line2D  # noqa: E402
 from matplotlib.patches import Patch, Rectangle  # noqa: E402
 
 import s1_expansao_adensamento as s1  # noqa: E402
+from paleta import (COR_CONTEXTO, COR_DIVERGENCIA, CORES_CLASSE, DIVERGENTE,  # noqa: E402
+                    SUPERFICIE)
 from s1_geografias import unidades_a_parte  # noqa: E402
 from scripts.utils import catalogo, metadados, paths  # noqa: E402
 
-SUPERFICIE = "#fcfcfb"
 TINTA = "#0b0b0b"
 TINTA_2 = "#52514e"
 HACHURA = "////"
-COR_DIVERGENCIA = "#9e2626"      # validado contra a superfície (validate_palette.js)
-COR_CONTEXTO = "#e4e3de"
-CORES_CLASSE = {"nova": "#eb6834", "adensada": "#2a78d6", "estavel": "#bdbcb6",
-                "esvaziada": "#eda100", "extinta": "#4a3aa7"}
 ROTULOS = {"nova": "nova", "adensada": "adensada", "estavel": "estável",
            "esvaziada": "esvaziada", "extinta": "extinta"}
-# divergente: vermelho (perda, escuro -> claro) | zero | azul (ganho, claro -> escuro)
-DIVERGENTE = ["#9e2626", "#d8413f", "#ec7a6a", "#f4b3a6", "#dddcd7",
-              "#86b6ef", "#3987e5", "#256abf", "#104281"]
 FAIXAS = {
     "d_dom": [-1e9, -50.5, -20.5, -5.5, -0.5, 0.5, 5.5, 20.5, 50.5, 1e9],
     "d_pop": [-1e9, -150.5, -50.5, -10.5, -0.5, 0.5, 10.5, 50.5, 150.5, 1e9],

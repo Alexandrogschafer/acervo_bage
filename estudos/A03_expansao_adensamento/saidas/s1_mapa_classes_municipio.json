@@ -3,15 +3,15 @@
   "autorizacao_fonte": true,
   "campos_removidos": [],
   "crs": "EPSG:31981",
-  "data_producao": "2026-09-23T14:04:44.579971-03:00",
+  "data_producao": "2026-09-23T21:26:38.862177-03:00",
   "fonte_id": "ibge_grade_estatistica_2010;ibge_grade_estatistica_2022;ibge_areas_urbanizadas_2022;ibge_malhas_municipais",
   "licenca": "IBGE — uso livre com citação da fonte",
   "observacoes": "Mapa das classes de mudança de domicílios (município inteiro). Cenário adotado: setor de 2010 430160205000136 à parte (hachurado; fora das contagens). Figura do A03, gerada de saidas/s1_celulas_2010_2022.gpkg por scripts/s1_figuras.py. Não conferida: não publicar antes da conferência do responsável.",
   "pode_publicar": false,
   "referencias_bib": [],
-  "sha256": "1f7338609c68d197a1b591a1b7a402441eba79e22d53a4d78cfc11c62979aaa4",
+  "sha256": "61f38678aed8873ca94b7f44fa0783a30f9960c528029877c969e5507ecb5a4d",
   "status_conferencia": "pendente",
-  "tamanho_bytes": 454737,
+  "tamanho_bytes": 458336,
   "tema": "censo",
   "versao": "s1-v2"
 }
