@@ -1,0 +1,17 @@
+{
+  "arquivo": "data/raw/legislacao/bage/formato_doc/SICG - Modulo 1 - Ficha 2 - Contexto Imediato_Bagé _21-12-2009.doc",
+  "autorizacao_fonte": false,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-22T19:52:34.572930-03:00",
+  "fonte_id": "iphan_sicg_bage_2009",
+  "licenca": "não declarada — material do IPHAN (SICG e dossiê de tombamento do Conjunto Histórico e Paisagístico de Bagé, 2009), elaborado por equipe contratada; sem licença registrada; não é texto de lei",
+  "observacoes": "origem: fornecido pelo responsável (pasta inserir_acervo_bage, 2026-09-22); arquivo exatamente como veio, nome original preservado. data do arquivo (mtime na origem): 2026-09-22T19:52:34-03:00. formato DOC (Word), não convertido. sha256_conteudo não se aplica (documento, não camada vetorial); a identidade é o sha256 dos bytes.",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "sha256": "eab75f60fd4977cf0afa259ed47216c6e5b221bc59af3dfd61a9c3772b7dce10",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 7393280,
+  "tema": "legislacao",
+  "versao": "recebido-2026-09-22"
+}

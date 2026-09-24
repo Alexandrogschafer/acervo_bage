@@ -1,0 +1,17 @@
+{
+  "arquivo": "data/raw/legislacao/bage/Lc69 - Anexos.pdf",
+  "autorizacao_fonte": false,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-22T19:23:29.261898-03:00",
+  "fonte_id": "legislacao_municipal_bage",
+  "licenca": "não declarada — relatório técnico de consultoria contratada pela Prefeitura de Bagé, juntado ao processo legislativo 4413/17 (LC 069/2018); não é texto de lei e reproduz figuras e fotografias de terceiros",
+  "observacoes": "origem: fornecido pelo responsável (pasta inserir_acervo_bage, 2026-09-22); arquivo exatamente como veio, nome original preservado. data do arquivo (mtime na origem): 2026-09-22T19:23:29-03:00. PDF, 157 página(s), SEM camada de texto (imagem ou desenho; sem OCR); CreationDate do PDF: Thu May 21 09:30:10 2026 -03; Producer: Scanner System Image Conversion. identificação: PlanMob — Relatório 1, Pesquisas e Levantamentos (consultoria Prócidades), protocolado na Câmara em 10/11/2017, processo 4413/17; NÃO são os anexos normativos I–IV listados no art. 2º da LC 069/2018; mapas nas pp. 148–157. sha256_conteudo não se aplica (documento, não camada vetorial); a identidade é o sha256 dos bytes.",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "sha256": "09170246cc169a4f76dc8c14d68811dfb852c70a930f2835816133bcdc437d2d",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 63555776,
+  "tema": "legislacao",
+  "versao": "recebido-2026-09-22"
+}

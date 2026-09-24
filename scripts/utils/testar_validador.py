@@ -51,6 +51,10 @@ def rodar(fontes: Path, camadas: Path, area_estudo: Path | None = None,
                "--camadas", str(camadas), "--bib", str(CAMINHO_BIB), "--raiz", str(raiz)]
     if area_estudo is not None:
         comando += ["--area-estudo", str(area_estudo)]
+    if raiz != RAIZ_PROJETO:
+        # raiz temporária só com a camada do controle: o catálogo de legislação
+        # real não se resolve nela (os controles L1–L2 cuidam dele)
+        comando += ["--legislacao", str(raiz / "sem_catalogo_legislacao.csv")]
     processo = subprocess.run(comando, capture_output=True, text=True)
     return processo.returncode, processo.stdout + processo.stderr
 
@@ -581,6 +585,35 @@ def controles_de_vetor_ibge(tmp: Path) -> list[tuple]:
              abortou and sha256_arquivo(destino) == sha_antes, 0, msg)]
 
 
+def controles_de_legislacao(tmp: Path) -> list[tuple]:
+    """(L1) sha256 da linha diverge do .json/arquivo; (L2) situação fora do domínio."""
+    from scripts.utils import paths
+
+    caminho = paths.caminho("catalogo_legislacao")
+    if not caminho.exists():
+        return []
+    campos, linhas = ler(caminho)
+
+    def rodar_leg(csv_tmp: Path) -> tuple[int, str]:
+        comando = [sys.executable, str(VALIDADOR), "--bib", str(CAMINHO_BIB),
+                   "--legislacao", str(csv_tmp)]
+        processo = subprocess.run(comando, capture_output=True, text=True)
+        return processo.returncode, processo.stdout + processo.stderr
+
+    resultados = []
+    l1 = [dict(l) for l in linhas]
+    l1[0]["sha256"] = "0" * 64
+    rc, saida = rodar_leg(escrever(tmp / "legislacao_sha.csv", campos, l1))
+    resultados.append(("NEGATIVO L1: norma com sha256 que não é o do arquivo", "falhar (rc=1)",
+                       rc == 1 and "sha256 da linha difere do .json irmão" in saida, rc, saida))
+    l2 = [dict(l) for l in linhas]
+    l2[0]["situacao"] = "provavelmente vigente"
+    rc, saida = rodar_leg(escrever(tmp / "legislacao_situacao.csv", campos, l2))
+    resultados.append(("NEGATIVO L2: situação fora do domínio", "falhar (rc=1)",
+                       rc == 1 and "situacao" in saida and "fora do domínio" in saida, rc, saida))
+    return resultados
+
+
 def main() -> None:
     campos_fontes, fontes = ler(CAMINHO_FONTES)
     campos_camadas, camadas = ler(CAMINHO_CAMADAS)
@@ -643,6 +676,7 @@ def main() -> None:
         resultados += controles_de_publicacao(tmp, campos_fontes, fontes)
         resultados += controles_de_promocao(tmp)
         resultados += controles_de_vetor_ibge(tmp)
+        resultados += controles_de_legislacao(tmp)
 
     print("=" * 78)
     print("CONTROLES DO VALIDADOR DE CATÁLOGOS")

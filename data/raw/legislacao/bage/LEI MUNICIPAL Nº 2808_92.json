@@ -1,0 +1,17 @@
+{
+  "arquivo": "data/raw/legislacao/bage/LEI MUNICIPAL Nº 2808_92.pdf",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-22T19:58:13.421315-03:00",
+  "fonte_id": "legislacao_municipal_bage",
+  "licenca": "legislação municipal — texto de lei, domínio público",
+  "observacoes": "origem: fornecido pelo responsável (pasta inserir_acervo_bage, 2026-09-22); arquivo exatamente como veio, nome original preservado. data do arquivo (mtime na origem): 2026-09-22T19:58:13-03:00. PDF, 1 página(s), com camada de texto (877 caracteres não brancos); CreationDate do PDF: Fri Oct  2 17:37:05 2009 -03; Producer: Acrobat Distiller 8.0.0 (Windows). sha256_conteudo não se aplica (documento, não camada vetorial); a identidade é o sha256 dos bytes. pode_publicar vale para o documento; anexo cartográfico extraído como camada é base de dados e tem pode_publicar próprio.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "0b6182e5974396d2526e2986927c9d039cccbcc761e2b9148a4fd53ce751fdf4",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 40937,
+  "tema": "legislacao",
+  "versao": "recebido-2026-09-22"
+}

@@ -1,0 +1,17 @@
+{
+  "arquivo": "data/raw/legislacao/bage/LEI MUNICIPAL Nº 2839_92-Conselho municipal de preservação.pdf",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-22T19:51:53.883015-03:00",
+  "fonte_id": "legislacao_municipal_bage",
+  "licenca": "legislação municipal — texto de lei, domínio público",
+  "observacoes": "origem: fornecido pelo responsável (pasta inserir_acervo_bage, 2026-09-22); arquivo exatamente como veio, nome original preservado. data do arquivo (mtime na origem): 2026-09-22T19:51:53-03:00. PDF, 9 página(s), com camada de texto (16532 caracteres não brancos); CreationDate do PDF: Fri Oct  2 17:35:07 2009 -03; Producer: Acrobat Distiller 8.0.0 (Windows). sha256_conteudo não se aplica (documento, não camada vetorial); a identidade é o sha256 dos bytes. pode_publicar vale para o documento; anexo cartográfico extraído como camada é base de dados e tem pode_publicar próprio.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "3c7bd4c01cde8f1996379ba48d495519d5ce603515994c543d2e04f3274185fd",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 81230,
+  "tema": "legislacao",
+  "versao": "recebido-2026-09-22"
+}

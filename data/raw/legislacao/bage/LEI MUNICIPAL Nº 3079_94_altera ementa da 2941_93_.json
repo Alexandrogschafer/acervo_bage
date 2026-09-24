@@ -1,0 +1,17 @@
+{
+  "arquivo": "data/raw/legislacao/bage/LEI MUNICIPAL Nº 3079_94_altera ementa da 2941_93_.pdf",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-22T19:58:13.562269-03:00",
+  "fonte_id": "legislacao_municipal_bage",
+  "licenca": "legislação municipal — texto de lei, domínio público",
+  "observacoes": "origem: fornecido pelo responsável (pasta inserir_acervo_bage, 2026-09-22); arquivo exatamente como veio, nome original preservado. data do arquivo (mtime na origem): 2026-09-22T19:58:13-03:00. PDF, 1 página(s), com camada de texto (855 caracteres não brancos); CreationDate do PDF: Fri Oct  2 17:38:40 2009 -03; Producer: Acrobat Distiller 8.0.0 (Windows). sha256_conteudo não se aplica (documento, não camada vetorial); a identidade é o sha256 dos bytes. pode_publicar vale para o documento; anexo cartográfico extraído como camada é base de dados e tem pode_publicar próprio.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "f21f17e9a414969f284f73eb95b4584b386b5099eafbc0059cc55956ea7879d6",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 40443,
+  "tema": "legislacao",
+  "versao": "recebido-2026-09-22"
+}

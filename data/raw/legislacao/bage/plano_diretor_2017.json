@@ -1,0 +1,17 @@
+{
+  "arquivo": "data/raw/legislacao/bage/plano_diretor_2017.pdf",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-22T19:24:54.756240-03:00",
+  "fonte_id": "legislacao_municipal_bage",
+  "licenca": "legislação municipal — texto de lei, domínio público",
+  "observacoes": "origem: fornecido pelo responsável (pasta inserir_acervo_bage, 2026-09-22); arquivo exatamente como veio, nome original preservado. data do arquivo (mtime na origem): 2026-09-22T19:24:54-03:00. PDF, 1 página(s), SEM camada de texto (imagem ou desenho; sem OCR); CreationDate do PDF: Tue Sep 22 16:24:24 2026 -03; Producer: FPDF 1.7. identificação: Lei Complementar nº 064, de 29/08/2017 (altera a LC 025/2007). sha256_conteudo não se aplica (documento, não camada vetorial); a identidade é o sha256 dos bytes. pode_publicar vale para o documento; anexo cartográfico extraído como camada é base de dados e tem pode_publicar próprio.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "561223d0238578a379e24c725c38d2daf5e56588fea38eb0a712daf5ce38f218",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 159027,
+  "tema": "legislacao",
+  "versao": "recebido-2026-09-22"
+}

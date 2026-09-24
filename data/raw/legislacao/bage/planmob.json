@@ -1,0 +1,17 @@
+{
+  "arquivo": "data/raw/legislacao/bage/planmob.pdf",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-22T19:24:28.363695-03:00",
+  "fonte_id": "legislacao_municipal_bage",
+  "licenca": "legislação municipal — texto de lei, domínio público",
+  "observacoes": "origem: fornecido pelo responsável (pasta inserir_acervo_bage, 2026-09-22); arquivo exatamente como veio, nome original preservado. data do arquivo (mtime na origem): 2026-09-22T19:24:28-03:00. PDF, 28 página(s), SEM camada de texto (imagem ou desenho; sem OCR); CreationDate do PDF: Tue Sep 22 16:24:37 2026 -03; Producer: FPDF 1.7. identificação: Lei Complementar nº 069, de 08/01/2018 (PlanMob), texto sem os anexos. sha256_conteudo não se aplica (documento, não camada vetorial); a identidade é o sha256 dos bytes. pode_publicar vale para o documento; anexo cartográfico extraído como camada é base de dados e tem pode_publicar próprio.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "69f3ded43ede9f69c7580ba97aff0c1791113b41a1017b4881b558c6c60d716d",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 5952101,
+  "tema": "legislacao",
+  "versao": "recebido-2026-09-22"
+}

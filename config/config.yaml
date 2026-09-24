@@ -38,6 +38,9 @@ paths:
   raw_vetor: "data/raw/vetor"
   raw_raster: "data/raw/raster"
   raw_tabular: "data/raw/tabular"
+  # legislação municipal e documentos que chegaram junto (SICG/IPHAN, relatório
+  # do PlanMob): como vieram, nome original preservado (o nome é procedência)
+  raw_legislacao: "data/raw/legislacao/bage"
 
   # --- acervo: a CÓPIA PRINCIPAL, compartilhada por todos os estudos ---
   # Estudo nenhum escreve aqui. Camada derivada em estudo só entra no acervo
@@ -65,6 +68,8 @@ paths:
   # --- catálogos ---
   catalogo_fontes: "data/catalogo_fontes.csv"
   catalogo_camadas: "data/catalogo_camadas.csv"
+  # uma linha por norma (ou documento), preenchida lendo o cabeçalho de cada PDF
+  catalogo_legislacao: "data/catalogo_legislacao.csv"
 
   # --- código ---
   scripts: "scripts"

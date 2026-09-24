@@ -1,0 +1,17 @@
+{
+  "arquivo": "data/raw/legislacao/bage/LEI MUNICIPAL Nº 3687_01.pdf",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-22T19:58:13.414187-03:00",
+  "fonte_id": "legislacao_municipal_bage",
+  "licenca": "legislação municipal — texto de lei, domínio público",
+  "observacoes": "origem: fornecido pelo responsável (pasta inserir_acervo_bage, 2026-09-22); arquivo exatamente como veio, nome original preservado. data do arquivo (mtime na origem): 2026-09-22T19:58:13-03:00. PDF, 1 página(s), com camada de texto (1257 caracteres não brancos); CreationDate do PDF: Fri Oct  2 17:41:55 2009 -03; Producer: Acrobat Distiller 8.0.0 (Windows). sha256_conteudo não se aplica (documento, não camada vetorial); a identidade é o sha256 dos bytes. pode_publicar vale para o documento; anexo cartográfico extraído como camada é base de dados e tem pode_publicar próprio.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "f59b9f454609ba14df79df03449ae793c9391770f6806ee85b3ee6dc8b167d3a",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 42042,
+  "tema": "legislacao",
+  "versao": "recebido-2026-09-22"
+}

@@ -1,0 +1,17 @@
+{
+  "arquivo": "data/raw/legislacao/bage/03-MAPA-BAGE_EVOLUÇÃO URBANA.pdf",
+  "autorizacao_fonte": false,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-22T19:40:39.720162-03:00",
+  "fonte_id": "iphan_sicg_bage_2009",
+  "licenca": "não declarada — material do IPHAN (SICG e dossiê de tombamento do Conjunto Histórico e Paisagístico de Bagé, 2009), elaborado por equipe contratada; sem licença registrada; não é texto de lei",
+  "observacoes": "origem: fornecido pelo responsável (pasta inserir_acervo_bage, 2026-09-22); arquivo exatamente como veio, nome original preservado. data do arquivo (mtime na origem): 2026-09-22T19:40:39-03:00. PDF, 1 página(s), SEM camada de texto (imagem ou desenho; sem OCR); CreationDate do PDF: Sun Dec 20 11:11:49 2009 -02; Producer: Bullzip PDF Printer / www.bullzip.com / Freeware Edition (not registered). identificação: IPHAN, dossiê de tombamento, prancha 03/18 'Condicionantes – Evolução Urbana', 1:25.000, out/2009 (SNA Arquitetura); já processado no REVIA_BG — não reprocessar aqui. sha256_conteudo não se aplica (documento, não camada vetorial); a identidade é o sha256 dos bytes.",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "sha256": "d9116ad71b6429e3a52fb0d65821a1432472c0784d50e2678ac6f2a4e1c96b85",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 3364701,
+  "tema": "legislacao",
+  "versao": "recebido-2026-09-22"
+}

@@ -1,0 +1,17 @@
+{
+  "arquivo": "data/raw/legislacao/bage/Modulo 2 - Ficha 7 - Relatorio Fotografico.doc",
+  "autorizacao_fonte": false,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-22T19:53:08.257767-03:00",
+  "fonte_id": "iphan_sicg_bage_2009",
+  "licenca": "não declarada — material do IPHAN (SICG e dossiê de tombamento do Conjunto Histórico e Paisagístico de Bagé, 2009), elaborado por equipe contratada; sem licença registrada; não é texto de lei",
+  "observacoes": "origem: fornecido pelo responsável (pasta inserir_acervo_bage, 2026-09-22); arquivo exatamente como veio, nome original preservado. data do arquivo (mtime na origem): 2026-09-22T19:53:08-03:00. formato DOC (Word), não convertido. sha256_conteudo não se aplica (documento, não camada vetorial); a identidade é o sha256 dos bytes.",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "sha256": "0ab71601c8c4222e55176f63049ee31431b015f86115929072dbf950608cc87c",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 47811584,
+  "tema": "legislacao",
+  "versao": "recebido-2026-09-22"
+}

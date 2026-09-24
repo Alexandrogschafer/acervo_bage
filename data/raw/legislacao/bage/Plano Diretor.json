@@ -1,0 +1,17 @@
+{
+  "arquivo": "data/raw/legislacao/bage/Plano Diretor.pdf",
+  "autorizacao_fonte": true,
+  "campos_removidos": [],
+  "crs": "",
+  "data_producao": "2026-09-22T19:51:35.786725-03:00",
+  "fonte_id": "legislacao_municipal_bage",
+  "licenca": "legislação municipal — texto de lei, domínio público",
+  "observacoes": "origem: fornecido pelo responsável (pasta inserir_acervo_bage, 2026-09-22); arquivo exatamente como veio, nome original preservado. data do arquivo (mtime na origem): 2026-09-22T19:51:35-03:00. PDF, 94 página(s), com camada de texto (125129 caracteres não brancos); CreationDate do PDF: Fri Jan  9 11:07:55 2009 -02; Producer: Corel PDF Engine Version 3.0.0.576. identificação: Lei Complementar nº 025/2007 (PDDUA), texto e anexos 01–11; anexos cartográficos nas pp. 48–72 e 77–92 (raster embutido, 300 ppi). sha256_conteudo não se aplica (documento, não camada vetorial); a identidade é o sha256 dos bytes. pode_publicar vale para o documento; anexo cartográfico extraído como camada é base de dados e tem pode_publicar próprio.",
+  "pode_publicar": true,
+  "referencias_bib": [],
+  "sha256": "3396c2e5f0723c83081f777ef47152776e3146dcc397f78e95bb2ee22c706365",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 29637194,
+  "tema": "legislacao",
+  "versao": "recebido-2026-09-22"
+}

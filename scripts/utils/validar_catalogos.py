@@ -29,6 +29,11 @@ Confere:
   8. o bloco "--- conferência ---" de observacoes (scripts/utils/metadados.py)
      só existe com `status_conferencia=conferido` — nota de conferência em
      produto pendente é rastro de despromoção mal feita — e tem de estar fechado.
+  9. o catálogo de legislação (data/catalogo_legislacao.csv): `id_norma`
+     único; `tipo` e `situacao` no domínio; cada `arquivo` existe, tem `.json`
+     irmão que aponta para ele com o MESMO sha256 da linha, e o sha256 bate com
+     o arquivo em disco; a `fonte_id` do `.json` existe no catálogo de fontes;
+     `.json` com `pode_publicar=true` tem licença e fonte que autoriza.
 
 Complementa — não substitui — `verificar_publicacao.py`: aquele barra o
 commit, este confere a coerência interna dos catálogos.
@@ -331,6 +336,75 @@ def validar_area_estudo(caminho: Path, caminho_camadas: Path) -> tuple[list[str]
     return erros, avisos
 
 
+COLUNAS_LEGISLACAO: frozenset[str] = frozenset({
+    "id_norma", "tipo", "numero", "ano", "data", "ementa", "assunto", "arquivo",
+    "sha256", "situacao", "observacoes",
+})
+TIPOS_NORMA: frozenset[str] = frozenset({"lei", "lei complementar", "decreto"})
+# vazio = o texto não diz; situação só se preenche quando o próprio texto a declara
+SITUACOES_NORMA: frozenset[str] = frozenset({"", "vigente", "revogada", "alterada"})
+
+
+def validar_legislacao(caminho: Path, caminho_fontes: Path,
+                       raiz: Path) -> tuple[list[str], list[str]]:
+    """Confere o catálogo de legislação contra os `.json` irmãos (conferência 9).
+
+    Returns:
+        `(erros, avisos)`.
+    """
+    erros: list[str] = []
+    avisos: list[str] = []
+    if not caminho.exists():
+        return erros, avisos
+    linhas = _ler_csv(caminho, COLUNAS_LEGISLACAO, erros)
+    fontes: dict[str, dict[str, str]] = {}
+    if caminho_fontes.exists():
+        with open(caminho_fontes, encoding="utf-8") as arquivo:
+            fontes = {f["id_fonte"]: f for f in csv.DictReader(arquivo)}
+
+    vistos: set[str] = set()
+    for i, linha in enumerate(linhas, start=2):
+        ident = (linha.get("id_norma") or "").strip()
+        rotulo = f"catalogo_legislacao.csv linha {i} ('{ident}')"
+        if not ident:
+            erros.append(f"{rotulo}: sem id_norma")
+        elif ident in vistos:
+            erros.append(f"{rotulo}: id_norma duplicado")
+        vistos.add(ident)
+        if (linha.get("tipo") or "").strip() not in TIPOS_NORMA:
+            erros.append(f"{rotulo}: tipo '{linha.get('tipo')}' fora de {sorted(TIPOS_NORMA)}")
+        if (linha.get("situacao") or "").strip() not in SITUACOES_NORMA:
+            erros.append(f"{rotulo}: situacao '{linha.get('situacao')}' fora do domínio")
+
+        relativo = (linha.get("arquivo") or "").strip()
+        arquivo = raiz / relativo
+        irmao = metadados.caminho_irmao(arquivo)
+        if not irmao.is_file():
+            erros.append(f"{rotulo}: sem .json irmão ({relativo})")
+            continue
+        meta = json.loads(irmao.read_text(encoding="utf-8"))
+        sha_linha = (linha.get("sha256") or "").strip().lower()
+        if meta.get("arquivo") != relativo:
+            erros.append(f"{rotulo}: o .json irmão aponta para '{meta.get('arquivo')}'")
+        if str(meta.get("sha256", "")).lower() != sha_linha:
+            erros.append(f"{rotulo}: sha256 da linha difere do .json irmão")
+        if not arquivo.is_file():
+            erros.append(f"{rotulo}: arquivo não existe em disco ({relativo})")
+        elif sha256_arquivo(arquivo) != sha_linha:
+            erros.append(f"{rotulo}: sha256 da linha não bate com o arquivo em disco")
+
+        fonte = fontes.get(str(meta.get("fonte_id", "")))
+        if fonte is None:
+            erros.append(f"{rotulo}: fonte '{meta.get('fonte_id')}' do .json não existe "
+                         "em catalogo_fontes.csv")
+        elif meta.get("pode_publicar") is True and (
+                not str(meta.get("licenca", "")).strip()
+                or not _verdadeiro(fonte.get("autorizacao_fonte"))):
+            erros.append(f"{rotulo}: .json com pode_publicar=true sem licença ou com fonte "
+                         "sem autorizacao_fonte=true")
+    return erros, avisos
+
+
 def main() -> None:
     """Executa a validação e define o código de saída."""
     parser = argparse.ArgumentParser(description="Valida os catálogos do acervo.")
@@ -341,12 +415,17 @@ def main() -> None:
                         help="Raiz para resolver os caminhos relativos dos catálogos")
     parser.add_argument("--area-estudo", type=Path, default=paths.area_estudo(),
                         help="GeoJSON da área de estudo (default: o do config)")
+    parser.add_argument("--legislacao", type=Path,
+                        default=paths.caminho("catalogo_legislacao"))
     args = parser.parse_args()
 
     erros, avisos = validar(args.fontes, args.camadas, args.bib, args.raiz)
     erros_area, avisos_area = validar_area_estudo(args.area_estudo, args.camadas)
     erros += erros_area
     avisos += avisos_area
+    erros_leg, avisos_leg = validar_legislacao(args.legislacao, args.fontes, args.raiz)
+    erros += erros_leg
+    avisos += avisos_leg
 
     for aviso in avisos:
         print(f"AVISO: {aviso}")

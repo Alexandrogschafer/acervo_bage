@@ -416,7 +416,57 @@ para localizar a obra na origem.
 
 ---
 
-## 10. O que NÃO fazer
+## 10. Legislação
+
+Leis, leis complementares e decretos municipais, com os documentos que chegam
+junto (anexos, material de processo legislativo, fichas do SICG/IPHAN).
+
+```
+data/raw/legislacao/bage/       os arquivos, como vieram, com o NOME ORIGINAL
+data/catalogo_legislacao.csv    uma linha por norma
+data/catalogo_fontes.csv        o conjunto como fonte (legislacao_municipal_bage)
+```
+
+- **Onde fica.** Em `data/raw/legislacao/bage/` (`paths.raw_legislacao`),
+  registrado por [`scripts/acervo/registrar_legislacao.py`](../scripts/acervo/registrar_legislacao.py).
+  O nome do arquivo **não** é reescrito na convenção do § 3: ele é procedência.
+  Todo arquivo tem `.json` irmão (§ 4) com `sha256`; `sha256_conteudo` não se
+  aplica a documento. Quando dois formatos do mesmo documento teriam o mesmo
+  `.json` irmão, o segundo vai para uma subpasta (`formato_doc/`), com o nome
+  intacto.
+- **Catálogo próprio.** `data/catalogo_legislacao.csv`:
+
+  ```
+  id_norma, tipo, numero, ano, data, ementa, assunto, arquivo, sha256,
+  situacao, observacoes
+  ```
+
+  Preenchido **lendo o cabeçalho do documento**, não o nome do arquivo (que às
+  vezes engana: `lei_altera_paragrafo_2015.pdf` é a LC 054/2015, que altera
+  uso rural para urbano). O que não se lê com segurança fica **em branco** e é
+  explicado em `observacoes`; nada é inferido. `situacao` (`vigente`,
+  `revogada`, `alterada`) só quando um texto do acervo a declara, citando qual.
+  Documento que não é norma (relatório, ficha, mapa) não tem linha: fica só com
+  o `.json`. `validar_catalogos.py` confere o catálogo contra os `.json`
+  irmãos e o disco (conferência 9; controles L1–L2).
+- **Texto de lei × anexo cartográfico — dois regimes.**
+
+  | o quê | regime | `pode_publicar` |
+  | --- | --- | --- |
+  | texto de lei municipal | não é objeto de proteção autoral (Lei 9.610/1998, art. 8º, IV) | `true`, licença "legislação municipal — texto de lei, domínio público" |
+  | anexo cartográfico extraído como camada | **base de dados**: geometria redesenhada, com base cartográfica de terceiros | decidido **caso a caso**, na linha própria do catálogo de camadas |
+  | documento que não é lei (relatório de consultoria, material do IPHAN) | licença **não se presume** pela vizinhança com a lei | `false` enquanto a licença não for declarada |
+
+  O `pode_publicar=true` do PDF de uma lei vale para o **documento**. Extrair
+  um mapa anexo como camada é outra decisão, tomada depois, e a camada entra
+  pela promoção do § 1, com conferência visual.
+- **Não versionado, como todo dado.** `*.pdf` e `data/raw/**` continuam fora
+  do git (o texto de lei *poderia* ser versionado, mas os arquivos somam
+  ~200 MB e um passa de 60 MB); o rastro público é o `.json` e o catálogo.
+
+---
+
+## 11. O que NÃO fazer
 
 - Não montar URL de download por adivinhação — navegar as listagens/APIs
   documentadas, de modo que uma mudança na fonte **falhe** em vez de baixar
