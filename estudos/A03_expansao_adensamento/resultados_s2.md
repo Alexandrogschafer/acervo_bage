@@ -257,8 +257,8 @@ geocodificação (a coordenada original).
 > manifesto: se estivesse, a regra do mais restritivo bloquearia a publicação do estudo.
 
 *Feito em 2026-09-24 por `scripts/i01_bairros_loteamentos.py`. Números em
-`derivados/i01_bairros_loteamentos.json`, bloco `s2_agrupamentos_divergencia`, com a
-lista por unidade.*
+`derivados/i01_bairros_loteamentos.json`, bloco `s2_agrupamentos_divergencia`. A lista
+por unidade está em `derivados/i01_bairros_loteamentos_unidades.csv`, fora do git.*
 
 - **A camada.** Uma camada só, com 114 polígonos (EPSG:31981). Bairros, vilas e
   loteamentos estão lado a lado, num mosaico sem hierarquia.
@@ -327,60 +327,92 @@ lista por unidade.*
 > - Serve para **DATAR e interpretar no texto**, não para publicar camada nem mapa.
 > - Não está no manifesto, como a camada de bairros do § 7.
 > - As figuras não mudam.
+> - **Tudo o que este parágrafo afirma é interpretação.**
 
 *Feito em 2026-09-24 por `scripts/i02_evolucao_urbana.py`. Números em
 `derivados/i02_evolucao_urbana.json`, bloco `s2_agrupamentos_divergencia`. A lista por
 unidade está em `derivados/i02_evolucao_urbana_unidades.csv`, fora do git.*
 
-- **Incrementos.** Os polígonos do mapa são cumulativos até 1960 e os dois últimos
-  são manchas destacadas. O incremento de cada período é o polígono dele menos a união
-  dos anteriores. É o critério do REVIA_BG.
-  - Os incrementos, em hectares: déc. 1820, 23,6; metade do séc. XIX, 188,7; início do
+- **Incrementos.** Os polígonos do mapa são cumulativos até 1960, e os dois últimos são
+  manchas destacadas. O incremento de cada período é o polígono dele menos a união dos
+  anteriores. É o critério do REVIA_BG.
+  - Incrementos, em hectares: déc. 1820, 23,6; metade do séc. XIX, 188,7; início do
     séc. XX, 266,2; 1938, 1.682,2; 1960, 1.188,0; 1970, 433,1; 2001, 389,0.
 - **Critério.** Cada unidade vai para o incremento com a **maior área de interseção**.
   A parte fora de todos concorre como "fora do traçado mapeado até 2001". Em empate,
   vence o período mais antigo.
   - A interseção é feita em EPSG:31981, e a área é medida no ESRI:102033.
-- **O polígono de 1938 é generalizado.** O REVIA_BG registra que ele é o traçado
-  daquele ano em representação generalizada. Datar por ele significa "até 1938, no
-  máximo".
-  - Ele tem 551,9 ha que o polígono de 1960 não cobre. A unidade datada em 1938 que cai
-    sobretudo nessa parte tem **datação fraca**, e isso é contado abaixo.
+- **Borda sem data firme — decisão do responsável, 2026-09-24.**
+  - O REVIA_BG registra que o polígono de 1938 é **generalizado**. Ele tem 551,9 ha que
+    o polígono de 1960 não cobre.
+  - A unidade atribuída a 1938 que tem metade ou mais da própria área nessa parte **não
+    é datada "até 1938"**. Ela vai para **borda sem data firme**, uma categoria
+    separada das datações firmes.
+  - O período pela maior área continua na lista por unidade.
 
 **Agrupamento 1** (21 unidades, 1.134 domicílios em 2010):
 
 | período de ocupação | unidades | % das unidades | domicílios 2010 | % dos domicílios |
 | --- | ---: | ---: | ---: | ---: |
+| *datação firme* | | | | |
 | 1938 | 2 | 9,5 % | 88 | 7,8 % |
 | 1960 | 7 | 33,3 % | 457 | 40,3 % |
 | 1970 | 10 | 47,6 % | 489 | 43,1 % |
+| *sem datação firme* | | | | |
+| borda sem data firme | 0 | — | 0 | — |
 | fora do traçado mapeado até 2001 | 2 | 9,5 % | 100 | 8,8 % |
 
 **Agrupamento 2** (18 unidades, 1.115 domicílios em 2010):
 
 | período de ocupação | unidades | % das unidades | domicílios 2010 | % dos domicílios |
 | --- | ---: | ---: | ---: | ---: |
+| *datação firme* | | | | |
 | metade do séc. XIX | 2 | 11,1 % | 168 | 15,1 % |
 | início do séc. XX | 2 | 11,1 % | 160 | 14,3 % |
-| 1938 | 14 | 77,8 % | 787 | 70,6 % |
+| 1938 | 11 | 61,1 % | 580 | 52,0 % |
+| *sem datação firme* | | | | |
+| borda sem data firme | 3 | 16,7 % | 207 | 18,6 % |
+| fora do traçado mapeado até 2001 | 0 | — | 0 | — |
 
-- **Os dois agrupamentos são de épocas diferentes.**
-  - O **agrupamento 1** é **ocupação de 1960 e 1970**: 17 das 21 unidades e 83 % dos
-    domicílios de 2010.
-    - Nenhuma unidade cai inteiramente fora dos polígonos. As 2 atribuídas a "fora"
-      tocam algum período.
-  - O **agrupamento 2** é **anterior a 1960**: todas as 18 unidades estão até 1938, e
-    4 delas (29 % dos domicílios) estão no traçado do séc. XIX e do início do XX.
-    - 3 das 14 datadas em 1938 (207 domicílios) caem sobretudo na parte generalizada
-      do polígono de 1938. Para essas, "até 1938" é fraco.
-- **Qualidade da atribuição.** Agrupamento 1: 6 unidades tocam mais de um período, e
-  nenhuma foi atribuída com menos da metade da área. Agrupamento 2: 7 tocam mais de um
-  período, e 1 foi atribuída com menos da metade.
-- **Leitura com o § 7.**
-  - O agrupamento 1 (arco São João – São Jorge – Laranjeiras) é **periferia de
-    1960–1970**.
-  - O agrupamento 2 (borda oeste do CENTRO e as vilas Operária, Alcides Almeida e
-    outras) é **cidade de até 1938**.
-  - "Bairros antigos" vale para o agrupamento 2. Para o agrupamento 1, o antigo é de
-    meio século, não do núcleo histórico.
-  - A divergência de sinal aparece, então, em dois tecidos de idade diferente.
+- **Qualidade da atribuição.**
+  - Agrupamento 1: 6 unidades tocam mais de um período, e nenhuma foi atribuída com
+    menos da metade da área.
+  - Agrupamento 2: 7 tocam mais de um período, e 1 foi atribuída com menos da metade.
+  - Nenhuma unidade dos dois agrupamentos está inteiramente fora dos polígonos.
+
+### 8.1 Resultado (interpretação): o encolhimento do domicílio não depende da idade do bairro
+
+**Os dois agrupamentos da divergência são de épocas diferentes.**
+- O **agrupamento 1** é **periferia de 1960–1970**. Tem 17 das 21 unidades nesses dois
+  incrementos, com **83 % dos domicílios de 2010** (946 de 1.134). Nada nele é anterior
+  a 1938.
+- O **agrupamento 2** é **cidade de até 1938**. Tem 15 das 18 unidades datadas
+  firmemente até 1938, com **81 % dos domicílios** (908 de 1.115):
+  - 52 % no incremento de 1938;
+  - 29 % no traçado do séc. XIX e do início do séc. XX.
+  - As outras 3 unidades (19 %) são borda sem data firme. **Nenhuma** é posterior a
+    1938.
+  - Antes da decisão sobre a borda, o incremento de 1938 somava 70 % (§ 8, versão
+    anterior). Os 18 pontos de diferença são as 3 unidades da borda.
+
+**E ainda assim convergem para a mesma razão moradores/domicílio.** Pelo § 1:
+- o agrupamento 1 vai de **3,09 a 2,53**;
+- o agrupamento 2 vai de **3,02 a 2,48**;
+- os dois terminam em cerca de **2,5 moradores por domicílio**, abaixo da cidade (2,59
+  em 2022).
+
+**Leitura: o encolhimento domiciliar é transversal à idade do tecido urbano.** Ele não
+é efeito de uma geração de bairros.
+- Um tecido anterior a 1938, no centro e nas vilas antigas, e uma periferia de
+  1960–1970 chegam ao mesmo domicílio pequeno em 2022.
+- Isso é compatível com uma mudança na composição do domicílio que atravessa a cidade.
+  Não é compatível com um ciclo de vida próprio de um conjunto de bairros da mesma
+  época.
+- Com o § 7: "bairros antigos" vale para o agrupamento 2. Para o agrupamento 1, o
+  "antigo" é de meio século, não do núcleo histórico.
+
+**Ressalvas.**
+- É **interpretação**: a datação vem de fonte **não redistribuível** e entra só no
+  texto.
+- São dois agrupamentos. O resultado mostra que a idade do tecido não separa os dois;
+  não mostra que ela nunca importe.

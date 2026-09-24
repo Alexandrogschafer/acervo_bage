@@ -1273,6 +1273,22 @@ Além delas, entram na seção de ressalvas do artigo:
   - a causa de cada uma das 170 extintas sem domicílio no CNEFE;
   - qualquer leitura de planejamento urbano. Este documento descreve.
 
+**Acréscimo de 2026-09-24 — datação pela evolução urbana (interpretação, § 14.1.1):**
+- Os **domicílios das novas urbanas de 200 m** (1.400) se dividem quase ao meio:
+  - **ocupação posterior a 2001**: 55 unidades, 675 domicílios (48,2 %);
+  - **preenchimento de vazio interno no tecido de 1938–1960**: 27 unidades e 643
+    domicílios com datação firme (45,9 %). Com as 4 unidades de borda sem data firme,
+    seriam 31 unidades e 693 domicílios (49,5 %).
+- **Adensamento não é só verticalização ou subdivisão: é também ocupação de vazio
+  antigo.** Parte do que a grade conta como expansão é, no território, preenchimento do
+  traçado existente.
+- A faixa adotada de 16,6–25,6 % não muda. Muda a leitura do que ela contém.
+- **Ressalva:** a datação vem de fonte **não redistribuível** (dossiê do IPHAN, cópia
+  do REVIA_BG) e vale como **interpretação**, só no texto.
+- As extintas urbanas são sobretudo borda sem data firme ou fora do traçado de 2001
+  (40 de 56). Isso inclui todo o agrupamento 053/054, o Bairro Fênix (§ 14.2). A
+  borda sem data firme é decisão do responsável, de 2026-09-24.
+
 **Pendências que não reabrem a subordinada 1:**
 - **Pedido ao IBGE da variável de abordagem.** O texto está pronto para envio em
   `docs/pedido_ibge_grade_2010_abordagem.md` e não foi enviado. Se a variável chegar,
@@ -1583,8 +1599,9 @@ que os outros três (§ 11.2):
 
 *Feito em 2026-09-24 por `scripts/i01_bairros_loteamentos.py`, no cenário adotado.
 Números em `derivados/i01_bairros_loteamentos.json`, blocos `s1_novas` e
-`s1_extintas_urbanas`, com a lista por unidade. A camada e o critério são os do
-`resultados_s2.md` § 7:*
+`s1_extintas_urbanas`. A lista por unidade está em
+`derivados/i01_bairros_loteamentos_unidades.csv`, fora do git. A camada e o critério
+são os do `resultados_s2.md` § 7:*
 - *um mosaico de 114 polígonos, sem hierarquia, sem campo de tipo e sem data de
   aprovação, com o tipo lido só do nome;*
 - *cada unidade vai para o polígono de maior área de interseção, e a parte fora de
@@ -1738,16 +1755,23 @@ estão a até 200 m, 3 de 200 a 500 m e 1 de 500 m a 1 km. O polígono mais pró
 > - Serve para **DATAR e interpretar no texto**, não para publicar camada nem mapa.
 > - Não está no manifesto, como a camada de bairros do § 13.
 > - As figuras não mudam.
+> - **A datação vale como interpretação.**
 
 *Feito em 2026-09-24 por `scripts/i02_evolucao_urbana.py`, no cenário adotado. Números
 em `derivados/i02_evolucao_urbana.json`, blocos `s1_novas` e `s1_extintas_urbanas`. A
 lista por unidade está em `derivados/i02_evolucao_urbana_unidades.csv`, fora do git.
-Os incrementos, o critério e a ressalva do polígono de 1938 são os do
-`resultados_s2.md` § 8:*
+Os incrementos, o critério e a borda sem data firme são os do `resultados_s2.md` § 8:*
 - *o incremento de cada período é o polígono dele menos a união dos anteriores;*
 - *cada unidade vai para o incremento de maior área de interseção, e a parte fora de
   todos concorre como "fora do traçado mapeado até 2001";*
 - *a interseção é feita em EPSG:31981, e a área é medida no ESRI:102033.*
+
+**Borda sem data firme — decisão do responsável, 2026-09-24.** O polígono de 1938 é
+generalizado e tem 551,9 ha que o de 1960 não cobre.
+- A unidade atribuída a 1938 com metade ou mais da própria área nessa parte vai para
+  **borda sem data firme**, e não para "até 1938".
+- Vale para o Bairro Fênix (agrupamento 053/054) e para as demais.
+- Nas tabelas, essa categoria fica separada das datações firmes.
 
 **"Fora" não significa a mesma coisa em toda resolução.** O mapa desenha só o traçado
 **urbano**:
@@ -1760,68 +1784,102 @@ fora) e **inteiramente fora** (nenhuma parte da unidade em polígono algum).
 
 ### 14.1 As 354 novas
 
-| novas | unidades | datadas até 2001 | fora pela atribuição (un. / dom. 2022) | inteiramente fora (un. / dom. 2022) |
-| --- | ---: | ---: | --- | --- |
-| 200 m | 90 | 35 | 55 / 675 de 1.400 | 35 / 408 |
-| 1 km (2022 em 200 m) | 6 | 0 | 6 / 67 de 67 | 2 / 11 |
-| 1 km | 258 | 0 | 258 / 416 de 416 | 258 / 416 |
-| **total** | **354** | **35** | **319 / 1.158 de 1.883 (61,5 %)** | **295 / 835** |
+| novas | unidades | datação firme até 2001 | borda sem data firme | fora pela atribuição (un. / dom. 2022) | inteiramente fora (un. / dom. 2022) |
+| --- | ---: | ---: | ---: | --- | --- |
+| 200 m | 90 | 31 | 4 | 55 / 675 de 1.400 | 35 / 408 |
+| 1 km (2022 em 200 m) | 6 | 0 | 0 | 6 / 67 de 67 | 2 / 11 |
+| 1 km | 258 | 0 | 0 | 258 / 416 de 416 | 258 / 416 |
+| **total** | **354** | **31** | **4** | **319 / 1.158 de 1.883 (61,5 %)** | **295 / 835** |
 
-As 35 novas de 200 m que caem num período mapeado:
+As 90 novas de 200 m:
 
 | período de ocupação | unidades | domicílios 2022 | % dos domicílios das novas de 200 m |
 | --- | ---: | ---: | ---: |
-| 1938 | 14 | 130 | 9,3 % |
+| *datação firme* | | | |
+| 1938 | 10 | 80 | 5,7 % |
 | 1960 | 17 | 563 | 40,2 % |
 | 1970 | 1 | 1 | 0,1 % |
 | 2001 | 3 | 31 | 2,2 % |
+| *sem datação firme* | | | |
+| borda sem data firme | 4 | 50 | 3,6 % |
 | fora do traçado mapeado até 2001 | 55 | 675 | 48,2 % |
+| **total** | **90** | **1.400** | **100 %** |
 
-- **Os domicílios novos de 200 m se dividem em duas metades.**
-  - **Metade é posterior a 2001.** 55 das 90 unidades (675 domicílios, 48,2 %) estão
-    sobretudo fora do traçado de 2001, e 35 delas (408 domicílios) inteiramente fora.
-    É a expansão de borda do § 4, agora com data: depois de 2001.
-  - **Metade está dentro do tecido de 1938–1960.** São 31 unidades e 693 domicílios
-    (49,5 %). O mapa dá esse tecido como traçado urbano, e a unidade não tinha domicílio
-    em 2010. É ocupação de **vazio dentro do traçado antigo**, não abertura de área
-    nova.
-  - Só 4 unidades (32 domicílios, 2,3 %) caem nos incrementos de 1970 e 2001.
-  - O § 13 dá o nome de alguns desses lugares: Núcleo Ney Azambuja, Bairro Ivone e os
-    loteamentos Universitário Minotto e Waldemar Mendonça.
 - **Qualidade da atribuição.** 10 novas tocam mais de um período, e 1 foi atribuída com
   menos da metade da área.
-  - 4 das datadas em 1938 (50 domicílios) caem sobretudo na parte generalizada do
-    polígono de 1938.
-- **As novas de 1 km são campo.** Todas as 258 estão inteiramente fora dos polígonos.
+- **As novas de 1 km são campo.** As 258 estão todas inteiramente fora dos polígonos.
   "Fora", para elas, é rural, e não ocupação urbana depois de 2001.
+
+#### 14.1.1 Resultado: a ocupação nova urbana se divide quase ao meio
+
+**Escopo.** O resultado vale para os **domicílios das unidades novas urbanas de 200 m**
+(1.400 domicílios de 2022). São as unidades sem domicílio em 2010 e com domicílio em
+2022, na cidade. Não é o crescimento total de domicílios de Bagé (+6.791), cuja maior
+parte está nas unidades adensadas (§ 3).
+
+Os domicílios novos urbanos se dividem quase ao meio:
+
+| | unidades | domicílios 2022 | % |
+| --- | ---: | ---: | ---: |
+| **ocupação posterior a 2001** (fora do traçado de 2001) | 55 | 675 | 48,2 % |
+| **preenchimento de vazio interno no tecido de 1938–1960**, com datação firme | 27 | 643 | 45,9 % |
+| borda sem data firme (a parte generalizada de 1938) | 4 | 50 | 3,6 % |
+| incrementos de 1970 e 2001 | 4 | 32 | 2,3 % |
+
+- **Na contagem sem a decisão sobre a borda**, o tecido de 1938–1960 soma 31 unidades
+  e 693 domicílios (49,5 %). A decisão de 2026-09-24 tira 4 unidades e 50 domicílios
+  dessa conta.
+  - Nas duas contagens, a divisão é quase ao meio.
+- **Leitura.**
+  - Metade da ocupação nova urbana é **expansão de borda posterior a 2001**, a do § 4.
+    35 dessas 55 unidades (408 domicílios) estão inteiramente fora do traçado.
+  - A outra metade é **ocupação de vazio dentro do traçado de 1938–1960**. O mapa do
+    IPHAN dá essas áreas como traçado urbano, mas elas não tinham domicílio em 2010.
+    - A grade classifica essas unidades como "novas", porque a célula não tinha
+      domicílio.
+    - No território, porém, não são área nova: são **preenchimento do tecido antigo**.
+- **Adensamento não é só verticalização ou subdivisão de lote: é também ocupação de
+  vazio antigo.** Parte do que a grade conta como expansão é, no tecido urbano,
+  adensamento do traçado existente.
+  - Isso não muda a faixa de expansão adotada (§ 11.1), que é medida na grade. Muda a
+    leitura do que essa faixa contém.
+- **Ressalva.** A datação vem de fonte **não redistribuível** (o dossiê do IPHAN, pela
+  cópia do REVIA_BG) e **vale como interpretação**. Ela não entra em camada, mapa nem
+  número do cálculo da expansão.
+  - O mapa é de 2009, na escala 1:25.000, e o polígono de 1938 é generalizado. A
+    fronteira entre "vazio interno" e "borda" tem a precisão desse desenho.
 
 ### 14.2 As 56 extintas urbanas, por fenômeno
 
 | período de ocupação | esvaziamento medido (un. / dom. 2010) | deslocamento por repartição (un. / dom.) | outras (un. / dom.) | total (un. / dom.) |
 | --- | --- | --- | --- | --- |
+| *datação firme* | | | | |
 | início do séc. XX | 1 / 7 | — | — | 1 / 7 |
-| 1938 | 12 / 126 | 12 / 42 | 2 / 3 | 26 / 171 |
+| 1938 | 3 / 20 | 7 / 27 | 2 / 3 | 12 / 50 |
 | 1960 | 1 / 6 | 2 / 14 | — | 3 / 20 |
+| *sem datação firme* | | | | |
+| borda sem data firme | 9 / 106 | 5 / 15 | — | 14 / 121 |
 | fora do traçado mapeado até 2001 | 9 / 105 | 15 / 39 | 2 / 2 | 26 / 146 |
 | **total** | **23 / 244** | **29 / 95** | **4 / 5** | **56 / 344** |
-| inteiramente fora | 4 / 35 | 12 / 33 | 2 / 2 | 18 / 70 |
-| datadas em 1938, mas sobretudo na parte generalizada | 9 / 106 | 5 / 15 | — | 14 / 121 |
+| inteiramente fora (já contadas em "fora") | 4 / 35 | 12 / 33 | 2 / 2 | 18 / 70 |
 
-- **Nenhuma extinta está no traçado de 1970 ou de 2001.** 26 estão no incremento de
-  1938, 26 fora do traçado de 2001, 3 no de 1960 e 1 no do início do séc. XX.
-  - Estão, então, ou no anel do traçado antigo generalizado ou além dele. Não estão nos
-    tecidos de 1960–2001 que o § 14.1 mostra recebendo ocupação.
-- **O esvaziamento medido está sobretudo na parte generalizada de 1938.** 9 das 12
-  unidades de esvaziamento datadas em 1938 (106 de 126 domicílios) caem sobretudo na
-  área que o polígono de 1938 desenha e o de 1960 não confirma.
-  - Somadas às 9 fora do traçado, **18 das 23 unidades de esvaziamento** estão fora do
-    traçado urbano firme: fora dos polígonos, ou só no desenho generalizado de 1938.
-- **O agrupamento 053/054** (o Bairro Fênix e a borda dele, § 13.3) é todo datado em
-  1938: 10 unidades e 111 domicílios.
-  - As 10 estão **todas na parte generalizada** do polígono de 1938. A data "até 1938"
-    não se sustenta ali, e o lugar deve ser lido como **borda sem data firme**.
-- **O deslocamento por repartição se divide:** 14 unidades no traçado de 1938–1960 e 15
-  fora. Das fora, 12 estão inteiramente fora.
+- **Só 16 das 56 extintas têm datação firme** (77 domicílios), e nenhuma delas está nos
+  traçados de 1970 ou de 2001.
+  - As outras 40 (267 domicílios, 78 %) estão na borda sem data firme ou fora do
+    traçado de 2001.
+  - As extintas não estão nos tecidos de 1960–2001 que o § 14.1 mostra recebendo
+    ocupação.
+- **O esvaziamento medido é fenômeno de borda.** 18 das 23 unidades (211 de 244
+  domicílios) estão sem data firme: 9 na borda e 9 fora do traçado.
+  - Só 5 unidades (33 domicílios) têm data firme, no tecido do início do séc. XX, de
+    1938 e de 1960.
+- **O agrupamento 053/054** (o Bairro Fênix e a borda dele, § 13.3) é **todo borda sem
+  data firme**: 10 unidades e 111 domicílios.
+  - Pela maior área, as 10 cairiam em 1938. Todas, porém, estão na parte do polígono de
+    1938 que o de 1960 não confirma.
+  - O lugar é lido como borda sem data, e não como tecido "até 1938".
+- **O deslocamento por repartição se divide:** 9 unidades com datação firme (1938 e
+  1960), 5 na borda e 15 fora, das quais 12 inteiramente fora.
   - São células pequenas, de poucos domicílios (95 no total), como o § 12 descreve.
 - As ressalvas do § 12 continuam. A posição de 2010 é a face repartida, e a data dada
   à célula herda essa incerteza.

@@ -28,6 +28,11 @@ parte da unidade fora de todos os incrementos concorre como FORA ("fora do traç
 urbano mapeado até 2001"). Empate: o período mais antigo. Operações no CRS de
 produção; áreas medidas no CRS de área (scripts/utils/medidas.py).
 
+BORDA SEM DATA FIRME (decisão do responsável, 2026-09-24): o polígono de 1938 é
+generalizado e tem 551,9 ha que o de 1960 não cobre. A unidade atribuída a 1938 com
+metade ou mais da própria área nessa parte vai para "borda sem data firme", separada
+das datações firmes; o período pela maior área fica na lista por unidade.
+
 FORA não é sinônimo de "ocupação urbana posterior a 2001" para toda unidade: o mapa
 desenha o traçado URBANO. Para células de 200 m na borda da cidade, fora = não
 ocupada no traçado de 2001; para células de 1 km no campo, fora = rural, não
@@ -71,11 +76,13 @@ PERIODOS = {
     "urbano_1961_1970": "1970",
     "urbano_1970_2001": "2001",
 }
-ORDEM = [*PERIODOS.values(), FORA]
+BORDA = "borda sem data firme"
+ORDEM = [*PERIODOS.values(), BORDA, FORA]
 GENERALIZADO_1938 = (
     "o polígono de 1938 é o traçado daquele ano em REPRESENTAÇÃO GENERALIZADA (REVIA_BG, "
     "ESTADO.md, _evo_v2): datar por ele significa 'até 1938, no máximo'. Ele tem área que o de "
-    "1960 não cobre; a unidade datada em 1938 que cai sobretudo nessa parte tem datação fraca")
+    "1960 não cobre. DECISÃO DO RESPONSÁVEL (2026-09-24): a unidade atribuída a 1938 com metade "
+    "ou mais da própria área nessa parte vai para 'borda sem data firme', não para '1938'")
 ORIGEM = ("data/externos/revia_bg/evolucao_urbana/: cópia do REVIA_BG (evolucao_urbana_evo_v1) "
           "dos polígonos da prancha 03/18 do dossiê de tombamento do IPHAN (SICG, 2009), SEM "
           "licença de redistribuição — serve para DATAR e interpretar no texto, não para publicar "
@@ -115,13 +122,17 @@ def atribuir(u: gpd.GeoDataFrame, inc: gpd.GeoDataFrame, so_1938) -> pd.DataFram
     todos["frac"] = todos["m2"] / todos["unidade"].map(area_u)
     maior = (todos.sort_values(["unidade", "m2", "ordem"], ascending=[True, False, True])
              .drop_duplicates("unidade").set_index("unidade"))
+    frac_so_1938 = (medidas.areas_m2(gpd.GeoDataFrame(
+        geometry=u.geometry.intersection(so_1938), crs=u.crs)).set_axis(u["unidade"]) / area_u)
+    # decisão do responsável, 2026-09-24: 1938 só onde o de 1960 confirma o traçado
+    borda = (maior["periodo"] == PERIODOS["urbano_1938"]) & (frac_so_1938.reindex(maior.index) >= 0.5)
     return pd.DataFrame({
-        "periodo": maior["periodo"], "frac_do_maior": maior["frac"].round(3),
+        "periodo": maior["periodo"].where(~borda, BORDA),
+        "periodo_pela_maior_area": maior["periodo"],
+        "frac_do_maior": maior["frac"].round(3),
         "frac_coberta": (coberta / area_u).round(3),
         "periodos_tocados": pedacos.groupby("unidade").size().reindex(area_u.index, fill_value=0),
-        "frac_1938_sem_1960": (medidas.areas_m2(gpd.GeoDataFrame(
-            geometry=u.geometry.intersection(so_1938), crs=u.crs)).set_axis(u["unidade"])
-            / area_u).round(3),
+        "frac_1938_sem_1960": frac_so_1938.round(3),
     })
 
 
@@ -141,9 +152,6 @@ def resumo(g: pd.DataFrame, peso: str) -> dict:
             peso: int(g.loc[g["frac_coberta"] == 0, peso].sum())},
         "unidades_que_tocam_mais_de_um_periodo": int((g["periodos_tocados"] > 1).sum()),
         "unidades_atribuidas_com_menos_de_metade_da_area": int((g["frac_do_maior"] < 0.5).sum()),
-        "datadas_1938_com_metade_ou_mais_fora_do_poligono_de_1960": {
-            "unidades": int(((g["periodo"] == "1938") & (g["frac_1938_sem_1960"] >= 0.5)).sum()),
-            peso: int(g.loc[(g["periodo"] == "1938") & (g["frac_1938_sem_1960"] >= 0.5), peso].sum())},
     }
 
 
@@ -194,7 +202,9 @@ def main() -> None:
         "agrupamentos_sha256_conteudo": metadados.ler(i01.AGRUP)["sha256_conteudo"],
         "criterio": "incremento de cada período = polígono menos a união dos anteriores (critério "
                     "do REVIA_BG); cada unidade vai para o incremento de maior área de interseção; "
-                    f"a parte fora de todos concorre como '{FORA}'; empate: o período mais antigo",
+                    f"a parte fora de todos concorre como '{FORA}'; empate: o período mais antigo; "
+                    f"atribuída a 1938 com metade ou mais da área na parte do polígono de 1938 que o "
+                    f"de 1960 não cobre -> '{BORDA}' (decisão do responsável, 2026-09-24)",
         "leitura_do_fora": "células de 200 m: não ocupadas no traçado urbano de 2001; células de "
                            "1 km: rurais em 2001 — o mapa desenha só o traçado urbano",
         "figuras": "não mudam: o período entra como texto, não como camada",
@@ -206,7 +216,7 @@ def main() -> None:
         "crs_medicao_area": medidas.crs_medicao_area(),
     }
     SAIDA.write_text(json.dumps(resultado, ensure_ascii=False, indent=2), encoding="utf-8")
-    colunas = ["grupo", "periodo", "frac_do_maior", "frac_coberta", "periodos_tocados",
+    colunas = ["grupo", "periodo", "periodo_pela_maior_area", "frac_do_maior", "frac_coberta", "periodos_tocados",
                "frac_1938_sem_1960",
                "dom_10", "dom_22"]
     pd.concat(lista).rename_axis("unidade").reindex(columns=colunas).to_csv(LISTA, encoding="utf-8")

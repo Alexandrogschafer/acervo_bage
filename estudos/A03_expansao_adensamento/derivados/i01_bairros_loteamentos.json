@@ -1454,5 +1454,6 @@
     }
   },
   "crs_operacao": "EPSG:31981",
+  "lista_por_unidade": "estudos/A03_expansao_adensamento/derivados/i01_bairros_loteamentos_unidades.csv (fora do git)",
   "crs_medicao_area": "ESRI:102033"
 }

@@ -25,7 +25,12 @@ de área não ocorre na prática; se ocorrer, vence o de menor id. Operações n
 produção; áreas medidas no CRS de área (scripts/utils/medidas.py).
 
 ESCREVE:
-    derivados/i01_bairros_loteamentos.json   números por grupo (versionado)
+    derivados/i01_bairros_loteamentos.json          agregados por grupo (versionado)
+    derivados/i01_bairros_loteamentos_unidades.csv  lista por unidade (fora do git)
+
+A lista que liga cada unidade a um nome de bairro ou loteamento NÃO vai no JSON
+versionado: é derivada de material sem autorização de republicação (formato do i02,
+padronizado em 2026-09-24). Até o commit d312258 ela estava no JSON.
 """
 
 from __future__ import annotations
@@ -51,6 +56,7 @@ BAIRROS = paths.caminho("externos", "bairros_loteamentos_bage", "bairros_loteame
 AGRUP = s1.SAIDAS / "s2_agrupamentos_divergencia.gpkg"
 FACES = s1.DERIV / "s1_faces_2010.json"
 SAIDA = s1.DERIV / "i01_bairros_loteamentos.json"
+LISTA = s1.DERIV / "i01_bairros_loteamentos_unidades.csv"
 FORA = "(fora da camada)"
 ORIGEM = ("bairros_loteamentos_bage.gpkg: material revisado pelo responsável a partir do "
           "geobage (Prefeitura de Bagé), sem autorização de republicação — serve para nomear e "
@@ -166,12 +172,6 @@ def resumo(g: pd.DataFrame, peso: str | None) -> dict:
         "unidades_fora_de_qualquer_poligono": int((g["frac_coberta"] == 0).sum()),
         "unidades_atribuidas_com_menos_de_metade_da_area": int((g["frac_do_maior"] < 0.5).sum()),
         "fora_da_camada": fora_da_camada(g, peso),
-        # só as que a camada nomeia (dentro de um polígono ou a até PROXIMO_ATE_M dele)
-        "lista": [{"unidade": k, "nome": r["nome"], "frac_do_maior": float(r["frac_do_maior"]),
-                   "mais_proximo": r["mais_proximo"], "dist_mais_proximo_m": float(r["dist_mais_proximo_m"]),
-                   **({peso: int(r[peso])} if peso else {})}
-                  for k, r in g.sort_values("nome").iterrows()
-                  if r["nome"] != FORA or r["dist_mais_proximo_m"] <= PROXIMO_ATE_M],
     }
 
 
@@ -183,11 +183,13 @@ def main() -> None:
     ag = conferido(AGRUP)
     at = atribuir(ag, b).join(ag.set_index("unidade")[["agrupamento", "dom_10", "pop_10"]])
     agrupamentos = {str(k): resumo(x, "dom_10") for k, x in at.groupby("agrupamento")}
+    por_unidade = [at.assign(grupo="s2_agrupamento_" + at["agrupamento"].astype(str))]
 
     novas = v[v["classe"] == "nova"]
     at_n = atribuir(novas, b).join(novas[["dom_22", "resolucao"]])
     novas_out = {"todas": resumo(at_n, "dom_22"),
                  **{f"resolucao_{r}": resumo(x, "dom_22") for r, x in at_n.groupby("resolucao")}}
+    por_unidade.append(at_n.assign(grupo="s1_nova_" + at_n["resolucao"].astype(str)))
 
     faces = json.loads(FACES.read_text(encoding="utf-8"))
     fen = faces["extintas_urbanas_por_fenomeno"]
@@ -199,6 +201,7 @@ def main() -> None:
     extintas = {"todas": resumo(at_e, "dom_10"),
                 **{f: resumo(x, "dom_10") for f, x in at_e.groupby("fenomeno")},
                 "agrupamento_053_054": resumo(at_e[at_e.index.isin(agrup_053)], "dom_10")}
+    por_unidade.append(at_e.assign(grupo="s1_extinta: " + at_e["fenomeno"]))
 
     resultado = {
         "objeto": "interpretação: bairro ou loteamento das unidades dos resultados_s1 e s2 "
@@ -222,10 +225,15 @@ def main() -> None:
         "s1_novas": novas_out,
         "s1_extintas_urbanas": extintas,
         "crs_operacao": paths.crs_producao(),
+        "lista_por_unidade": f"{paths.relativo(LISTA)} (fora do git)",
         "crs_medicao_area": medidas.crs_medicao_area(),
     }
     SAIDA.write_text(json.dumps(resultado, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"gravado: {paths.relativo(SAIDA)}")
+    colunas = ["grupo", "nome", "frac_do_maior", "mais_proximo", "dist_mais_proximo_m",
+               "frac_coberta", "polígonos_tocados", "dom_10", "dom_22"]
+    pd.concat(por_unidade).rename_axis("unidade").reindex(columns=colunas).to_csv(
+        LISTA, encoding="utf-8")
+    print(f"gravado: {paths.relativo(SAIDA)} e {paths.relativo(LISTA)}")
 
 
 if __name__ == "__main__":
