@@ -5,6 +5,59 @@ pendente. Entrada nova no topo.
 
 ---
 
+## 2026-09-24 — Histórico reescrito: lista por unidade do i01 removida
+
+- **O que foi removido.** A lista que ligava cada unidade da grade a um nome de bairro
+  ou loteamento. Eram 343 entradas no bloco `lista` de
+  `estudos/A03_expansao_adensamento/derivados/i01_bairros_loteamentos.json`.
+- **Motivo.** A lista é obra derivada da camada de bairros e loteamentos revisada a
+  partir do geobage (`bairros_loteamentos_revisado`), que **não tem autorização de
+  republicação**. O repositório é público. Ele ainda não tinha remoto, então nada foi
+  publicado: era o momento de resolver.
+- **Intervalo afetado.** Um único blob (`c5829498…`), presente em 3 commits. Ele foi
+  trocado pelo mesmo JSON sem as chaves `lista`, com os agregados intactos. A reescrita
+  muda o hash desses commits e o do commit seguinte:
+
+  | commit antigo | commit novo | mensagem |
+  | --- | --- | --- |
+  | `d312258` | `2284b90` | A03: bairros e loteamentos revisados, para interpretacao |
+  | `3fb40c5` | `fca509b` | legislacao: plano diretor, leis municipais e material do SICG no acervo |
+  | `3aad483` | `b264a7d` | A03: evolucao urbana por copia para datacao; pedido a Prefeitura |
+  | `9264846` | `6ee1433` | A03: datacao por evolucao urbana nos resultados; lista do i01 fora do git |
+
+  - Os 35 commits anteriores e as tags `censo_v1` e `estrutura_v1` não mudaram.
+  - As mensagens foram preservadas **literalmente**, com a opção
+    `--preserve-commit-hashes`. Por isso a mensagem de `6ee1433` ainda cita
+    "d312258", que é o hash anterior à reescrita (ver a tabela).
+- **Ferramenta.** `git filter-repo` a40bce548d2c, instalado num ambiente separado (não
+  no `.venv`), com `--blob-callback` sobre o id do blob. Autor, e-mail e datas de
+  autoria e de commit foram preservados; conferido por comparação do `git log` antes e
+  depois.
+- **Levantamento prévio** (IDs de unidade `200ME…N…` / `1KME…N…` em todos os commits):
+  - arquivos com ID de unidade: `i01_bairros_loteamentos.json` (3 commits),
+    `s1_desagregacao_2010.json`, `s2_divergencia.json`, `s1_faces_2010.json`,
+    `s2_agrupamentos_divergencia.json` e `resultados_s2.md`;
+  - só o i01 liga a unidade a dado de fonte não redistribuível. Os demais trazem só
+    dado do IBGE, que é público. O `i02_evolucao_urbana.json` nunca teve lista por
+    unidade.
+- **Conferido depois:**
+  - o blob antigo não existe mais;
+  - `git grep` em todos os commits e `git log -p --all` não acham ID de unidade nem
+    chave `lista` no i01;
+  - os agregados estão em todos os commits do i01;
+  - o sha256 dos 463 arquivos rastreados é **idêntico** ao de antes, e a árvore do
+    HEAD também (`6a8b95cf…`);
+  - `validar_catalogos` passou, com 0 avisos; `testar_validador` deu 40/40; o
+    `indice.py` foi regenerado;
+  - reflog vazio e objetos reempacotados, sem objeto solto.
+- **Cópia de segurança anterior à reescrita:**
+  `~/backups/acervo_bage_2026-09-24_pre-reescrita/`, com `acervo_bage.git` (git clone
+  --mirror) e `acervo_bage_pasta_inteira.tar` (sha256 `049d9c4c…0178`).
+  - **Ela contém a lista.** Não deve ser publicada nem usada como remoto.
+  - Pode ser apagada quando a reescrita estiver aceita.
+- A lista continua disponível, fora do git, em
+  `derivados/i01_bairros_loteamentos_unidades.csv`.
+
 ## 2026-09-23 — A03: classes mantidas; repartição por face como quarto achado; detalhe da divergência
 
 - **Decisão do responsável:** MANTER as classes. O reposicionamento pela face é

@@ -30,7 +30,8 @@ ESCREVE:
 
 A lista que liga cada unidade a um nome de bairro ou loteamento NÃO vai no JSON
 versionado: é derivada de material sem autorização de republicação (formato do i02,
-padronizado em 2026-09-24). Até o commit d312258 ela estava no JSON.
+padronizado em 2026-09-24). Ela esteve no JSON do commit 2284b90 ao b264a7d (d312258 a
+3aad483 antes da reescrita do histórico de 2026-09-24, que a removeu; docs/ESTADO.md).
 """
 
 from __future__ import annotations
