@@ -1,0 +1,56 @@
+{
+  "arquivo": "data/externos/revia_bg/evolucao_urbana/urbano_acampamentos.shp",
+  "autorizacao_fonte": false,
+  "campos_removidos": [],
+  "commit": "53c7409db58502bba9fba6cdbf015d2cc9416af0",
+  "crs": "EPSG:31981",
+  "data_commit": "2026-09-24T16:31:44-03:00",
+  "data_producao": "2026-09-19T20:23:09.398329-03:00",
+  "fonte_id": "revia_bg_evolucao_urbana",
+  "licenca": "sem licença registrada — polígonos convertidos da prancha 03/18 do dossiê de tombamento do IPHAN (SICG, 2009); o REVIA_BG registra 'não redistribuir os polígonos'",
+  "observacoes": "acampamento (1811) — no mapa é símbolo de ponto; não é período. Cópia do REVIA_BG (dados/externos/evolucao_urbana/, versão evolucao_urbana_evo_v1 do config/base.yml de lá), com sha256 de cada componente conferido contra aquele registro. Origem: prancha 03/18 'Condicionantes – Evolução Urbana', dossiê de tombamento do IPHAN (SICG, out/2009, SNA Arquitetura, 1:25.000), convertida de CAD para shapefile pelo responsável (ArcGIS 10.3, 2017). NÃO REDISTRIBUIR: o docs/LICENCAS.md do REVIA_BG diz 'não redistribuir os polígonos'; por isso autorizacao_fonte=false, pode_publicar=false e fora do git. CAMADA DE INTERPRETAÇÃO: serve para DATAR e interpretar no texto (período de ocupação), não para publicar camada nem mapa. NÃO é declarada no manifesto do A03: declarada, bloquearia a publicação do estudo pela regra do mais restritivo. Os polígonos até 1960 são cumulativos (1825 ⊂ 1850 ⊂ 1900 ⊂ 1938, e 1960 cobre 74,5 % de 1938) e os dois últimos são manchas destacadas: quem usa deriva o INCREMENTO de cada período (polígono menos a união dos anteriores), como no REVIA_BG.",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "repo_origem": "REVIA_BG (rede_viaria_bage)",
+  "sha256": "797ab16e08d4b9957298946fdcae8c3b384f460f7450ec03eac08b5e53d3dfb5",
+  "sha256_conteudo": "01e8af77b9cc99db3a4c96d794947e37e9f9a626b60e80877811b75b9f1b0eda",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 1084,
+  "tema": "cadastro",
+  "verificacoes": {
+    "caminho_na_origem": "dados/externos/evolucao_urbana/urbano_acampamentos.shp",
+    "campos": [
+      "FID_",
+      "Entity",
+      "Layer",
+      "Color",
+      "Linetype",
+      "Elevation",
+      "LineWt",
+      "RefName"
+    ],
+    "componentes_do_shapefile": {
+      "urbano_acampamentos.dbf": {
+        "bytes": 5987,
+        "sha256": "9a5eda5e1811673fe4ee49cd0b66f86f65312fd4263e87bd5343a1493ceef036"
+      },
+      "urbano_acampamentos.prj": {
+        "bytes": 418,
+        "sha256": "ac3308d6a807fed9e92de71d44eb0bf4475ff01310cac06b897855ae12ee690c"
+      },
+      "urbano_acampamentos.shp": {
+        "bytes": 1084,
+        "sha256": "797ab16e08d4b9957298946fdcae8c3b384f460f7450ec03eac08b5e53d3dfb5"
+      },
+      "urbano_acampamentos.shx": {
+        "bytes": 156,
+        "sha256": "f522b25ba76ce5b1b0c765a1e31d09773370db7d4f9d2384a9a8282f2f9f11dc"
+      }
+    },
+    "crs_declarado": "EPSG:31981",
+    "feicoes": 7,
+    "geometria": "Polygon",
+    "geometrias_invalidas": 0
+  },
+  "versao": "evolucao_urbana_evo_v1"
+}

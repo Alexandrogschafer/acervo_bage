@@ -1725,3 +1725,129 @@ estão a até 200 m, 3 de 200 a 500 m e 1 de 500 m a 1 km. O polígono mais pró
     domicílios), em células pequenas. É o esperado de um efeito de face repartida.
 - As ressalvas do § 12 continuam. A posição de 2010 é a face repartida, e o nome dado
   à célula herda essa incerteza.
+
+---
+
+## 14. Período de ocupação das novas e das extintas urbanas (interpretação)
+
+> **Origem não redistribuível.** `data/externos/revia_bg/evolucao_urbana/` é a cópia
+> (REVIA_BG, versão `evolucao_urbana_evo_v1`, sha256 fixado por componente) dos
+> polígonos convertidos da prancha 03/18 "Condicionantes – Evolução Urbana" do dossiê
+> de tombamento do **IPHAN** (SICG, 2009). A licença não está registrada, e o REVIA_BG
+> diz **"não redistribuir os polígonos"** (`pode_publicar=false`, fora do git).
+> - Serve para **DATAR e interpretar no texto**, não para publicar camada nem mapa.
+> - Não está no manifesto, como a camada de bairros do § 13.
+> - As figuras não mudam.
+
+*Feito em 2026-09-24 por `scripts/i02_evolucao_urbana.py`, no cenário adotado. Números
+em `derivados/i02_evolucao_urbana.json`, blocos `s1_novas` e `s1_extintas_urbanas`. A
+lista por unidade está em `derivados/i02_evolucao_urbana_unidades.csv`, fora do git.
+Os incrementos, o critério e a ressalva do polígono de 1938 são os do
+`resultados_s2.md` § 8:*
+- *o incremento de cada período é o polígono dele menos a união dos anteriores;*
+- *cada unidade vai para o incremento de maior área de interseção, e a parte fora de
+  todos concorre como "fora do traçado mapeado até 2001";*
+- *a interseção é feita em EPSG:31981, e a área é medida no ESRI:102033.*
+
+**"Fora" não significa a mesma coisa em toda resolução.** O mapa desenha só o traçado
+**urbano**:
+- numa célula de 200 m na borda da cidade, "fora" quer dizer **não ocupada no traçado
+  de 2001**, ou seja, ocupação posterior a 2001;
+- numa célula de 1 km no campo, "fora" quer dizer só que ela era **rural** em 2001.
+
+Por isso a contagem vai em duas formas: pela atribuição (a maior parte da unidade está
+fora) e **inteiramente fora** (nenhuma parte da unidade em polígono algum).
+
+### 14.1 As 354 novas
+
+| novas | unidades | datadas até 2001 | fora pela atribuição (un. / dom. 2022) | inteiramente fora (un. / dom. 2022) |
+| --- | ---: | ---: | --- | --- |
+| 200 m | 90 | 35 | 55 / 675 de 1.400 | 35 / 408 |
+| 1 km (2022 em 200 m) | 6 | 0 | 6 / 67 de 67 | 2 / 11 |
+| 1 km | 258 | 0 | 258 / 416 de 416 | 258 / 416 |
+| **total** | **354** | **35** | **319 / 1.158 de 1.883 (61,5 %)** | **295 / 835** |
+
+As 35 novas de 200 m que caem num período mapeado:
+
+| período de ocupação | unidades | domicílios 2022 | % dos domicílios das novas de 200 m |
+| --- | ---: | ---: | ---: |
+| 1938 | 14 | 130 | 9,3 % |
+| 1960 | 17 | 563 | 40,2 % |
+| 1970 | 1 | 1 | 0,1 % |
+| 2001 | 3 | 31 | 2,2 % |
+| fora do traçado mapeado até 2001 | 55 | 675 | 48,2 % |
+
+- **Os domicílios novos de 200 m se dividem em duas metades.**
+  - **Metade é posterior a 2001.** 55 das 90 unidades (675 domicílios, 48,2 %) estão
+    sobretudo fora do traçado de 2001, e 35 delas (408 domicílios) inteiramente fora.
+    É a expansão de borda do § 4, agora com data: depois de 2001.
+  - **Metade está dentro do tecido de 1938–1960.** São 31 unidades e 693 domicílios
+    (49,5 %). O mapa dá esse tecido como traçado urbano, e a unidade não tinha domicílio
+    em 2010. É ocupação de **vazio dentro do traçado antigo**, não abertura de área
+    nova.
+  - Só 4 unidades (32 domicílios, 2,3 %) caem nos incrementos de 1970 e 2001.
+  - O § 13 dá o nome de alguns desses lugares: Núcleo Ney Azambuja, Bairro Ivone e os
+    loteamentos Universitário Minotto e Waldemar Mendonça.
+- **Qualidade da atribuição.** 10 novas tocam mais de um período, e 1 foi atribuída com
+  menos da metade da área.
+  - 4 das datadas em 1938 (50 domicílios) caem sobretudo na parte generalizada do
+    polígono de 1938.
+- **As novas de 1 km são campo.** Todas as 258 estão inteiramente fora dos polígonos.
+  "Fora", para elas, é rural, e não ocupação urbana depois de 2001.
+
+### 14.2 As 56 extintas urbanas, por fenômeno
+
+| período de ocupação | esvaziamento medido (un. / dom. 2010) | deslocamento por repartição (un. / dom.) | outras (un. / dom.) | total (un. / dom.) |
+| --- | --- | --- | --- | --- |
+| início do séc. XX | 1 / 7 | — | — | 1 / 7 |
+| 1938 | 12 / 126 | 12 / 42 | 2 / 3 | 26 / 171 |
+| 1960 | 1 / 6 | 2 / 14 | — | 3 / 20 |
+| fora do traçado mapeado até 2001 | 9 / 105 | 15 / 39 | 2 / 2 | 26 / 146 |
+| **total** | **23 / 244** | **29 / 95** | **4 / 5** | **56 / 344** |
+| inteiramente fora | 4 / 35 | 12 / 33 | 2 / 2 | 18 / 70 |
+| datadas em 1938, mas sobretudo na parte generalizada | 9 / 106 | 5 / 15 | — | 14 / 121 |
+
+- **Nenhuma extinta está no traçado de 1970 ou de 2001.** 26 estão no incremento de
+  1938, 26 fora do traçado de 2001, 3 no de 1960 e 1 no do início do séc. XX.
+  - Estão, então, ou no anel do traçado antigo generalizado ou além dele. Não estão nos
+    tecidos de 1960–2001 que o § 14.1 mostra recebendo ocupação.
+- **O esvaziamento medido está sobretudo na parte generalizada de 1938.** 9 das 12
+  unidades de esvaziamento datadas em 1938 (106 de 126 domicílios) caem sobretudo na
+  área que o polígono de 1938 desenha e o de 1960 não confirma.
+  - Somadas às 9 fora do traçado, **18 das 23 unidades de esvaziamento** estão fora do
+    traçado urbano firme: fora dos polígonos, ou só no desenho generalizado de 1938.
+- **O agrupamento 053/054** (o Bairro Fênix e a borda dele, § 13.3) é todo datado em
+  1938: 10 unidades e 111 domicílios.
+  - As 10 estão **todas na parte generalizada** do polígono de 1938. A data "até 1938"
+    não se sustenta ali, e o lugar deve ser lido como **borda sem data firme**.
+- **O deslocamento por repartição se divide:** 14 unidades no traçado de 1938–1960 e 15
+  fora. Das fora, 12 estão inteiramente fora.
+  - São células pequenas, de poucos domicílios (95 no total), como o § 12 descreve.
+- As ressalvas do § 12 continuam. A posição de 2010 é a face repartida, e a data dada
+  à célula herda essa incerteza.
+
+---
+
+## 15. Resultado negativo: as leis municipais de 1991–2006 não datam a expansão
+
+Registrado em 2026-09-24, depois da leitura das 26 leis de 1991 a 2006 recebidas com o
+Plano Diretor. O catálogo é `data/catalogo_legislacao.csv`, e os arquivos estão em
+`data/raw/legislacao/bage/`.
+
+- **As 26 leis são de patrimônio.** Declaram ou tombam bens como patrimônio histórico,
+  cultural ou natural: prédios, estádios, arroios e os Cerros. Criam também o
+  conselho de preservação (COMPREB, Lei 2.839/92).
+  - **Nenhuma cria ou altera loteamento, bairro ou perímetro.**
+  - A única que cria zona é a **Lei 2.786/91**: a Zona de Proteção ao Patrimônio
+    Cultural, no entorno da Catedral, dentro do núcleo histórico. Não é expansão.
+- **Não servem para datar a expansão urbana.** A Lei 3.234/95 cita o Loteamento Jardim
+  do Castelo como existente em 1995, mas uma citação avulsa não é série.
+- **A datação vem da evolução urbana do IPHAN** (§ 14 e `resultados_s2.md` § 8).
+- As leis que datariam o zoneamento de 1980–1991 são as Leis 2.099/1980, 2.171/1981,
+  2.645-A/1989 e 2.723/1991.
+  - Elas só aparecem citadas no texto compilado da Lei 1.762/1973 e não estão no
+    acervo.
+  - Estão pedidas à Prefeitura em `docs/pedido_prefeitura_bage.md`.
+- As LC 054 e 055/2015 ampliam o perímetro urbano (três glebas de rural para urbano,
+  na Macrozona de Reestruturação). São **pontuais**: datam essas glebas, não a
+  expansão.

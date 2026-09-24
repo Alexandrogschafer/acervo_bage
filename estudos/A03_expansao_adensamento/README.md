@@ -98,8 +98,9 @@ esperado no miolo denso.
 
 Os scripts que reproduzem cada número estão em [`scripts/`](scripts/) — `r00`–`r08`
 para o reconhecimento, `d01`–`d04` para o dimensionamento, `s1_*` para a subordinada 1,
-`s2_*` para a subordinada 2, `i01` para a interpretação por bairro e loteamento
-(`grade_estatistica.py` é a leitura da grade, comum a eles).
+`s2_*` para a subordinada 2, `i01` para a interpretação por bairro e loteamento,
+`i02` para a datação pela evolução urbana (`grade_estatistica.py` é a leitura da
+grade, comum a eles).
 
 > **`scripts/d03_grade.py` está SUPERADO** desde 2026-09-23 por
 > `scripts/s1_expansao_adensamento.py`. Ele junta as duas edições da grade por
@@ -135,6 +136,13 @@ revisado pelo responsável a partir do geobage, sem autorização de republicaç
 (`resultados_s1.md` § 13, `resultados_s2.md` § 7). Nenhuma camada nem figura sai dela.
 Por isso não está declarada no manifesto, onde bloquearia a publicação do estudo pela
 regra do mais restritivo. O script confere o `sha256_conteudo` dela antes de ler.
+
+Pelo mesmo motivo, `scripts/i02_evolucao_urbana.py` lê
+`data/externos/revia_bg/evolucao_urbana/` fora do manifesto. É a cópia (REVIA_BG,
+`evolucao_urbana_evo_v1`) dos polígonos da prancha 03/18 do dossiê de tombamento do
+IPHAN, e o REVIA_BG registra "não redistribuir os polígonos". Serve só para **datar**
+o período de ocupação no texto (`resultados_s1.md` § 14, `resultados_s2.md` § 8). A
+lista por unidade fica em `derivados/i02_evolucao_urbana_unidades.csv`, fora do git.
 
 A publicação de qualquer saída herda a restrição **mais restritiva** entre as
 camadas declaradas no manifesto (`scripts/utils/publicacao.py`). `setores_2022` está

@@ -1,0 +1,478 @@
+{
+  "objeto": "interpretação: período de ocupação (evolução urbana do IPHAN) das unidades dos resultados_s1 e s2 (cenário adotado, setor 136 à parte)",
+  "origem": "data/externos/revia_bg/evolucao_urbana/: cópia do REVIA_BG (evolucao_urbana_evo_v1) dos polígonos da prancha 03/18 do dossiê de tombamento do IPHAN (SICG, 2009), SEM licença de redistribuição — serve para DATAR e interpretar no texto, não para publicar camada nem mapa",
+  "evolucao_urbana": {
+    "pasta": "data/externos/revia_bg/evolucao_urbana",
+    "no_manifesto": false,
+    "sha256_conteudo": {
+      "urbano_1825": "692d7623c7ff7237908d6d01a4b69b2e7e24d360ff4e3ab7ab19cad7c7eba309",
+      "urbano_1850": "9f591edb8da88e4710e5dabc721047eb631fef7fcbf2b5e84a27f1a02921d0d7",
+      "urbano_1900": "bc8ab3be301d4eacd383538b47f955c4a7ac9702b644bcf257e80c6df438bd66",
+      "urbano_1938": "a8e2c17fa4c4358add6918830dd95daf8a53623b57f6baf22709a0d4dd9d7ee3",
+      "urbano_1960": "5d171367f64346779522d8aea01394fadc66e5f5bdc94c9a85086b7e9a56b382",
+      "urbano_1961_1970": "30c5c4a3231d98eeaf3be74d521e4eb6808e22044b77965bada35f751338ac80",
+      "urbano_1970_2001": "f9a516a912544497583f892383f0427fb2cfd2b275959999d51c71fec6504e92"
+    },
+    "incrementos": [
+      {
+        "periodo": "déc. 1820 (primeiro loteamento)",
+        "ha_poligono": 23.6,
+        "ha_incremento": 23.6
+      },
+      {
+        "periodo": "metade do séc. XIX",
+        "ha_poligono": 212.2,
+        "ha_incremento": 188.7
+      },
+      {
+        "periodo": "início do séc. XX",
+        "ha_poligono": 478.4,
+        "ha_incremento": 266.2
+      },
+      {
+        "periodo": "1938",
+        "ha_poligono": 2160.6,
+        "ha_incremento": 1682.2
+      },
+      {
+        "periodo": "1960",
+        "ha_poligono": 2796.8,
+        "ha_incremento": 1188.0
+      },
+      {
+        "periodo": "1970",
+        "ha_poligono": 668.5,
+        "ha_incremento": 433.1
+      },
+      {
+        "periodo": "2001",
+        "ha_poligono": 515.2,
+        "ha_incremento": 389.0
+      }
+    ],
+    "ha_do_poligono_1938_fora_do_de_1960": 551.9,
+    "generalizacao_1938": "o polígono de 1938 é o traçado daquele ano em REPRESENTAÇÃO GENERALIZADA (REVIA_BG, ESTADO.md, _evo_v2): datar por ele significa 'até 1938, no máximo'. Ele tem área que o de 1960 não cobre; a unidade datada em 1938 que cai sobretudo nessa parte tem datação fraca",
+    "nao_usados": "urbano_acampamentos e charqueadas_evolucao (não são períodos); ferrovia (sem .prj)"
+  },
+  "camada_sha256_conteudo": "f323c4ba030122677c022aa8ffe49dac6569504c091a38b8275080ab5c0b9d21",
+  "agrupamentos_sha256_conteudo": "f4302553b1714b78d8903464b71e7ae74865f9349a1ff0de5829407f321f3d63",
+  "criterio": "incremento de cada período = polígono menos a união dos anteriores (critério do REVIA_BG); cada unidade vai para o incremento de maior área de interseção; a parte fora de todos concorre como 'fora do traçado mapeado até 2001'; empate: o período mais antigo",
+  "leitura_do_fora": "células de 200 m: não ocupadas no traçado urbano de 2001; células de 1 km: rurais em 2001 — o mapa desenha só o traçado urbano",
+  "figuras": "não mudam: o período entra como texto, não como camada",
+  "s2_agrupamentos_divergencia": {
+    "1": {
+      "unidades": 21,
+      "dom_10": 1134,
+      "por_periodo": [
+        {
+          "periodo": "1938",
+          "unidades": 2,
+          "pct_unidades": 9.5,
+          "dom_10": 88,
+          "pct_dom_10": 7.8
+        },
+        {
+          "periodo": "1960",
+          "unidades": 7,
+          "pct_unidades": 33.3,
+          "dom_10": 457,
+          "pct_dom_10": 40.3
+        },
+        {
+          "periodo": "1970",
+          "unidades": 10,
+          "pct_unidades": 47.6,
+          "dom_10": 489,
+          "pct_dom_10": 43.1
+        },
+        {
+          "periodo": "fora do traçado mapeado até 2001",
+          "unidades": 2,
+          "pct_unidades": 9.5,
+          "dom_10": 100,
+          "pct_dom_10": 8.8
+        }
+      ],
+      "inteiramente_fora_de_todos_os_poligonos": {
+        "unidades": 0,
+        "dom_10": 0
+      },
+      "unidades_que_tocam_mais_de_um_periodo": 6,
+      "unidades_atribuidas_com_menos_de_metade_da_area": 0,
+      "datadas_1938_com_metade_ou_mais_fora_do_poligono_de_1960": {
+        "unidades": 0,
+        "dom_10": 0
+      }
+    },
+    "2": {
+      "unidades": 18,
+      "dom_10": 1115,
+      "por_periodo": [
+        {
+          "periodo": "metade do séc. XIX",
+          "unidades": 2,
+          "pct_unidades": 11.1,
+          "dom_10": 168,
+          "pct_dom_10": 15.1
+        },
+        {
+          "periodo": "início do séc. XX",
+          "unidades": 2,
+          "pct_unidades": 11.1,
+          "dom_10": 160,
+          "pct_dom_10": 14.3
+        },
+        {
+          "periodo": "1938",
+          "unidades": 14,
+          "pct_unidades": 77.8,
+          "dom_10": 787,
+          "pct_dom_10": 70.6
+        }
+      ],
+      "inteiramente_fora_de_todos_os_poligonos": {
+        "unidades": 0,
+        "dom_10": 0
+      },
+      "unidades_que_tocam_mais_de_um_periodo": 7,
+      "unidades_atribuidas_com_menos_de_metade_da_area": 1,
+      "datadas_1938_com_metade_ou_mais_fora_do_poligono_de_1960": {
+        "unidades": 3,
+        "dom_10": 207
+      }
+    }
+  },
+  "s1_novas": {
+    "todas": {
+      "unidades": 354,
+      "dom_22": 1883,
+      "por_periodo": [
+        {
+          "periodo": "1938",
+          "unidades": 14,
+          "pct_unidades": 4.0,
+          "dom_22": 130,
+          "pct_dom_22": 6.9
+        },
+        {
+          "periodo": "1960",
+          "unidades": 17,
+          "pct_unidades": 4.8,
+          "dom_22": 563,
+          "pct_dom_22": 29.9
+        },
+        {
+          "periodo": "1970",
+          "unidades": 1,
+          "pct_unidades": 0.3,
+          "dom_22": 1,
+          "pct_dom_22": 0.1
+        },
+        {
+          "periodo": "2001",
+          "unidades": 3,
+          "pct_unidades": 0.8,
+          "dom_22": 31,
+          "pct_dom_22": 1.6
+        },
+        {
+          "periodo": "fora do traçado mapeado até 2001",
+          "unidades": 319,
+          "pct_unidades": 90.1,
+          "dom_22": 1158,
+          "pct_dom_22": 61.5
+        }
+      ],
+      "inteiramente_fora_de_todos_os_poligonos": {
+        "unidades": 295,
+        "dom_22": 835
+      },
+      "unidades_que_tocam_mais_de_um_periodo": 10,
+      "unidades_atribuidas_com_menos_de_metade_da_area": 1,
+      "datadas_1938_com_metade_ou_mais_fora_do_poligono_de_1960": {
+        "unidades": 4,
+        "dom_22": 50
+      }
+    },
+    "resolucao_1 km": {
+      "unidades": 258,
+      "dom_22": 416,
+      "por_periodo": [
+        {
+          "periodo": "fora do traçado mapeado até 2001",
+          "unidades": 258,
+          "pct_unidades": 100.0,
+          "dom_22": 416,
+          "pct_dom_22": 100.0
+        }
+      ],
+      "inteiramente_fora_de_todos_os_poligonos": {
+        "unidades": 258,
+        "dom_22": 416
+      },
+      "unidades_que_tocam_mais_de_um_periodo": 0,
+      "unidades_atribuidas_com_menos_de_metade_da_area": 0,
+      "datadas_1938_com_metade_ou_mais_fora_do_poligono_de_1960": {
+        "unidades": 0,
+        "dom_22": 0
+      }
+    },
+    "resolucao_1 km (2022 em 200 m)": {
+      "unidades": 6,
+      "dom_22": 67,
+      "por_periodo": [
+        {
+          "periodo": "fora do traçado mapeado até 2001",
+          "unidades": 6,
+          "pct_unidades": 100.0,
+          "dom_22": 67,
+          "pct_dom_22": 100.0
+        }
+      ],
+      "inteiramente_fora_de_todos_os_poligonos": {
+        "unidades": 2,
+        "dom_22": 11
+      },
+      "unidades_que_tocam_mais_de_um_periodo": 0,
+      "unidades_atribuidas_com_menos_de_metade_da_area": 0,
+      "datadas_1938_com_metade_ou_mais_fora_do_poligono_de_1960": {
+        "unidades": 0,
+        "dom_22": 0
+      }
+    },
+    "resolucao_200 m": {
+      "unidades": 90,
+      "dom_22": 1400,
+      "por_periodo": [
+        {
+          "periodo": "1938",
+          "unidades": 14,
+          "pct_unidades": 15.6,
+          "dom_22": 130,
+          "pct_dom_22": 9.3
+        },
+        {
+          "periodo": "1960",
+          "unidades": 17,
+          "pct_unidades": 18.9,
+          "dom_22": 563,
+          "pct_dom_22": 40.2
+        },
+        {
+          "periodo": "1970",
+          "unidades": 1,
+          "pct_unidades": 1.1,
+          "dom_22": 1,
+          "pct_dom_22": 0.1
+        },
+        {
+          "periodo": "2001",
+          "unidades": 3,
+          "pct_unidades": 3.3,
+          "dom_22": 31,
+          "pct_dom_22": 2.2
+        },
+        {
+          "periodo": "fora do traçado mapeado até 2001",
+          "unidades": 55,
+          "pct_unidades": 61.1,
+          "dom_22": 675,
+          "pct_dom_22": 48.2
+        }
+      ],
+      "inteiramente_fora_de_todos_os_poligonos": {
+        "unidades": 35,
+        "dom_22": 408
+      },
+      "unidades_que_tocam_mais_de_um_periodo": 10,
+      "unidades_atribuidas_com_menos_de_metade_da_area": 1,
+      "datadas_1938_com_metade_ou_mais_fora_do_poligono_de_1960": {
+        "unidades": 4,
+        "dom_22": 50
+      }
+    }
+  },
+  "s1_extintas_urbanas": {
+    "todas": {
+      "unidades": 56,
+      "dom_10": 344,
+      "por_periodo": [
+        {
+          "periodo": "início do séc. XX",
+          "unidades": 1,
+          "pct_unidades": 1.8,
+          "dom_10": 7,
+          "pct_dom_10": 2.0
+        },
+        {
+          "periodo": "1938",
+          "unidades": 26,
+          "pct_unidades": 46.4,
+          "dom_10": 171,
+          "pct_dom_10": 49.7
+        },
+        {
+          "periodo": "1960",
+          "unidades": 3,
+          "pct_unidades": 5.4,
+          "dom_10": 20,
+          "pct_dom_10": 5.8
+        },
+        {
+          "periodo": "fora do traçado mapeado até 2001",
+          "unidades": 26,
+          "pct_unidades": 46.4,
+          "dom_10": 146,
+          "pct_dom_10": 42.4
+        }
+      ],
+      "inteiramente_fora_de_todos_os_poligonos": {
+        "unidades": 18,
+        "dom_10": 70
+      },
+      "unidades_que_tocam_mais_de_um_periodo": 2,
+      "unidades_atribuidas_com_menos_de_metade_da_area": 0,
+      "datadas_1938_com_metade_ou_mais_fora_do_poligono_de_1960": {
+        "unidades": 14,
+        "dom_10": 121
+      }
+    },
+    "esvaziamento medido": {
+      "unidades": 23,
+      "dom_10": 244,
+      "por_periodo": [
+        {
+          "periodo": "início do séc. XX",
+          "unidades": 1,
+          "pct_unidades": 4.3,
+          "dom_10": 7,
+          "pct_dom_10": 2.9
+        },
+        {
+          "periodo": "1938",
+          "unidades": 12,
+          "pct_unidades": 52.2,
+          "dom_10": 126,
+          "pct_dom_10": 51.6
+        },
+        {
+          "periodo": "1960",
+          "unidades": 1,
+          "pct_unidades": 4.3,
+          "dom_10": 6,
+          "pct_dom_10": 2.5
+        },
+        {
+          "periodo": "fora do traçado mapeado até 2001",
+          "unidades": 9,
+          "pct_unidades": 39.1,
+          "dom_10": 105,
+          "pct_dom_10": 43.0
+        }
+      ],
+      "inteiramente_fora_de_todos_os_poligonos": {
+        "unidades": 4,
+        "dom_10": 35
+      },
+      "unidades_que_tocam_mais_de_um_periodo": 0,
+      "unidades_atribuidas_com_menos_de_metade_da_area": 0,
+      "datadas_1938_com_metade_ou_mais_fora_do_poligono_de_1960": {
+        "unidades": 9,
+        "dom_10": 106
+      }
+    },
+    "indício de deslocamento por repartição da face": {
+      "unidades": 29,
+      "dom_10": 95,
+      "por_periodo": [
+        {
+          "periodo": "1938",
+          "unidades": 12,
+          "pct_unidades": 41.4,
+          "dom_10": 42,
+          "pct_dom_10": 44.2
+        },
+        {
+          "periodo": "1960",
+          "unidades": 2,
+          "pct_unidades": 6.9,
+          "dom_10": 14,
+          "pct_dom_10": 14.7
+        },
+        {
+          "periodo": "fora do traçado mapeado até 2001",
+          "unidades": 15,
+          "pct_unidades": 51.7,
+          "dom_10": 39,
+          "pct_dom_10": 41.1
+        }
+      ],
+      "inteiramente_fora_de_todos_os_poligonos": {
+        "unidades": 12,
+        "dom_10": 33
+      },
+      "unidades_que_tocam_mais_de_um_periodo": 1,
+      "unidades_atribuidas_com_menos_de_metade_da_area": 0,
+      "datadas_1938_com_metade_ou_mais_fora_do_poligono_de_1960": {
+        "unidades": 5,
+        "dom_10": 15
+      }
+    },
+    "outras": {
+      "unidades": 4,
+      "dom_10": 5,
+      "por_periodo": [
+        {
+          "periodo": "1938",
+          "unidades": 2,
+          "pct_unidades": 50.0,
+          "dom_10": 3,
+          "pct_dom_10": 60.0
+        },
+        {
+          "periodo": "fora do traçado mapeado até 2001",
+          "unidades": 2,
+          "pct_unidades": 50.0,
+          "dom_10": 2,
+          "pct_dom_10": 40.0
+        }
+      ],
+      "inteiramente_fora_de_todos_os_poligonos": {
+        "unidades": 2,
+        "dom_10": 2
+      },
+      "unidades_que_tocam_mais_de_um_periodo": 1,
+      "unidades_atribuidas_com_menos_de_metade_da_area": 0,
+      "datadas_1938_com_metade_ou_mais_fora_do_poligono_de_1960": {
+        "unidades": 0,
+        "dom_10": 0
+      }
+    },
+    "agrupamento_053_054": {
+      "unidades": 10,
+      "dom_10": 111,
+      "por_periodo": [
+        {
+          "periodo": "1938",
+          "unidades": 10,
+          "pct_unidades": 100.0,
+          "dom_10": 111,
+          "pct_dom_10": 100.0
+        }
+      ],
+      "inteiramente_fora_de_todos_os_poligonos": {
+        "unidades": 0,
+        "dom_10": 0
+      },
+      "unidades_que_tocam_mais_de_um_periodo": 0,
+      "unidades_atribuidas_com_menos_de_metade_da_area": 0,
+      "datadas_1938_com_metade_ou_mais_fora_do_poligono_de_1960": {
+        "unidades": 10,
+        "dom_10": 111
+      }
+    }
+  },
+  "lista_por_unidade": "estudos/A03_expansao_adensamento/derivados/i02_evolucao_urbana_unidades.csv (fora do git)",
+  "crs_operacao": "EPSG:31981",
+  "crs_medicao_area": "ESRI:102033"
+}

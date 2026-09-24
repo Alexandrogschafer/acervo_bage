@@ -1,0 +1,60 @@
+{
+  "arquivo": "data/externos/revia_bg/evolucao_urbana/charqueadas_evolucao.shp",
+  "autorizacao_fonte": false,
+  "campos_removidos": [],
+  "commit": "53c7409db58502bba9fba6cdbf015d2cc9416af0",
+  "crs": "EPSG:31981",
+  "data_commit": "2026-09-24T16:31:44-03:00",
+  "data_producao": "2026-09-19T20:23:08.961508-03:00",
+  "fonte_id": "revia_bg_evolucao_urbana",
+  "licenca": "sem licença registrada — polígonos convertidos da prancha 03/18 do dossiê de tombamento do IPHAN (SICG, 2009); o REVIA_BG registra 'não redistribuir os polígonos'",
+  "observacoes": "charqueadas — áreas nomeadas no desenho; não é período. Cópia do REVIA_BG (dados/externos/evolucao_urbana/, versão evolucao_urbana_evo_v1 do config/base.yml de lá), com sha256 de cada componente conferido contra aquele registro. Origem: prancha 03/18 'Condicionantes – Evolução Urbana', dossiê de tombamento do IPHAN (SICG, out/2009, SNA Arquitetura, 1:25.000), convertida de CAD para shapefile pelo responsável (ArcGIS 10.3, 2017). NÃO REDISTRIBUIR: o docs/LICENCAS.md do REVIA_BG diz 'não redistribuir os polígonos'; por isso autorizacao_fonte=false, pode_publicar=false e fora do git. CAMADA DE INTERPRETAÇÃO: serve para DATAR e interpretar no texto (período de ocupação), não para publicar camada nem mapa. NÃO é declarada no manifesto do A03: declarada, bloquearia a publicação do estudo pela regra do mais restritivo. Os polígonos até 1960 são cumulativos (1825 ⊂ 1850 ⊂ 1900 ⊂ 1938, e 1960 cobre 74,5 % de 1938) e os dois últimos são manchas destacadas: quem usa deriva o INCREMENTO de cada período (polígono menos a união dos anteriores), como no REVIA_BG.",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "repo_origem": "REVIA_BG (rede_viaria_bage)",
+  "sha256": "9144f7ce2562992d3696a3608ff95011f97adae7585a0ac000f93e724a3aebb4",
+  "sha256_conteudo": "0c4ba5c685c4792514d14e8dc291120a8785693b7fca2591b52d0cfeb6fd6816",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 1692,
+  "tema": "cadastro",
+  "verificacoes": {
+    "caminho_na_origem": "dados/externos/evolucao_urbana/charqueadas_evolucao.shp",
+    "campos": [
+      "FID_",
+      "Entity",
+      "Layer",
+      "Color",
+      "Linetype",
+      "Elevation",
+      "LineWt",
+      "RefName"
+    ],
+    "componentes_do_shapefile": {
+      "charqueadas_evolucao.dbf": {
+        "bytes": 5987,
+        "sha256": "7cc1ac14e84fa5e4166d2e00d87210939b5bc92570679838d551001318d2d6bd"
+      },
+      "charqueadas_evolucao.prj": {
+        "bytes": 418,
+        "sha256": "ac3308d6a807fed9e92de71d44eb0bf4475ff01310cac06b897855ae12ee690c"
+      },
+      "charqueadas_evolucao.shp": {
+        "bytes": 1692,
+        "sha256": "9144f7ce2562992d3696a3608ff95011f97adae7585a0ac000f93e724a3aebb4"
+      },
+      "charqueadas_evolucao.shp.xml": {
+        "bytes": 1436,
+        "sha256": "96f9b69eab34abb35afd8997c4ab2e25d091b40f895c004d69d8259a24efe150"
+      },
+      "charqueadas_evolucao.shx": {
+        "bytes": 156,
+        "sha256": "42df103d208edfab5f37d44f22bc403cd614e379337a0691e8f24e72aff1e3d2"
+      }
+    },
+    "crs_declarado": "EPSG:31981",
+    "feicoes": 7,
+    "geometria": "Polygon",
+    "geometrias_invalidas": 0
+  },
+  "versao": "evolucao_urbana_evo_v1"
+}

@@ -314,3 +314,73 @@ lista por unidade.*
   agrupamento 1 a NORTE e NORDESTE. O § 1 diz noroeste, pelo rumo das unidades a partir
   do centro médio dos domicílios de 2010. As duas referências são diferentes, e a
   diferença fica registrada, sem correção.
+
+---
+
+## 8. Período de ocupação dos dois agrupamentos (interpretação)
+
+> **Origem não redistribuível.** `data/externos/revia_bg/evolucao_urbana/` é a cópia
+> (REVIA_BG, versão `evolucao_urbana_evo_v1`, sha256 fixado por componente) dos
+> polígonos convertidos da prancha 03/18 "Condicionantes – Evolução Urbana" do dossiê
+> de tombamento do **IPHAN** (SICG, 2009). A licença não está registrada, e o REVIA_BG
+> diz **"não redistribuir os polígonos"** (`pode_publicar=false`, fora do git).
+> - Serve para **DATAR e interpretar no texto**, não para publicar camada nem mapa.
+> - Não está no manifesto, como a camada de bairros do § 7.
+> - As figuras não mudam.
+
+*Feito em 2026-09-24 por `scripts/i02_evolucao_urbana.py`. Números em
+`derivados/i02_evolucao_urbana.json`, bloco `s2_agrupamentos_divergencia`. A lista por
+unidade está em `derivados/i02_evolucao_urbana_unidades.csv`, fora do git.*
+
+- **Incrementos.** Os polígonos do mapa são cumulativos até 1960 e os dois últimos
+  são manchas destacadas. O incremento de cada período é o polígono dele menos a união
+  dos anteriores. É o critério do REVIA_BG.
+  - Os incrementos, em hectares: déc. 1820, 23,6; metade do séc. XIX, 188,7; início do
+    séc. XX, 266,2; 1938, 1.682,2; 1960, 1.188,0; 1970, 433,1; 2001, 389,0.
+- **Critério.** Cada unidade vai para o incremento com a **maior área de interseção**.
+  A parte fora de todos concorre como "fora do traçado mapeado até 2001". Em empate,
+  vence o período mais antigo.
+  - A interseção é feita em EPSG:31981, e a área é medida no ESRI:102033.
+- **O polígono de 1938 é generalizado.** O REVIA_BG registra que ele é o traçado
+  daquele ano em representação generalizada. Datar por ele significa "até 1938, no
+  máximo".
+  - Ele tem 551,9 ha que o polígono de 1960 não cobre. A unidade datada em 1938 que cai
+    sobretudo nessa parte tem **datação fraca**, e isso é contado abaixo.
+
+**Agrupamento 1** (21 unidades, 1.134 domicílios em 2010):
+
+| período de ocupação | unidades | % das unidades | domicílios 2010 | % dos domicílios |
+| --- | ---: | ---: | ---: | ---: |
+| 1938 | 2 | 9,5 % | 88 | 7,8 % |
+| 1960 | 7 | 33,3 % | 457 | 40,3 % |
+| 1970 | 10 | 47,6 % | 489 | 43,1 % |
+| fora do traçado mapeado até 2001 | 2 | 9,5 % | 100 | 8,8 % |
+
+**Agrupamento 2** (18 unidades, 1.115 domicílios em 2010):
+
+| período de ocupação | unidades | % das unidades | domicílios 2010 | % dos domicílios |
+| --- | ---: | ---: | ---: | ---: |
+| metade do séc. XIX | 2 | 11,1 % | 168 | 15,1 % |
+| início do séc. XX | 2 | 11,1 % | 160 | 14,3 % |
+| 1938 | 14 | 77,8 % | 787 | 70,6 % |
+
+- **Os dois agrupamentos são de épocas diferentes.**
+  - O **agrupamento 1** é **ocupação de 1960 e 1970**: 17 das 21 unidades e 83 % dos
+    domicílios de 2010.
+    - Nenhuma unidade cai inteiramente fora dos polígonos. As 2 atribuídas a "fora"
+      tocam algum período.
+  - O **agrupamento 2** é **anterior a 1960**: todas as 18 unidades estão até 1938, e
+    4 delas (29 % dos domicílios) estão no traçado do séc. XIX e do início do XX.
+    - 3 das 14 datadas em 1938 (207 domicílios) caem sobretudo na parte generalizada
+      do polígono de 1938. Para essas, "até 1938" é fraco.
+- **Qualidade da atribuição.** Agrupamento 1: 6 unidades tocam mais de um período, e
+  nenhuma foi atribuída com menos da metade da área. Agrupamento 2: 7 tocam mais de um
+  período, e 1 foi atribuída com menos da metade.
+- **Leitura com o § 7.**
+  - O agrupamento 1 (arco São João – São Jorge – Laranjeiras) é **periferia de
+    1960–1970**.
+  - O agrupamento 2 (borda oeste do CENTRO e as vilas Operária, Alcides Almeida e
+    outras) é **cidade de até 1938**.
+  - "Bairros antigos" vale para o agrupamento 2. Para o agrupamento 1, o antigo é de
+    meio século, não do núcleo histórico.
+  - A divergência de sinal aparece, então, em dois tecidos de idade diferente.

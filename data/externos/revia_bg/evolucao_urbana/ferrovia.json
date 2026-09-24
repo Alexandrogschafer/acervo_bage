@@ -1,0 +1,59 @@
+{
+  "arquivo": "data/externos/revia_bg/evolucao_urbana/ferrovia.shp",
+  "autorizacao_fonte": false,
+  "campos_removidos": [],
+  "commit": "53c7409db58502bba9fba6cdbf015d2cc9416af0",
+  "crs": "",
+  "data_commit": "2026-09-24T16:31:44-03:00",
+  "data_producao": "2026-09-19T20:23:12.370732-03:00",
+  "fonte_id": "revia_bg_evolucao_urbana",
+  "licenca": "sem licença registrada — polígonos convertidos da prancha 03/18 do dossiê de tombamento do IPHAN (SICG, 2009); o REVIA_BG registra 'não redistribuir os polígonos'",
+  "observacoes": "ferrovia — SEM .prj: CRS não declarado; NÃO USAR. Cópia do REVIA_BG (dados/externos/evolucao_urbana/, versão evolucao_urbana_evo_v1 do config/base.yml de lá), com sha256 de cada componente conferido contra aquele registro. Origem: prancha 03/18 'Condicionantes – Evolução Urbana', dossiê de tombamento do IPHAN (SICG, out/2009, SNA Arquitetura, 1:25.000), convertida de CAD para shapefile pelo responsável (ArcGIS 10.3, 2017). NÃO REDISTRIBUIR: o docs/LICENCAS.md do REVIA_BG diz 'não redistribuir os polígonos'; por isso autorizacao_fonte=false, pode_publicar=false e fora do git. CAMADA DE INTERPRETAÇÃO: serve para DATAR e interpretar no texto (período de ocupação), não para publicar camada nem mapa. NÃO é declarada no manifesto do A03: declarada, bloquearia a publicação do estudo pela regra do mais restritivo. Os polígonos até 1960 são cumulativos (1825 ⊂ 1850 ⊂ 1900 ⊂ 1938, e 1960 cobre 74,5 % de 1938) e os dois últimos são manchas destacadas: quem usa deriva o INCREMENTO de cada período (polígono menos a união dos anteriores), como no REVIA_BG.",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "repo_origem": "REVIA_BG (rede_viaria_bage)",
+  "sha256": "720d1e8432007b251c0b66ce63528ca3032a71942c928f0f98adbf54fb1bd0b9",
+  "sha256_conteudo": "3f41c772712268965e68c2de4589f0612c1e42e43d6193aebd394673789b8592",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 9332,
+  "tema": "cadastro",
+  "verificacoes": {
+    "caminho_na_origem": "dados/externos/evolucao_urbana/ferrovia.shp",
+    "campos": [
+      "ID",
+      "Nome",
+      "Tipo"
+    ],
+    "componentes_do_shapefile": {
+      "ferrovia.cpg": {
+        "bytes": 5,
+        "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824"
+      },
+      "ferrovia.dbf": {
+        "bytes": 1184,
+        "sha256": "68b3812e31ea77608cb61fc2f50f336ba6095c75129b18207e27c84d1877d82f"
+      },
+      "ferrovia.sbn": {
+        "bytes": 164,
+        "sha256": "28b816a4fc476ceb10844acd49d458366fd5cecbcfdcc3f8e4568c1c5ff3c433"
+      },
+      "ferrovia.sbx": {
+        "bytes": 124,
+        "sha256": "beea367263f422196bbc8863a6ebbb2cd4a7e7e13186afc191ce270926ed02e4"
+      },
+      "ferrovia.shp": {
+        "bytes": 9332,
+        "sha256": "720d1e8432007b251c0b66ce63528ca3032a71942c928f0f98adbf54fb1bd0b9"
+      },
+      "ferrovia.shx": {
+        "bytes": 116,
+        "sha256": "dcc9ecfa93e5b0b2af25b9d3bff16a5d64f3b7b5cb2aa3df794fbc4c037b3111"
+      }
+    },
+    "crs_declarado": "SEM .prj",
+    "feicoes": 2,
+    "geometria": "LineString",
+    "geometrias_invalidas": 0
+  },
+  "versao": "evolucao_urbana_evo_v1"
+}
