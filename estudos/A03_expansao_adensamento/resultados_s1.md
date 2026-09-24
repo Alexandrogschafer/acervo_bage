@@ -1569,3 +1569,159 @@ que os outros três (§ 11.2):
 >
 > *Desde 2026-09-23 a conferência visual foi feita e registrada. A camada continua
 > **pendente de promoção**, e nada foi para o acervo.*
+
+---
+
+## 13. Bairros e loteamentos das novas e das extintas urbanas (interpretação)
+
+> **Origem dos nomes.** `data/externos/bairros_loteamentos_bage/bairros_loteamentos_bage.gpkg`
+> é material **revisado pelo responsável a partir do geobage** (Prefeitura de Bagé),
+> **sem autorização de republicação** (`pode_publicar=false`, fora do git). Serve para
+> **nomear e interpretar no texto**, não para publicar camada nem mapa. Não está no
+> manifesto: se estivesse, a regra do mais restritivo bloquearia a publicação do estudo.
+> **As figuras não mudam:** bairro e loteamento entram como texto, não como camada.
+
+*Feito em 2026-09-24 por `scripts/i01_bairros_loteamentos.py`, no cenário adotado.
+Números em `derivados/i01_bairros_loteamentos.json`, blocos `s1_novas` e
+`s1_extintas_urbanas`, com a lista por unidade. A camada e o critério são os do
+`resultados_s2.md` § 7:*
+- *um mosaico de 114 polígonos, sem hierarquia, sem campo de tipo e sem data de
+  aprovação, com o tipo lido só do nome;*
+- *cada unidade vai para o polígono de maior área de interseção, e a parte fora de
+  todos concorre como "(fora da camada)".*
+
+### 13.1 A cobertura da camada
+
+| | km² | coberta pela camada |
+| --- | ---: | ---: |
+| área urbanizada de 2022 do IBGE | 34,34 | 26,29 km² (**76,5 %**) |
+| área urbanizada densa | 27,80 | 22,00 km² (79,1 %) |
+| a camada | 32,66 | 6,37 km² dela fora da área urbanizada |
+
+- A camada cobre **três quartos da cidade de 2022**. O que falta é sobretudo a
+  **borda**.
+  - Entre os polígonos há também frestas de rua (a união tem 113 partes). Fechá-las a
+    20 m acrescenta só 42 ha, então a lacuna não é de fresta.
+- É justamente na borda que estão as novas e as extintas urbanas (§ 5.1). Por isso a
+  maioria delas cai "(fora da camada)".
+  - **Isso é limite de cobertura da camada, não achado sobre a cidade.**
+  - Para essas, o texto usa o **polígono mais próximo, até 500 m, só para nomear a
+    vizinhança**. Não é atribuição.
+- A camada não tem hierarquia. Não existe, então, "loteamento sem bairro": cada
+  polígono é uma unidade só, e um loteamento é o que se chama de loteamento.
+
+### 13.2 As 354 novas
+
+| novas | unidades | em algum polígono | fora da camada | domicílios 2022 fora da camada |
+| --- | ---: | ---: | ---: | ---: |
+| 200 m | 90 | 20 | 70 | 1.011 de 1.400 |
+| 1 km (2022 em 200 m) | 6 | 0 | 6 | 67 de 67 |
+| 1 km | 258 | 0 | 258 | 416 de 416 |
+| **total** | **354** | **20** | **334** | **1.494 de 1.883 (79,3 %)** |
+
+As 20 novas que caem em algum polígono (todas de 200 m):
+
+| bairro ou loteamento | tipo pelo nome | unidades | domicílios 2022 |
+| --- | --- | ---: | ---: |
+| NÚCLEO NEY AZAMBUJA | sem tipo no nome | 1 | 170 |
+| BAIRRO IVONE | bairro | 3 | 122 |
+| LOTEAMENTO UNIVERSITÁRIO MINOTTO | loteamento | 4 | 49 |
+| VISCONDE RIBEIRO MAGALHÃES | sem tipo no nome | 1 | 16 |
+| LOTEAMENTO WALDEMAR MENDONÇA | loteamento | 6 | 14 |
+| HORTÍCULA NOVA ESPERANÇA | sem tipo no nome | 2 | 11 |
+| SOL NASCENTE | sem tipo no nome | 1 | 4 |
+| VILA FLORESTA | vila | 1 | 2 |
+| VILA AZEVEDO | vila | 1 | 1 |
+| **total** | 10 em loteamento, 3 em bairro, 2 em vila, 5 sem tipo no nome | **20** | **389** |
+
+As **70 novas de 200 m fora da camada** (1.011 domicílios): 48 tocam a área urbanizada
+de 2022; 31 tocam um polígono, 26 estão a até 200 m e 7 de 200 a 500 m. O polígono mais
+próximo, até 500 m, nas que somam 10 domicílios ou mais:
+
+| polígono mais próximo (só para nomear a vizinhança) | unidades | domicílios 2022 |
+| --- | ---: | ---: |
+| VILA TUPÃ | 6 | 277 |
+| VOLNEI R. TAVARES | 2 | 210 |
+| VILA PETRÓPOLIS 1 | 2 | 173 |
+| NÚCLEO NEY AZAMBUJA | 4 | 125 |
+| VILA DOLORES | 2 | 39 |
+| VISCONDE RIBEIRO MAGALHÃES | 1 | 26 |
+| LOTEAMENTO UNIVERSITÁRIO MINOTTO | 2 | 24 |
+| VILA SANTA CRUZ | 3 | 16 |
+| JARDIM SANTA TECLA | 2 | 16 |
+| BAIRRO TIARAJÚ | 4 | 13 |
+| PEDRA BRANCA 3ª ETAPA | 3 | 12 |
+| VILA STAND | 2 | 11 |
+| LOTEAMENTO DO PARQUE | 1 | 11 |
+| demais 20 polígonos | 30 | 51 |
+| a mais de 500 m de qualquer polígono | 6 | 7 |
+
+- As novas de 1 km estão no campo: 251 das 258 a mais de 1 km de qualquer polígono.
+- **Leitura, só para nomear:**
+  - o domicílio novo **dentro** da camada está em poucos lugares: Núcleo Ney Azambuja,
+    Bairro Ivone e os loteamentos Universitário Minotto e Waldemar Mendonça;
+  - o grosso das novas urbanas está **além** dos polígonos, encostado neles: Vila Tupã,
+    Volnei R. Tavares, Vila Petrópolis 1 e Núcleo Ney Azambuja somam 785 domicílios.
+  - É coerente com a expansão de borda do § 4. O nome é o do vizinho, não o da
+    ocupação nova.
+
+### 13.3 As 56 extintas urbanas, por fenômeno
+
+| extintas urbanas | unidades | em algum polígono | fora da camada | domicílios 2010 fora da camada |
+| --- | ---: | ---: | ---: | ---: |
+| esvaziamento medido | 23 | 6 | 17 | 181 de 244 |
+| indício de deslocamento por repartição da face | 29 | 4 | 25 | 88 de 95 |
+| outras | 4 | 1 | 3 | 3 de 5 |
+| **total** | **56** | **11** | **45** | **272 de 344 (79,1 %)** |
+
+As 11 que caem em algum polígono:
+
+| bairro ou loteamento | tipo pelo nome | esvaziamento medido (un. / dom.) | deslocamento (un. / dom.) | outras (un. / dom.) |
+| --- | --- | --- | --- | --- |
+| BAIRRO FÊNIX | bairro | 2 / 41 | — | — |
+| LOTEAMENTO WALDEMAR MENDONÇA | loteamento | 1 / 7 | 3 / 5 | — |
+| CENTRO | sem tipo no nome | 1 / 7 | — | — |
+| HORTÍCULA NOVA ESPERANÇA | sem tipo no nome | 1 / 7 | — | — |
+| SOL NASCENTE | sem tipo no nome | 1 / 1 | — | — |
+| VILA TUPÃ | vila | — | 1 / 2 | — |
+| VILA FLORESTA | vila | — | — | 1 / 2 |
+
+As 45 fora da camada: 21 tocam a área urbanizada de 2022; 17 tocam um polígono, 24
+estão a até 200 m, 3 de 200 a 500 m e 1 de 500 m a 1 km. O polígono mais próximo, até
+500 m, nas que somam 5 domicílios ou mais:
+
+| polígono mais próximo (só para nomear a vizinhança) | esvaziamento medido (un. / dom.) | deslocamento (un. / dom.) |
+| --- | --- | --- |
+| BAIRRO FÊNIX | 6 / 64 | 1 / 3 |
+| VILA STAND | 1 / 57 | — |
+| CENTRO | 1 / 2 | 6 / 28 |
+| LOTEAMENTO IVO FERRONATO | 2 / 26 | — |
+| VILA SOUZA | 2 / 7 | 2 / 5 |
+| PEDRA BRANCA 3ª ETAPA | — | 2 / 12 |
+| VILA SANTA CRUZ | 1 / 12 | — |
+| VILA FLORENÇA | — | 1 / 7 |
+| CASTRO ALVES | 1 / 6 | — |
+| BAIRRO IVONE | — | 1 / 5 |
+| HORTÍCULA NOVA ESPERANÇA | — | 1 / 5 |
+| VILA SANTA TECLA | — | 1 / 5 |
+
+**O agrupamento 053/054** (10 unidades, 111 domicílios; 8 de esvaziamento medido, § 5.1):
+
+| | unidades | domicílios 2010 |
+| --- | ---: | ---: |
+| dentro do BAIRRO FÊNIX | 2 | 41 |
+| fora da camada, com o BAIRRO FÊNIX como polígono mais próximo | 7 | 67 |
+| fora da camada, com a VILA MINGOTE PAIVA como polígono mais próximo | 1 | 3 |
+
+- **O agrupamento 053/054 é o Bairro Fênix e a borda dele para fora da camada.** Das
+  10 unidades, 9 estão nele ou têm nele o polígono mais próximo, a até 500 m (108 dos
+  111 domicílios). Das 8 fora da camada, só 1 toca a área urbanizada de 2022.
+- **Leitura, só para nomear:**
+  - o **esvaziamento medido** tem nome em dois lugares: o **Bairro Fênix** (8 unidades
+    e 105 domicílios, dentro e na borda) e a borda da **Vila Stand** (1 unidade, 57
+    domicílios);
+  - o **deslocamento por repartição** fica sobretudo na borda do polígono **CENTRO** (6
+    unidades, 28 domicílios) e no **Loteamento Waldemar Mendonça** (3 unidades, 5
+    domicílios), em células pequenas. É o esperado de um efeito de face repartida.
+- As ressalvas do § 12 continuam. A posição de 2010 é a face repartida, e o nome dado
+  à célula herda essa incerteza.

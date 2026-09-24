@@ -245,3 +245,72 @@ geocodificação (a coordenada original).
   domicílio urbano está na face repartida por extensão. A divergência usa domicílios e
   população de 2010, e a posição deles tem essa incerteza. O reposicionamento do § 12
   não foi aplicado à população, então o efeito dele sobre as 137 não está medido.
+
+---
+
+## 7. Bairros e loteamentos dos dois agrupamentos (interpretação)
+
+> **Origem dos nomes.** `data/externos/bairros_loteamentos_bage/bairros_loteamentos_bage.gpkg`
+> é material **revisado pelo responsável a partir do geobage** (Prefeitura de Bagé),
+> **sem autorização de republicação** (`pode_publicar=false`, fora do git). Serve para
+> **nomear e interpretar no texto**, não para publicar camada nem mapa. Não está no
+> manifesto: se estivesse, a regra do mais restritivo bloquearia a publicação do estudo.
+
+*Feito em 2026-09-24 por `scripts/i01_bairros_loteamentos.py`. Números em
+`derivados/i01_bairros_loteamentos.json`, bloco `s2_agrupamentos_divergencia`, com a
+lista por unidade.*
+
+- **A camada.** Uma camada só, com 114 polígonos (EPSG:31981). Bairros, vilas e
+  loteamentos estão lado a lado, num mosaico sem hierarquia.
+  - Não há campo de tipo nem data de aprovação. Por isso não há período de loteamento
+    a relatar.
+  - O "tipo" das tabelas é só o que o nome declara (prefixo LOTEAMENTO, BAIRRO ou
+    VILA).
+- **Critério.** Cada unidade vai para o polígono com a **maior área de interseção**. A
+  parte da unidade fora de todos os polígonos concorre como "(fora da camada)".
+  - A interseção é feita no CRS de produção, e a área é medida no ESRI:102033.
+- **As figuras não mudam.** Seguem com a grade, a área urbanizada do IBGE e o fundo
+  vetorial. Bairro e loteamento entram como texto, não como camada.
+
+**Agrupamento 1** (21 unidades, 1.134 domicílios em 2010):
+
+| bairro ou loteamento | tipo pelo nome | unidades | % das unidades | domicílios 2010 | % dos domicílios |
+| --- | --- | ---: | ---: | ---: | ---: |
+| SÃO JOÃO | sem tipo no nome | 5 | 23,8 % | 302 | 26,6 % |
+| VILA SANTA TECLA | vila | 4 | 19,0 % | 278 | 24,5 % |
+| SÃO JORGE | sem tipo no nome | 3 | 14,3 % | 177 | 15,6 % |
+| VILA SÃO BERNARDO | vila | 3 | 14,3 % | 127 | 11,2 % |
+| BAIRRO LARANJEIRAS | bairro | 3 | 14,3 % | 110 | 9,7 % |
+| SÃO SEBASTIÃO | sem tipo no nome | 1 | 4,8 % | 66 | 5,8 % |
+| VILA PETRÓPOLIS 1 | vila | 1 | 4,8 % | 46 | 4,1 % |
+| (fora da camada; toca VILA SANTA TECLA) | — | 1 | 4,8 % | 28 | 2,5 % |
+
+**Agrupamento 2** (18 unidades, 1.115 domicílios em 2010):
+
+| bairro ou loteamento | tipo pelo nome | unidades | % das unidades | domicílios 2010 | % dos domicílios |
+| --- | --- | ---: | ---: | ---: | ---: |
+| CENTRO | sem tipo no nome | 8 | 44,4 % | 565 | 50,7 % |
+| VILA ALCIDES ALMEIDA | vila | 3 | 16,7 % | 190 | 17,0 % |
+| VILA OPERÁRIA | vila | 2 | 11,1 % | 125 | 11,2 % |
+| VILA MINGOTE PAIVA | vila | 2 | 11,1 % | 75 | 6,7 % |
+| LOTEAMENTO VICENTE DE PAULO/VILA BRASIL | loteamento | 1 | 5,6 % | 67 | 6,0 % |
+| VILA ALMEIDA | vila | 1 | 5,6 % | 66 | 5,9 % |
+| (fora da camada; toca VILA OPERÁRIA) | — | 1 | 5,6 % | 27 | 2,4 % |
+
+- **As células de 200 m cortam os polígonos.** 11 das 21 unidades do agrupamento 1 e 7
+  das 18 do agrupamento 2 tocam mais de um polígono. Em 1 e 3 delas, respectivamente, o
+  polígono atribuído tem menos da metade da área da unidade.
+  - O nome vale para o conjunto, não para a célula.
+- **Leitura, só para nomear:**
+  - o **agrupamento 1** está no arco São João – São Jorge – Laranjeiras – São
+    Sebastião, com as vilas Santa Tecla, São Bernardo e Petrópolis 1;
+  - o **agrupamento 2** está na borda oeste do polígono CENTRO, que é grande (548 ha),
+    e nas vilas Alcides Almeida, Operária, Mingote Paiva e Almeida.
+  - São **bairros e vilas antigos**, não loteamentos recentes. Só uma das 39 unidades
+    cai num polígono chamado de loteamento.
+  - Isso dá nome à pergunta do manifesto ("centro? bairros antigos?"), mas não a fecha:
+    a camada não tem data e não mede idade.
+- **Rumo.** O campo `orientacao` da camada, que é do responsável, põe os polígonos do
+  agrupamento 1 a NORTE e NORDESTE. O § 1 diz noroeste, pelo rumo das unidades a partir
+  do centro médio dos domicílios de 2010. As duas referências são diferentes, e a
+  diferença fica registrada, sem correção.

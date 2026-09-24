@@ -98,7 +98,7 @@ esperado no miolo denso.
 
 Os scripts que reproduzem cada número estão em [`scripts/`](scripts/) — `r00`–`r08`
 para o reconhecimento, `d01`–`d04` para o dimensionamento, `s1_*` para a subordinada 1,
-`s2_*` para a subordinada 2
+`s2_*` para a subordinada 2, `i01` para a interpretação por bairro e loteamento
 (`grade_estatistica.py` é a leitura da grade, comum a eles).
 
 > **`scripts/d03_grade.py` está SUPERADO** desde 2026-09-23 por
@@ -127,6 +127,14 @@ Se uma camada derivada aqui tiver valor para os demais estudos, ela entra no
 acervo por **promoção**: conferência visual do responsável, depois cópia para
 `data/acervo/<tema>/` com linha em `data/catalogo_camadas.csv`. Nunca por
 escrita direta.
+
+**Camada de interpretação fora do manifesto.** `scripts/i01_bairros_loteamentos.py`
+lê `data/externos/bairros_loteamentos_bage/bairros_loteamentos_bage.gpkg`: material
+revisado pelo responsável a partir do geobage, sem autorização de republicação
+(`pode_publicar=false`). Serve só para **nomear** bairro e loteamento no texto
+(`resultados_s1.md` § 13, `resultados_s2.md` § 7). Nenhuma camada nem figura sai dela.
+Por isso não está declarada no manifesto, onde bloquearia a publicação do estudo pela
+regra do mais restritivo. O script confere o `sha256_conteudo` dela antes de ler.
 
 A publicação de qualquer saída herda a restrição **mais restritiva** entre as
 camadas declaradas no manifesto (`scripts/utils/publicacao.py`). `setores_2022` está

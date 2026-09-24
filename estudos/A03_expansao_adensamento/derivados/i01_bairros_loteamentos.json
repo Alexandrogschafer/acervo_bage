@@ -1,0 +1,1458 @@
+{
+  "objeto": "interpretação: bairro ou loteamento das unidades dos resultados_s1 e s2 (cenário adotado, setor 136 à parte)",
+  "origem_dos_nomes": "bairros_loteamentos_bage.gpkg: material revisado pelo responsável a partir do geobage (Prefeitura de Bagé), sem autorização de republicação — serve para nomear e interpretar no texto, não para publicar camada nem mapa",
+  "bairros_loteamentos": {
+    "arquivo": "data/externos/bairros_loteamentos_bage/bairros_loteamentos_bage.gpkg",
+    "sha256_conteudo": "b232779835fabacdc7d37e089c1150862930a39feac905f7a931f9f60306d5ae",
+    "no_manifesto": false,
+    "poligonos": 114,
+    "cobertura": {
+      "area_urbanizada_2022": {
+        "km2": 34.34,
+        "km2_coberta_pela_camada": 26.29,
+        "pct_coberta": 76.5
+      },
+      "area_urbanizada_2022_densa": {
+        "km2": 27.8,
+        "km2_coberta_pela_camada": 22.0,
+        "pct_coberta": 79.1
+      },
+      "camada_km2": 32.66,
+      "camada_km2_fora_da_area_urbanizada": 6.37
+    }
+  },
+  "camada_sha256_conteudo": "f323c4ba030122677c022aa8ffe49dac6569504c091a38b8275080ab5c0b9d21",
+  "agrupamentos_sha256_conteudo": "f4302553b1714b78d8903464b71e7ae74865f9349a1ff0de5829407f321f3d63",
+  "criterio": "maior área de interseção entre a unidade e cada polígono; a parte da unidade fora de todos os polígonos concorre como '(fora da camada)'; empate: menor id",
+  "mais_proximo": "para as unidades atribuídas a '(fora da camada)': o polígono mais próximo, até 500 m, só para nomear a vizinhança — não é atribuição",
+  "tipo_pelo_nome": "prefixo do nome (LOTEAMENTO / BAIRRO / VILA); a camada não tem campo de tipo, nem hierarquia bairro–loteamento, nem data de aprovação",
+  "figuras": "não mudam: bairro e loteamento entram como texto, não como camada",
+  "s2_agrupamentos_divergencia": {
+    "1": {
+      "unidades": 21,
+      "dom_10": 1134,
+      "por_poligono": [
+        {
+          "nome": "SÃO JOÃO",
+          "tipo_pelo_nome": "sem tipo no nome",
+          "unidades": 5,
+          "pct_unidades": 23.8,
+          "dom_10": 302,
+          "pct_dom_10": 26.6
+        },
+        {
+          "nome": "VILA SANTA TECLA",
+          "tipo_pelo_nome": "vila",
+          "unidades": 4,
+          "pct_unidades": 19.0,
+          "dom_10": 278,
+          "pct_dom_10": 24.5
+        },
+        {
+          "nome": "SÃO JORGE",
+          "tipo_pelo_nome": "sem tipo no nome",
+          "unidades": 3,
+          "pct_unidades": 14.3,
+          "dom_10": 177,
+          "pct_dom_10": 15.6
+        },
+        {
+          "nome": "VILA SÃO BERNARDO",
+          "tipo_pelo_nome": "vila",
+          "unidades": 3,
+          "pct_unidades": 14.3,
+          "dom_10": 127,
+          "pct_dom_10": 11.2
+        },
+        {
+          "nome": "BAIRRO LARANJEIRAS",
+          "tipo_pelo_nome": "bairro",
+          "unidades": 3,
+          "pct_unidades": 14.3,
+          "dom_10": 110,
+          "pct_dom_10": 9.7
+        },
+        {
+          "nome": "SÃO SEBASTIÃO",
+          "tipo_pelo_nome": "sem tipo no nome",
+          "unidades": 1,
+          "pct_unidades": 4.8,
+          "dom_10": 66,
+          "pct_dom_10": 5.8
+        },
+        {
+          "nome": "VILA PETRÓPOLIS 1",
+          "tipo_pelo_nome": "vila",
+          "unidades": 1,
+          "pct_unidades": 4.8,
+          "dom_10": 46,
+          "pct_dom_10": 4.1
+        },
+        {
+          "nome": "(fora da camada)",
+          "tipo_pelo_nome": "—",
+          "unidades": 1,
+          "pct_unidades": 4.8,
+          "dom_10": 28,
+          "pct_dom_10": 2.5
+        }
+      ],
+      "por_tipo_pelo_nome": {
+        "sem tipo no nome": 9,
+        "vila": 8,
+        "bairro": 3,
+        "(fora da camada)": 1
+      },
+      "unidades_que_tocam_mais_de_um_poligono": 11,
+      "unidades_fora_de_qualquer_poligono": 0,
+      "unidades_atribuidas_com_menos_de_metade_da_area": 1,
+      "fora_da_camada": {
+        "unidades": 1,
+        "dom_10": 28,
+        "tocam_area_urbanizada_2022": 1,
+        "por_distancia_ao_poligono_mais_proximo": {
+          "toca um polígono": 1,
+          "até 200 m": 0,
+          "200 a 500 m": 0,
+          "500 m a 1 km": 0,
+          "mais de 1 km": 0
+        },
+        "poligono_mais_proximo_ate_500_m": [
+          {
+            "mais_proximo": "VILA SANTA TECLA",
+            "unidades": 1,
+            "dom_10": 28
+          }
+        ]
+      }
+    },
+    "2": {
+      "unidades": 18,
+      "dom_10": 1115,
+      "por_poligono": [
+        {
+          "nome": "CENTRO",
+          "tipo_pelo_nome": "sem tipo no nome",
+          "unidades": 8,
+          "pct_unidades": 44.4,
+          "dom_10": 565,
+          "pct_dom_10": 50.7
+        },
+        {
+          "nome": "VILA ALCIDES ALMEIDA",
+          "tipo_pelo_nome": "vila",
+          "unidades": 3,
+          "pct_unidades": 16.7,
+          "dom_10": 190,
+          "pct_dom_10": 17.0
+        },
+        {
+          "nome": "VILA OPERÁRIA",
+          "tipo_pelo_nome": "vila",
+          "unidades": 2,
+          "pct_unidades": 11.1,
+          "dom_10": 125,
+          "pct_dom_10": 11.2
+        },
+        {
+          "nome": "VILA MINGOTE PAIVA",
+          "tipo_pelo_nome": "vila",
+          "unidades": 2,
+          "pct_unidades": 11.1,
+          "dom_10": 75,
+          "pct_dom_10": 6.7
+        },
+        {
+          "nome": "LOTEAMENTO VICENTE DE PAULO/VILA BRASIL",
+          "tipo_pelo_nome": "loteamento",
+          "unidades": 1,
+          "pct_unidades": 5.6,
+          "dom_10": 67,
+          "pct_dom_10": 6.0
+        },
+        {
+          "nome": "VILA ALMEIDA",
+          "tipo_pelo_nome": "vila",
+          "unidades": 1,
+          "pct_unidades": 5.6,
+          "dom_10": 66,
+          "pct_dom_10": 5.9
+        },
+        {
+          "nome": "(fora da camada)",
+          "tipo_pelo_nome": "—",
+          "unidades": 1,
+          "pct_unidades": 5.6,
+          "dom_10": 27,
+          "pct_dom_10": 2.4
+        }
+      ],
+      "por_tipo_pelo_nome": {
+        "vila": 8,
+        "sem tipo no nome": 8,
+        "(fora da camada)": 1,
+        "loteamento": 1
+      },
+      "unidades_que_tocam_mais_de_um_poligono": 7,
+      "unidades_fora_de_qualquer_poligono": 0,
+      "unidades_atribuidas_com_menos_de_metade_da_area": 3,
+      "fora_da_camada": {
+        "unidades": 1,
+        "dom_10": 27,
+        "tocam_area_urbanizada_2022": 1,
+        "por_distancia_ao_poligono_mais_proximo": {
+          "toca um polígono": 1,
+          "até 200 m": 0,
+          "200 a 500 m": 0,
+          "500 m a 1 km": 0,
+          "mais de 1 km": 0
+        },
+        "poligono_mais_proximo_ate_500_m": [
+          {
+            "mais_proximo": "VILA OPERÁRIA",
+            "unidades": 1,
+            "dom_10": 27
+          }
+        ]
+      }
+    }
+  },
+  "s1_novas": {
+    "todas": {
+      "unidades": 354,
+      "dom_22": 1883,
+      "por_poligono": [
+        {
+          "nome": "(fora da camada)",
+          "tipo_pelo_nome": "—",
+          "unidades": 334,
+          "pct_unidades": 94.4,
+          "dom_22": 1494,
+          "pct_dom_22": 79.3
+        },
+        {
+          "nome": "NÚCLEO NEY AZAMBUJA",
+          "tipo_pelo_nome": "sem tipo no nome",
+          "unidades": 1,
+          "pct_unidades": 0.3,
+          "dom_22": 170,
+          "pct_dom_22": 9.0
+        },
+        {
+          "nome": "BAIRRO IVONE",
+          "tipo_pelo_nome": "bairro",
+          "unidades": 3,
+          "pct_unidades": 0.8,
+          "dom_22": 122,
+          "pct_dom_22": 6.5
+        },
+        {
+          "nome": "LOTEAMENTO UNIVERSITÁRIO MINOTTO",
+          "tipo_pelo_nome": "loteamento",
+          "unidades": 4,
+          "pct_unidades": 1.1,
+          "dom_22": 49,
+          "pct_dom_22": 2.6
+        },
+        {
+          "nome": "VISCONDE RIBEIRO MAGALHÃES",
+          "tipo_pelo_nome": "sem tipo no nome",
+          "unidades": 1,
+          "pct_unidades": 0.3,
+          "dom_22": 16,
+          "pct_dom_22": 0.8
+        },
+        {
+          "nome": "LOTEAMENTO WALDEMAR MENDONÇA",
+          "tipo_pelo_nome": "loteamento",
+          "unidades": 6,
+          "pct_unidades": 1.7,
+          "dom_22": 14,
+          "pct_dom_22": 0.7
+        },
+        {
+          "nome": "HORTÍCULA NOVA ESPERANÇA",
+          "tipo_pelo_nome": "sem tipo no nome",
+          "unidades": 2,
+          "pct_unidades": 0.6,
+          "dom_22": 11,
+          "pct_dom_22": 0.6
+        },
+        {
+          "nome": "SOL NASCENTE",
+          "tipo_pelo_nome": "sem tipo no nome",
+          "unidades": 1,
+          "pct_unidades": 0.3,
+          "dom_22": 4,
+          "pct_dom_22": 0.2
+        },
+        {
+          "nome": "VILA FLORESTA",
+          "tipo_pelo_nome": "vila",
+          "unidades": 1,
+          "pct_unidades": 0.3,
+          "dom_22": 2,
+          "pct_dom_22": 0.1
+        },
+        {
+          "nome": "VILA AZEVEDO",
+          "tipo_pelo_nome": "vila",
+          "unidades": 1,
+          "pct_unidades": 0.3,
+          "dom_22": 1,
+          "pct_dom_22": 0.1
+        }
+      ],
+      "por_tipo_pelo_nome": {
+        "(fora da camada)": 334,
+        "loteamento": 10,
+        "sem tipo no nome": 5,
+        "bairro": 3,
+        "vila": 2
+      },
+      "unidades_que_tocam_mais_de_um_poligono": 6,
+      "unidades_fora_de_qualquer_poligono": 302,
+      "unidades_atribuidas_com_menos_de_metade_da_area": 1,
+      "fora_da_camada": {
+        "unidades": 334,
+        "dom_22": 1494,
+        "tocam_area_urbanizada_2022": 53,
+        "por_distancia_ao_poligono_mais_proximo": {
+          "toca um polígono": 34,
+          "até 200 m": 29,
+          "200 a 500 m": 9,
+          "500 m a 1 km": 8,
+          "mais de 1 km": 254
+        },
+        "poligono_mais_proximo_ate_500_m": [
+          {
+            "mais_proximo": "VILA TUPÃ",
+            "unidades": 6,
+            "dom_22": 277
+          },
+          {
+            "mais_proximo": "VOLNEI R. TAVARES",
+            "unidades": 2,
+            "dom_22": 210
+          },
+          {
+            "mais_proximo": "VILA PETRÓPOLIS 1",
+            "unidades": 2,
+            "dom_22": 173
+          },
+          {
+            "mais_proximo": "NÚCLEO NEY AZAMBUJA",
+            "unidades": 4,
+            "dom_22": 125
+          },
+          {
+            "mais_proximo": "VILA SÃO DOMINGOS",
+            "unidades": 3,
+            "dom_22": 58
+          },
+          {
+            "mais_proximo": "VILA DOLORES",
+            "unidades": 2,
+            "dom_22": 39
+          },
+          {
+            "mais_proximo": "VISCONDE RIBEIRO MAGALHÃES",
+            "unidades": 1,
+            "dom_22": 26
+          },
+          {
+            "mais_proximo": "LOTEAMENTO UNIVERSITÁRIO MINOTTO",
+            "unidades": 3,
+            "dom_22": 25
+          },
+          {
+            "mais_proximo": "VILA SANTA CRUZ",
+            "unidades": 3,
+            "dom_22": 16
+          },
+          {
+            "mais_proximo": "JARDIM SANTA TECLA",
+            "unidades": 2,
+            "dom_22": 16
+          },
+          {
+            "mais_proximo": "BAIRRO TIARAJÚ",
+            "unidades": 4,
+            "dom_22": 13
+          },
+          {
+            "mais_proximo": "PEDRA BRANCA 3ª ETAPA",
+            "unidades": 3,
+            "dom_22": 12
+          },
+          {
+            "mais_proximo": "VILA STAND",
+            "unidades": 2,
+            "dom_22": 11
+          },
+          {
+            "mais_proximo": "LOTEAMENTO DO PARQUE",
+            "unidades": 1,
+            "dom_22": 11
+          },
+          {
+            "mais_proximo": "VILA JOSÉ OTÁVIO",
+            "unidades": 4,
+            "dom_22": 9
+          },
+          {
+            "mais_proximo": "VILA DAMÉ",
+            "unidades": 5,
+            "dom_22": 8
+          },
+          {
+            "mais_proximo": "HORTÍCULA NOVA ESPERANÇA",
+            "unidades": 1,
+            "dom_22": 6
+          },
+          {
+            "mais_proximo": "SÃO JOÃO",
+            "unidades": 2,
+            "dom_22": 5
+          },
+          {
+            "mais_proximo": "LOTEAMENTO BEIRA RIO/VILA O. RODRIGUES",
+            "unidades": 2,
+            "dom_22": 4
+          },
+          {
+            "mais_proximo": "JARDIM DO CASTELO",
+            "unidades": 1,
+            "dom_22": 4
+          },
+          {
+            "mais_proximo": "VILA SEVERO",
+            "unidades": 2,
+            "dom_22": 3
+          },
+          {
+            "mais_proximo": "TARUMÃ",
+            "unidades": 1,
+            "dom_22": 3
+          },
+          {
+            "mais_proximo": "LOTEAMENTO SÃO PEDRO",
+            "unidades": 2,
+            "dom_22": 2
+          },
+          {
+            "mais_proximo": "LOTEAMENTO WALDEMAR MENDONÇA",
+            "unidades": 2,
+            "dom_22": 2
+          },
+          {
+            "mais_proximo": "SANTA TEREZA",
+            "unidades": 2,
+            "dom_22": 2
+          },
+          {
+            "mais_proximo": "VILA FLORESTA",
+            "unidades": 2,
+            "dom_22": 2
+          },
+          {
+            "mais_proximo": "CASTRO ALVES",
+            "unidades": 1,
+            "dom_22": 2
+          },
+          {
+            "mais_proximo": "SÃO MARTINS",
+            "unidades": 1,
+            "dom_22": 2
+          },
+          {
+            "mais_proximo": "HIGIENÓPOLIS",
+            "unidades": 1,
+            "dom_22": 1
+          },
+          {
+            "mais_proximo": "PASSO DAS PEDRAS",
+            "unidades": 1,
+            "dom_22": 1
+          },
+          {
+            "mais_proximo": "SOLAR ESPANHA",
+            "unidades": 1,
+            "dom_22": 1
+          },
+          {
+            "mais_proximo": "VILA ALCIDES ALMEIDA",
+            "unidades": 1,
+            "dom_22": 1
+          },
+          {
+            "mais_proximo": "VILA AZEVEDO",
+            "unidades": 1,
+            "dom_22": 1
+          },
+          {
+            "mais_proximo": "VILA BRUNO",
+            "unidades": 1,
+            "dom_22": 1
+          }
+        ]
+      }
+    },
+    "resolucao_1 km": {
+      "unidades": 258,
+      "dom_22": 416,
+      "por_poligono": [
+        {
+          "nome": "(fora da camada)",
+          "tipo_pelo_nome": "—",
+          "unidades": 258,
+          "pct_unidades": 100.0,
+          "dom_22": 416,
+          "pct_dom_22": 100.0
+        }
+      ],
+      "por_tipo_pelo_nome": {
+        "(fora da camada)": 258
+      },
+      "unidades_que_tocam_mais_de_um_poligono": 0,
+      "unidades_fora_de_qualquer_poligono": 258,
+      "unidades_atribuidas_com_menos_de_metade_da_area": 0,
+      "fora_da_camada": {
+        "unidades": 258,
+        "dom_22": 416,
+        "tocam_area_urbanizada_2022": 1,
+        "por_distancia_ao_poligono_mais_proximo": {
+          "toca um polígono": 0,
+          "até 200 m": 1,
+          "200 a 500 m": 2,
+          "500 m a 1 km": 4,
+          "mais de 1 km": 251
+        },
+        "poligono_mais_proximo_ate_500_m": [
+          {
+            "mais_proximo": "VILA SÃO DOMINGOS",
+            "unidades": 1,
+            "dom_22": 4
+          },
+          {
+            "mais_proximo": "LOTEAMENTO UNIVERSITÁRIO MINOTTO",
+            "unidades": 1,
+            "dom_22": 1
+          },
+          {
+            "mais_proximo": "LOTEAMENTO WALDEMAR MENDONÇA",
+            "unidades": 1,
+            "dom_22": 1
+          }
+        ]
+      }
+    },
+    "resolucao_1 km (2022 em 200 m)": {
+      "unidades": 6,
+      "dom_22": 67,
+      "por_poligono": [
+        {
+          "nome": "(fora da camada)",
+          "tipo_pelo_nome": "—",
+          "unidades": 6,
+          "pct_unidades": 100.0,
+          "dom_22": 67,
+          "pct_dom_22": 100.0
+        }
+      ],
+      "por_tipo_pelo_nome": {
+        "(fora da camada)": 6
+      },
+      "unidades_que_tocam_mais_de_um_poligono": 0,
+      "unidades_fora_de_qualquer_poligono": 3,
+      "unidades_atribuidas_com_menos_de_metade_da_area": 0,
+      "fora_da_camada": {
+        "unidades": 6,
+        "dom_22": 67,
+        "tocam_area_urbanizada_2022": 4,
+        "por_distancia_ao_poligono_mais_proximo": {
+          "toca um polígono": 3,
+          "até 200 m": 2,
+          "200 a 500 m": 0,
+          "500 m a 1 km": 1,
+          "mais de 1 km": 0
+        },
+        "poligono_mais_proximo_ate_500_m": [
+          {
+            "mais_proximo": "VILA SÃO DOMINGOS",
+            "unidades": 2,
+            "dom_22": 54
+          },
+          {
+            "mais_proximo": "VILA JOSÉ OTÁVIO",
+            "unidades": 1,
+            "dom_22": 6
+          },
+          {
+            "mais_proximo": "SANTA TEREZA",
+            "unidades": 1,
+            "dom_22": 1
+          },
+          {
+            "mais_proximo": "VILA DAMÉ",
+            "unidades": 1,
+            "dom_22": 1
+          }
+        ]
+      }
+    },
+    "resolucao_200 m": {
+      "unidades": 90,
+      "dom_22": 1400,
+      "por_poligono": [
+        {
+          "nome": "(fora da camada)",
+          "tipo_pelo_nome": "—",
+          "unidades": 70,
+          "pct_unidades": 77.8,
+          "dom_22": 1011,
+          "pct_dom_22": 72.2
+        },
+        {
+          "nome": "NÚCLEO NEY AZAMBUJA",
+          "tipo_pelo_nome": "sem tipo no nome",
+          "unidades": 1,
+          "pct_unidades": 1.1,
+          "dom_22": 170,
+          "pct_dom_22": 12.1
+        },
+        {
+          "nome": "BAIRRO IVONE",
+          "tipo_pelo_nome": "bairro",
+          "unidades": 3,
+          "pct_unidades": 3.3,
+          "dom_22": 122,
+          "pct_dom_22": 8.7
+        },
+        {
+          "nome": "LOTEAMENTO UNIVERSITÁRIO MINOTTO",
+          "tipo_pelo_nome": "loteamento",
+          "unidades": 4,
+          "pct_unidades": 4.4,
+          "dom_22": 49,
+          "pct_dom_22": 3.5
+        },
+        {
+          "nome": "VISCONDE RIBEIRO MAGALHÃES",
+          "tipo_pelo_nome": "sem tipo no nome",
+          "unidades": 1,
+          "pct_unidades": 1.1,
+          "dom_22": 16,
+          "pct_dom_22": 1.1
+        },
+        {
+          "nome": "LOTEAMENTO WALDEMAR MENDONÇA",
+          "tipo_pelo_nome": "loteamento",
+          "unidades": 6,
+          "pct_unidades": 6.7,
+          "dom_22": 14,
+          "pct_dom_22": 1.0
+        },
+        {
+          "nome": "HORTÍCULA NOVA ESPERANÇA",
+          "tipo_pelo_nome": "sem tipo no nome",
+          "unidades": 2,
+          "pct_unidades": 2.2,
+          "dom_22": 11,
+          "pct_dom_22": 0.8
+        },
+        {
+          "nome": "SOL NASCENTE",
+          "tipo_pelo_nome": "sem tipo no nome",
+          "unidades": 1,
+          "pct_unidades": 1.1,
+          "dom_22": 4,
+          "pct_dom_22": 0.3
+        },
+        {
+          "nome": "VILA FLORESTA",
+          "tipo_pelo_nome": "vila",
+          "unidades": 1,
+          "pct_unidades": 1.1,
+          "dom_22": 2,
+          "pct_dom_22": 0.1
+        },
+        {
+          "nome": "VILA AZEVEDO",
+          "tipo_pelo_nome": "vila",
+          "unidades": 1,
+          "pct_unidades": 1.1,
+          "dom_22": 1,
+          "pct_dom_22": 0.1
+        }
+      ],
+      "por_tipo_pelo_nome": {
+        "(fora da camada)": 70,
+        "loteamento": 10,
+        "sem tipo no nome": 5,
+        "bairro": 3,
+        "vila": 2
+      },
+      "unidades_que_tocam_mais_de_um_poligono": 6,
+      "unidades_fora_de_qualquer_poligono": 41,
+      "unidades_atribuidas_com_menos_de_metade_da_area": 1,
+      "fora_da_camada": {
+        "unidades": 70,
+        "dom_22": 1011,
+        "tocam_area_urbanizada_2022": 48,
+        "por_distancia_ao_poligono_mais_proximo": {
+          "toca um polígono": 31,
+          "até 200 m": 26,
+          "200 a 500 m": 7,
+          "500 m a 1 km": 3,
+          "mais de 1 km": 3
+        },
+        "poligono_mais_proximo_ate_500_m": [
+          {
+            "mais_proximo": "VILA TUPÃ",
+            "unidades": 6,
+            "dom_22": 277
+          },
+          {
+            "mais_proximo": "VOLNEI R. TAVARES",
+            "unidades": 2,
+            "dom_22": 210
+          },
+          {
+            "mais_proximo": "VILA PETRÓPOLIS 1",
+            "unidades": 2,
+            "dom_22": 173
+          },
+          {
+            "mais_proximo": "NÚCLEO NEY AZAMBUJA",
+            "unidades": 4,
+            "dom_22": 125
+          },
+          {
+            "mais_proximo": "VILA DOLORES",
+            "unidades": 2,
+            "dom_22": 39
+          },
+          {
+            "mais_proximo": "VISCONDE RIBEIRO MAGALHÃES",
+            "unidades": 1,
+            "dom_22": 26
+          },
+          {
+            "mais_proximo": "LOTEAMENTO UNIVERSITÁRIO MINOTTO",
+            "unidades": 2,
+            "dom_22": 24
+          },
+          {
+            "mais_proximo": "VILA SANTA CRUZ",
+            "unidades": 3,
+            "dom_22": 16
+          },
+          {
+            "mais_proximo": "JARDIM SANTA TECLA",
+            "unidades": 2,
+            "dom_22": 16
+          },
+          {
+            "mais_proximo": "BAIRRO TIARAJÚ",
+            "unidades": 4,
+            "dom_22": 13
+          },
+          {
+            "mais_proximo": "PEDRA BRANCA 3ª ETAPA",
+            "unidades": 3,
+            "dom_22": 12
+          },
+          {
+            "mais_proximo": "VILA STAND",
+            "unidades": 2,
+            "dom_22": 11
+          },
+          {
+            "mais_proximo": "LOTEAMENTO DO PARQUE",
+            "unidades": 1,
+            "dom_22": 11
+          },
+          {
+            "mais_proximo": "VILA DAMÉ",
+            "unidades": 4,
+            "dom_22": 7
+          },
+          {
+            "mais_proximo": "HORTÍCULA NOVA ESPERANÇA",
+            "unidades": 1,
+            "dom_22": 6
+          },
+          {
+            "mais_proximo": "SÃO JOÃO",
+            "unidades": 2,
+            "dom_22": 5
+          },
+          {
+            "mais_proximo": "LOTEAMENTO BEIRA RIO/VILA O. RODRIGUES",
+            "unidades": 2,
+            "dom_22": 4
+          },
+          {
+            "mais_proximo": "JARDIM DO CASTELO",
+            "unidades": 1,
+            "dom_22": 4
+          },
+          {
+            "mais_proximo": "VILA JOSÉ OTÁVIO",
+            "unidades": 3,
+            "dom_22": 3
+          },
+          {
+            "mais_proximo": "VILA SEVERO",
+            "unidades": 2,
+            "dom_22": 3
+          },
+          {
+            "mais_proximo": "TARUMÃ",
+            "unidades": 1,
+            "dom_22": 3
+          },
+          {
+            "mais_proximo": "LOTEAMENTO SÃO PEDRO",
+            "unidades": 2,
+            "dom_22": 2
+          },
+          {
+            "mais_proximo": "VILA FLORESTA",
+            "unidades": 2,
+            "dom_22": 2
+          },
+          {
+            "mais_proximo": "CASTRO ALVES",
+            "unidades": 1,
+            "dom_22": 2
+          },
+          {
+            "mais_proximo": "SÃO MARTINS",
+            "unidades": 1,
+            "dom_22": 2
+          },
+          {
+            "mais_proximo": "HIGIENÓPOLIS",
+            "unidades": 1,
+            "dom_22": 1
+          },
+          {
+            "mais_proximo": "LOTEAMENTO WALDEMAR MENDONÇA",
+            "unidades": 1,
+            "dom_22": 1
+          },
+          {
+            "mais_proximo": "PASSO DAS PEDRAS",
+            "unidades": 1,
+            "dom_22": 1
+          },
+          {
+            "mais_proximo": "SANTA TEREZA",
+            "unidades": 1,
+            "dom_22": 1
+          },
+          {
+            "mais_proximo": "SOLAR ESPANHA",
+            "unidades": 1,
+            "dom_22": 1
+          },
+          {
+            "mais_proximo": "VILA ALCIDES ALMEIDA",
+            "unidades": 1,
+            "dom_22": 1
+          },
+          {
+            "mais_proximo": "VILA AZEVEDO",
+            "unidades": 1,
+            "dom_22": 1
+          },
+          {
+            "mais_proximo": "VILA BRUNO",
+            "unidades": 1,
+            "dom_22": 1
+          }
+        ]
+      }
+    }
+  },
+  "s1_extintas_urbanas": {
+    "todas": {
+      "unidades": 56,
+      "dom_10": 344,
+      "por_poligono": [
+        {
+          "nome": "(fora da camada)",
+          "tipo_pelo_nome": "—",
+          "unidades": 45,
+          "pct_unidades": 80.4,
+          "dom_10": 272,
+          "pct_dom_10": 79.1
+        },
+        {
+          "nome": "BAIRRO FÊNIX",
+          "tipo_pelo_nome": "bairro",
+          "unidades": 2,
+          "pct_unidades": 3.6,
+          "dom_10": 41,
+          "pct_dom_10": 11.9
+        },
+        {
+          "nome": "LOTEAMENTO WALDEMAR MENDONÇA",
+          "tipo_pelo_nome": "loteamento",
+          "unidades": 4,
+          "pct_unidades": 7.1,
+          "dom_10": 12,
+          "pct_dom_10": 3.5
+        },
+        {
+          "nome": "CENTRO",
+          "tipo_pelo_nome": "sem tipo no nome",
+          "unidades": 1,
+          "pct_unidades": 1.8,
+          "dom_10": 7,
+          "pct_dom_10": 2.0
+        },
+        {
+          "nome": "HORTÍCULA NOVA ESPERANÇA",
+          "tipo_pelo_nome": "sem tipo no nome",
+          "unidades": 1,
+          "pct_unidades": 1.8,
+          "dom_10": 7,
+          "pct_dom_10": 2.0
+        },
+        {
+          "nome": "VILA FLORESTA",
+          "tipo_pelo_nome": "vila",
+          "unidades": 1,
+          "pct_unidades": 1.8,
+          "dom_10": 2,
+          "pct_dom_10": 0.6
+        },
+        {
+          "nome": "VILA TUPÃ",
+          "tipo_pelo_nome": "vila",
+          "unidades": 1,
+          "pct_unidades": 1.8,
+          "dom_10": 2,
+          "pct_dom_10": 0.6
+        },
+        {
+          "nome": "SOL NASCENTE",
+          "tipo_pelo_nome": "sem tipo no nome",
+          "unidades": 1,
+          "pct_unidades": 1.8,
+          "dom_10": 1,
+          "pct_dom_10": 0.3
+        }
+      ],
+      "por_tipo_pelo_nome": {
+        "(fora da camada)": 45,
+        "loteamento": 4,
+        "sem tipo no nome": 3,
+        "vila": 2,
+        "bairro": 2
+      },
+      "unidades_que_tocam_mais_de_um_poligono": 3,
+      "unidades_fora_de_qualquer_poligono": 30,
+      "unidades_atribuidas_com_menos_de_metade_da_area": 1,
+      "fora_da_camada": {
+        "unidades": 45,
+        "dom_10": 272,
+        "tocam_area_urbanizada_2022": 21,
+        "por_distancia_ao_poligono_mais_proximo": {
+          "toca um polígono": 17,
+          "até 200 m": 24,
+          "200 a 500 m": 3,
+          "500 m a 1 km": 1,
+          "mais de 1 km": 0
+        },
+        "poligono_mais_proximo_ate_500_m": [
+          {
+            "mais_proximo": "BAIRRO FÊNIX",
+            "unidades": 7,
+            "dom_10": 67
+          },
+          {
+            "mais_proximo": "VILA STAND",
+            "unidades": 1,
+            "dom_10": 57
+          },
+          {
+            "mais_proximo": "CENTRO",
+            "unidades": 8,
+            "dom_10": 31
+          },
+          {
+            "mais_proximo": "LOTEAMENTO IVO FERRONATO",
+            "unidades": 2,
+            "dom_10": 26
+          },
+          {
+            "mais_proximo": "VILA SOUZA",
+            "unidades": 4,
+            "dom_10": 12
+          },
+          {
+            "mais_proximo": "PEDRA BRANCA 3ª ETAPA",
+            "unidades": 2,
+            "dom_10": 12
+          },
+          {
+            "mais_proximo": "VILA SANTA CRUZ",
+            "unidades": 1,
+            "dom_10": 12
+          },
+          {
+            "mais_proximo": "VILA FLORENÇA",
+            "unidades": 1,
+            "dom_10": 7
+          },
+          {
+            "mais_proximo": "CASTRO ALVES",
+            "unidades": 1,
+            "dom_10": 6
+          },
+          {
+            "mais_proximo": "BAIRRO IVONE",
+            "unidades": 1,
+            "dom_10": 5
+          },
+          {
+            "mais_proximo": "HORTÍCULA NOVA ESPERANÇA",
+            "unidades": 1,
+            "dom_10": 5
+          },
+          {
+            "mais_proximo": "VILA SANTA TECLA",
+            "unidades": 1,
+            "dom_10": 5
+          },
+          {
+            "mais_proximo": "VILA BRUNO (VANIO MINOTO)",
+            "unidades": 1,
+            "dom_10": 4
+          },
+          {
+            "mais_proximo": "LOTEAMENTO WALDEMAR MENDONÇA",
+            "unidades": 3,
+            "dom_10": 3
+          },
+          {
+            "mais_proximo": "BAIRRO TIARAJÚ",
+            "unidades": 1,
+            "dom_10": 3
+          },
+          {
+            "mais_proximo": "SOL NASCENTE",
+            "unidades": 1,
+            "dom_10": 3
+          },
+          {
+            "mais_proximo": "VILA MINGOTE PAIVA",
+            "unidades": 1,
+            "dom_10": 3
+          },
+          {
+            "mais_proximo": "LOTEAMENTO JOSE MARCOS HAINZENREDER",
+            "unidades": 2,
+            "dom_10": 2
+          },
+          {
+            "mais_proximo": "VOLNEI R. TAVARES",
+            "unidades": 2,
+            "dom_10": 2
+          },
+          {
+            "mais_proximo": "BAIRRO LARANJEIRAS",
+            "unidades": 1,
+            "dom_10": 2
+          },
+          {
+            "mais_proximo": "VILA FLORESTA",
+            "unidades": 1,
+            "dom_10": 1
+          },
+          {
+            "mais_proximo": "VILA IPIRANGA",
+            "unidades": 1,
+            "dom_10": 1
+          }
+        ]
+      }
+    },
+    "esvaziamento medido": {
+      "unidades": 23,
+      "dom_10": 244,
+      "por_poligono": [
+        {
+          "nome": "(fora da camada)",
+          "tipo_pelo_nome": "—",
+          "unidades": 17,
+          "pct_unidades": 73.9,
+          "dom_10": 181,
+          "pct_dom_10": 74.2
+        },
+        {
+          "nome": "BAIRRO FÊNIX",
+          "tipo_pelo_nome": "bairro",
+          "unidades": 2,
+          "pct_unidades": 8.7,
+          "dom_10": 41,
+          "pct_dom_10": 16.8
+        },
+        {
+          "nome": "CENTRO",
+          "tipo_pelo_nome": "sem tipo no nome",
+          "unidades": 1,
+          "pct_unidades": 4.3,
+          "dom_10": 7,
+          "pct_dom_10": 2.9
+        },
+        {
+          "nome": "HORTÍCULA NOVA ESPERANÇA",
+          "tipo_pelo_nome": "sem tipo no nome",
+          "unidades": 1,
+          "pct_unidades": 4.3,
+          "dom_10": 7,
+          "pct_dom_10": 2.9
+        },
+        {
+          "nome": "LOTEAMENTO WALDEMAR MENDONÇA",
+          "tipo_pelo_nome": "loteamento",
+          "unidades": 1,
+          "pct_unidades": 4.3,
+          "dom_10": 7,
+          "pct_dom_10": 2.9
+        },
+        {
+          "nome": "SOL NASCENTE",
+          "tipo_pelo_nome": "sem tipo no nome",
+          "unidades": 1,
+          "pct_unidades": 4.3,
+          "dom_10": 1,
+          "pct_dom_10": 0.4
+        }
+      ],
+      "por_tipo_pelo_nome": {
+        "(fora da camada)": 17,
+        "sem tipo no nome": 3,
+        "bairro": 2,
+        "loteamento": 1
+      },
+      "unidades_que_tocam_mais_de_um_poligono": 3,
+      "unidades_fora_de_qualquer_poligono": 12,
+      "unidades_atribuidas_com_menos_de_metade_da_area": 1,
+      "fora_da_camada": {
+        "unidades": 17,
+        "dom_10": 181,
+        "tocam_area_urbanizada_2022": 7,
+        "por_distancia_ao_poligono_mais_proximo": {
+          "toca um polígono": 6,
+          "até 200 m": 10,
+          "200 a 500 m": 1,
+          "500 m a 1 km": 0,
+          "mais de 1 km": 0
+        },
+        "poligono_mais_proximo_ate_500_m": [
+          {
+            "mais_proximo": "BAIRRO FÊNIX",
+            "unidades": 6,
+            "dom_10": 64
+          },
+          {
+            "mais_proximo": "VILA STAND",
+            "unidades": 1,
+            "dom_10": 57
+          },
+          {
+            "mais_proximo": "LOTEAMENTO IVO FERRONATO",
+            "unidades": 2,
+            "dom_10": 26
+          },
+          {
+            "mais_proximo": "VILA SANTA CRUZ",
+            "unidades": 1,
+            "dom_10": 12
+          },
+          {
+            "mais_proximo": "VILA SOUZA",
+            "unidades": 2,
+            "dom_10": 7
+          },
+          {
+            "mais_proximo": "CASTRO ALVES",
+            "unidades": 1,
+            "dom_10": 6
+          },
+          {
+            "mais_proximo": "VILA BRUNO (VANIO MINOTO)",
+            "unidades": 1,
+            "dom_10": 4
+          },
+          {
+            "mais_proximo": "BAIRRO LARANJEIRAS",
+            "unidades": 1,
+            "dom_10": 2
+          },
+          {
+            "mais_proximo": "CENTRO",
+            "unidades": 1,
+            "dom_10": 2
+          },
+          {
+            "mais_proximo": "LOTEAMENTO JOSE MARCOS HAINZENREDER",
+            "unidades": 1,
+            "dom_10": 1
+          }
+        ]
+      }
+    },
+    "indício de deslocamento por repartição da face": {
+      "unidades": 29,
+      "dom_10": 95,
+      "por_poligono": [
+        {
+          "nome": "(fora da camada)",
+          "tipo_pelo_nome": "—",
+          "unidades": 25,
+          "pct_unidades": 86.2,
+          "dom_10": 88,
+          "pct_dom_10": 92.6
+        },
+        {
+          "nome": "LOTEAMENTO WALDEMAR MENDONÇA",
+          "tipo_pelo_nome": "loteamento",
+          "unidades": 3,
+          "pct_unidades": 10.3,
+          "dom_10": 5,
+          "pct_dom_10": 5.3
+        },
+        {
+          "nome": "VILA TUPÃ",
+          "tipo_pelo_nome": "vila",
+          "unidades": 1,
+          "pct_unidades": 3.4,
+          "dom_10": 2,
+          "pct_dom_10": 2.1
+        }
+      ],
+      "por_tipo_pelo_nome": {
+        "(fora da camada)": 25,
+        "loteamento": 3,
+        "vila": 1
+      },
+      "unidades_que_tocam_mais_de_um_poligono": 0,
+      "unidades_fora_de_qualquer_poligono": 15,
+      "unidades_atribuidas_com_menos_de_metade_da_area": 0,
+      "fora_da_camada": {
+        "unidades": 25,
+        "dom_10": 88,
+        "tocam_area_urbanizada_2022": 13,
+        "por_distancia_ao_poligono_mais_proximo": {
+          "toca um polígono": 11,
+          "até 200 m": 12,
+          "200 a 500 m": 1,
+          "500 m a 1 km": 1,
+          "mais de 1 km": 0
+        },
+        "poligono_mais_proximo_ate_500_m": [
+          {
+            "mais_proximo": "CENTRO",
+            "unidades": 6,
+            "dom_10": 28
+          },
+          {
+            "mais_proximo": "PEDRA BRANCA 3ª ETAPA",
+            "unidades": 2,
+            "dom_10": 12
+          },
+          {
+            "mais_proximo": "VILA FLORENÇA",
+            "unidades": 1,
+            "dom_10": 7
+          },
+          {
+            "mais_proximo": "VILA SOUZA",
+            "unidades": 2,
+            "dom_10": 5
+          },
+          {
+            "mais_proximo": "BAIRRO IVONE",
+            "unidades": 1,
+            "dom_10": 5
+          },
+          {
+            "mais_proximo": "HORTÍCULA NOVA ESPERANÇA",
+            "unidades": 1,
+            "dom_10": 5
+          },
+          {
+            "mais_proximo": "VILA SANTA TECLA",
+            "unidades": 1,
+            "dom_10": 5
+          },
+          {
+            "mais_proximo": "BAIRRO FÊNIX",
+            "unidades": 1,
+            "dom_10": 3
+          },
+          {
+            "mais_proximo": "BAIRRO TIARAJÚ",
+            "unidades": 1,
+            "dom_10": 3
+          },
+          {
+            "mais_proximo": "SOL NASCENTE",
+            "unidades": 1,
+            "dom_10": 3
+          },
+          {
+            "mais_proximo": "VILA MINGOTE PAIVA",
+            "unidades": 1,
+            "dom_10": 3
+          },
+          {
+            "mais_proximo": "LOTEAMENTO WALDEMAR MENDONÇA",
+            "unidades": 2,
+            "dom_10": 2
+          },
+          {
+            "mais_proximo": "LOTEAMENTO JOSE MARCOS HAINZENREDER",
+            "unidades": 1,
+            "dom_10": 1
+          },
+          {
+            "mais_proximo": "VILA FLORESTA",
+            "unidades": 1,
+            "dom_10": 1
+          },
+          {
+            "mais_proximo": "VILA IPIRANGA",
+            "unidades": 1,
+            "dom_10": 1
+          },
+          {
+            "mais_proximo": "VOLNEI R. TAVARES",
+            "unidades": 1,
+            "dom_10": 1
+          }
+        ]
+      }
+    },
+    "outras": {
+      "unidades": 4,
+      "dom_10": 5,
+      "por_poligono": [
+        {
+          "nome": "(fora da camada)",
+          "tipo_pelo_nome": "—",
+          "unidades": 3,
+          "pct_unidades": 75.0,
+          "dom_10": 3,
+          "pct_dom_10": 60.0
+        },
+        {
+          "nome": "VILA FLORESTA",
+          "tipo_pelo_nome": "vila",
+          "unidades": 1,
+          "pct_unidades": 25.0,
+          "dom_10": 2,
+          "pct_dom_10": 40.0
+        }
+      ],
+      "por_tipo_pelo_nome": {
+        "(fora da camada)": 3,
+        "vila": 1
+      },
+      "unidades_que_tocam_mais_de_um_poligono": 0,
+      "unidades_fora_de_qualquer_poligono": 3,
+      "unidades_atribuidas_com_menos_de_metade_da_area": 0,
+      "fora_da_camada": {
+        "unidades": 3,
+        "dom_10": 3,
+        "tocam_area_urbanizada_2022": 1,
+        "por_distancia_ao_poligono_mais_proximo": {
+          "toca um polígono": 0,
+          "até 200 m": 2,
+          "200 a 500 m": 1,
+          "500 m a 1 km": 0,
+          "mais de 1 km": 0
+        },
+        "poligono_mais_proximo_ate_500_m": [
+          {
+            "mais_proximo": "CENTRO",
+            "unidades": 1,
+            "dom_10": 1
+          },
+          {
+            "mais_proximo": "LOTEAMENTO WALDEMAR MENDONÇA",
+            "unidades": 1,
+            "dom_10": 1
+          },
+          {
+            "mais_proximo": "VOLNEI R. TAVARES",
+            "unidades": 1,
+            "dom_10": 1
+          }
+        ]
+      }
+    },
+    "agrupamento_053_054": {
+      "unidades": 10,
+      "dom_10": 111,
+      "por_poligono": [
+        {
+          "nome": "(fora da camada)",
+          "tipo_pelo_nome": "—",
+          "unidades": 8,
+          "pct_unidades": 80.0,
+          "dom_10": 70,
+          "pct_dom_10": 63.1
+        },
+        {
+          "nome": "BAIRRO FÊNIX",
+          "tipo_pelo_nome": "bairro",
+          "unidades": 2,
+          "pct_unidades": 20.0,
+          "dom_10": 41,
+          "pct_dom_10": 36.9
+        }
+      ],
+      "por_tipo_pelo_nome": {
+        "(fora da camada)": 8,
+        "bairro": 2
+      },
+      "unidades_que_tocam_mais_de_um_poligono": 0,
+      "unidades_fora_de_qualquer_poligono": 6,
+      "unidades_atribuidas_com_menos_de_metade_da_area": 0,
+      "fora_da_camada": {
+        "unidades": 8,
+        "dom_10": 70,
+        "tocam_area_urbanizada_2022": 1,
+        "por_distancia_ao_poligono_mais_proximo": {
+          "toca um polígono": 2,
+          "até 200 m": 5,
+          "200 a 500 m": 1,
+          "500 m a 1 km": 0,
+          "mais de 1 km": 0
+        },
+        "poligono_mais_proximo_ate_500_m": [
+          {
+            "mais_proximo": "BAIRRO FÊNIX",
+            "unidades": 7,
+            "dom_10": 67
+          },
+          {
+            "mais_proximo": "VILA MINGOTE PAIVA",
+            "unidades": 1,
+            "dom_10": 3
+          }
+        ]
+      }
+    }
+  },
+  "crs_operacao": "EPSG:31981",
+  "crs_medicao_area": "ESRI:102033"
+}

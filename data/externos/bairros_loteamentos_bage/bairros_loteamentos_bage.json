@@ -1,0 +1,74 @@
+{
+  "arquivo": "data/externos/bairros_loteamentos_bage/bairros_loteamentos_bage.gpkg",
+  "autorizacao_fonte": false,
+  "campos_removidos": [],
+  "crs": "EPSG:31981",
+  "data_producao": "2026-09-24T16:42:43.170738-03:00",
+  "fonte_id": "bairros_loteamentos_revisado",
+  "licenca": "sem licença de republicação — trabalho do responsável sobre material do geobage",
+  "observacoes": "Procedência: arquivo revisado pelo responsável, a partir de material do geobage (Prefeitura de Bagé, sem autorização de republicação). Nunca versionado neste repositório antes de 2026-09-24. USO INTERNO EM PESQUISA — sem autorização da fonte para republicação; repositório público, por isso pode_publicar=false e o arquivo fica fora do git (data/externos/, barrado pelo .gitignore e pelo hook de pre-commit). CAMADA DE INTERPRETAÇÃO: serve para nomear bairro e loteamento no texto dos estudos, não para publicar camada nem mapa. NÃO é declarada no manifesto do A03 (nem de outro estudo): declarada, bloquearia a publicação do estudo pela regra do mais restritivo. Geometria não corrigida: o material é do responsável. Uma camada só, mosaico de bairros e loteamentos sem campo de tipo nem de data de aprovação.",
+  "pode_publicar": false,
+  "referencias_bib": [],
+  "sha256": "eedfe5beb6d2a254be8e13522cff4364ec318400b9393f24059e495c1d61a89a",
+  "sha256_conteudo": "b232779835fabacdc7d37e089c1150862930a39feac905f7a931f9f60306d5ae",
+  "status_conferencia": "pendente",
+  "tamanho_bytes": 167936,
+  "tema": "cadastro",
+  "verificacoes": {
+    "camadas": [
+      {
+        "buracos_internos_da_uniao": 1,
+        "campos": [
+          "id",
+          "nome",
+          "nome_fonte",
+          "nome_norm",
+          "orientacao",
+          "area_ha",
+          "partes",
+          "ha_na_mancha",
+          "frac_na_mancha",
+          "zona_v5",
+          "frac_Z1",
+          "frac_Z2",
+          "frac_Z3",
+          "frac_FORA",
+          "nos_v09",
+          "km_rede_v09",
+          "cat_cor"
+        ],
+        "crs": "EPSG:31981",
+        "feicoes": 114,
+        "geometria": "MultiPolygon",
+        "geometrias_invalidas": 0,
+        "geometrias_vazias_ou_nulas": 0,
+        "motivos_invalidas": [],
+        "multipartes": 3,
+        "nome": "bairros_loteamentos",
+        "partes_separadas_da_uniao": 113,
+        "sobreposicao_entre_poligonos": {
+          "criterio": "interseção de área > 1.0 m² entre dois polígonos, medida no CRS do arquivo (ordem de grandeza, não medida de área publicada)",
+          "pares": [
+            {
+              "a": "BAIRRO INDEPENDÊNCIA",
+              "b": "VILA DAMÉ",
+              "m2_crs_producao": 9.0
+            },
+            {
+              "a": "BAIRRO CAMILO GOMES",
+              "b": "LOTEAMENTO NARCISO SUÑE 1",
+              "m2_crs_producao": 16.9
+            },
+            {
+              "a": "PARQUE MARÍLIA",
+              "b": "LOTEAMENTO NARCISO SUÑE 2",
+              "m2_crs_producao": 15.4
+            }
+          ]
+        }
+      }
+    ],
+    "data_do_arquivo_recebido": "2026-09-24T16:32:07-03:00"
+  },
+  "versao": "revisao_2026-09-24"
+}
