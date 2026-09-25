@@ -86,15 +86,15 @@ como **pendência menor**, que não impede a redação:
 
 | # | referência | tipo | situação |
 | --- | --- | --- | --- |
-| 1 | Lobo, M. A. A. (2009). *urbe* 1(1): 71–84. Setores urbanos 1991–2000, RM de Belém | **PERIÓDICO** | conferida; **sem DOI**. As páginas divergem: 71–84 (revista) × 71–83 (Redalyc). Usado 71–84 |
+| 1 | Lobo, M. A. A. (2009). *urbe* 1(1): 71–84. Setores urbanos 1991–2000, RM de Belém | **PERIÓDICO** | conferida; **sem DOI**. **Adotado 71–84**, a paginação da revista, por decisão do responsável (2026-09-25). O Redalyc dá 71–83; a divergência está registrada em nota no `.bib` |
 | 2 | Hirye, M. C. M.; Amaral, S.; Monteiro, A. M. V.; Alves, D. S. (2016). *Revista Brasileira de Cartografia* 68(8): 1585–1599. Altamira 2000 e 2010 | **PERIÓDICO** | conferida. **Corrigido:** a primeira autora é **Mayumi** Cursino de Moura Hirye. Não há versão em anais |
 | 3 | Salgado, G. P. L.; Dal'Asta, A. P.; Adorno, B. V.; Amaral, S. (2025). *Revista Brasileira de Cartografia* 77: 1–23 | **PERIÓDICO** | conferida. **Ressalva:** o artigo não cria código de método por célula. Ele **descreve** o da Grade Estatística de 2010 (IBGE, 2016) e avalia grades globais contra o Censo 2022 |
 | 4 | Mendonça, P. H. R. et al. (11 autores, 2024). *e-metropolis* 15: 1–20. Expansão com desadensamento na RMSP, 2010–2022 | **PERIÓDICO** | conferida; seção especial; **sem DOI e sem número de fascículo** |
 | 5 | Reis, I. A. (2013). *Anais do XVI SBSR*, p. 952–959 | **ANAIS** | conferida; ISBN não confirmado |
 | 6 | Mendonça, P. H. R.; Kon, F. (2025). *Anais do IX CoUrb* (SBC), p. 29–42 | **ANAIS** | conferida. É o mesmo primeiro autor do item 4, com **um** coautor só |
 | 7a | Ehrl, P. (2017). *Estudos Econômicos* 47(1): 215–229. AMC 1872–2010 | **PERIÓDICO** | conferida. **É esta a AMC a citar:** é periódico e cobre até 2010 |
-| 7b | Reis, E. J.; Pimentel, M.; Alvarenga, A. I.; Santos, M. C. H. *Áreas mínimas comparáveis… 1872 a 2000*. Anais do I Simpósio Brasileiro de Cartografia Histórica | **ANAIS** | **a conferir** (§ 7): o ano (2011) e o local vêm só da citação de Ehrl |
-| 7c | Reis, E.; Pimentel, M.; Alvarenga, A. I. *Áreas mínimas comparáveis… 1872 a 2000*. IPEA/DIMAC, documento no Ipeadata | **RELATÓRIO** | **a conferir** (§ 7): arquivo .doc sem série nem número. Não é Texto para Discussão |
+| 7b | Reis, E. J.; Pimentel, M.; Alvarenga, A. I.; Santos, M. C. H. *Áreas mínimas comparáveis… 1872 a 2000*. Anais do I Simpósio Brasileiro de Cartografia Histórica | **ANAIS** | **fora, por decisão do responsável** (2026-09-25): a AMC é citada só por Ehrl (7a) |
+| 7c | Reis, E.; Pimentel, M.; Alvarenga, A. I. *Áreas mínimas comparáveis… 1872 a 2000*. IPEA/DIMAC, documento no Ipeadata | **RELATÓRIO** | **fora, por decisão do responsável** (2026-09-25): a AMC é citada só por Ehrl (7a) |
 
 Das sete, **quatro contam como periódico** (1, 2, 3 e 4) e mais a AMC de Ehrl (7a). As
 de anais (5, 6 e 7b) e o documento do IPEA (7c) **não contam**.
@@ -262,6 +262,40 @@ Langford, Eicher; Brewer, Mennis, Mennis; Hultgren, Langford, Schroeder, Schroed
 Van Riper, Logan et al. (2014, 2016), Batista e Silva et al., Liu et al. e Bradbury
 et al.
 
+**H. Estrato da subordinada 3: o entorno de 2022**
+
+*Acrescentado em 2026-09-25, por decisão do responsável. A primeira passagem não tinha
+estrato para o entorno.* As buscas são de 2026-09-25, com as mesmas regras de
+contagem do § 2.1.
+
+| base | expressão | resultados | aproveitados |
+| --- | --- | ---: | ---: |
+| Google Scholar | `"características urbanísticas do entorno"` | ~293 | 0 (os primeiros são as próprias publicações do IBGE, de 2010 e 2022, ou fora do tema) |
+| Google Scholar | `"entorno dos domicílios" censo 2022` | ~213 | 2 (Dornelles; Nascimento, 2026; Leite; Corrêa, 2023) |
+| Google Scholar | `"infraestrutura urbana" "setores censitários" entorno` | ~2.020 | 1 (Bittencourt; Faria, 2021) |
+| Crossref | `características urbanísticas do entorno dos domicílios` | 2.107.381 | 0 |
+| Crossref | `entorno dos domicílios censo 2022` | 9.449.021 | 0 (1 tese da Unicamp, 2026, e 1 anais da RAPv, 2025, vistos e não aproveitados) |
+| Crossref | `infraestrutura urbana setores censitários entorno` | 44.552 | 0 |
+| SciELO pela Crossref (`prefix:10.1590`) | `características urbanísticas do entorno dos domicílios` | 128.649 | 0 |
+| SciELO pela Crossref | `entorno dos domicílios censo 2022` | 42.665 | 0 |
+| SciELO pela Crossref | `infraestrutura urbana setores censitários entorno` | 1.795 | 1 (Bittencourt; Faria, 2021, o mesmo do Scholar) |
+| RA'E GA (OJS) | `"entorno dos domicílios"` / `"características urbanísticas"` / `infraestrutura urbana setores censitários` | 0 / 0 / 1 | 0 (o resultado é Dias et al., 2025, que já está no `.bib`) |
+| Revista Brasileira de Cartografia (OJS) | as mesmas três | 0 / 0 / 0 | 0 |
+| Rebep (OJS) | as mesmas três | 0 / 0 / 1 | 0 (Catalá; Carmo, 2021, sobre aglomerados subnormais: visto e não aproveitado) |
+| urbe (OJS) | as mesmas três | 0 / 0 / 0 | 0 |
+
+**Retidos:** três artigos de periódico. Todos foram conferidos no Crossref e tiveram o
+resumo lido no SciELO. Entraram no `.bib` como opcionais da subordinada 3:
+- **Dornelles e Nascimento (2026), *Cadernos Metrópole* 28(66).** Analisa a pesquisa
+  do entorno de 2010 e 2022 no RS: calçadas, rampas, pontos de ônibus e obstáculos nas
+  vias. É o mais próximo do A03: mesmo estado e mesma fonte.
+- **Leite e Corrêa (2023), *Cadernos Metrópole* 25(57): 443–466.** Caracteriza o
+  entorno (pavimentação, iluminação, rampa) nas áreas centrais tombadas pelo Iphan,
+  com o Censo 2010. Bagé tem centro tombado.
+- **Bittencourt e Faria (2021), *urbe* 13.** Infraestrutura urbana e desigualdade por
+  setor censitário em Curitiba (iluminação, pavimentação, calçada, drenagem e
+  arborização).
+
 ### 2.3 Bases que não puderam ser consultadas: o responsável completa à mão
 
 | base | motivo | o que rodar |
@@ -277,10 +311,11 @@ et al.
 | **anais da ABEP 2024** (Galoá) e **GeoInfo** | a busca não indexa | grade estatística 2022; comparação 2010 2022 |
 | **não rodado** | fora do alcance desta sessão | Geosul, Boletim Gaúcho de Geografia, GEOUSP, Sociedade & Natureza, Mercator; Scholar em inglês; Unipampa e Urcamp (literatura local sobre Bagé) |
 
-**Termo que faltou no protocolo.** A subordinada 3 (o entorno de 2022) não tem estrato
-próprio: nenhum dos nove termos cobre "características urbanísticas do entorno" nem
-"infraestrutura urbana setor censitário". Convém acrescentar esse estrato antes de
-fechar a revisão.
+**Pendência menor, declarada como limitação da busca:** ABEP 2024 e SBSR 2025. Não
+bloqueiam a redação (§ 0).
+
+*O estrato do entorno, que faltava no protocolo, foi acrescentado em 2026-09-25
+(§ 2.2, quadro H).*
 
 ---
 
@@ -292,9 +327,10 @@ fechar a revisão.
 | **Interpolação areal e dasimetria** | Consolidada. Internacionais: Goodchild e Lam (1980), Flowerdew, Green e Kehris (1991), Eicher e Brewer (2001), Mennis (2003). Nacionais, quase todos na Revista Brasileira de Cartografia: Strauch et al. (2014), Castro et al. (2019), Nowatzki et al. (2023), Silva, Morato e Kawakubo (2013), Amaral et al. (2012) | O erro da desagregação é estudado **no ato de estimar**. Não se estudou o que acontece quando a estimativa (2010) é subtraída de uma contagem (2022) |
 | **Grade estatística e grades populacionais** | O produto e o método: IBGE (2016, 2025). Potencial e limites: Bueno e D'Antona (2017). Revisão: Silva, D. M. et al. (2024). Precedente do método híbrido: D'Antona, Bueno e Dagnino (2013), grade sobre a Contagem 2007. Usos da grade de 2010: D'Antona, Dagnino e Bueno (2015), Alves e D'Antona (2020). Adequação da célula de 200 m: Pedro e Queiroz Filho (2017). Grades globais contra o Censo 2022: Salgado et al. (2025) | **Comparação 2010 × 2022**; efeito da troca de resolução; efeito do método híbrido; o código de método por célula, que o IBGE (2016) declara e que não vem no produto distribuído (ver `resultados_s1.md` § 10.6) |
 | **Base territorial e tipologia urbano-rural de 2022** | Souza et al. (2024) descrevem o novo critério. Dias et al. (2025), na RA'E GA, ligam a variação de 2010 a 2022 ao aprimoramento da base territorial | **Quanto** a reclassificação distorce a série urbano × rural de um município |
-| **Domicílios × população: desadensamento** | RMSP 2010–2022: Mendonça et al. (2024). RMs paulistas: Lisbôa et al. (2024). Leitura geral do Censo 2022: Moura (2026). Arranjos domiciliares: Becceneri et al. (2021). No exterior: Liu et al. (2003), Bradbury et al. (2014) | **Cidade média fora de região metropolitana**, e **na escala intraurbana**, com separação entre expansão e adensamento. Não apareceu estudo equivalente |
+| **Domicílios × população: desadensamento** | RMSP 2010–2022: Mendonça et al. (2024). RMs paulistas: Lisbôa et al. (2024), mantido por decisão do responsável (2026-09-25). A revista é de administração, mas o artigo é pertinente: constrói um índice de crescimento de domicílios e de população (ICDP) com as taxas de 2010 a 2022 e mostra o número de domicílios crescendo mais que a população na maioria dos municípios, o mesmo descompasso do A03. Leitura geral do Censo 2022: Moura (2026). Arranjos domiciliares: Becceneri et al. (2021). No exterior: Liu et al. (2003), Bradbury et al. (2014) | **Cidade média fora de região metropolitana**, e **na escala intraurbana**, com separação entre expansão e adensamento. Não apareceu estudo equivalente |
 | **Expansão urbana em cidade média** | Silva, Sathler e Macedo (2022), Peres e Saboya (2024), Maia e Leonelli (2025), Miyazaki e Silva (2023), Lacerda (2024) | São estudos de morfologia e segregação. Nenhum mede **quanto do crescimento de domicílios é área nova e quanto é adensamento** |
 | **Adensamento** | Por quadra: Umbelino e Davis Jr. (2015). Verticalização: Lobo, C. et al. (2015), Rios et al. (2022). Centros antigos: Nadalin et al. (2018) | O adensamento **sem verticalização**, típico de cidade média, não aparece |
+| **Entorno e infraestrutura urbana (subordinada 3)** | A pesquisa do entorno de 2010 e 2022 foi usada no RS (Dornelles e Nascimento, 2026) e em centros históricos (Leite e Corrêa, 2023). A infraestrutura por setor foi usada em Curitiba (Bittencourt e Faria, 2021) | O entorno de 2022 **nas áreas onde a cidade cresceu**, comparado ao restante da cidade, não aparece |
 | **Bagé** | Não apareceu artigo de periódico sobre a expansão urbana de Bagé (Scholar, s6) | Literatura local: Unipampa, Urcamp, Lume (§ 2.3) |
 
 **Leitura de conjunto.** A literatura brasileira sabe compatibilizar setores e
@@ -366,15 +402,16 @@ Os quatro achados são os de `manifesto.yaml`, `metodo_previsto`.
 
 ### 5.1 A lista proposta para o artigo (núcleo)
 
-O `.bib` tem 56 entradas: 51 de periódico, 2 de anais, 2 relatórios e 1 livro. O
+O `.bib` tem 59 entradas: 54 de periódico, 2 de anais, 2 relatórios e 1 livro. O
 artigo não usará todas. O limite de 20 páginas diagramadas comporta cerca de 40
 referências. O núcleo proposto é este:
 
 | grupo | referências | n |
 | --- | --- | ---: |
 | periódico, nacional ou de autoria brasileira | Lobo (2009); Hirye et al. (2016); Salgado et al. (2025); Mendonça et al. (2024); Ehrl (2017); Silva e Bacha (2011); Libório et al. (2020); Dias et al. (2025); Bueno e D'Antona (2017); D'Antona, Bueno e Dagnino (2013); D'Antona, Dagnino e Bueno (2015); Pedro e Queiroz Filho (2017); Alves e D'Antona (2020); Silva, D. M. et al. (2024); Castro et al. (2019); Strauch et al. (2014); Amaral et al. (2012); Souza et al. (2024); Silva, Sathler e Macedo (2022); Peres e Saboya (2024); Maia e Leonelli (2025); Becceneri et al. (2021); Nadalin et al. (2018); Lisbôa et al. (2024); Moura (2026) | 25 |
+| periódico, as 4 antes de reserva (incluídas por decisão do responsável, 2026-09-25) | Umbelino e Davis Jr. (2015); Rios et al. (2022); Miyazaki e Silva (2023); Nowatzki et al. (2023) | 4 |
 | periódico, internacional indispensável (§ 6) | Goodchild e Lam (1980); Flowerdew, Green e Kehris (1991); Fotheringham e Wong (1991); Mennis (2003); Schroeder (2007); Logan, Xu e Stults (2014); Liu et al. (2003) | 7 |
-| **total de periódicos** | | **32** |
+| **total de periódicos** | | **36** |
 | anais | Reis (2013); Mendonça e Kon (2025) | 2 |
 | relatório do IBGE (no `.bib`) | IBGE (2016), grade; IBGE (2025), nota da grade 2022 | 2 |
 | relatório do IBGE (**fora do `.bib`**, que o texto quase certamente cita) | *Metodologia do Censo Demográfico 2010* (Relatórios Metodológicos v. 41), já citada em `dimensionamento.md`; *Leia-me: comparabilidade entre as malhas de setores censitários 2010 e 2022*; *Características urbanísticas do entorno dos domicílios* (Censo 2022, subordinada 3); *Coordenadas geográficas dos endereços* (nota metodológica 01/2024) | 4 |
@@ -382,32 +419,28 @@ referências. O núcleo proposto é este:
 
 ### 5.2 A conta
 
-*Recontada em 2026-09-25, com D'Antona, Bueno e Dagnino (2013) no núcleo. Antes: 31
-periódicos contra 8 outros, 79,5 %.*
+*Fechada em 2026-09-25 pelo responsável, com as 4 referências de reserva no núcleo.
+**Motivo:** 80,0 % no limite não absorve nenhuma citação nova do IBGE durante a
+redação. Contas anteriores: 31 × 8 = 79,5 %; 32 × 8 = 80,0 %.*
 
 | cenário | periódicos | outros | total | % periódico | 80 %? |
 | --- | ---: | ---: | ---: | ---: | --- |
-| núcleo como está | 32 | 8 | 40 | **80,0 %** | **sim, no limite**: qualquer "outro" a mais derruba |
-| + 2 periódicos da reserva | 34 | 8 | 42 | 81,0 % | sim, mas ainda não absorve 1 "outro" a mais (34/43 = 79,1 %) |
-| **+ 4 periódicos da reserva (recomendado)** | 36 | 8 | 44 | **81,8 %** | sim; absorve **1** "outro" a mais (36/45 = 80,0 %) |
-| + tese de Bueno (2014) e AMC do IPEA, se entrarem | 32 | 10 | 42 | 76,2 % | não; faltariam 8 periódicos (40 / 50) |
+| **núcleo final** | **36** | **8** | **44** | **81,8 %** | **sim** |
+| núcleo + 1 "outro" imprevisto (uma nota do IBGE, por exemplo) | 36 | 9 | 45 | 80,0 % | sim, no limite |
+| núcleo + 2 "outros" | 36 | 10 | 46 | 78,3 % | não; faltariam 4 periódicos |
+| núcleo + os 3 do entorno (§ 2.2, quadro H), se a subordinada 3 os usar | 39 | 8 | 47 | 83,0 % | sim; absorve até 1 "outro" com folga (39/48 = 81,3 %) |
 
 **Regra de bolso:** a cada referência que não é de periódico, entram **4 de
 periódico**, porque P ≥ 4 × O.
 
-**A regra está atendida sem margem.** Com as 8 de fora, faltam **0 referências de
-periódico para empatar** e **4 para absorver um "outro" imprevisto**, como uma nota do
-IBGE que um avaliador peça. Estas estão prontas no `.bib`, na ordem de pertinência:
-
-1. Umbelino e Davis Jr. (2015), Rebep: domicílios por quadra;
-2. Rios et al. (2022), Cadernos Metrópole: adensamento;
-3. Miyazaki e Silva (2023), Brazilian Geographical Journal: cidade média e setor;
-4. Nowatzki et al. (2023), Revista Brasileira de Cartografia: interpolação por área ×
-   dasimetria;
-5. depois, se necessário: Lobo, C. et al. (2015), Eicher e Brewer (2001).
+**A regra está atendida com margem de um "outro".** Se a redação acrescentar mais de
+uma referência que não é de periódico, cada uma exige mais 4 de periódico.
+Candidatas, já no `.bib`: os 3 artigos do entorno; depois Lobo, C. et al. (2015) e
+Eicher e Brewer (2001).
 
 **Outras formas de ganhar folga:**
-- Citar a AMC só por Ehrl (2017), que é periódico, e **não** pelo IPEA.
+- A AMC é citada **só por Ehrl (2017)**, que é periódico (decisão do responsável,
+  2026-09-25). A versão do IPEA fica fora.
 - Citar a grade de 2010 pelo IBGE (2016), por D'Antona, Bueno e Dagnino (2013) e por
   Bueno e D'Antona (2017), e **não** pela tese de Bueno.
 - Citar o MAUP por Fotheringham e Wong (1991), que é periódico, e **não** por Openshaw
@@ -448,8 +481,8 @@ conceito é de origem internacional e o avaliador vai procurá-lo.
 
 | referência | o que falta |
 | --- | --- |
-| Reis, E. J.; Pimentel, M.; Alvarenga, A. I.; Santos, M. C. H. *Áreas mínimas comparáveis para os períodos intercensitários de 1872 a 2000*. Anais do I Simpósio Brasileiro de Cartografia Histórica | ano (2011 só pela citação de Ehrl) e local. O PDF (ufmg.br/rededemuseus/crch/simposio/) não traz |
-| Reis, E.; Pimentel, M.; Alvarenga, A. I. Mesmo título. IPEA/DIMAC, .doc no Ipeadata | série, número e ano formal. Só há a data de gravação do arquivo (2007). O "IPEA 2008" que circula no Scholar não foi confirmado |
+| Reis, E. J.; Pimentel, M.; Alvarenga, A. I.; Santos, M. C. H. *Áreas mínimas comparáveis para os períodos intercensitários de 1872 a 2000*. Anais do I Simpósio Brasileiro de Cartografia Histórica | **fora por decisão do responsável** (2026-09-25): a AMC é citada só por Ehrl (2017). Não precisa mais ser conferida |
+| Reis, E.; Pimentel, M.; Alvarenga, A. I. Mesmo título. IPEA/DIMAC, .doc no Ipeadata | **fora por decisão do responsável** (2026-09-25), como a linha acima |
 | Bueno, M. C. D. *Grade estatística…* Tese, IFCH/Unicamp, 2014. DOI 10.47749/t/unicamp.2014.937903 | título completo e nível. O Crossref traz só "Grade estatística", e o repositório da Unicamp bloqueou |
 | IBGE. *Censo Demográfico 2022: coordenadas geográficas dos endereços*. Nota metodológica 01, 2024 | não está no acervo; conferir em biblioteca.ibge.gov.br (liv102063) |
 | IBGE. *Leia-me: comparabilidade entre as malhas de setores censitários 2010 e 2022* | está no acervo (`data/raw/tabular/ibge/censo_2022/doc/`), mas o PDF não traz ano nem responsável; definir a forma ABNT |
@@ -491,17 +524,29 @@ incidência de dengue em Campinas. Sem pertinência.
 
 ## 8. Decisões pendentes (do responsável)
 
+*Fechadas em 2026-09-25:*
+- as 4 referências de reserva entraram no núcleo (81,8 %);
+- AMC só por Ehrl (2017);
+- Lobo (2009) com p. 71–84;
+- Lisbôa et al. (2024) mantido;
+- estrato do entorno acrescentado (§ 2.2, quadro H);
+- Prates encerrado (§ 7).
+
+Restam:
+
 1. **Importar** `bibliografia_a03.bib` no Zotero, fixar as chaves e, depois da
    exportação, preencher `referencias_bib` no `manifesto.yaml`.
-2. **Pendência menor:** consultar ABEP 2024 e SBSR 2025 quando for possível. A
-   lacuna já está redigida na forma declarada (§ 0), com as bases bloqueadas como
-   limitação. *Prates (Unicamp, 2025) foi encerrado em 2026-09-25 (§ 7).*
-3. **Escolher as 4 referências de reserva** do § 5.2, ou outras. O núcleo atende os
-   80 % no limite (80,0 %), sem margem.
-4. **AMC:** citar só Ehrl (2017), como recomendado, ou também a versão IPEA/anais,
-   que custa um "outro" e está a conferir.
-5. **Lobo (2009):** p. 71–84 (a revista, adotado) ou 71–83 (o Redalyc).
-6. **Lisbôa et al. (2024):** é o único artigo de periódico sobre "domicílios ×
-   população", mas a revista é de administração. Manter ou trocar.
-7. **Estrato do entorno** (subordinada 3): acrescentar a busca por "características
-   urbanísticas do entorno" e "infraestrutura urbana setor censitário".
+2. **Subordinada 3:** decidir quais dos 3 artigos do entorno entram no texto
+   (Dornelles e Nascimento, 2026; Leite e Corrêa, 2023; Bittencourt e Faria, 2021).
+   Cada um só aumenta o percentual de periódicos.
+3. **Montar no Zotero as 4 referências do IBGE que estão fora do `.bib`** (§ 5.1), a
+   partir dos PDFs do acervo:
+   - *Metodologia do Censo 2010*;
+   - *Leia-me: comparabilidade 2010–2022*, sem ano nem responsável no PDF, o que exige
+     definir a forma ABNT;
+   - *Características urbanísticas do entorno* (2022);
+   - *Coordenadas geográficas dos endereços* (2024), que não está no acervo.
+4. **Pendência menor, sem bloquear a redação:** ABEP 2024 e SBSR 2025. Continuam
+   declarados como limitação da busca.
+5. **Sem prazo:** tese de Bueno (2014), que só precisa ser conferida se voltar a ser
+   citada; literatura local sobre Bagé (Unipampa, Urcamp, Lume).
