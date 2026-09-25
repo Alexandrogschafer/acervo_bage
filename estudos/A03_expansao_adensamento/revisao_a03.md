@@ -23,14 +23,27 @@ inteira não foi confirmada, ela ficou fora e está no § 7.
 
 ---
 
-## 0. A lacuna: ninguém publicou a comparação entre as grades de 2010 e 2022
+## 0. A lacuna, na forma declarada
 
-**Veredito: a lacuna existe, com uma ressalva que muda a redação.**
+**Formulação para o artigo.** A busca sistemática registrada no § 2 foi feita em
+2026-09-25, com protocolo, bases, expressões e contagens anotados. Ela **não localizou
+trabalho que meça o efeito dos artefatos de produção da Grade Estatística na
+comparação entre as edições de 2010 e 2022**. As bases que não puderam ser consultadas
+(§ 2.3) ficam declaradas como limitação da busca. A afirmação é sobre o que foi
+buscado, não sobre toda a literatura existente.
 
-- **O que não foi encontrado.** Nenhum trabalho acadêmico (artigo, anais, tese ou
-  preprint) compara a Grade Estatística de 2010 com a de 2022 célula a célula. Nenhum
-  mede a variação de população ou de domicílios por célula, nem discute a
-  comparabilidade entre as duas edições. A busca teve 38 estratos, listados no § 2.2.
+*Redação anterior (até 2026-09-25): "a lacuna existe", sob o título "ninguém publicou
+a comparação entre as grades de 2010 e 2022". Trocada pela forma declarada por decisão
+do responsável.*
+
+- **O que não foi encontrado.** A busca teve 38 estratos (§ 2.2). Não apareceu artigo,
+  anais, tese ou preprint que:
+  - compare a Grade Estatística de 2010 com a de 2022 célula a célula;
+  - meça a variação de população ou de domicílios por célula;
+  - discuta a comparabilidade entre as duas edições.
+- **O único candidato foi descartado.** A tese de Prates (Unicamp, 2025) apareceu num
+  estrato da grade e foi lida pelo responsável em 2026-09-25. Não ocupa a lacuna
+  (§ 7).
 - **O que o IBGE já documenta, e o artigo tem de citar.**
   - **A troca de resolução.** A nota metodológica da grade de 2022 (IBGE, 2025) dá a
     regra: a célula de 1 km de 2010 que passou a tocar setor urbano em 2022 foi
@@ -40,7 +53,10 @@ inteira não foi confirmada, ela ficou fora e está no § 7.
   - **O método híbrido de 2010.** O IBGE (2016, p. 16–22) descreve a agregação e a
     desagregação e diz que "foi incluída uma variável para explicitar a abordagem
     utilizada para a obtenção dos dados em cada célula". Salgado et al. (2025, p. 5–6)
-    repetem essa informação.
+    repetem essa informação. O **precedente publicado** do método é D'Antona, Bueno e
+    Dagnino (2013), na Rebep: uma grade regular construída sobre a Contagem 2007 pela
+    agregação dos domicílios pelas coordenadas e pela desagregação dos dados por setor
+    com proporcionalidade de área.
   - **A face de logradouro em 2010** (IBGE, 2016, p. 18–19) e **os níveis de
     geocodificação do CNEFE em 2022** (IBGE, 2025). O nível 4 é o "ponto médio da face
     de quadra", e os níveis 5 e 6 foram excluídos da grade.
@@ -58,10 +74,11 @@ acervo. O dicionário de 2022 (Quadro 04) não tem campo de método por célula.
 2025 **não avisa sobre a comparabilidade com 2010**: ela lista a "Estabilidade
 espaço-temporal" entre as vantagens da grade.
 
-**Cobertura incompleta, a completar à mão antes de afirmar a lacuna no texto:** anais
-da ABEP 2024 (Galoá), SBSR 2025 (proceedings.science bloqueou) e GeoInfo (só foi
-consultado pela busca web). Um trabalho de congresso de 2024–2025 pode existir sem
-aparecer no Google Scholar. Ver § 2.3.
+**Limitação declarada da busca.** As bases do § 2.3 não foram consultadas por
+bloqueio ou falta de indexação. A lacuna fica sustentada pelo que foi buscado. Ficam
+como **pendência menor**, que não impede a redação:
+- anais da ABEP 2024 (Galoá);
+- SBSR 2025 (proceedings.science bloqueou).
 
 ---
 
@@ -129,7 +146,7 @@ de anais (5, 6 e 7b) e o documento do IPEA (7c) **não contam**.
 | Google Scholar | `"statistical grid" Brazil "2022 census" population` (desde 2023) | 4 | 0 |
 | Google Scholar | `Bueno D'Antona "grade estatística"` | ~56 | 1 (Bueno, 2014, tese) |
 | Google Scholar | `"grade estatística" "setores censitários" reclassificação urbano rural 2022` (desde 2023) | 3 | 0 |
-| Google Scholar | `"grade estatística" comparabilidade 2010 2022` | ~96 | 0 |
+| Google Scholar | `"grade estatística" comparabilidade 2010 2022` | ~96 | 1 lido e descartado (Prates, 2025, tese; § 7). *Corrigido em 2026-09-25: a primeira passagem registrou 0 aproveitados, sem anotar o item; ele foi reencontrado ao refazer o estrato* |
 | Google Scholar | `"grade populacional" 2022 IBGE` (desde 2023) | 2 | 0 |
 | Google Scholar | `IBGE "statistical grid" 2010 2022 "population change" OR "population growth" cells` (desde 2024) | 2 | 0 |
 | Crossref | `"grade estatística" censo 2022` | 9.434.099 | 1 (DOI da tese de Bueno) |
@@ -256,7 +273,7 @@ et al.
 | **e-metropolis** (site) | conexão recusada; a revista não tem DOI no Crossref | os 9 termos |
 | **OJS de Cadernos Metrópole** | tempo esgotado (substituído pela Crossref com ISSN) | os 9 termos, para ter a contagem da própria revista |
 | **SBSR** (proceedings.science) | HTTP 403 | grade estatística; interpolação; dasimétrico (2015–2025) |
-| **repositórios da FGV e da Unicamp** | bloqueio anti-robô | a tese de Bueno (2014), para conferir título e nível; Prates (Unicamp, 2025), que fala em "harmonização" 2010/2022 e **pode tocar a lacuna** |
+| **repositórios da FGV e da Unicamp** | bloqueio anti-robô | a tese de Bueno (2014), para conferir título e nível. *Prates (Unicamp, 2025) está encerrado: o responsável leu a tese em 2026-09-25 (§ 7)* |
 | **anais da ABEP 2024** (Galoá) e **GeoInfo** | a busca não indexa | grade estatística 2022; comparação 2010 2022 |
 | **não rodado** | fora do alcance desta sessão | Geosul, Boletim Gaúcho de Geografia, GEOUSP, Sociedade & Natureza, Mercator; Scholar em inglês; Unipampa e Urcamp (literatura local sobre Bagé) |
 
@@ -273,7 +290,7 @@ fechar a revisão.
 | --- | --- | --- |
 | **Compatibilizar recortes censitários entre censos** | Métodos para setores: Lobo (2009), Reis (2013, anais), Hirye et al. (2016), Mendonça e Kon (2025, anais, por grafos). Para municípios, a AMC: Ehrl (2017), com o Voronoi como alternativa em Silva e Bacha (2011). Mudança de suporte: Libório et al. (2020). No exterior, a harmonização temporal de setores: Schroeder (2007), Logan, Xu e Stults (2014) | Tudo isso compatibiliza **setores**. A **grade**, criada para dispensar a compatibilização, não tem estudo de comparabilidade entre edições |
 | **Interpolação areal e dasimetria** | Consolidada. Internacionais: Goodchild e Lam (1980), Flowerdew, Green e Kehris (1991), Eicher e Brewer (2001), Mennis (2003). Nacionais, quase todos na Revista Brasileira de Cartografia: Strauch et al. (2014), Castro et al. (2019), Nowatzki et al. (2023), Silva, Morato e Kawakubo (2013), Amaral et al. (2012) | O erro da desagregação é estudado **no ato de estimar**. Não se estudou o que acontece quando a estimativa (2010) é subtraída de uma contagem (2022) |
-| **Grade estatística e grades populacionais** | O produto e o método: IBGE (2016, 2025). Potencial e limites: Bueno e D'Antona (2017). Revisão: Silva, D. M. et al. (2024). Usos da grade de 2010: D'Antona et al. (2015), Alves e D'Antona (2020). Adequação da célula de 200 m: Pedro e Queiroz Filho (2017). Grades globais contra o Censo 2022: Salgado et al. (2025) | **Comparação 2010 × 2022**; efeito da troca de resolução; efeito do método híbrido; o código de método por célula, que o IBGE (2016) declara e que não vem no produto distribuído (ver `resultados_s1.md` § 10.6) |
+| **Grade estatística e grades populacionais** | O produto e o método: IBGE (2016, 2025). Potencial e limites: Bueno e D'Antona (2017). Revisão: Silva, D. M. et al. (2024). Precedente do método híbrido: D'Antona, Bueno e Dagnino (2013), grade sobre a Contagem 2007. Usos da grade de 2010: D'Antona, Dagnino e Bueno (2015), Alves e D'Antona (2020). Adequação da célula de 200 m: Pedro e Queiroz Filho (2017). Grades globais contra o Censo 2022: Salgado et al. (2025) | **Comparação 2010 × 2022**; efeito da troca de resolução; efeito do método híbrido; o código de método por célula, que o IBGE (2016) declara e que não vem no produto distribuído (ver `resultados_s1.md` § 10.6) |
 | **Base territorial e tipologia urbano-rural de 2022** | Souza et al. (2024) descrevem o novo critério. Dias et al. (2025), na RA'E GA, ligam a variação de 2010 a 2022 ao aprimoramento da base territorial | **Quanto** a reclassificação distorce a série urbano × rural de um município |
 | **Domicílios × população: desadensamento** | RMSP 2010–2022: Mendonça et al. (2024). RMs paulistas: Lisbôa et al. (2024). Leitura geral do Censo 2022: Moura (2026). Arranjos domiciliares: Becceneri et al. (2021). No exterior: Liu et al. (2003), Bradbury et al. (2014) | **Cidade média fora de região metropolitana**, e **na escala intraurbana**, com separação entre expansão e adensamento. Não apareceu estudo equivalente |
 | **Expansão urbana em cidade média** | Silva, Sathler e Macedo (2022), Peres e Saboya (2024), Maia e Leonelli (2025), Miyazaki e Silva (2023), Lacerda (2024) | São estudos de morfologia e segregação. Nenhum mede **quanto do crescimento de domicílios é área nova e quanto é adensamento** |
@@ -314,8 +331,10 @@ Os quatro achados são os de `manifesto.yaml`, `metodo_previsto`.
   uma solução conhecida, aplicada a um lugar onde ninguém supunha precisar dela.
 
 **3. Grade de 2010 híbrida, sem a variável de abordagem.**
-- **Dialoga com:** IBGE (2016), fonte primária; Salgado et al. (2025), que repetem que
-  cada célula tem o código do método; a literatura de dasimetria sobre o erro de
+- **Dialoga com:** IBGE (2016), fonte primária; D'Antona, Bueno e Dagnino (2013),
+  precedente publicado do método (agregação pela coordenada mais desagregação por
+  proporcionalidade de área, sobre a Contagem 2007); Salgado et al. (2025), que repetem
+  que cada célula tem o código do método; a literatura de dasimetria sobre o erro de
   estimativa (Mennis, 2003; Eicher e Brewer, 2001; Strauch et al., 2014; Castro et al.,
   2019; Silva, D. M. et al., 2024).
 - **Contribuição:** a variação de 2010 a 2022 mistura estimativa com contagem. O
@@ -347,15 +366,15 @@ Os quatro achados são os de `manifesto.yaml`, `metodo_previsto`.
 
 ### 5.1 A lista proposta para o artigo (núcleo)
 
-O `.bib` tem 55 entradas: 50 de periódico, 2 de anais, 2 relatórios e 1 livro. O
+O `.bib` tem 56 entradas: 51 de periódico, 2 de anais, 2 relatórios e 1 livro. O
 artigo não usará todas. O limite de 20 páginas diagramadas comporta cerca de 40
 referências. O núcleo proposto é este:
 
 | grupo | referências | n |
 | --- | --- | ---: |
-| periódico, nacional ou de autoria brasileira | Lobo (2009); Hirye et al. (2016); Salgado et al. (2025); Mendonça et al. (2024); Ehrl (2017); Silva e Bacha (2011); Libório et al. (2020); Dias et al. (2025); Bueno e D'Antona (2017); D'Antona et al. (2015); Pedro e Queiroz Filho (2017); Alves e D'Antona (2020); Silva, D. M. et al. (2024); Castro et al. (2019); Strauch et al. (2014); Amaral et al. (2012); Souza et al. (2024); Silva, Sathler e Macedo (2022); Peres e Saboya (2024); Maia e Leonelli (2025); Becceneri et al. (2021); Nadalin et al. (2018); Lisbôa et al. (2024); Moura (2026) | 24 |
+| periódico, nacional ou de autoria brasileira | Lobo (2009); Hirye et al. (2016); Salgado et al. (2025); Mendonça et al. (2024); Ehrl (2017); Silva e Bacha (2011); Libório et al. (2020); Dias et al. (2025); Bueno e D'Antona (2017); D'Antona, Bueno e Dagnino (2013); D'Antona, Dagnino e Bueno (2015); Pedro e Queiroz Filho (2017); Alves e D'Antona (2020); Silva, D. M. et al. (2024); Castro et al. (2019); Strauch et al. (2014); Amaral et al. (2012); Souza et al. (2024); Silva, Sathler e Macedo (2022); Peres e Saboya (2024); Maia e Leonelli (2025); Becceneri et al. (2021); Nadalin et al. (2018); Lisbôa et al. (2024); Moura (2026) | 25 |
 | periódico, internacional indispensável (§ 6) | Goodchild e Lam (1980); Flowerdew, Green e Kehris (1991); Fotheringham e Wong (1991); Mennis (2003); Schroeder (2007); Logan, Xu e Stults (2014); Liu et al. (2003) | 7 |
-| **total de periódicos** | | **31** |
+| **total de periódicos** | | **32** |
 | anais | Reis (2013); Mendonça e Kon (2025) | 2 |
 | relatório do IBGE (no `.bib`) | IBGE (2016), grade; IBGE (2025), nota da grade 2022 | 2 |
 | relatório do IBGE (**fora do `.bib`**, que o texto quase certamente cita) | *Metodologia do Censo Demográfico 2010* (Relatórios Metodológicos v. 41), já citada em `dimensionamento.md`; *Leia-me: comparabilidade entre as malhas de setores censitários 2010 e 2022*; *Características urbanísticas do entorno dos domicílios* (Censo 2022, subordinada 3); *Coordenadas geográficas dos endereços* (nota metodológica 01/2024) | 4 |
@@ -363,29 +382,34 @@ referências. O núcleo proposto é este:
 
 ### 5.2 A conta
 
+*Recontada em 2026-09-25, com D'Antona, Bueno e Dagnino (2013) no núcleo. Antes: 31
+periódicos contra 8 outros, 79,5 %.*
+
 | cenário | periódicos | outros | total | % periódico | 80 %? |
 | --- | ---: | ---: | ---: | ---: | --- |
-| núcleo como está | 31 | 8 | 39 | **79,5 %** | **não** |
-| + 1 periódico da reserva | 32 | 8 | 40 | 80,0 % | no limite |
-| **+ 3 periódicos da reserva (recomendado)** | 34 | 8 | 42 | **81,0 %** | sim, com folga de 1 |
-| + tese de Bueno (2014) e AMC do IPEA, se entrarem | 34 | 10 | 44 | 77,3 % | não; faltariam 6 periódicos (40 / 50) |
+| núcleo como está | 32 | 8 | 40 | **80,0 %** | **sim, no limite**: qualquer "outro" a mais derruba |
+| + 2 periódicos da reserva | 34 | 8 | 42 | 81,0 % | sim, mas ainda não absorve 1 "outro" a mais (34/43 = 79,1 %) |
+| **+ 4 periódicos da reserva (recomendado)** | 36 | 8 | 44 | **81,8 %** | sim; absorve **1** "outro" a mais (36/45 = 80,0 %) |
+| + tese de Bueno (2014) e AMC do IPEA, se entrarem | 32 | 10 | 42 | 76,2 % | não; faltariam 8 periódicos (40 / 50) |
 
 **Regra de bolso:** a cada referência que não é de periódico, entram **4 de
 periódico**, porque P ≥ 4 × O.
 
-**Faltam 1 referência de periódico para empatar e 3 para ter folga**, com as 8 de
-fora. Estas estão prontas no `.bib`, na ordem de pertinência:
+**A regra está atendida sem margem.** Com as 8 de fora, faltam **0 referências de
+periódico para empatar** e **4 para absorver um "outro" imprevisto**, como uma nota do
+IBGE que um avaliador peça. Estas estão prontas no `.bib`, na ordem de pertinência:
 
 1. Umbelino e Davis Jr. (2015), Rebep: domicílios por quadra;
 2. Rios et al. (2022), Cadernos Metrópole: adensamento;
 3. Miyazaki e Silva (2023), Brazilian Geographical Journal: cidade média e setor;
-4. depois, se necessário: Nowatzki et al. (2023), Lobo, C. et al. (2015), Eicher e
-   Brewer (2001).
+4. Nowatzki et al. (2023), Revista Brasileira de Cartografia: interpolação por área ×
+   dasimetria;
+5. depois, se necessário: Lobo, C. et al. (2015), Eicher e Brewer (2001).
 
 **Outras formas de ganhar folga:**
 - Citar a AMC só por Ehrl (2017), que é periódico, e **não** pelo IPEA.
-- Citar a grade de 2010 pelo IBGE (2016) e por Bueno e D'Antona (2017), e **não** pela
-  tese de Bueno.
+- Citar a grade de 2010 pelo IBGE (2016), por D'Antona, Bueno e Dagnino (2013) e por
+  Bueno e D'Antona (2017), e **não** pela tese de Bueno.
 - Citar o MAUP por Fotheringham e Wong (1991), que é periódico, e **não** por Openshaw
   (1984), que é livro.
 - Juntar as duas notas metodológicas do CNEFE e da grade de 2022 numa citação só, se
@@ -435,7 +459,29 @@ conceito é de origem internacional e o avaliador vai procurá-lo.
 | Silva, L. Y. W. (2025). *Estudos Geográficos* 23(4): 1–20. CNEFE 2022 em Petrolina–Juazeiro | sem DOI; não reconferida na página da revista |
 | Oliveira, G. E. T.; Körting, T. S.; Amaral, S. (2025). *Revista Brasileira de Cartografia* 77. DOI 10.14393/rbcv77n0a-69156 | não reconferida no Crossref; pertinência baixa (usa só a grade de 2010) |
 | Flowerdew e Green (1989, 1994); Wong (2004): capítulos de livro | organizadores e ano dos livros não confirmados. Dispensáveis (§ 6) |
-| Prates (Unicamp, 2025), dissertação ou tese | **pode tocar a lacuna** ("harmonização" 2010/2022 no trecho do Scholar). Repositório bloqueado. **Ler antes de submeter** |
+
+**Encerrado em 2026-09-25: Prates (2025).**
+- **Referência, conforme a leitura do responsável:** PRATES, Talita de Oliveira
+  Bracher. *Indicador de Vulnerabilidade Social a Inundações na Região Metropolitana
+  de Campinas: Análise Crítica da Subnotificação de Eventos Hidrológicos e Impactos na
+  Gestão de Riscos*. Tese (Doutorado em Geografia, Análise Ambiental e Dinâmica
+  Territorial), Instituto de Geociências, Unicamp, 2025. 180 p.
+- **Não ocupa a lacuna.**
+  - A grade estatística é citada uma única vez, como suporte cartográfico e
+    interpretativo.
+  - O próprio texto declara que só as variáveis censitárias entraram na formulação do
+    IVS. A unidade de análise é o setor censitário.
+  - Não há nenhuma ocorrência de "célula", "200 m", "1 km", "compatibilização" nem
+    "áreas mínimas".
+  - A "harmonização" do trecho do Scholar é a seleção de variáveis conceitualmente
+    equivalentes entre 2010 e 2022 e a coerência cartográfica dos setores. Não se
+    refere às grades.
+- **Decisão do responsável: não citar**, por ser tese e pela regra dos 80 %. Reavaliar
+  se sair artigo derivado.
+- **Registro:** foi encontrada no estrato `"grade estatística" comparabilidade 2010
+  2022` do Google Scholar (§ 2.2, quadro A, corrigido).
+- **Correção:** até esta data, a revisão dizia "dissertação ou tese" e "pode tocar a
+  lacuna". As duas coisas eram inferência, não dado da busca.
 
 Um item foi **descartado**: Mendes, Barja e Ferreira (2022), na RA'E GA 55, que um dos
 estratos marcou como "usa a grade de 2010". O Crossref confirma que o artigo trata da
@@ -447,10 +493,11 @@ incidência de dengue em Campinas. Sem pertinência.
 
 1. **Importar** `bibliografia_a03.bib` no Zotero, fixar as chaves e, depois da
    exportação, preencher `referencias_bib` no `manifesto.yaml`.
-2. **Completar à mão** as bases do § 2.3. Em especial: Prates (Unicamp, 2025), ABEP
-   2024, SBSR 2025 e o SciELO Search, **antes de afirmar a lacuna no texto**.
-3. **Escolher as 3 referências de reserva** do § 5.2, ou outras, para ter folga nos
-   80 %.
+2. **Pendência menor:** consultar ABEP 2024 e SBSR 2025 quando for possível. A
+   lacuna já está redigida na forma declarada (§ 0), com as bases bloqueadas como
+   limitação. *Prates (Unicamp, 2025) foi encerrado em 2026-09-25 (§ 7).*
+3. **Escolher as 4 referências de reserva** do § 5.2, ou outras. O núcleo atende os
+   80 % no limite (80,0 %), sem margem.
 4. **AMC:** citar só Ehrl (2017), como recomendado, ou também a versão IPEA/anais,
    que custa um "outro" e está a conferir.
 5. **Lobo (2009):** p. 71–84 (a revista, adotado) ou 71–83 (o Redalyc).
