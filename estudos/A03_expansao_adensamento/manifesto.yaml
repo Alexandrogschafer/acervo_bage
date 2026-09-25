@@ -49,6 +49,25 @@ pergunta: >-
   adensamento da área já ocupada —, e QUE INFRAESTRUTURA URBANA existe em 2022
   nas áreas que cresceram, comparada à do restante da cidade?
 
+# Periódico alvo do artigo. Decisão do responsável, 2026-09-24. Normas da revista
+# lidas e registradas em submissao_raega.md (mesmo diretório).
+publicacao:
+  artigo_id: ACERVO_BAGE-A03
+  periodico_alvo: "RA'E GA — O Espaço Geográfico em Análise (UFPR)"
+  issn: "2177-2738"
+  idioma: pt
+  decisao: responsável, 2026-09-24
+  normas: estudos/A03_expansao_adensamento/submissao_raega.md
+  # IDEIA, não artigo em andamento: nada disto está planejado nem iniciado.
+  desdobramentos_previstos:
+    - >-
+      Estudo equivalente para Uruguaiana/RS (mesma pergunta e mesmo método), feito
+      depois do A03. Portabilidade dos scripts do A03 levantada em
+      portabilidade.md (mesmo diretório), sem alteração de código.
+    - >-
+      Depois dele, artigo comparativo Bagé–Uruguaiana, com alvo Applied Geography
+      (Elsevier), em inglês.
+
 # Decidida pelo responsável em 2026-09-22, sobre estudos/A03_expansao_adensamento/
 # dimensionamento.md § 5.3.
 subordinadas:

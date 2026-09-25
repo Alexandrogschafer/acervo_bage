@@ -50,6 +50,16 @@ Três subordinadas, decididas pelo responsável em 2026-09-22 e escritas na ínt
      `docs/ressalvas_censo_bage.md` § 8).
   *O terceiro entrou em 2026-09-23; antes, o texto dizia "os dois achados".*
 
+## Publicação (decidida em 2026-09-24)
+
+- **Periódico alvo:** RA'E GA — O Espaço Geográfico em Análise (UFPR), em português.
+  Decisão do responsável, 2026-09-24. As normas da revista estão resumidas em
+  [`submissao_raega.md`](submissao_raega.md).
+- **Desdobramento previsto, só como ideia:** um estudo equivalente para Uruguaiana/RS
+  e, depois dele, um artigo comparativo Bagé–Uruguaiana com alvo Applied Geography, em
+  inglês. Nenhum dos dois está em andamento. O que dos scripts serve a outro município
+  está em [`portabilidade.md`](portabilidade.md).
+
 ## Os dois documentos
 
 **[`reconhecimento.md`](reconhecimento.md)** — o que os dados de 2000, 2010, 2022 e do

@@ -5,6 +5,28 @@ pendente. Entrada nova no topo.
 
 ---
 
+## 2026-09-24 — A03: periódico alvo registrado; portabilidade dos scripts levantada
+
+- **Decisão do responsável:** o A03 vai para a **RA'E GA — O Espaço Geográfico em
+  Análise** (UFPR), em português. Registrada no `manifesto.yaml` (bloco `publicacao`) e
+  no README do estudo.
+- **Desdobramento, só como ideia:** estudo equivalente para Uruguaiana/RS e, depois,
+  artigo comparativo Bagé–Uruguaiana com alvo Applied Geography, em inglês.
+- **Normas da revista** em `estudos/A03_expansao_adensamento/submissao_raega.md`.
+  O escopo recusa caracterização local sem inovação de método. Limite de 20 páginas e
+  resumo de 200 a 250 palavras. ABNT, com ≥ 80 % de referências em periódico. Figuras
+  a 300 dpi, até 18 × 20 cm. Sem taxa, mas publicação bilíngue com tradução e
+  diagramação por conta dos autores. Não há exigência de dados abertos nem de
+  declaração de disponibilidade.
+- **Portabilidade** em `estudos/A03_expansao_adensamento/portabilidade.md`, sem
+  alteração de código. Nenhum script roda para outro município só trocando o config.
+  - A grade lê só os quadrantes id14 e id04, e Uruguaiana fica fora dos dois.
+  - Há literais de Bagé em r03, r05 e d02.
+  - Os limiares estão calibrados em Bagé.
+  - As saídas não são separadas por município.
+- **Não registrado no repositório de publicações** (`../publicacoes`): a tarefa limitou
+  o trabalho a este repositório. Fica para o responsável.
+
 ## 2026-09-24 — A03: entorno por face testado (não liga); resultados da subordinada 3
 
 - **Decisão do responsável:** o item 3 não será refeito com outra junção por setor. A
