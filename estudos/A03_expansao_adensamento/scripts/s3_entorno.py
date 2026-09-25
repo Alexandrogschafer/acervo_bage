@@ -158,7 +158,7 @@ def incerteza(t: pd.DataFrame, peso: str) -> dict:
 def perfil(t: pd.DataFrame, peso: str, municipio: dict) -> dict:
     """Proporção ponderada por `peso` de cada item, só nas unidades com entorno."""
     c = t[t["tem_entorno"] & (t[peso] > 0)]
-    out = {"unidades_com_entorno": int(len(c)), peso: int(c[peso].sum()),
+    out = {"unidades_com_entorno": int(len(c)), f"{peso}_com_entorno": int(c[peso].sum()),
            "setores_distintos": int(c["setor"].nunique()), "itens": {}}
     if not len(c):
         return out
@@ -220,11 +220,26 @@ def blocos(t: pd.DataFrame, municipio: dict) -> dict:
         # "resto da cidade": todas as outras unidades com entorno, pelos domicílios de 2022
         resto = perfil(t[t["classe"] != classe], "dom_22", municipio)
         r["classes"][classe]["resto_da_cidade"] = {
-            "unidades_com_entorno": resto["unidades_com_entorno"], "dom_22": resto["dom_22"],
+            "unidades_com_entorno": resto["unidades_com_entorno"],
+            "dom_22_com_entorno": resto["dom_22_com_entorno"],
             "itens": {k: v["pct"] for k, v in resto["itens"].items()}}
         for k, v in r["classes"][classe]["itens"].items():
             v["dif_pp_resto"] = round(v["pct"] - resto["itens"][k]["pct"], 1)
     r["todas_as_unidades_com_domicilio_2022"] = perfil(t, "dom_22", municipio)
+
+    # extintas urbanas por fenômeno (resultados_s1.md § 12.4): esvaziamento medido ×
+    # indício de deslocamento por repartição da face (efeito de medida) × outras
+    faces = json.loads((s1.DERIV / "s1_faces_2010.json").read_text(encoding="utf-8"))
+    fen = faces["extintas_urbanas_por_fenomeno"]
+    rotulos = {"esvaziamento_medido_face_perdeu_os_enderecos": "esvaziamento medido",
+               "deslocamento_por_reparticao": "deslocamento por repartição da face",
+               "outros": "outras"}
+    r["extintas_urbanas_por_fenomeno"] = {}
+    for chave, rotulo in rotulos.items():
+        x = t[t.index.isin(fen[chave]["unidades_lista"])]
+        r["extintas_urbanas_por_fenomeno"][rotulo] = {
+            "unidades": int(len(x)), "dom_10": int(x["dom_10"].sum()),
+            **perfil(x, "dom_10", municipio)}
 
     # item 3: novas urbanas de 200 m pela datação (interpretação)
     n200 = t[(t["classe"] == "nova") & (t["resolucao"] == "200 m")]

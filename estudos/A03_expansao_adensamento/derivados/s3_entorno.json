@@ -212,7 +212,7 @@
       "nova": {
         "peso": "dom_22",
         "unidades_com_entorno": 67,
-        "dom_22": 1339,
+        "dom_22_com_entorno": 1339,
         "setores_distintos": 30,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -319,7 +319,7 @@
         "peso_nos_3_maiores_setores_pct": 45.7,
         "resto_da_cidade": {
           "unidades_com_entorno": 803,
-          "dom_22": 40270,
+          "dom_22_com_entorno": 40270,
           "itens": {
             "VIA PAVIMENTADA": 43.1,
             "OBSTÁCULO NA CALÇADA": 66.1,
@@ -338,7 +338,7 @@
       "adensada": {
         "peso": "dom_22",
         "unidades_com_entorno": 492,
-        "dom_22": 27792,
+        "dom_22_com_entorno": 27792,
         "setores_distintos": 132,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -445,7 +445,7 @@
         "peso_nos_3_maiores_setores_pct": 8.3,
         "resto_da_cidade": {
           "unidades_com_entorno": 378,
-          "dom_22": 13817,
+          "dom_22_com_entorno": 13817,
           "itens": {
             "VIA PAVIMENTADA": 50.3,
             "OBSTÁCULO NA CALÇADA": 62.8,
@@ -464,7 +464,7 @@
       "estavel": {
         "peso": "dom_22",
         "unidades_com_entorno": 37,
-        "dom_22": 748,
+        "dom_22_com_entorno": 748,
         "setores_distintos": 25,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -571,7 +571,7 @@
         "peso_nos_3_maiores_setores_pct": 30.3,
         "resto_da_cidade": {
           "unidades_com_entorno": 833,
-          "dom_22": 40861,
+          "dom_22_com_entorno": 40861,
           "itens": {
             "VIA PAVIMENTADA": 43.5,
             "OBSTÁCULO NA CALÇADA": 65.6,
@@ -590,7 +590,7 @@
       "esvaziada": {
         "peso": "dom_22",
         "unidades_com_entorno": 274,
-        "dom_22": 11730,
+        "dom_22_com_entorno": 11730,
         "setores_distintos": 113,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -697,7 +697,7 @@
         "peso_nos_3_maiores_setores_pct": 7.2,
         "resto_da_cidade": {
           "unidades_com_entorno": 596,
-          "dom_22": 29879,
+          "dom_22_com_entorno": 29879,
           "itens": {
             "VIA PAVIMENTADA": 41.3,
             "OBSTÁCULO NA CALÇADA": 65.2,
@@ -716,7 +716,7 @@
       "extinta": {
         "peso": "dom_10",
         "unidades_com_entorno": 61,
-        "dom_10": 312,
+        "dom_10_com_entorno": 312,
         "setores_distintos": 21,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -823,7 +823,7 @@
         "peso_nos_3_maiores_setores_pct": 59.9,
         "resto_da_cidade": {
           "unidades_com_entorno": 870,
-          "dom_22": 41609,
+          "dom_22_com_entorno": 41609,
           "itens": {
             "VIA PAVIMENTADA": 43.6,
             "OBSTÁCULO NA CALÇADA": 65.4,
@@ -855,7 +855,7 @@
     },
     "todas_as_unidades_com_domicilio_2022": {
       "unidades_com_entorno": 870,
-      "dom_22": 41609,
+      "dom_22_com_entorno": 41609,
       "setores_distintos": 146,
       "itens": {
         "VIA PAVIMENTADA": {
@@ -950,11 +950,311 @@
       "peso_no_maior_setor_pct": 2.7,
       "peso_nos_3_maiores_setores_pct": 6.2
     },
+    "extintas_urbanas_por_fenomeno": {
+      "esvaziamento medido": {
+        "unidades": 23,
+        "dom_10": 244,
+        "unidades_com_entorno": 21,
+        "dom_10_com_entorno": 218,
+        "setores_distintos": 12,
+        "itens": {
+          "VIA PAVIMENTADA": {
+            "pct": 31.5,
+            "dif_pp_cidade": -14.3,
+            "sem_um_setor_min_max": [
+              25.2,
+              43.2
+            ]
+          },
+          "OBSTÁCULO NA CALÇADA": {
+            "pct": 74.1,
+            "dif_pp_cidade": 9.8,
+            "sem_um_setor_min_max": [
+              72.4,
+              74.8
+            ]
+          },
+          "ARBORIZAÇÃO": {
+            "pct": 39.4,
+            "dif_pp_cidade": -9.5,
+            "sem_um_setor_min_max": [
+              37.5,
+              44.1
+            ]
+          },
+          "BUEIRO": {
+            "pct": 63.6,
+            "dif_pp_cidade": -1.5,
+            "sem_um_setor_min_max": [
+              60.6,
+              64.7
+            ]
+          },
+          "RAMPA PARA CADEIRANTE": {
+            "pct": 8.1,
+            "dif_pp_cidade": -9.5,
+            "sem_um_setor_min_max": [
+              5.4,
+              15.6
+            ]
+          },
+          "PONTO DE ÔNIBUS": {
+            "pct": 7.1,
+            "dif_pp_cidade": -5.5,
+            "sem_um_setor_min_max": [
+              6.2,
+              10.9
+            ]
+          },
+          "CALÇADA": {
+            "pct": 90.9,
+            "dif_pp_cidade": 1.6,
+            "sem_um_setor_min_max": [
+              90.1,
+              91.6
+            ]
+          },
+          "CIRCULAÇÃO DA VIA": {
+            "pct": 85.1,
+            "dif_pp_cidade": -8.0,
+            "sem_um_setor_min_max": [
+              71.3,
+              93.5
+            ]
+          },
+          "ILUMINAÇÃO PÚBLICA": {
+            "pct": 99.7,
+            "dif_pp_cidade": 0.3,
+            "sem_um_setor_min_max": [
+              99.3,
+              99.8
+            ]
+          },
+          "VIA SINALIZADA PARA BICICLETA": {
+            "pct": 0.9,
+            "dif_pp_cidade": -0.5,
+            "sem_um_setor_min_max": [
+              0.7,
+              1.2
+            ]
+          },
+          "ARBORIZAÇÃO — sem árvores": {
+            "pct": 23.8,
+            "dif_pp_cidade": 3.0,
+            "sem_um_setor_min_max": [
+              18.8,
+              27.1
+            ]
+          }
+        },
+        "peso_no_maior_setor_pct": 48.2,
+        "peso_nos_3_maiores_setores_pct": 80.3
+      },
+      "deslocamento por repartição da face": {
+        "unidades": 29,
+        "dom_10": 95,
+        "unidades_com_entorno": 25,
+        "dom_10_com_entorno": 77,
+        "setores_distintos": 13,
+        "itens": {
+          "VIA PAVIMENTADA": {
+            "pct": 25.1,
+            "dif_pp_cidade": -20.7,
+            "sem_um_setor_min_max": [
+              19.5,
+              27.3
+            ]
+          },
+          "OBSTÁCULO NA CALÇADA": {
+            "pct": 63.2,
+            "dif_pp_cidade": -1.1,
+            "sem_um_setor_min_max": [
+              60.3,
+              68.6
+            ]
+          },
+          "ARBORIZAÇÃO": {
+            "pct": 52.8,
+            "dif_pp_cidade": 3.9,
+            "sem_um_setor_min_max": [
+              42.9,
+              57.5
+            ]
+          },
+          "BUEIRO": {
+            "pct": 66.2,
+            "dif_pp_cidade": 1.1,
+            "sem_um_setor_min_max": [
+              63.1,
+              70.9
+            ]
+          },
+          "RAMPA PARA CADEIRANTE": {
+            "pct": 2.6,
+            "dif_pp_cidade": -15.0,
+            "sem_um_setor_min_max": [
+              2.1,
+              3.0
+            ]
+          },
+          "PONTO DE ÔNIBUS": {
+            "pct": 12.1,
+            "dif_pp_cidade": -0.4,
+            "sem_um_setor_min_max": [
+              11.3,
+              12.6
+            ]
+          },
+          "CALÇADA": {
+            "pct": 76.1,
+            "dif_pp_cidade": -13.2,
+            "sem_um_setor_min_max": [
+              73.8,
+              82.3
+            ]
+          },
+          "CIRCULAÇÃO DA VIA": {
+            "pct": 84.3,
+            "dif_pp_cidade": -8.8,
+            "sem_um_setor_min_max": [
+              82.8,
+              91.8
+            ]
+          },
+          "ILUMINAÇÃO PÚBLICA": {
+            "pct": 98.1,
+            "dif_pp_cidade": -1.2,
+            "sem_um_setor_min_max": [
+              97.9,
+              99.0
+            ]
+          },
+          "VIA SINALIZADA PARA BICICLETA": {
+            "pct": 2.5,
+            "dif_pp_cidade": 1.1,
+            "sem_um_setor_min_max": [
+              0.9,
+              2.7
+            ]
+          },
+          "ARBORIZAÇÃO — sem árvores": {
+            "pct": 17.2,
+            "dif_pp_cidade": -3.7,
+            "sem_um_setor_min_max": [
+              12.8,
+              21.9
+            ]
+          }
+        },
+        "peso_no_maior_setor_pct": 24.7,
+        "peso_nos_3_maiores_setores_pct": 42.9
+      },
+      "outras": {
+        "unidades": 4,
+        "dom_10": 5,
+        "unidades_com_entorno": 4,
+        "dom_10_com_entorno": 5,
+        "setores_distintos": 4,
+        "itens": {
+          "VIA PAVIMENTADA": {
+            "pct": 17.6,
+            "dif_pp_cidade": -28.3,
+            "sem_um_setor_min_max": [
+              13.4,
+              25.6
+            ]
+          },
+          "OBSTÁCULO NA CALÇADA": {
+            "pct": 74.0,
+            "dif_pp_cidade": 9.6,
+            "sem_um_setor_min_max": [
+              61.8,
+              78.6
+            ]
+          },
+          "ARBORIZAÇÃO": {
+            "pct": 68.3,
+            "dif_pp_cidade": 19.4,
+            "sem_um_setor_min_max": [
+              64.6,
+              73.0
+            ]
+          },
+          "BUEIRO": {
+            "pct": 77.1,
+            "dif_pp_cidade": 12.1,
+            "sem_um_setor_min_max": [
+              70.7,
+              82.3
+            ]
+          },
+          "RAMPA PARA CADEIRANTE": {
+            "pct": 8.4,
+            "dif_pp_cidade": -9.2,
+            "sem_um_setor_min_max": [
+              1.0,
+              13.1
+            ]
+          },
+          "PONTO DE ÔNIBUS": {
+            "pct": 16.0,
+            "dif_pp_cidade": 3.4,
+            "sem_um_setor_min_max": [
+              11.7,
+              18.8
+            ]
+          },
+          "CALÇADA": {
+            "pct": 85.0,
+            "dif_pp_cidade": -4.3,
+            "sem_um_setor_min_max": [
+              75.9,
+              88.8
+            ]
+          },
+          "CIRCULAÇÃO DA VIA": {
+            "pct": 86.5,
+            "dif_pp_cidade": -6.6,
+            "sem_um_setor_min_max": [
+              83.2,
+              92.8
+            ]
+          },
+          "ILUMINAÇÃO PÚBLICA": {
+            "pct": 98.6,
+            "dif_pp_cidade": -0.7,
+            "sem_um_setor_min_max": [
+              98.3,
+              99.4
+            ]
+          },
+          "VIA SINALIZADA PARA BICICLETA": {
+            "pct": 1.8,
+            "dif_pp_cidade": 0.4,
+            "sem_um_setor_min_max": [
+              0.4,
+              3.0
+            ]
+          },
+          "ARBORIZAÇÃO — sem árvores": {
+            "pct": 6.1,
+            "dif_pp_cidade": -14.7,
+            "sem_um_setor_min_max": [
+              5.3,
+              7.0
+            ]
+          }
+        },
+        "peso_no_maior_setor_pct": 40.0,
+        "peso_nos_3_maiores_setores_pct": 80.0
+      }
+    },
     "datacao_novas_200m": {
       "posterior_a_2001": {
         "unidades": 55,
-        "dom_22": 615,
+        "dom_22": 675,
         "unidades_com_entorno": 37,
+        "dom_22_com_entorno": 615,
         "setores_distintos": 18,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -1051,8 +1351,9 @@
       },
       "vazio_interno_1938_1960": {
         "unidades": 27,
-        "dom_22": 637,
+        "dom_22": 643,
         "unidades_com_entorno": 21,
+        "dom_22_com_entorno": 637,
         "setores_distintos": 14,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -1151,6 +1452,7 @@
         "unidades": 4,
         "dom_22": 50,
         "unidades_com_entorno": 4,
+        "dom_22_com_entorno": 50,
         "setores_distintos": 3,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -1247,8 +1549,9 @@
       },
       "incrementos_1970_2001 (à parte)": {
         "unidades": 4,
-        "dom_22": 31,
+        "dom_22": 32,
         "unidades_com_entorno": 3,
+        "dom_22_com_entorno": 31,
         "setores_distintos": 2,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -1449,8 +1752,9 @@
     "area_urbanizada": {
       "nova | dentro_da_AU": {
         "unidades": 25,
-        "dom_22": 958,
+        "dom_22": 968,
         "unidades_com_entorno": 22,
+        "dom_22_com_entorno": 958,
         "setores_distintos": 12,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -1547,8 +1851,9 @@
       },
       "nova | fora_da_AU": {
         "unidades": 329,
-        "dom_22": 381,
+        "dom_22": 915,
         "unidades_com_entorno": 45,
+        "dom_22_com_entorno": 381,
         "setores_distintos": 22,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -1645,8 +1950,9 @@
       },
       "adensada | dentro_da_AU": {
         "unidades": 442,
-        "dom_22": 26772,
+        "dom_22": 26790,
         "unidades_com_entorno": 439,
+        "dom_22_com_entorno": 26772,
         "setores_distintos": 129,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -1743,8 +2049,9 @@
       },
       "adensada | fora_da_AU": {
         "unidades": 144,
-        "dom_22": 1020,
+        "dom_22": 1995,
         "unidades_com_entorno": 53,
+        "dom_22_com_entorno": 1020,
         "setores_distintos": 23,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -1841,8 +2148,9 @@
       },
       "estavel | dentro_da_AU": {
         "unidades": 25,
-        "dom_22": 708,
+        "dom_22": 710,
         "unidades_com_entorno": 24,
+        "dom_22_com_entorno": 708,
         "setores_distintos": 20,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -1939,8 +2247,9 @@
       },
       "estavel | fora_da_AU": {
         "unidades": 138,
-        "dom_22": 40,
+        "dom_22": 200,
         "unidades_com_entorno": 13,
+        "dom_22_com_entorno": 40,
         "setores_distintos": 7,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -2039,6 +2348,7 @@
         "unidades": 227,
         "dom_22": 11491,
         "unidades_com_entorno": 227,
+        "dom_22_com_entorno": 11491,
         "setores_distintos": 111,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -2135,8 +2445,9 @@
       },
       "esvaziada | fora_da_AU": {
         "unidades": 129,
-        "dom_22": 239,
+        "dom_22": 995,
         "unidades_com_entorno": 47,
+        "dom_22_com_entorno": 239,
         "setores_distintos": 20,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -2233,8 +2544,9 @@
       },
       "extinta | dentro_da_AU": {
         "unidades": 8,
-        "dom_10": 25,
+        "dom_10": 36,
         "unidades_com_entorno": 7,
+        "dom_10_com_entorno": 25,
         "setores_distintos": 4,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -2331,8 +2643,9 @@
       },
       "extinta | fora_da_AU": {
         "unidades": 193,
-        "dom_10": 287,
+        "dom_10": 542,
         "unidades_com_entorno": 54,
+        "dom_10_com_entorno": 287,
         "setores_distintos": 19,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -2429,8 +2742,9 @@
       },
       "novas 200 m posteriores a 2001 | dentro_da_AU": {
         "unidades": 17,
-        "dom_22": 531,
+        "dom_22": 541,
         "unidades_com_entorno": 14,
+        "dom_22_com_entorno": 531,
         "setores_distintos": 8,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -2527,8 +2841,9 @@
       },
       "novas 200 m posteriores a 2001 | fora_da_AU": {
         "unidades": 38,
-        "dom_22": 84,
+        "dom_22": 134,
         "unidades_com_entorno": 23,
+        "dom_22_com_entorno": 84,
         "setores_distintos": 12,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -2797,7 +3112,7 @@
       "nova": {
         "peso": "dom_22",
         "unidades_com_entorno": 58,
-        "dom_22": 684,
+        "dom_22_com_entorno": 684,
         "setores_distintos": 26,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -2904,7 +3219,7 @@
         "peso_nos_3_maiores_setores_pct": 61.0,
         "resto_da_cidade": {
           "unidades_com_entorno": 504,
-          "dom_22": 22180,
+          "dom_22_com_entorno": 22180,
           "itens": {
             "VIA PAVIMENTADA": 41.9,
             "OBSTÁCULO NA CALÇADA": 68.5,
@@ -2923,7 +3238,7 @@
       "adensada": {
         "peso": "dom_22",
         "unidades_com_entorno": 307,
-        "dom_22": 15748,
+        "dom_22_com_entorno": 15748,
         "setores_distintos": 108,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -3030,7 +3345,7 @@
         "peso_nos_3_maiores_setores_pct": 8.2,
         "resto_da_cidade": {
           "unidades_com_entorno": 255,
-          "dom_22": 7116,
+          "dom_22_com_entorno": 7116,
           "itens": {
             "VIA PAVIMENTADA": 46.5,
             "OBSTÁCULO NA CALÇADA": 67.2,
@@ -3049,7 +3364,7 @@
       "estavel": {
         "peso": "dom_22",
         "unidades_com_entorno": 28,
-        "dom_22": 378,
+        "dom_22_com_entorno": 378,
         "setores_distintos": 18,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -3156,7 +3471,7 @@
         "peso_nos_3_maiores_setores_pct": 51.3,
         "resto_da_cidade": {
           "unidades_com_entorno": 534,
-          "dom_22": 22486,
+          "dom_22_com_entorno": 22486,
           "itens": {
             "VIA PAVIMENTADA": 42.0,
             "OBSTÁCULO NA CALÇADA": 68.8,
@@ -3175,7 +3490,7 @@
       "esvaziada": {
         "peso": "dom_22",
         "unidades_com_entorno": 169,
-        "dom_22": 6054,
+        "dom_22_com_entorno": 6054,
         "setores_distintos": 80,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -3282,7 +3597,7 @@
         "peso_nos_3_maiores_setores_pct": 10.0,
         "resto_da_cidade": {
           "unidades_com_entorno": 393,
-          "dom_22": 16810,
+          "dom_22_com_entorno": 16810,
           "itens": {
             "VIA PAVIMENTADA": 40.4,
             "OBSTÁCULO NA CALÇADA": 69.1,
@@ -3301,7 +3616,7 @@
       "extinta": {
         "peso": "dom_10",
         "unidades_com_entorno": 55,
-        "dom_10": 301,
+        "dom_10_com_entorno": 301,
         "setores_distintos": 21,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -3408,7 +3723,7 @@
         "peso_nos_3_maiores_setores_pct": 62.1,
         "resto_da_cidade": {
           "unidades_com_entorno": 562,
-          "dom_22": 22864,
+          "dom_22_com_entorno": 22864,
           "itens": {
             "VIA PAVIMENTADA": 42.1,
             "OBSTÁCULO NA CALÇADA": 68.6,
@@ -3440,7 +3755,7 @@
     },
     "todas_as_unidades_com_domicilio_2022": {
       "unidades_com_entorno": 562,
-      "dom_22": 22864,
+      "dom_22_com_entorno": 22864,
       "setores_distintos": 128,
       "itens": {
         "VIA PAVIMENTADA": {
@@ -3535,11 +3850,311 @@
       "peso_no_maior_setor_pct": 3.5,
       "peso_nos_3_maiores_setores_pct": 7.7
     },
+    "extintas_urbanas_por_fenomeno": {
+      "esvaziamento medido": {
+        "unidades": 23,
+        "dom_10": 244,
+        "unidades_com_entorno": 21,
+        "dom_10_com_entorno": 218,
+        "setores_distintos": 12,
+        "itens": {
+          "VIA PAVIMENTADA": {
+            "pct": 31.5,
+            "dif_pp_cidade": -14.3,
+            "sem_um_setor_min_max": [
+              25.2,
+              43.2
+            ]
+          },
+          "OBSTÁCULO NA CALÇADA": {
+            "pct": 74.1,
+            "dif_pp_cidade": 9.8,
+            "sem_um_setor_min_max": [
+              72.4,
+              74.8
+            ]
+          },
+          "ARBORIZAÇÃO": {
+            "pct": 39.4,
+            "dif_pp_cidade": -9.5,
+            "sem_um_setor_min_max": [
+              37.5,
+              44.1
+            ]
+          },
+          "BUEIRO": {
+            "pct": 63.6,
+            "dif_pp_cidade": -1.5,
+            "sem_um_setor_min_max": [
+              60.6,
+              64.7
+            ]
+          },
+          "RAMPA PARA CADEIRANTE": {
+            "pct": 8.1,
+            "dif_pp_cidade": -9.5,
+            "sem_um_setor_min_max": [
+              5.4,
+              15.6
+            ]
+          },
+          "PONTO DE ÔNIBUS": {
+            "pct": 7.1,
+            "dif_pp_cidade": -5.5,
+            "sem_um_setor_min_max": [
+              6.2,
+              10.9
+            ]
+          },
+          "CALÇADA": {
+            "pct": 90.9,
+            "dif_pp_cidade": 1.6,
+            "sem_um_setor_min_max": [
+              90.1,
+              91.6
+            ]
+          },
+          "CIRCULAÇÃO DA VIA": {
+            "pct": 85.1,
+            "dif_pp_cidade": -8.0,
+            "sem_um_setor_min_max": [
+              71.3,
+              93.5
+            ]
+          },
+          "ILUMINAÇÃO PÚBLICA": {
+            "pct": 99.7,
+            "dif_pp_cidade": 0.3,
+            "sem_um_setor_min_max": [
+              99.3,
+              99.8
+            ]
+          },
+          "VIA SINALIZADA PARA BICICLETA": {
+            "pct": 0.9,
+            "dif_pp_cidade": -0.5,
+            "sem_um_setor_min_max": [
+              0.7,
+              1.2
+            ]
+          },
+          "ARBORIZAÇÃO — sem árvores": {
+            "pct": 23.8,
+            "dif_pp_cidade": 3.0,
+            "sem_um_setor_min_max": [
+              18.8,
+              27.1
+            ]
+          }
+        },
+        "peso_no_maior_setor_pct": 48.2,
+        "peso_nos_3_maiores_setores_pct": 80.3
+      },
+      "deslocamento por repartição da face": {
+        "unidades": 26,
+        "dom_10": 88,
+        "unidades_com_entorno": 22,
+        "dom_10_com_entorno": 70,
+        "setores_distintos": 13,
+        "itens": {
+          "VIA PAVIMENTADA": {
+            "pct": 25.1,
+            "dif_pp_cidade": -20.8,
+            "sem_um_setor_min_max": [
+              18.8,
+              27.5
+            ]
+          },
+          "OBSTÁCULO NA CALÇADA": {
+            "pct": 60.1,
+            "dif_pp_cidade": -4.2,
+            "sem_um_setor_min_max": [
+              58.3,
+              65.8
+            ]
+          },
+          "ARBORIZAÇÃO": {
+            "pct": 53.3,
+            "dif_pp_cidade": 4.4,
+            "sem_um_setor_min_max": [
+              42.2,
+              58.6
+            ]
+          },
+          "BUEIRO": {
+            "pct": 63.6,
+            "dif_pp_cidade": -1.4,
+            "sem_um_setor_min_max": [
+              59.9,
+              68.6
+            ]
+          },
+          "RAMPA PARA CADEIRANTE": {
+            "pct": 2.6,
+            "dif_pp_cidade": -15.0,
+            "sem_um_setor_min_max": [
+              2.0,
+              3.0
+            ]
+          },
+          "PONTO DE ÔNIBUS": {
+            "pct": 12.2,
+            "dif_pp_cidade": -0.3,
+            "sem_um_setor_min_max": [
+              11.3,
+              12.8
+            ]
+          },
+          "CALÇADA": {
+            "pct": 73.9,
+            "dif_pp_cidade": -15.4,
+            "sem_um_setor_min_max": [
+              71.5,
+              80.6
+            ]
+          },
+          "CIRCULAÇÃO DA VIA": {
+            "pct": 83.6,
+            "dif_pp_cidade": -9.5,
+            "sem_um_setor_min_max": [
+              81.8,
+              91.8
+            ]
+          },
+          "ILUMINAÇÃO PÚBLICA": {
+            "pct": 98.0,
+            "dif_pp_cidade": -1.4,
+            "sem_um_setor_min_max": [
+              97.7,
+              98.9
+            ]
+          },
+          "VIA SINALIZADA PARA BICICLETA": {
+            "pct": 2.6,
+            "dif_pp_cidade": 1.2,
+            "sem_um_setor_min_max": [
+              0.9,
+              2.9
+            ]
+          },
+          "ARBORIZAÇÃO — sem árvores": {
+            "pct": 17.7,
+            "dif_pp_cidade": -3.1,
+            "sem_um_setor_min_max": [
+              12.9,
+              23.3
+            ]
+          }
+        },
+        "peso_no_maior_setor_pct": 27.1,
+        "peso_nos_3_maiores_setores_pct": 47.1
+      },
+      "outras": {
+        "unidades": 3,
+        "dom_10": 3,
+        "unidades_com_entorno": 3,
+        "dom_10_com_entorno": 3,
+        "setores_distintos": 3,
+        "itens": {
+          "VIA PAVIMENTADA": {
+            "pct": 25.6,
+            "dif_pp_cidade": -20.2,
+            "sem_um_setor_min_max": [
+              21.3,
+              28.4
+            ]
+          },
+          "OBSTÁCULO NA CALÇADA": {
+            "pct": 61.8,
+            "dif_pp_cidade": -2.5,
+            "sem_um_setor_min_max": [
+              60.2,
+              65.1
+            ]
+          },
+          "ARBORIZAÇÃO": {
+            "pct": 73.0,
+            "dif_pp_cidade": 24.1,
+            "sem_um_setor_min_max": [
+              67.9,
+              81.9
+            ]
+          },
+          "BUEIRO": {
+            "pct": 70.7,
+            "dif_pp_cidade": 5.6,
+            "sem_um_setor_min_max": [
+              62.3,
+              77.9
+            ]
+          },
+          "RAMPA PARA CADEIRANTE": {
+            "pct": 13.1,
+            "dif_pp_cidade": -4.5,
+            "sem_um_setor_min_max": [
+              0.7,
+              19.6
+            ]
+          },
+          "PONTO DE ÔNIBUS": {
+            "pct": 18.8,
+            "dif_pp_cidade": 6.2,
+            "sem_um_setor_min_max": [
+              11.7,
+              23.2
+            ]
+          },
+          "CALÇADA": {
+            "pct": 75.9,
+            "dif_pp_cidade": -13.4,
+            "sem_um_setor_min_max": [
+              70.6,
+              78.9
+            ]
+          },
+          "CIRCULAÇÃO DA VIA": {
+            "pct": 87.2,
+            "dif_pp_cidade": -5.9,
+            "sem_um_setor_min_max": [
+              80.7,
+              100.0
+            ]
+          },
+          "ILUMINAÇÃO PÚBLICA": {
+            "pct": 98.5,
+            "dif_pp_cidade": -0.9,
+            "sem_um_setor_min_max": [
+              97.7,
+              100.0
+            ]
+          },
+          "VIA SINALIZADA PARA BICICLETA": {
+            "pct": 3.0,
+            "dif_pp_cidade": 1.6,
+            "sem_um_setor_min_max": [
+              0.7,
+              4.4
+            ]
+          },
+          "ARBORIZAÇÃO — sem árvores": {
+            "pct": 6.7,
+            "dif_pp_cidade": -14.1,
+            "sem_um_setor_min_max": [
+              5.4,
+              8.7
+            ]
+          }
+        },
+        "peso_no_maior_setor_pct": 33.3,
+        "peso_nos_3_maiores_setores_pct": 100.0
+      }
+    },
     "datacao_novas_200m": {
       "posterior_a_2001": {
         "unidades": 45,
-        "dom_22": 229,
+        "dom_22": 253,
         "unidades_com_entorno": 32,
+        "dom_22_com_entorno": 229,
         "setores_distintos": 15,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -3636,8 +4251,9 @@
       },
       "vazio_interno_1938_1960": {
         "unidades": 24,
-        "dom_22": 369,
+        "dom_22": 375,
         "unidades_com_entorno": 18,
+        "dom_22_com_entorno": 369,
         "setores_distintos": 11,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -3736,6 +4352,7 @@
         "unidades": 4,
         "dom_22": 50,
         "unidades_com_entorno": 4,
+        "dom_22_com_entorno": 50,
         "setores_distintos": 3,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -3832,8 +4449,9 @@
       },
       "incrementos_1970_2001 (à parte)": {
         "unidades": 3,
-        "dom_22": 30,
+        "dom_22": 31,
         "unidades_com_entorno": 2,
+        "dom_22_com_entorno": 30,
         "setores_distintos": 1,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -4001,8 +4619,9 @@
     "area_urbanizada": {
       "nova | dentro_da_AU": {
         "unidades": 20,
-        "dom_22": 332,
+        "dom_22": 340,
         "unidades_com_entorno": 18,
+        "dom_22_com_entorno": 332,
         "setores_distintos": 9,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -4099,8 +4718,9 @@
       },
       "nova | fora_da_AU": {
         "unidades": 291,
-        "dom_22": 352,
+        "dom_22": 811,
         "unidades_com_entorno": 40,
+        "dom_22_com_entorno": 352,
         "setores_distintos": 21,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -4197,8 +4817,9 @@
       },
       "adensada | dentro_da_AU": {
         "unidades": 270,
-        "dom_22": 15164,
+        "dom_22": 15182,
         "unidades_com_entorno": 267,
+        "dom_22_com_entorno": 15164,
         "setores_distintos": 105,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -4295,8 +4916,9 @@
       },
       "adensada | fora_da_AU": {
         "unidades": 111,
-        "dom_22": 584,
+        "dom_22": 1133,
         "unidades_com_entorno": 40,
+        "dom_22_com_entorno": 584,
         "setores_distintos": 20,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -4393,8 +5015,9 @@
       },
       "estavel | dentro_da_AU": {
         "unidades": 18,
-        "dom_22": 340,
+        "dom_22": 342,
         "unidades_com_entorno": 17,
+        "dom_22_com_entorno": 340,
         "setores_distintos": 13,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -4491,8 +5114,9 @@
       },
       "estavel | fora_da_AU": {
         "unidades": 112,
-        "dom_22": 38,
+        "dom_22": 163,
         "unidades_com_entorno": 11,
+        "dom_22_com_entorno": 38,
         "setores_distintos": 7,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -4591,6 +5215,7 @@
         "unidades": 130,
         "dom_22": 5845,
         "unidades_com_entorno": 130,
+        "dom_22_com_entorno": 5845,
         "setores_distintos": 73,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -4687,8 +5312,9 @@
       },
       "esvaziada | fora_da_AU": {
         "unidades": 109,
-        "dom_22": 209,
+        "dom_22": 421,
         "unidades_com_entorno": 39,
+        "dom_22_com_entorno": 209,
         "setores_distintos": 18,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -4785,8 +5411,9 @@
       },
       "extinta | dentro_da_AU": {
         "unidades": 6,
-        "dom_10": 22,
+        "dom_10": 33,
         "unidades_com_entorno": 5,
+        "dom_10_com_entorno": 22,
         "setores_distintos": 4,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -4883,8 +5510,9 @@
       },
       "extinta | fora_da_AU": {
         "unidades": 180,
-        "dom_10": 279,
+        "dom_10": 520,
         "unidades_com_entorno": 50,
+        "dom_10_com_entorno": 279,
         "setores_distintos": 19,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -4981,8 +5609,9 @@
       },
       "novas 200 m posteriores a 2001 | dentro_da_AU": {
         "unidades": 13,
-        "dom_22": 171,
+        "dom_22": 179,
         "unidades_com_entorno": 11,
+        "dom_22_com_entorno": 171,
         "setores_distintos": 6,
         "itens": {
           "VIA PAVIMENTADA": {
@@ -5079,8 +5708,9 @@
       },
       "novas 200 m posteriores a 2001 | fora_da_AU": {
         "unidades": 32,
-        "dom_22": 58,
+        "dom_22": 74,
         "unidades_com_entorno": 21,
+        "dom_22_com_entorno": 58,
         "setores_distintos": 11,
         "itens": {
           "VIA PAVIMENTADA": {

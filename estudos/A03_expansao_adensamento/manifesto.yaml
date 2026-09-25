@@ -120,6 +120,11 @@ subordinadas:
   # aqui; as favelas e comunidades urbanas vêm da coluna CD_FCU de setores_2022
   # (idêntica à planilha oficial). A datação das novas (item 3) vem do i02, camada de
   # interpretação fora do manifesto (fonte não redistribuível), como o i01.
+  # 2026-09-24 (resultados_s3.md §§ 3.1–3.2): o item 3 NÃO será refeito com outra
+  # junção por setor (decisão do responsável; a limitação é da unidade de agregação).
+  # Teste do entorno por face: não liga — a tabela "entorno_faces" é agregada por
+  # setor, sem identificador de face, e a base de faces de 2022 do IBGE não traz
+  # entorno. Fica como limitação declarada. Nenhuma fonte nova entra no manifesto.
   - >-
     3. [CONCLUÍDA em 2026-09-24 — resultados_s3.md] A infraestrutura do entorno
     acompanha onde a cidade cresceu? Cruzar as áreas de crescimento com

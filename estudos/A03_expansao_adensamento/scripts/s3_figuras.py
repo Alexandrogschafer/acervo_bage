@@ -222,10 +222,10 @@ def painel_datacao(ax, bloco, cidade, titulo):
     ax.tick_params(axis="y", length=0)
     a, b = x["posterior_a_2001"], x["vazio_interno_1938_1960"]
     ax.set_title(f"{titulo}\nposteriores a 2001: {a['unidades_com_entorno']} unidades, "
-                 f"{a['dom_22']} dom., {a['setores_distintos']} setores (3 maiores: "
+                 f"{a['dom_22_com_entorno']} dom., {a['setores_distintos']} setores (3 maiores: "
                  f"{a['peso_nos_3_maiores_setores_pct']:.0f} % do peso)\n"
                  f"vazio interno 1938–1960: {b['unidades_com_entorno']} unidades, "
-                 f"{b['dom_22']} dom., {b['setores_distintos']} setores (3 maiores: "
+                 f"{b['dom_22_com_entorno']} dom., {b['setores_distintos']} setores (3 maiores: "
                  f"{b['peso_nos_3_maiores_setores_pct']:.0f} % do peso)",
                  fontsize=8.3, color=TINTA, loc="left")
 

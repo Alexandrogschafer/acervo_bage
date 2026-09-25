@@ -121,7 +121,7 @@ interseção**; em empate, vence o menor código.
 | iluminação pública (controle) | 99,3 | 99,7 (+0,4) | 99,3 (0,0) | 99,3 (0,0) | 99,4 (+0,1) | 99,3 (−0,1) |
 | via para bicicleta (ausência) | 1,4 | 12,8 (+11,4) | 1,4 (0,0) | 0,4 (−1,0) | 0,8 (−0,5) | 1,3 (−0,1) |
 | sem árvores ↓ | 20,8 | 51,0 (+30,2) | 17,4 (−3,4) | 15,3 (−5,5) | 16,8 (−4,1) | 21,0 (+0,2) |
-| *unidades / peso / setores* | | 67 / 1.339 / 30 | 492 / 27.792 / 132 | 37 / 748 / 25 | 274 / 11.730 / 113 | 61 / 312 / 21 |
+| *com entorno: unidades / peso / setores* | | 67 / 1.339 / 30 | 492 / 27.792 / 132 | 37 / 748 / 25 | 274 / 11.730 / 113 | 61 / 312 / 21 |
 | *peso nos 3 maiores setores* | | 45,7 % | 8,3 % | 30,3 % | 7,2 % | 59,9 % |
 
 ### 2.2 Contra o resto da cidade (pontos)
@@ -155,7 +155,7 @@ cidade.
 | iluminação pública (controle) | 99,3 | 99,6 (+0,3) | 99,3 (0,0) | 99,1 (−0,3) | 99,3 (0,0) | 99,3 (−0,1) |
 | via para bicicleta (ausência) | 1,4 | 2,0 (+0,6) | 1,1 (−0,3) | 0,8 (−0,6) | 0,7 (−0,7) | 1,3 (−0,1) |
 | sem árvores ↓ | 20,8 | 41,8 (+20,9) | 15,9 (−4,9) | 8,0 (−12,8) | 17,8 (−3,1) | 21,5 (+0,7) |
-| *unidades / peso / setores* | | 58 / 684 / 26 | 307 / 15.748 / 108 | 28 / 378 / 18 | 169 / 6.054 / 80 | 55 / 301 / 21 |
+| *com entorno: unidades / peso / setores* | | 58 / 684 / 26 | 307 / 15.748 / 108 | 28 / 378 / 18 | 169 / 6.054 / 80 | 55 / 301 / 21 |
 
 ### 2.4 O que se sustenta
 
@@ -174,17 +174,6 @@ atende às três condições:
 | esvaziadas | **nenhuma**: acompanham a cidade em todos os itens |
 | **extintas** | **via pavimentada −17,3 / −16,9**; **rampa −11,2 / −11,0**; obstáculo na calçada +7,5 / +6,6 (pior); circulação de caminhão/ônibus −7,6 / −7,8 |
 
-**Não se sustenta**, e fica registrado para não ser citado:
-- **Novas "mais pavimentadas" que a cidade:** +11,4 no principal, +1,3 na
-  sensibilidade.
-- **Novas "com menos obstáculo":** −21,5 no principal, **+7,9** na sensibilidade.
-- **Novas "com mais ponto de ônibus e ciclovia":** +25,3 e +11,4 no principal, −1,5 e
-  +0,6 na sensibilidade.
-  - As três leituras do principal vêm de **poucos setores com muitos domicílios**: 3
-    setores levam 46 % do peso das novas.
-  - Elas somem quando se tiram as unidades repartidas.
-  - Não é resultado: é efeito da junção.
-
 **Controles.**
 - **Iluminação pública é universal** em todas as classes (99,3–99,7 %) e nas duas
   leituras: o controle funciona.
@@ -193,17 +182,62 @@ atende às três condições:
 - **A via sinalizada para bicicleta é ausente**, de 0,4 % a 2,0 %, em todas as classes
   na sensibilidade. O 12,8 % das novas no principal vem de um setor.
 
-**Leitura (descrição, não diagnóstico):**
-- **As novas**, onde há entorno, estão em setores com **menos bueiro, menos calçada e
-  menos árvore** que a cidade. Isso vale nas duas leituras e sem depender de um setor.
-- **Nas novas, a pavimentação não separa** de forma estável.
-- **As extintas** estão em setores de **pouca pavimentação e quase sem rampa**, com
-  mais obstáculo na calçada. É o entorno das bordas antigas e sem data firme onde elas
-  se concentram (`resultados_s1.md` § 14.2).
-- **O adensamento se deu em tecido um pouco menos pavimentado** que o resto: −10
-  pontos contra o resto, −5,6 contra a cidade. Nos demais itens, ele acompanha a
-  cidade.
-- **As esvaziadas não se distinguem da cidade** em nenhum item.
+**As extintas urbanas por fenômeno** (`resultados_s1.md` § 12.4; peso: domicílios de
+2010):
+
+| fenômeno | unidades (com entorno) | dom. 2010 (com entorno) | setores | 3 maiores setores | via pavimentada | rampa | obstáculo ↓ | bueiro |
+| --- | ---: | ---: | ---: | ---: | --- | --- | --- | --- |
+| **esvaziamento medido** | 23 (21) | 244 (218) | 12 | 80,3 % | 31,5 (−14,3) | 8,1 (−9,5) | 74,1 (+9,8) | 63,6 (−1,5) |
+| deslocamento por repartição da face | 29 (25) | 95 (77) | 13 | 42,9 % | 25,1 (−20,7) | 2,6 (−15,0) | 63,2 (−1,1) | 66,2 (+1,1) |
+| outras | 4 (4) | 5 (5) | 4 | 80,0 % | 17,6 (−28,3) | 8,4 (−9,2) | 74,0 (+9,6) | 77,1 (+12,1) |
+
+- **Esvaziamento medido:** pavimentação, rampa e obstáculo passam no critério desta
+  seção.
+  - Tirando um setor de cada vez, a pavimentação fica em 25,2–43,2 %, a rampa em
+    5,4–15,6 % e o obstáculo em 72,4–74,8 %. Nenhum cruza a cidade.
+  - Todas as 23 unidades têm 70 % ou mais da área num setor, então a sensibilidade é
+    idêntica ao principal.
+- **O deslocamento por repartição**, que é efeito de medida, também está em setores
+  pouco pavimentados e sem rampa. Mas não tem mais obstáculo.
+- **O resultado das extintas, portanto, não é um artefato do deslocamento:** o
+  esvaziamento **medido** tem o mesmo entorno pior.
+
+**Resultados da subordinada 3 (o que se sustenta).** Todo resultado é "a unidade está
+em setor com…", nunca "a unidade tem…".
+- **As novas, onde há entorno, estão em setores com menos bueiro, menos arborização e
+  menos calçada** que a cidade:
+  - bueiro −24,1 / −14,9 pontos;
+  - árvores −12,4 / −11,5;
+  - calçada −11,1 / −10,0.
+  - Vale nas duas leituras e sem depender de um setor.
+  - A pavimentação das novas **não** separa de forma estável.
+- **As extintas estão em setores com menos pavimentação e menos rampa, e com mais
+  obstáculo na calçada:** pavimentação −17,3 / −16,9; rampa −11,2 / −11,0; obstáculo
+  +7,5 / +6,6.
+  - **O esvaziamento urbano acontece onde a infraestrutura é pior.** Vale para o
+    esvaziamento **medido**, e não só para o deslocamento por repartição.
+- **As esvaziadas são iguais à cidade** em todos os itens.
+  - **Perder domicílio não se associa a entorno ruim; a extinção, sim.** A unidade que
+    perde parte dos domicílios está no tecido comum da cidade. A que perde todos está
+    no tecido de pior infraestrutura.
+- **O adensamento se deu em tecido um pouco menos pavimentado:** −5,6 pontos contra a
+  cidade, −10,0 contra o resto. Nos demais itens, ele acompanha a cidade.
+- **As favelas e comunidades urbanas são o contraste extremo** (§ 4.2):
+  - via pavimentada ≈ 1 %, rampa ≈ 1 % e calçada 62,8 %;
+  - a **iluminação pública cai para 90,9 %**, a **única quebra da universalidade**
+    medida em toda a cidade (99,3 %; 99,3–99,7 % em todas as classes).
+
+**O que não se sustenta, e por quê.** Em todos os casos abaixo, poucos setores levam o
+peso: 3 setores fazem 46 % do peso das novas.
+- **Novas "mais pavimentadas" que a cidade:** +11,4 no principal, +1,3 na
+  sensibilidade.
+- **Novas "com menos obstáculo":** −21,5 no principal, **+7,9** na sensibilidade. O
+  sinal se inverte.
+- **Novas "com mais ponto de ônibus e ciclovia":** +25,3 e +11,4 no principal, −1,5 e
+  +0,6 na sensibilidade.
+- **O item 3 inteiro** (§ 3): 3 setores fazem de 71 % a 90 % do peso de cada grupo.
+- Esses valores sobem ou descem com a presença de 2 ou 3 setores grandes, e não com a
+  classe. Por isso não entram como resultado.
 
 ---
 
@@ -241,8 +275,8 @@ atende às três condições:
 | via para bicicleta (ausência) | 1,4 | 27,1 | 0,8 | +26,4 | −0,7 a +34,2 | não | 0,28 |
 | sem árvores ↓ | 20,8 | 47,2 | 57,7 | −10,4 | −25,7 a +19,9 | não | 0,78 |
 
-**Sensibilidade (≥ 70 % num setor):** 32 unidades e 229 domicílios posteriores a 2001,
-contra 18 unidades e 369 domicílios de vazio interno.
+**Sensibilidade (≥ 70 % num setor):** com entorno, 32 unidades e 229 domicílios
+posteriores a 2001, contra 18 unidades e 369 domicílios de vazio interno.
 
 | item | posterior a 2001 | vazio interno | diferença (pp) | tirando um setor: faixa | sinal estável? | p |
 | --- | ---: | ---: | ---: | --- | --- | ---: |
@@ -284,8 +318,55 @@ urbanizada do IBGE têm, onde há entorno, pouca pavimentação (23,2 %) e pouca
 (10,1 %), contra 61,9 % e 32,6 % das que estão **dentro**.
 - É o contraste que a hipótese imaginava: a expansão recente fora da mancha urbana
   aparece menos servida em pavimentação.
-- Mas ele se apoia em 23 unidades e **84 domicílios**. É uma indicação, não um
-  resultado.
+- Mas ele se apoia em 23 unidades com entorno e **84 domicílios**. É uma indicação,
+  não um resultado.
+
+### 3.1 Decisão: o item 3 não será refeito com outra junção por setor
+
+*Decisão do responsável, 2026-09-24.*
+- Qualquer junção por setor (maior área, fração da área, ponderação por domicílio da
+  face) atribui às unidades **o mesmo valor do setor**.
+- Com 14 a 18 setores por grupo, e 3 deles levando de 71 % a 90 % do peso, o resultado
+  continuaria dependendo de quais setores entram.
+- **A limitação é da unidade de agregação do entorno (o setor), não do método de
+  junção.**
+
+### 3.2 Teste: o entorno por FACE resolveria o item 3? Não liga
+
+*Testado em 2026-09-24, navegando as listagens do FTP do IBGE.*
+
+**A tabela de entorno "por faces"** (`Agregados_por_setores_entorno_faces_BR.zip`,
+declarada no manifesto) é **agregada por setor**.
+- Tem uma linha por setor (`COD_SETOR_M22FINAL`; 171 setores em Bagé) e
+  `V05400` = faces no setor, com contagens de faces por item.
+- **Não há identificador de face.** As 7.573 faces são uma soma, não uma lista.
+
+**A geometria das faces de 2022 existe** no IBGE.
+- Caminho: `geoftp.ibge.gov.br/recortes_para_fins_estatisticos/malha_de_setores_censitarios/`
+  `censo_2022/base_de_faces_de_logradouros_versao_2022_censo_demografico/`.
+- Um arquivo por UF. O do RS tem 41,6 MB, com Last-Modified de 07/06/2024.
+  - Baixei só esse, para inspeção, fora do acervo (sha256 `f1b38ad7…0fec`).
+  - Nenhum recorte nacional foi baixado.
+- Em Bagé são 7.631 faces (LineString, EPSG:4674).
+- Campos: `CD_SETOR`, `CD_QUADRA`, `CD_FACE`, `NM_TIP_LOG`, `NM_TIT_LOG`, `NM_LOG`,
+  `TOT_RES` e `TOT_GERAL`.
+- **Nenhum atributo de entorno.**
+
+**O entorno não é publicado abaixo do setor.**
+- A pasta `Agregados_por_Setores_Censitarios_Caracteristicas_urbanisticas_do_entorno_dos_domicilios/`
+  vai de setor a município.
+- A pasta `Dados_percentuais_das_Caracteristicas_urbanisticas_do_entorno_dos_domicilios/`
+  também é por setor (`br_setores_entorno_cd2022`).
+
+**Conclusão: não liga.**
+- Há geometria de face com identificador, mas não há entorno por face publicado.
+- Há entorno, mas só agregado por setor, sem identificador de face.
+- **O item 3 fica sem resposta**, e isso entra como **limitação declarada do artigo**.
+  - Com o dado público do Censo 2022, não é possível dizer se a expansão posterior a
+    2001 está em faces mais ou menos servidas que o preenchimento de vazio interno.
+  - Responder exigiria o entorno por face, que o IBGE não publica.
+  - Resta um pedido de tabulação especial ao IBGE, se o responsável quiser fazê-lo.
+- O arquivo de faces **não entrou no acervo**: não é usado.
 
 ---
 
@@ -296,20 +377,24 @@ urbanizada do IBGE têm, onde há entorno, pouca pavimentação (23,2 %) e pouca
 Uma unidade está "dentro" quando tem 50 % ou mais da área na área urbanizada de 2022,
 o mesmo limiar do s1. Os valores são % de domicílios, só nas unidades com entorno.
 
-| classe | lado | unidades | peso | com entorno | via pavimentada | bueiro | arborização 5+ | calçada | rampa | obstáculo ↓ |
-| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| novas | dentro | 25 | 958 | 22 | 63,9 | 29,0 | 31,8 | 85,7 | 18,6 | 38,5 |
-| novas | fora | 329 | 381 | 45 | 40,6 | 71,2 | 48,1 | 59,6 | 9,4 | 53,8 |
-| adensadas | dentro | 442 | 26.772 | 439 | 41,3 | 65,4 | 50,6 | 88,8 | 15,9 | 67,3 |
-| adensadas | fora | 144 | 1.020 | 53 | **13,8** | 48,3 | 46,3 | 63,7 | 5,7 | 48,5 |
-| estáveis | dentro | 25 | 708 | 24 | 52,0 | 66,6 | 55,3 | 85,4 | 18,9 | 52,7 |
-| estáveis | fora | 138 | 40 | 13 | 32,8 | 67,5 | 50,0 | 86,6 | 8,4 | 70,6 |
-| esvaziadas | dentro | 227 | 11.491 | 227 | 50,1 | 69,3 | 54,0 | 90,1 | 19,8 | 65,8 |
-| esvaziadas | fora | 129 | 239 | 47 | 21,6 | 56,8 | 38,4 | 84,2 | 4,8 | 61,8 |
-| extintas | dentro | 8 | 25 (2010) | 7 | 54,6 | 68,0 | 60,1 | 92,7 | 17,0 | 77,3 |
-| extintas | fora | 193 | 287 (2010) | 54 | 26,2 | 65,1 | 43,7 | 86,7 | 5,5 | 71,4 |
-| novas 200 m posteriores a 2001 | dentro | 17 | 531 | 14 | 61,9 | 41,7 | 45,7 | 76,2 | 32,6 | 44,6 |
-| novas 200 m posteriores a 2001 | fora | 38 | 84 | 23 | 23,2 | 68,0 | 54,1 | 63,4 | 10,1 | 56,3 |
+| classe | lado | unidades | peso | com entorno (un. / peso) | via pavimentada | bueiro | arborização 5+ | calçada | rampa | obstáculo ↓ |
+| --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| novas | dentro | 25 | 968 | 22 / 958 | 63,9 | 29,0 | 31,8 | 85,7 | 18,6 | 38,5 |
+| novas | fora | 329 | 915 | 45 / 381 | 40,6 | 71,2 | 48,1 | 59,6 | 9,4 | 53,8 |
+| adensadas | dentro | 442 | 26.790 | 439 / 26.772 | 41,3 | 65,4 | 50,6 | 88,8 | 15,9 | 67,3 |
+| adensadas | fora | 144 | 1.995 | 53 / 1.020 | **13,8** | 48,3 | 46,3 | 63,7 | 5,7 | 48,5 |
+| estáveis | dentro | 25 | 710 | 24 / 708 | 52,0 | 66,6 | 55,3 | 85,4 | 18,9 | 52,7 |
+| estáveis | fora | 138 | 200 | 13 / 40 | 32,8 | 67,5 | 50,0 | 86,6 | 8,4 | 70,6 |
+| esvaziadas | dentro | 227 | 11.491 | 227 / 11.491 | 50,1 | 69,3 | 54,0 | 90,1 | 19,8 | 65,8 |
+| esvaziadas | fora | 129 | 995 | 47 / 239 | 21,6 | 56,8 | 38,4 | 84,2 | 4,8 | 61,8 |
+| extintas | dentro | 8 | 36 (2010) | 7 / 25 | 54,6 | 68,0 | 60,1 | 92,7 | 17,0 | 77,3 |
+| extintas | fora | 193 | 542 (2010) | 54 / 287 | 26,2 | 65,1 | 43,7 | 86,7 | 5,5 | 71,4 |
+| novas 200 m posteriores a 2001 | dentro | 17 | 541 | 14 / 531 | 61,9 | 41,7 | 45,7 | 76,2 | 32,6 | 44,6 |
+| novas 200 m posteriores a 2001 | fora | 38 | 134 | 23 / 84 | 23,2 | 68,0 | 54,1 | 63,4 | 10,1 | 56,3 |
+
+*Correção de 2026-09-24:* a primeira versão desta tabela (commit `1730e1b`) trazia, na
+coluna "peso", o peso **só das unidades com entorno**, por defeito do script. A soma
+com entorno sobrescrevia o total. As proporções não mudam.
 
 - **Fora da área urbanizada, pavimentação e rampa caem em todas as classes.**
   - Pavimentação: de 41–64 % para 14–41 %.
@@ -322,7 +407,7 @@ o mesmo limiar do s1. Os valores são % de domicílios, só nas unidades com ent
   atribuído pesa mais que a posição da unidade. Não é lido como achado.
 - **Quase todo o peso das novas está dentro** da área urbanizada (958 de 1.339
   domicílios com entorno). As novas de fora são muitas (329), mas pequenas, e quase
-  todas sem entorno.
+  todas sem entorno (45 com entorno, 381 domicílios).
 
 ### 4.2 Favelas e comunidades urbanas de 2022
 
@@ -417,28 +502,42 @@ Todas estão em `saidas/`, cada uma com `.json` irmão (pendente, `pode_publicar
   delas não se distingue da cidade de forma estável, e 287 das 354 novas nem têm
   entorno medido.
 - **Que a expansão posterior a 2001 está em tecido pior servido que o preenchimento
-  de vazio interno** (§ 3). O dado não separa os dois grupos. A hipótese fica **em
-  aberto**, nem confirmada nem negada.
+  de vazio interno** (§ 3). O dado não separa os dois grupos, e o entorno por face não
+  é publicado (§ 3.2). A pergunta fica **sem resposta**, como limitação declarada.
 - **Qualquer relação de causa** entre infraestrutura e ocupação, em qualquer sentido.
 - **Que a infraestrutura "chegou" ou "não chegou"** às áreas novas: não há entorno de
   2010.
-- **Que as extintas saíram por falta de infraestrutura.** Elas estão em setores menos
-  pavimentados e quase sem rampa, mas a subordinada 1 atribui boa parte delas a
-  deslocamento pela face e a esvaziamento de borda (`resultados_s1.md` §§ 12 e 14).
+- **Que as extintas saíram POR CAUSA da infraestrutura.** A associação é de setor e
+  transversal: o esvaziamento medido está em setores de pior entorno. Mas o dado não
+  diz que o entorno causou a saída, nem que ele já era assim em 2010.
 - **Um valor de entorno para uma unidade individual.**
 - **Recomendação de política urbana.** Este documento descreve.
 
 ## 8. Fecho da subordinada 3
 
-- **Onde há entorno medido**, as áreas de crescimento **não** estão, no conjunto, em
-  setores piores que a cidade.
-  - As **adensadas** (95 % do peso das áreas de crescimento com entorno) acompanham a
-    cidade em quase tudo, com pavimentação um pouco menor.
-  - As **novas** estão em setores com menos bueiro, calçada e árvore. São diferenças
-    estáveis, mas medidas em 30 setores.
-- **As pontas de menor infraestrutura** são as favelas e comunidades urbanas, onde
-  cresce o adensamento, e não a expansão; e a parte das áreas de crescimento fora da
-  área urbanizada do IBGE.
-- **A pergunta aberta pela datação**, se a expansão recente foi para onde falta
-  infraestrutura, **não tem resposta neste dado**. Com o entorno por setor e 14 a 18
-  setores por grupo, a junção não separa os dois grupos.
+**Resultados** (descrição, no nível do setor; § 2.4):
+1. **As novas**, onde há entorno, estão em setores com **menos bueiro, menos
+   arborização e menos calçada** que a cidade. A pavimentação delas não se distingue
+   de forma estável.
+2. **As extintas** estão em setores com **menos pavimentação e menos rampa e mais
+   obstáculo na calçada**.
+   - **O esvaziamento urbano acontece onde a infraestrutura é pior.** Vale para o
+     esvaziamento medido, não só para o deslocamento por repartição.
+3. **As esvaziadas são iguais à cidade.** **Perder domicílio não se associa a entorno
+   ruim; a extinção, sim.**
+4. **O adensamento**, 95 % do peso das áreas de crescimento com entorno, acompanha a
+   cidade, com pavimentação um pouco menor.
+5. **As favelas e comunidades urbanas são o contraste extremo:** via pavimentada ≈ 1 %,
+   rampa ≈ 1 %, e a **iluminação pública cai para 90,9 %**, a única quebra da
+   universalidade medida. Ali cresce o adensamento, não a expansão.
+
+**O que não se sustenta:** as novas mais pavimentadas, com menos obstáculo, ou com mais
+ônibus e ciclovia. Em todos esses casos, poucos setores levam o peso, e os valores
+mudam quando eles saem.
+
+**Limitação declarada.** A pergunta aberta pela datação — se a expansão posterior a
+2001 foi para onde falta infraestrutura, enquanto o preenchimento de vazio interno se
+deu em tecido já servido — **fica sem resposta**.
+- Por decisão, ela não será refeita com outra junção por setor.
+- O entorno por face, que a responderia, **não é publicado** pelo IBGE (§ 3.2).
+- A limitação é da unidade de agregação, não do método.

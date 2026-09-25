@@ -5,6 +5,27 @@ pendente. Entrada nova no topo.
 
 ---
 
+## 2026-09-24 — A03: entorno por face testado (não liga); resultados da subordinada 3
+
+- **Decisão do responsável:** o item 3 não será refeito com outra junção por setor. A
+  limitação é da unidade de agregação.
+- **Teste do entorno por face:** não liga.
+  - A tabela `entorno_faces` é agregada por setor, sem identificador de face.
+  - A base de faces de 2022 do IBGE (`geoftp`, por UF; RS com 41,6 MB, 7.631 faces em
+    Bagé) tem identificador de face, mas **não traz entorno**.
+  - O entorno não é publicado abaixo do setor.
+  - O arquivo do RS foi baixado só para inspeção e **não entrou no acervo**.
+  - O item 3 vira **limitação declarada do artigo**.
+- **Resultados registrados** (`resultados_s3.md` §§ 2.4 e 8):
+  - novas com menos bueiro, arborização e calçada;
+  - extintas com menos pavimentação e rampa e mais obstáculo, e isso vale para o
+    **esvaziamento medido**, não só para o deslocamento;
+  - esvaziadas iguais à cidade;
+  - FCU como contraste extremo, com a iluminação a 90,9 %.
+- **Correção:** o `perfil()` do `s3_entorno.py` sobrescrevia o peso total do grupo pelo
+  peso só com entorno. A tabela da área urbanizada foi refeita; as proporções não
+  mudaram.
+
 ## 2026-09-24 — A03: subordinada 3 concluída (entorno de 2022 nas áreas de crescimento)
 
 - **Junção célula → setor de 2022** pela maior área de interseção. Pelo domicílio, a
