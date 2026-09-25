@@ -142,7 +142,10 @@ retirar dos mapas qualquer crédito com nome de autor.
 
 ## 9. Pendências para chegar à submissão
 
-1. **Bibliografia:** atingir os 80 % em periódico (§ 4).
+1. **Bibliografia:** atingir os 80 % em periódico (§ 4). Revisão preparada em
+   2026-09-25: [`revisao_a03.md`](revisao_a03.md), com as entradas conferidas em
+   [`bibliografia_a03.bib`](bibliografia_a03.bib) para importar no Zotero. O núcleo
+   proposto dá 79,5 %: falta 1 periódico para empatar e 3 para ter folga (§ 5).
 2. **Tamanho:** caber em 20 páginas diagramadas, com os quatro achados de método e as
    três subordinadas. É provável que seja preciso escolher figuras.
 3. **Figuras:** refazer no padrão de 18 × 20 cm, 300 dpi e texto de 8 pt ou mais (§ 3).
