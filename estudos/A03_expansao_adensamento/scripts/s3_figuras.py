@@ -13,12 +13,22 @@ A03 — subordinada 3: figuras do entorno de 2022 nas áreas de crescimento.
         principal e sensibilidade (≥ 70 % num setor) lado a lado
 
 Cor (paleta.py): coropleta em VIOLETA (magnitude; fora do eixo ganho–perda);
-setor sem entorno em COR_CONTEXTO com hachura; áreas de crescimento em contorno de
-tinta (novas de 200 m: traço cheio com halo claro; adensadas de 200 m: tracejado
+setor sem entorno em COR_SEM_ENTORNO, mais leve que COR_CONTEXTO, com hachura
+esparsa; áreas de crescimento em contorno de tinta (novas de 200 m: traço cheio com halo claro; adensadas de 200 m: tracejado
 fino), porque cor de classe por cima da coropleta confundiria as duas codificações
 (o azul das novas some sobre o violeta escuro: ΔE 1,6 em deuteranopia). As unidades
 de 1 km (campo, setores sem entorno) não são desenhadas. Os dois grupos do item 3 em PAR_NOVAS,
 com forma diferente e rótulo de valor em cada marcador.
+
+Ajustes de leitura pedidos na conferência do responsável (2026-09-24; s3-v2):
+- rampa com escala própria (RAMPA_FAIXAS), declarada na legenda do painel: com
+  faixas de 20 pontos quase todo setor caía na primeira classe (cidade 17,6 %);
+- fundo dos setores sem entorno mais leve, para não competir com o dado;
+- item 3: hachura na faixa dos itens em que a diferença (posterior − vazio) troca
+  de sinal entre principal e sensibilidade, e o título diz que é inconclusivo.
+O registro da conferência fica em verificacoes.conferencias_visuais_do_responsavel
+do .json de cada figura, preservado entre execuções (como na camada de trabalho);
+as figuras seguem pendentes e não publicáveis.
 
 A figura do item 3 depende da datação do i02 (fonte não redistribuível): além de
 pendente, ela é marcada com autorização da fonte = false. Nenhuma figura é
@@ -53,7 +63,7 @@ from matplotlib.patches import Patch  # noqa: E402
 import s1_expansao_adensamento as s1  # noqa: E402
 import s1_figuras as f1  # noqa: E402
 import s3_entorno as s3  # noqa: E402
-from paleta import COR_CONTEXTO, PAR_NOVAS, SUPERFICIE, VIOLETA  # noqa: E402
+from paleta import COR_DIVERGE, COR_SEM_ENTORNO, PAR_NOVAS, SUPERFICIE, VIOLETA  # noqa: E402
 from scripts.utils import catalogo, metadados, paths  # noqa: E402
 
 TINTA, TINTA_2 = f1.TINTA, f1.TINTA_2
@@ -61,6 +71,14 @@ TINTA, TINTA_2 = f1.TINTA, f1.TINTA_2
 # violeta escuro (validate_palette.js: ΔE 1,6 deutan contra #5e3594)
 FAIXAS = [0, 20, 40, 60, 80, 100.0001]
 ROT_FAIXAS = ["0 a 20 %", "20 a 40 %", "40 a 60 %", "60 a 80 %", "80 a 100 %"]
+# rampa: escala própria. Mediana entre os 168 setores com entorno 4,8 %, P75 22,8 %,
+# cidade 17,6 %; nas faixas de 20 pontos, 121 setores caíam na primeira classe.
+# Nestas: 84 / 19 / 18 / 17 / 30 setores.
+RAMPA = "RAMPA PARA CADEIRANTE"
+RAMPA_FAIXAS = [0, 5, 10, 20, 40, 100.0001]
+ROT_RAMPA = ["0 a 5 %", "5 a 10 %", "10 a 20 %", "20 a 40 %", "40 a 100 %"]
+HACHURA_SEM_ENTORNO = ".."
+CHAVE_CONFERENCIAS = "conferencias_visuais_do_responsavel"
 MAPA_ITENS = [
     ("VIA PAVIMENTADA", "via pavimentada"),
     ("OBSTÁCULO NA CALÇADA", "obstáculo na calçada (mais é pior)"),
@@ -80,15 +98,30 @@ FONTE = ("Fonte: IBGE — Censo 2022, entorno dos domicílios por setor; malha d
          "Grade Estatística 2010 e 2022; Áreas Urbanizadas 2022; Malha Municipal 2025.\n"
          "Elaboração: ACERVO_BAGE, estudo A03 (subordinada 3). SIRGAS 2000 / UTM 21S "
          "(EPSG:31981). Classes da grade harmonizada, cenário adotado (setor de 2010 "
-         "430160205000136 à parte). Não conferida no mapa.")
+         "430160205000136 à parte). Pendente; não publicar.")
+
+
+def conferencias_anteriores(destino: Path) -> dict:
+    """Registro das conferências visuais do responsável, preservado entre execuções.
+
+    Como na camada de trabalho (s1_expansao_adensamento.conferencias_visuais_anteriores):
+    fica em `verificacoes`, fora do bloco "--- conferência ---" de `observacoes`, que só
+    `scripts/utils/promover.py` grava e que promoveria a figura. O script o carrega do
+    `.json` anterior sem alterar.
+    """
+    if not metadados.caminho_irmao(destino).exists():
+        return {}
+    anteriores = metadados.ler(destino).get("verificacoes", {}).get(CHAVE_CONFERENCIAS)
+    return {CHAVE_CONFERENCIAS: anteriores} if anteriores else {}
 
 
 def salvar(fig, nome: str, descricao: str, fontes: str, autoriza: bool) -> Path:
     destino = s1.SAIDAS / f"{nome}.png"
+    conferencias = conferencias_anteriores(destino)
     fig.savefig(destino, dpi=200, facecolor=SUPERFICIE)
     plt.close(fig)
     dados = metadados.montar(
-        destino, tema="censo", fonte_id=fontes, versao="s3-v1", crs=paths.crs_producao(),
+        destino, tema="censo", fonte_id=fontes, versao="s3-v2", crs=paths.crs_producao(),
         licenca="IBGE — uso livre com citação da fonte" + (
             "" if autoriza else "; agrupamento pela evolução urbana do IPHAN (não "
                                 "redistribuível): só interpretação"),
@@ -96,6 +129,12 @@ def salvar(fig, nome: str, descricao: str, fontes: str, autoriza: bool) -> Path:
         observacoes=(f"{descricao} Figura do A03 (subordinada 3), gerada por "
                      "scripts/s3_figuras.py de derivados/s3_entorno.json. Não conferida: não "
                      "publicar antes da conferência do responsável."))
+    if conferencias:
+        dados["verificacoes"] = conferencias
+        dados["observacoes"] = dados["observacoes"].replace(
+            "Não conferida: não publicar antes da conferência do responsável.",
+            "Aprovada com ajustes de leitura na conferência do responsável (registro em "
+            "verificacoes), sem promoção: segue pendente e não publicável.")
     metadados.escrever(destino, dados, sobrescrever=destino.with_suffix(".json").exists())
     return destino
 
@@ -110,12 +149,12 @@ def carregar():
     return celulas, limite, au, setores, municipio
 
 
-def coropleta(ax, setores, coluna, celulas, limite, au, ext):
+def coropleta(ax, setores, coluna, celulas, limite, au, ext, faixas=FAIXAS):
     com = setores[setores[coluna].notna()]
     sem = setores[setores[coluna].isna()]
-    sem.plot(ax=ax, facecolor=COR_CONTEXTO, edgecolor=SUPERFICIE, hatch="....",
-             linewidth=0.3, zorder=2)
-    classe = np.digitize(com[coluna].to_numpy(), FAIXAS[1:-1])
+    sem.plot(ax=ax, facecolor=COR_SEM_ENTORNO, edgecolor=SUPERFICIE,
+             hatch=HACHURA_SEM_ENTORNO, linewidth=0.3, zorder=2)
+    classe = np.digitize(com[coluna].to_numpy(), faixas[1:-1])
     for k, cor in enumerate(VIOLETA):
         com[classe == k].plot(ax=ax, color=cor, edgecolor=SUPERFICIE, linewidth=0.35,
                               zorder=2)
@@ -133,7 +172,7 @@ def coropleta(ax, setores, coluna, celulas, limite, au, ext):
 def alcas_coropleta(celulas):
     n = celulas[celulas["resolucao"] == "200 m"]["classe"].value_counts()
     return ([Patch(facecolor=c, edgecolor="none", label=r) for c, r in zip(VIOLETA, ROT_FAIXAS)]
-            + [Patch(facecolor=COR_CONTEXTO, edgecolor="#b9b8b2", hatch="....",
+            + [Patch(facecolor=COR_SEM_ENTORNO, edgecolor="#cfcec8", hatch=HACHURA_SEM_ENTORNO,
                      label="setor sem entorno\n(31 dos 199)"),
                Line2D([], [], color=TINTA, lw=1.1,
                       path_effects=[patheffects.Stroke(linewidth=2.6, foreground=SUPERFICIE),
@@ -163,14 +202,26 @@ def mapa_itens(celulas, limite, au, setores, municipio) -> Path:
         lin, col = divmod(i, 3)
         ax = fig.add_axes([(0.2 + col * lm) / w, (0.75 + (1 - lin) * alt) / h,
                            (lm - 0.1) / w, (alt - 0.3) / h])
-        coropleta(ax, setores, coluna, celulas, limite, au, ext)
-        ax.set_title(f"{rotulo} — cidade {municipio[coluna]:.1f} %".replace(".", ","),
+        propria = coluna == RAMPA
+        coropleta(ax, setores, coluna, celulas, limite, au, ext,
+                  RAMPA_FAIXAS if propria else FAIXAS)
+        ax.set_title(f"{rotulo} — cidade {municipio[coluna]:.1f} %".replace(".", ",")
+                     + (" — escala própria" if propria else ""),
                      fontsize=9, color=TINTA, loc="left")
+        if propria:
+            leg = ax.legend(handles=[Patch(facecolor=c, edgecolor="none", label=r)
+                                     for c, r in zip(VIOLETA, ROT_RAMPA)],
+                            loc="lower right", fontsize=7.5, frameon=True, framealpha=0.92,
+                            facecolor=SUPERFICIE, edgecolor="#d6d5d0", labelcolor=TINTA,
+                            title="ESCALA PRÓPRIA, diferente\ndos outros painéis: poucos\n"
+                                  "setores têm rampa", title_fontsize=7.5)
+            leg.set_zorder(8)
     ax_leg = fig.add_axes([(0.2 + 2 * lm) / w, 0.75 / h, (lm - 0.1) / w, (alt - 0.3) / h])
     ax_leg.axis("off")
     ax_leg.legend(handles=alcas_coropleta(celulas) + f1.linhas_base(), loc="upper left",
                   fontsize=8.5, frameon=False, labelcolor=TINTA, alignment="left",
-                  title="% de domicílios com o item\n(por setor de 2022)", title_fontsize=8.5)
+                  title="% de domicílios com o item\n(por setor de 2022; a rampa\ntem escala própria, "
+                        "no painel)", title_fontsize=8.5)
     return salvar(fig, "s3_mapa_entorno_itens_urbano",
                   "Mapa em painéis dos 5 itens do entorno que discriminam, por setor, com as "
                   "novas e as adensadas em contorno.",
@@ -194,12 +245,22 @@ def mapa_pavimentacao(celulas, limite, au, setores, municipio) -> Path:
                   f"{s1.FONTES};ibge_areas_urbanizadas_2022;ibge_malhas_municipais", True)
 
 
-def painel_datacao(ax, bloco, cidade, titulo):
+def sinal_diverge(d, sens) -> set[str]:
+    """Itens em que a diferença posterior − vazio troca de sinal entre as duas leituras."""
+    dif = [d[k]["datacao_novas_200m"]["diferenca_posterior_menos_vazio"]
+           for k in ("principal", sens)]
+    return {i for i in ROTULO_ITEM if dif[0][i]["dif_pp"] * dif[1][i]["dif_pp"] < 0}
+
+
+def painel_datacao(ax, bloco, cidade, titulo, divergem):
     x = bloco["datacao_novas_200m"]
     itens = list(ROTULO_ITEM)
     y = np.arange(len(itens))[::-1]
     ax.set_facecolor(SUPERFICIE)
-    for yy in y:
+    for yy, item in zip(y, itens):
+        if item in divergem:
+            ax.axhspan(yy - 0.42, yy + 0.42, facecolor=SUPERFICIE, edgecolor=COR_DIVERGE,
+                       hatch="////", lw=0, zorder=0)
         ax.axhline(yy, color="#ecebe6", lw=0.6, zorder=0)
     ax.scatter([cidade[i] for i in itens], y, marker="|", s=160, color=TINTA, lw=1.6,
                zorder=3, label="cidade (município)")
@@ -234,15 +295,21 @@ def figura_datacao() -> Path:
     d = json.loads(s3.SAIDA.read_text(encoding="utf-8"))
     cidade = d["principal"]["referencia_cidade_pct"]
     sens = next(k for k in d if k.startswith("sensibilidade"))
-    fig, axs = plt.subplots(1, 2, figsize=(13.2, 6.6), sharey=True)
+    divergem = sinal_diverge(d, sens)
+    fig, axs = plt.subplots(1, 2, figsize=(13.2, 6.9), sharey=True)
     fig.patch.set_facecolor(SUPERFICIE)
-    fig.subplots_adjust(left=0.17, right=0.98, top=0.76, bottom=0.17, wspace=0.08)
-    painel_datacao(axs[0], d["principal"], cidade, "Principal (todas as unidades)")
+    fig.subplots_adjust(left=0.17, right=0.98, top=0.72, bottom=0.16, wspace=0.08)
+    painel_datacao(axs[0], d["principal"], cidade, "Principal (todas as unidades)", divergem)
     painel_datacao(axs[1], d[sens], cidade, "Sensibilidade: só unidades com ≥ 70 % da área "
-                                            "num único setor")
+                                            "num único setor", divergem)
     fig.text(0.012, 0.975, "Bagé — entorno de 2022 nas novas urbanas de 200 m, pela datação "
-             "da ocupação", fontsize=12.5, color=TINTA, fontweight="bold", va="top")
-    fig.text(0.012, 0.925, "% de domicílios com o item, ponderado pelos domicílios de 2022. "
+             "da ocupação: resultado INCONCLUSIVO", fontsize=12.5, color=TINTA,
+             fontweight="bold", va="top")
+    fig.text(0.012, 0.93, f"Os dois grupos não se separam: em {len(divergem)} dos "
+             f"{len(ROTULO_ITEM)} itens (hachura) a diferença entre eles troca de sinal "
+             "entre as duas leituras, e nenhuma diferença tem p < 0,05. Não concluir a partir "
+             "de um painel só.", fontsize=9, color=TINTA, va="top")
+    fig.text(0.012, 0.895, "% de domicílios com o item, ponderado pelos domicílios de 2022. "
              "Interpretação: a datação vem de fonte não redistribuível (evolução urbana do "
              "IPHAN).", fontsize=9, color=TINTA_2, va="top")
     alcas = [Line2D([], [], marker="o", ls="", color=PAR_NOVAS["posterior_a_2001"],
@@ -250,14 +317,17 @@ def figura_datacao() -> Path:
              Line2D([], [], marker="s", ls="", color=PAR_NOVAS["vazio_interno_1938_1960"],
                     markersize=7, label="preenchimento de vazio interno (tecido de 1938–1960)"),
              Line2D([], [], marker="|", ls="", color=TINTA, markersize=11, mew=1.6,
-                    label="cidade (município inteiro)")]
-    fig.legend(handles=alcas, loc="upper left", bbox_to_anchor=(0.012, 0.9), ncol=3,
+                    label="cidade (município inteiro)"),
+             Patch(facecolor=SUPERFICIE, edgecolor=COR_DIVERGE, hatch="////", lw=0,
+                   label="item em que a diferença troca de sinal\nentre principal e "
+                         "sensibilidade")]
+    fig.legend(handles=alcas, loc="upper left", bbox_to_anchor=(0.012, 0.865), ncol=4,
                fontsize=8.5, frameon=False, labelcolor=TINTA)
     fig.text(0.012, 0.02, "Fonte: IBGE — Censo 2022 (entorno por setor), Grade Estatística "
              "2010 e 2022, malha de setores 2022; datação: REVIA_BG sobre a prancha 03/18 do "
              "dossiê de tombamento do IPHAN (2009). Cada valor é o de um setor: os grupos têm "
-             "poucos setores e as diferenças não se\nmantêm entre as duas colunas. ↓ = mais é "
-             "pior. Elaboração: ACERVO_BAGE, A03 (subordinada 3). Não conferida; não publicar.",
+             "poucos setores (3 levam de 71 % a 90 % do\npeso) e as diferenças não se mantêm entre as duas colunas. ↓ = mais é "
+             "pior. Elaboração: ACERVO_BAGE, A03 (subordinada 3). Pendente; não publicar.",
              fontsize=6.4, color=TINTA_2, va="bottom")
     return salvar(fig, "s3_datacao_novas_200m",
                   "Item 3: novas de 200 m posteriores a 2001 × vazio interno do tecido de "

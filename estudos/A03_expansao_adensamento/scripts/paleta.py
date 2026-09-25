@@ -52,9 +52,16 @@ COR_CONTEXTO = "#e4e3de"
 # passa. O degrau claro precisa aparecer: setor SEM entorno é desenhado à parte, em
 # COR_CONTEXTO com hachura, e não pode se confundir com "perto de zero".
 VIOLETA = ["#bca8e3", "#a48ad4", "#8d6cc2", "#7550ad", "#5e3594"]   # sequencial, claro -> escuro
+# Ajuste da conferência (2026-09-24): o fundo dos setores sem entorno competia com o
+# dado. Cinza mais claro que COR_CONTEXTO e hachura mais esparsa (em s3_figuras.py);
+# segue distinto do degrau claro do violeta, que é cromático.
+COR_SEM_ENTORNO = "#efeeea"
 
 # Comparação de dois grupos de NOVAS (subordinada 3, item 3): dois tons do mesmo braço
 # azul (os dois são ganho), com forma diferente e rótulo direto. Validado como par
 # categórico: CVD ΔE 26,1, visão normal 26,1; contraste do claro 2,61:1 (aviso) — o
 # alívio é o rótulo de valor em cada marcador.
 PAR_NOVAS = {"posterior_a_2001": AZUL[-1], "vazio_interno_1938_1960": AZUL[0]}
+# Hachura dos itens em que principal e sensibilidade divergem no sinal (item 3): cinza
+# neutro, fora do azul dos grupos, para marcar a faixa sem disputar com os marcadores.
+COR_DIVERGE = "#b3b2ac"

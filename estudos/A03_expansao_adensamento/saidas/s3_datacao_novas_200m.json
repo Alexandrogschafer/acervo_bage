@@ -3,15 +3,32 @@
   "autorizacao_fonte": false,
   "campos_removidos": [],
   "crs": "EPSG:31981",
-  "data_producao": "2026-09-24T21:34:20.181890-03:00",
+  "data_producao": "2026-09-24T21:57:33.326947-03:00",
   "fonte_id": "ibge_censo2022_entorno_setores;ibge_malha_setores_2022;ibge_grade_estatistica_2010;ibge_grade_estatistica_2022;revia_bg_evolucao_urbana",
   "licenca": "IBGE — uso livre com citação da fonte; agrupamento pela evolução urbana do IPHAN (não redistribuível): só interpretação",
-  "observacoes": "Item 3: novas de 200 m posteriores a 2001 × vazio interno do tecido de 1938–1960, nos 10 itens do entorno; principal e sensibilidade. Figura do A03 (subordinada 3), gerada por scripts/s3_figuras.py de derivados/s3_entorno.json. Não conferida: não publicar antes da conferência do responsável.",
+  "observacoes": "Item 3: novas de 200 m posteriores a 2001 × vazio interno do tecido de 1938–1960, nos 10 itens do entorno; principal e sensibilidade. Figura do A03 (subordinada 3), gerada por scripts/s3_figuras.py de derivados/s3_entorno.json. Aprovada com ajustes de leitura na conferência do responsável (registro em verificacoes), sem promoção: segue pendente e não publicável.",
   "pode_publicar": false,
   "referencias_bib": [],
-  "sha256": "22cf2ea82fefc63f4b4c855bb9f6691947cba5a840047fa5fb5317c47ba89c51",
+  "sha256": "9e0c5c0a8a0939649dd27f8475849278e97caef255a5503740db8aa1cd0f0adb",
   "status_conferencia": "pendente",
-  "tamanho_bytes": 261725,
+  "tamanho_bytes": 335532,
   "tema": "censo",
-  "versao": "s3-v1"
+  "verificacoes": {
+    "conferencias_visuais_do_responsavel": [
+      {
+        "ajustes_pedidos": [
+          "marcar os itens em que principal e sensibilidade divergem no sinal da diferença (hachura na faixa do item, explicada na legenda); título dizendo que o resultado é inconclusivo"
+        ],
+        "como": "leitura das figuras PNG",
+        "data": "2026-09-24",
+        "efeito": "figura aprovada com ajustes de leitura, refeita em s3-v2; segue pendente, pode_publicar=false, sem promoção",
+        "objeto": "saidas/s3_datacao_novas_200m.png, versão s3-v1 (sha256 22cf2ea8…)",
+        "por_que_aqui": "como na camada de trabalho (decisão do responsável, 2026-09-23): registro fora do bloco '--- conferência ---' de observacoes, que só scripts/utils/promover.py grava e que promoveria a figura; scripts/s3_figuras.py preserva este campo",
+        "quem": "responsável pelo estudo",
+        "resultado": "aprovada",
+        "texto": "estudos/A03_expansao_adensamento/resultados_s3.md § 5.1"
+      }
+    ]
+  },
+  "versao": "s3-v2"
 }

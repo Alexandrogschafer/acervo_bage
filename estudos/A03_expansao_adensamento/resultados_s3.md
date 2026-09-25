@@ -456,8 +456,8 @@ Todas estão em `saidas/`, cada uma com `.json` irmão (pendente, `pode_publicar
 - **Coropleta:** uma rampa **violeta** de 5 degraus, fora do eixo azul/laranja, porque
   é magnitude e não ganho ou perda. Validada com `validate_palette.js --ordinal`:
   degrau claro com 2,08:1.
-- **Setor sem entorno:** cinza de contexto com hachura, para não se confundir com
-  "perto de zero".
+- **Setor sem entorno:** cinza claro com hachura esparsa, para não se confundir com
+  "perto de zero" (mais leve desde a conferência, § 5.1).
 - **Áreas de crescimento:** em **contorno de tinta**. As novas vão em traço cheio com
   halo claro; as adensadas, em tracejado.
   - O azul da classe "nova" sumiria sobre o violeta escuro: o validador mediu ΔE 1,6
@@ -467,6 +467,26 @@ Todas estão em `saidas/`, cada uma com `.json` irmão (pendente, `pode_publicar
   de 2,61:1, e é o rótulo que o compensa.
 - **As unidades de 1 km não são desenhadas nos mapas.** Estão no campo e quase todas em
   setor sem entorno.
+
+### 5.1 Conferência visual do responsável (2026-09-24)
+
+As três figuras foram **aprovadas com três ajustes de leitura**, feitos na versão
+`s3-v2` de `scripts/s3_figuras.py`:
+
+| figura | ajuste pedido | como ficou |
+| --- | --- | --- |
+| `s3_datacao_novas_200m.png` | marcar os itens em que principal e sensibilidade divergem em sinal; dizer que o resultado é inconclusivo | hachura cinza na faixa dos **4 itens** em que a diferença posterior − vazio troca de sinal (via pavimentada, arborização, bueiro, calçada), explicada na legenda; título "resultado INCONCLUSIVO" e subtítulo: "não concluir a partir de um painel só" |
+| `s3_mapa_entorno_itens_urbano.png` | rampa com escala própria, adaptada à distribuição do item | faixas 0–5, 5–10, 10–20, 20–40, 40–100 % (84 / 19 / 18 / 17 / 30 setores; antes, 121 dos 168 caíam em 0–20 %); o título e a legenda do painel dizem que a escala é diferente das demais |
+| `s3_mapa_entorno_itens_urbano.png` e `s3_mapa_pavimentacao_urbano.png` | fundo dos setores sem entorno mais leve | `COR_SEM_ENTORNO` (`#efeeea`, `paleta.py`) com hachura esparsa |
+
+- **Onde está o registro:** no `.json` de cada figura, em
+  `verificacoes.conferencias_visuais_do_responsavel`, como foi feito na camada de
+  trabalho. O objeto conferido foi a versão `s3-v1`, identificada pelo sha256 do PNG.
+  O script preserva esse campo entre execuções.
+- **O que NÃO foi feito:** promoção. O bloco `--- conferência ---` de `observacoes` não
+  foi gravado, e `promover.py` não foi usado. As figuras seguem **pendentes**, com
+  `pode_publicar=false`. A de datação mantém `autorizacao_fonte=false`.
+- Os números não mudaram: só a leitura das figuras.
 
 ---
 

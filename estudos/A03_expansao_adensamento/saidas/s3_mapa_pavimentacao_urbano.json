@@ -3,15 +3,32 @@
   "autorizacao_fonte": true,
   "campos_removidos": [],
   "crs": "EPSG:31981",
-  "data_producao": "2026-09-24T21:34:19.534033-03:00",
+  "data_producao": "2026-09-24T21:57:32.977327-03:00",
   "fonte_id": "ibge_censo2022_entorno_setores;ibge_malha_setores_2022;ibge_grade_estatistica_2010;ibge_grade_estatistica_2022;ibge_areas_urbanizadas_2022;ibge_malhas_municipais",
   "licenca": "IBGE — uso livre com citação da fonte",
-  "observacoes": "Mapa da via pavimentada por setor, com as novas e as adensadas em contorno. Figura do A03 (subordinada 3), gerada por scripts/s3_figuras.py de derivados/s3_entorno.json. Não conferida: não publicar antes da conferência do responsável.",
+  "observacoes": "Mapa da via pavimentada por setor, com as novas e as adensadas em contorno. Figura do A03 (subordinada 3), gerada por scripts/s3_figuras.py de derivados/s3_entorno.json. Aprovada com ajustes de leitura na conferência do responsável (registro em verificacoes), sem promoção: segue pendente e não publicável.",
   "pode_publicar": false,
   "referencias_bib": [],
-  "sha256": "175759fd4492612c29a5526e13eab9d83b208841d1906bb780b84bd83f8f3ebf",
+  "sha256": "ad5eadb355b9951a0807a1d9c00419442226e6af1f6f3bc08c32757423556f37",
   "status_conferencia": "pendente",
-  "tamanho_bytes": 977782,
+  "tamanho_bytes": 947027,
   "tema": "censo",
-  "versao": "s3-v1"
+  "verificacoes": {
+    "conferencias_visuais_do_responsavel": [
+      {
+        "ajustes_pedidos": [
+          "fundo dos setores sem entorno mais leve"
+        ],
+        "como": "leitura das figuras PNG",
+        "data": "2026-09-24",
+        "efeito": "figura aprovada com ajustes de leitura, refeita em s3-v2; segue pendente, pode_publicar=false, sem promoção",
+        "objeto": "saidas/s3_mapa_pavimentacao_urbano.png, versão s3-v1 (sha256 175759fd…)",
+        "por_que_aqui": "como na camada de trabalho (decisão do responsável, 2026-09-23): registro fora do bloco '--- conferência ---' de observacoes, que só scripts/utils/promover.py grava e que promoveria a figura; scripts/s3_figuras.py preserva este campo",
+        "quem": "responsável pelo estudo",
+        "resultado": "aprovada",
+        "texto": "estudos/A03_expansao_adensamento/resultados_s3.md § 5.1"
+      }
+    ]
+  },
+  "versao": "s3-v2"
 }
